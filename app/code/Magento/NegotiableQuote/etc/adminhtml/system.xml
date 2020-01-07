@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="btob">
+            <group id="website_configuration">
+                <field id="negotiablequote_active" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1">
+                    <label>Enable B2B Quote</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="company_active">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+        <section id="shipping">
+            <group id="origin">
+                <field id="country_id">
+                    <backend_model>Magento\NegotiableQuote\Model\Config\Backend\Shipping</backend_model>
+                </field>
+                <field id="region_id">
+                    <backend_model>Magento\NegotiableQuote\Model\Config\Backend\Shipping</backend_model>
+                </field>
+                <field id="postcode">
+                    <backend_model>Magento\NegotiableQuote\Model\Config\Backend\Shipping</backend_model>
+                </field>
+            </group>
+        </section>
+        <section id="quote" translate="label" type="text" sortOrder="301" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Quotes</label>
+            <tab>sales</tab>
+            <resource>Magento_NegotiableQuote::config_quotes</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="minimum_amount" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1">
+                    <label>Minimum Amount</label>
+                    <validate>not-negative-amount</validate>
+                    <comment><![CDATA[Minimum order total for quote request.]]></comment>
+                </field>
+                <field id="minimum_amount_message" translate="label comment" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Minimum Amount Message</label>
+                    <comment><![CDATA[This message will be shown in the shopping cart when the subtotal (after discount) is lower than the minimum allowed amount.]]></comment>
+                </field>
+                <field id="default_expiration_period" translate="label comment" sortOrder="30" showInDefault="1" showInWebsite="1">
+                    <label>Default Expiration Period</label>
+                    <validate>not-negative-amount</validate>
+                    <frontend_model>Magento\NegotiableQuote\Block\System\Config\Form\Field\DefaultExpirationPeriod</frontend_model>
+                    <comment>
+                        <![CDATA[This period will be used as the default expiration time period for quotes. It can be changed for any quote.]]>
+                    </comment>
+                </field>
+            </group>
+            <group id="attached_files" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Attached files</label>
+                <field id="file_formats" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>File formats for upload</label>
+                    <validate>alpha-numeric-space</validate>
+                    <comment><![CDATA[Separate each file extension with a comma. Special symboles like dots, converted commas, asterisk, etc. are not allowed.]]></comment>
+                </field>
+                <field id="maximum_file_size" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Maximum file size</label>
+                    <validate>not-negative-amount</validate>
+                    <comment><![CDATA[File size in MB. Note that this setting can be overridden by the server settings.]]></comment>
+                </field>
+            </group>
+        </section>
+        <section id="sales_email">
+            <group id="quote" translate="label" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Quote</label>
+                <field id="enabled" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="updated_buyer_template" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Updated Quote Template (to Buyer)</label>
+                    <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="declined_buyer_template" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Declined Quote Template (to Buyer)</label>
+                    <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="new_seller_template" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>New Quote Template (to Seller)</label>
+                    <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="updated_seller_template" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Updated Quote Template (to Seller)</label>
+                    <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="expire_two_days_template" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Quote Expiration (in 48 hrs)</label>
+                    <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="expire_one_day_template" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Quote Expiration (in 24 hrs)</label>
+                    <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="expire_reset_template" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Expiration Date Reset</label>
+                    <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="copy_to" translate="label comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Quote Email Copy To</label>
+                    <comment>Comma-separated</comment>
+                </field>
+                <field id="copy_method" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Quote Email Copy Method</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Method</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

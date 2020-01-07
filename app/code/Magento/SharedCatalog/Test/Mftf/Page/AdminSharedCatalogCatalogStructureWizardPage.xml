@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/PageObject.xsd">
+    <page name="AdminSharedCatalogCatalogStructureWizardPage" url="shared_catalog/sharedCatalog/wizard/shared_catalog_id/{{id}}/" area="admin" module="Magento_SharedCatalog" parameterized="true">
+        <section name="AdminSharedCatalogCatalogStructureSection" />
+        <section name="AdminSharedCatalogCatalogStructureProductGridSection" />
+        <section name="AdminSharedCatalogAdvancedPricingSection" />
+    </page>
+</pages>

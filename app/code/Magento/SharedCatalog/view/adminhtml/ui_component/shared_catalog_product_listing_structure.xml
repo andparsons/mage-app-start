@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">shared_catalog_product_listing_structure.shared_catalog_product_listing_structure_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>shared_catalog_product_columns</spinner>
+        <deps>
+            <dep>shared_catalog_product_listing_structure.shared_catalog_product_listing_structure_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="shared_catalog_product_listing_structure_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                <item name="storageConfig" xsi:type="array">
+                    <item name="cacheRequests" xsi:type="boolean">false</item>
+                </item>
+            </item>
+        </argument>
+        <settings>
+            <filterUrlParams>
+                <param name="configure_key">*</param>
+            </filterUrlParams>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Magento_SharedCatalog::list</aclResource>
+        <dataProvider class="Magento\SharedCatalog\Ui\DataProvider\Configure\Structure" name="shared_catalog_product_listing_structure_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <container name="listing_top" template="ui/grid/toolbar">
+        <bookmark name="bookmarks">
+            <settings>
+                <storageConfig>
+                    <param name="component" xsi:type="string">Magento_SharedCatalog/js/grid/controls/bookmarks/storage</param>
+                    <namespace>shared_catalog_product_listing_structure</namespace>
+                </storageConfig>
+            </settings>
+        </bookmark>
+        <container name="columns_controls" component="Magento_Ui/js/grid/controls/columns" displayArea="dataGridActions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="columnsData" xsi:type="array">
+                        <item name="provider" xsi:type="string">shared_catalog_product_listing_structure.shared_catalog_product_listing_structure.shared_catalog_product_columns</item>
+                    </item>
+                </item>
+            </argument>
+        </container>
+        <filters name="listing_filters" component="Magento_SharedCatalog/js/grid/filters/configure/filters">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storeSwitcherProvider" xsi:type="string">structure_store_switcher</item>
+                    <item name="storeFilter" xsi:type="string">shared_catalog_product_listing_structure.shared_catalog_product_listing_structure.listing_top.listing_filters.store_id</item>
+                </item>
+            </argument>
+            <settings>
+                <columnsProvider>shared_catalog_product_listing_structure.shared_catalog_product_listing_structure.shared_catalog_product_columns</columnsProvider>
+                <storageConfig>
+                    <namespace>current.filters</namespace>
+                    <provider>shared_catalog_product_listing_structure.shared_catalog_product_listing_structure.listing_top.bookmarks</provider>
+                </storageConfig>
+                <statefull>
+                    <property name="applied" xsi:type="boolean">false</property>
+                </statefull>
+            </settings>
+            <filterSelect name="store_id" provider="${ $.parentName }">
+                <settings>
+                    <options class="Magento\Store\Ui\Component\Listing\Column\Store\Options"/>
+                    <caption translate="true">All Store Views</caption>
+                    <label translate="true">Store View</label>
+                    <visible>false</visible>
+                    <dataScope>store_id</dataScope>
+                </settings>
+            </filterSelect>
+        </filters>
+        <paging name="listing_paging">
+            <settings>
+                <storageConfig>
+                    <namespace>current.paging</namespace>
+                    <provider>shared_catalog_product_listing_structure.shared_catalog_product_listing_structure.listing_top.bookmarks</provider>
+                </storageConfig>
+            </settings>
+        </paging>
+    </container>
+    <columns name="shared_catalog_product_columns" class="Magento\SharedCatalog\Ui\Component\Listing\Columns">
+        <settings>
+            <childDefaults>
+                <param name="storageConfig" xsi:type="array">
+                    <item name="provider" xsi:type="string">shared_catalog_product_listing_structure.shared_catalog_product_listing_structure.listing_top.bookmarks</item>
+                    <item name="root" xsi:type="string">columns.${ $.index }</item>
+                    <item name="namespace" xsi:type="string">current.${ $.storageConfig.root}</item>
+                </param>
+            </childDefaults>
+            <storageConfig>
+                <namespace>current</namespace>
+                <provider>shared_catalog_product_listing_structure.shared_catalog_product_listing_structure.listing_top.bookmarks</provider>
+            </storageConfig>
+        </settings>
+        <column name="is_assign" class="Magento\SharedCatalog\Ui\Component\Listing\Column\Configure\Assign" component="Magento_SharedCatalog/js/grid/columns/assign" sortOrder="0">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                    <item name="columnsProvider" xsi:type="string">shared_catalog_product_listing_structure.shared_catalog_product_listing_structure.shared_catalog_product_columns</item>
+                    <item name="assignClientConfig" xsi:type="array">
+                        <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="massAssignClientConfig" xsi:type="array">
+                        <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Assign</label>
+            </settings>
+        </column>
+        <column name="entity_id" sortOrder="10">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="thumbnail" class="Magento\Catalog\Ui\Component\Listing\Columns\Thumbnail" component="Magento_Ui/js/grid/columns/thumbnail" sortOrder="20">
+            <settings>
+                <altField>name</altField>
+                <hasPreview>1</hasPreview>
+                <addField>true</addField>
+                <label translate="true">Thumbnail</label>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+        <column name="name" sortOrder="30">
+            <settings>
+                <filter>text</filter>
+                <addField>true</addField>
+                <label translate="true">Name</label>
+            </settings>
+        </column>
+        <column name="type_id" component="Magento_Ui/js/grid/columns/select" sortOrder="40">
+            <settings>
+                <filter>select</filter>
+                <options class="Magento\Catalog\Model\Product\Type"/>
+                <dataType>select</dataType>
+                <label translate="true">Type</label>
+            </settings>
+        </column>
+        <column name="attribute_set_id" component="Magento_Ui/js/grid/columns/select" sortOrder="45">
+            <settings>
+                <filter>select</filter>
+                <options class="Magento\Catalog\Model\Product\AttributeSet\Options"/>
+                <dataType>select</dataType>
+                <label translate="true">Attribute Set</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="sku" sortOrder="50">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">SKU</label>
+            </settings>
+        </column>
+        <column name="price" class="Magento\SharedCatalog\Ui\Component\Listing\Column\Configure\Price" component="Magento_SharedCatalog/js/grid/columns/price" sortOrder="60">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="specialProductTypes" xsi:type="array">
+                        <item name="simple" xsi:type="string">Magento_SharedCatalog/grid/cells/price/simple</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <filter>textRange</filter>
+                <addField>true</addField>
+                <label translate="true">Price</label>
+                <fieldClass>
+                    <class name="configure-column-field-price">true</class>
+                </fieldClass>
+            </settings>
+        </column>
+        <column name="visibility" component="Magento_Ui/js/grid/columns/select" sortOrder="65">
+            <settings>
+                <filter>select</filter>
+                <addField>true</addField>
+                <options class="Magento\Catalog\Model\Product\Visibility"/>
+                <dataType>select</dataType>
+                <label translate="true">Visibility</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="status" component="Magento_Ui/js/grid/columns/select" sortOrder="70">
+            <settings>
+                <filter>select</filter>
+                <addField>true</addField>
+                <options class="Magento\Catalog\Model\Product\Attribute\Source\Status"/>
+                <dataType>select</dataType>
+                <label translate="true">Status</label>
+            </settings>
+        </column>
+        <column name="tax_class_id" component="Magento_Ui/js/grid/columns/select" sortOrder="80">
+            <settings>
+                <filter>select</filter>
+                <addField>true</addField>
+                <options class="Magento\Tax\Model\TaxClass\Source\Product"/>
+                <dataType>select</dataType>
+                <label translate="true">Tax Class</label>
+            </settings>
+        </column>
+        <column name="websites" class="Magento\SharedCatalog\Ui\Component\Listing\Column\Configure\Websites" sortOrder="90">
+            <settings>
+                <filter>select</filter>
+                <addField>true</addField>
+                <options class="Magento\Store\Model\ResourceModel\Website\Collection"/>
+                <dataType>select</dataType>
+                <label translate="true">Websites</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+    </columns>
+</listing>

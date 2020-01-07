@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminConfigureBundleProductInQuoteActionGroup">
+        <arguments>
+            <argument name="bundleOption" type="string"/>
+            <argument name="selectedProductName" type="string"/>
+            <argument name="productQty" type="string"/>
+        </arguments>
+        <click selector="{{AdminNegotiableQuoteItemSection.buttonConfigureProduct}}" stepKey="clickConfigureButton"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForConfigureProduct"/>
+        <scrollTo selector="{{AdminNegotiableQuoteItemSection.blockConfigBundle}}" x="-1000" y="-1000" stepKey="scrollToQtyField"/>
+        <click selector="{{AdminNegotiableQuoteItemSection.blockConfigBundle}}" stepKey="clickOnFocus"/>
+        <waitForLoadingMaskToDisappear stepKey="wait"/>
+        <click selector="{{AdminNegotiableQuoteItemSection.selectBundleOption({$grabBundleOption})}}" stepKey="clickBundleOption"/>
+        <selectOption userInput="{{selectedProductName}}" selector="{{AdminNegotiableQuoteItemSection.selectBundleOption(bundleOption)}}" stepKey="selectBundleOption"/>
+        <fillField userInput="{{productQty}}" selector="{{AdminNegotiableQuoteItemSection.optionQty}}" stepKey="fillQty"/>
+        <click selector="{{AdminNegotiableQuoteItemSection.buttonOk}}" stepKey="clickOKButton"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoadingQuotes"/>
+    </actionGroup>
+</actionGroups>

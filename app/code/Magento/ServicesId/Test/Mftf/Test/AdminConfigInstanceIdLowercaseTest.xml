@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminConfigInstanceIdLowercaseTest">
+        <annotations>
+            <features value="ServicesId"/>
+            <stories value="Manually entered Instance ID is saved as lowercase string"/>
+            <title value="Manually entered Instance ID is saved as lowercase string"/>
+            <description value="A manually assigned a valid Instance ID is set to lowercase."/>
+            <severity value="MAJOR"/>
+            <group value="servicesid"/>
+        </annotations>
+
+        <actionGroup ref="LoginActionGroup" stepKey="loginAsAdmin"/>
+        <amOnPage url="{{AdminConfigServicesIdPage.url}}" stepKey="amOnAdminConfig"/>
+        <seeElement selector="{{AdminConfigServicesIdSection.dsEnvironment}}" stepKey="seeEnvironmentSetting"/>
+        <selectOption selector="{{AdminConfigServicesIdSection.dsEnvironment}}" userInput="Production" stepKey="fillFieldServicesIdEnvironment"/>
+        <seeElement selector="{{AdminConfigServicesIdSection.dsInstanceId}}" stepKey="seeInstanceIdSetting"/>
+
+        <fillField selector="{{AdminConfigServicesIdSection.dsInstanceId}}" userInput="123de678-12C4-1234-12f4-1234567890AB" stepKey="fillInstanceIdValidUppercase"/>
+        <click selector="{{AdminMainActionsSection.save}}" stepKey="clickSaveConfigButtonValid"/>
+        <see selector="{{AdminMessagesSection.success}}" userInput="You saved the configuration." stepKey="seeConfigSaveSuccess"/>
+        <seeInField selector="{{AdminConfigServicesIdSection.dsInstanceId}}" userInput="123de678-12c4-1234-12f4-1234567890ab" stepKey="seeLowercaseInstanceId"/>
+
+        <actionGroup ref="logout" stepKey="logout"/>
+    </test>
+</tests>

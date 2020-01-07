@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="after.body.start">
+            <block class="Magento\Catalog\Block\Adminhtml\Product\Composite\Configure" name="after.body.start.product_composite_configure" template="Magento_Catalog::catalog/product/composite/configure.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Magento\NegotiableQuote\Block\Adminhtml\Quote\View" name="negotiable.quote.edit"/>
+            <block class="Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Info" name="negotiable.quote.message"
+                   template="Magento_NegotiableQuote::quote/view/message.phtml"/>
+            <block class="Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Info" name="negotiable.quote.info"
+                   template="Magento_NegotiableQuote::quote/view/info.phtml">
+                    <block class="Magento\Framework\View\Element\Template"
+                           name="negotiable.quote.info.extra.container" as="extra.container">
+                        <block class="Magento\NegotiableQuote\Block\Adminhtml\Quote\View\CustomerGroup"
+                               name="customer.group.extra.data"
+                               after="negotiable.quote.info.extra.container"
+                               template="Magento_NegotiableQuote::quote/view/group.phtml"/>
+                    </block>
+            </block>
+            <block class="Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Items" template="Magento_NegotiableQuote::quote/view/items.phtml" name="negotiable.quote.items">
+                <block class="Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Errors\GridContainer" template="Magento_NegotiableQuote::quote/view/errors/gridcontainer.phtml" name="negotiable.quote.errors.grid"/>
+                <block class="Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Sku" name="additional_area" template="Magento_Sales::order/create/abstract.phtml">
+                    <block class="Magento\NegotiableQuote\Block\Adminhtml\AdvancedCheckout\Sales\Order\Create\Sku\Add" name="additional_area.add" template="Magento_NegotiableQuote::quote/view/sku/add.phtml"/>
+                </block>
+                <block class="Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Items\Grid" template="Magento_NegotiableQuote::quote/view/items/grid.phtml" name="negotiable.quote.items.grid"/>
+            </block>
+            <block class="Magento\NegotiableQuote\Block\Quote\Info" name="negotiable.quote.shipping" template="Magento_NegotiableQuote::quote/view/shipping.phtml">
+                <block class="Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Shipping\Method" template="Magento_NegotiableQuote::quote/view/shipping/method.phtml" name="negotiable.quote.shipping.form"/>
+            </block>
+            <block class="Magento\Backend\Block\Template" name="quote.negotiation" template="Magento_NegotiableQuote::quote/view/negotiation.phtml">
+                <block class="Magento\NegotiableQuote\Block\Adminhtml\Quote\Comments" name="negotiable.quote.comments" as="quote_comments" template="Magento_NegotiableQuote::quote/view/comments.phtml">
+                    <block class="Magento\NegotiableQuote\Block\Adminhtml\Quote\History" name="negotiable.quote.history" as="quote_history" template="Magento_NegotiableQuote::quote/history.phtml">
+                        <block class="Magento\Framework\View\Element\Template" name="diff.values" template="Magento_NegotiableQuote::quote/history/diff.phtml"/>
+                    </block>
+                </block>
+                <block class="Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Totals" name="negotiable.quote.totals" template="Magento_NegotiableQuote::quote/view/totals.phtml">
+                    <block class="Magento\NegotiableQuote\Block\Quote\Totals\Original" name="negotiable.quote.totals.original" template="Magento_NegotiableQuote::quote/view/totals/original.phtml" />
+                    <block class="Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Totals\Negotiation" name="negotiable.quote.totals.negotiation" template="Magento_NegotiableQuote::quote/view/totals/negotiation.phtml" />
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account" />
+    <update handle="print" />
+    <update handle="requisition_list"/>
+    <body>
+        <referenceBlock name="page.main.title" remove="true"/>
+        <referenceContainer name="content">
+            <block class="Magento\RequisitionList\Block\Requisition\View\Items\Grid" name="requisition.items.grid"
+                   template="Magento_RequisitionList::requisition/view/items/grid.phtml">
+                <block class="Magento\RequisitionList\Block\Requisition\View\Details" name="requisition.management"
+                       template="Magento_RequisitionList::requisition/print/management.phtml"/>
+                <block class="Magento\RequisitionList\Block\Requisition\View\Item" name="requisition.list.item.view"
+                       template="Magento_RequisitionList::requisition/view/items/item.phtml">
+                    <block class="Magento\RequisitionList\Block\Requisition\Item\Options" name="requisition.list.item.options" />
+                </block>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="main.content">
+            <block class="Magento\Theme\Block\Html\Footer" name="copyright" template="Magento_RequisitionList::requisition/print/copyright.phtml">
+                <block class="Magento\RequisitionList\Block\Requisition\PrintRequisition\StoreInformation" name="store.phone"
+                       template="Magento_RequisitionList::requisition/print/store_phone.phtml"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

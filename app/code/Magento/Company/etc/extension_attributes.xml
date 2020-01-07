@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Magento\Customer\Api\Data\CustomerInterface">
+        <attribute code="company_attributes" type="Magento\Company\Api\Data\CompanyCustomerInterface">
+            <join
+                    reference_table="company_advanced_customer_entity"
+                    reference_field="customer_id"
+                    join_on_field="entity_id"
+            >
+                <field>company_id</field>
+                <field>job_title</field>
+                <field>telephone</field>
+                <field>status</field>
+            </join>
+        </attribute>
+    </extension_attributes>
+    <extension_attributes for="Magento\Sales\Api\Data\OrderInterface">
+        <attribute code="company_order_attributes" type="Magento\Company\Api\Data\CompanyOrderInterface">
+            <join
+                    reference_table="company_order_entity"
+                    reference_field="order_id"
+                    join_on_field="entity_id"
+            >
+                <field>company_id</field>
+                <field>company_name</field>
+            </join>
+        </attribute>
+    </extension_attributes>
+</config>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminCheckCompanyListingRegionTest">
+        <annotations>
+            <features value="B2B"/>
+            <stories value="B2B Check if region is shown on the company grid page"/>
+            <title value="B2B Check if region is shown on the company grid page"/>
+            <description value="B2B Check if region is shown on the company grid page"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MAGETWO-94943"/>
+            <group value="b2b"/>
+            <group value="company"/>
+        </annotations>
+
+        <before>
+            <createData entity="Simple_US_Customer" stepKey="companyAdmin"/>
+            <createData entity="Default_Company" stepKey="defaultCompany">
+                <requiredEntity createDataKey="companyAdmin"/>
+            </createData>
+
+            <createData entity="Simple_US_CA_Customer" stepKey="companyAdmin2"/>
+            <createData entity="Ukraine_Company" stepKey="company2">
+                <requiredEntity createDataKey="companyAdmin2"/>
+            </createData>
+
+            <!--Login As Admin-->
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+        </before>
+
+        <after>
+            <!--Delete Company-->
+            <deleteData createDataKey="defaultCompany" stepKey="deleteCompany1"/>
+            <deleteData createDataKey="company2" stepKey="deleteCompany2"/>
+
+            <deleteData createDataKey="companyAdmin" stepKey="deleteCompanyAdmin"/>
+            <deleteData createDataKey="companyAdmin2" stepKey="deleteCompanyAdmin2"/>
+
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <actionGroup ref="FilterCompanyActionGroup" stepKey="filterByCompany1">
+            <argument name="company" value="Default_Company"/>
+        </actionGroup>
+        <!--Check company with specified name exists in grid-->
+        <see selector="{{AdminCompanyGridSection.companyGridCell('1','State/Province')}}" userInput="{{RegionTX.region}}" stepKey="seeRegionInGrid1"/>
+
+        <actionGroup ref="FilterCompanyActionGroup" stepKey="filterByCompany2">
+            <argument name="company" value="Ukraine_Company"/>
+        </actionGroup>
+        <!--Check company with specified name exists in grid-->
+        <see selector="{{AdminCompanyGridSection.companyGridCell('1','State/Province')}}" userInput="{{Ukraine_Company.region}}" stepKey="seeRegionInGrid2"/>
+    </test>
+</tests>

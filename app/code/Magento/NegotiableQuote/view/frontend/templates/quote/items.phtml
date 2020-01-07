@@ -1,0 +1,68 @@
+<?php
+
+/** @var \Magento\NegotiableQuote\Block\Quote\Items $block */
+
+/** @var \Magento\NegotiableQuote\Helper\Quote $quoteHelper */
+$quoteHelper = $block->getQuoteHelper();
+?>
+<?php $quote = $block->getQuote() ?>
+<?php $mergedCells = ($block->getTaxHelper()->displayCartBothPrices() ? 2 : 1); ?>
+<div class="data item content table-wrapper<?= /* @noEscape */ $mergedCells == 2 ? ' detailed' : ''; ?> quote-table" id="items-quoted" data-role="content">
+    <div class="<?= /* @noEscape */ $block->isCustomerPriceChanged() ? ' quote-updated' : '' ?>
+    <?= /* @noEscape */ $block->isShippingTaxChanged() ? ' shipping-updated' : ''; ?>" id="quote-items">
+        <div class="quote-title">
+            <strong><?= $block->escapeHtml(__('Items Quoted')) ?></strong>
+        </div>
+        <form
+            action="<?= $block->escapeUrl($block->getUrl('*/*/itemUpdate', ['quote_id' => $block->getQuote()->getId()])); ?>"
+            method="post"
+            data-mage-init='{"validation":{}}'
+            id="form-quote"
+        >
+            <?= $block->getBlockHtml('formkey') ?>
+        <table id="shopping-cart-table"
+               class="items data table quote-table-items"
+               data-mage-init='{"shoppingCart":{"emptyCartButton": "action.clear",
+                   "updateCartActionContainer": "#update_cart_action_container"}}'>
+            <caption role="heading" aria-level="2" class="table-caption">
+                <?= $block->escapeHtml(__('Quote Items')) ?>
+            </caption>
+            <thead>
+            <tr>
+                <th class="col item" scope="col"><span><?= $block->escapeHtml(__('Product Name')) ?></span></th>
+                <th class="col sku" scope="col"><span><?= $block->escapeHtml(__('SKU')) ?></span></th>
+                <th class="col price" scope="col"><span><?= $block->escapeHtml(__('Price')) ?></span></th>
+                <th class="col stock" scope="col"><span><?= $block->escapeHtml(__('Stock')) ?></span></th>
+                <th class="col qty" scope="col"><span><?= $block->escapeHtml(__('Qty')) ?></span></th>
+                <th class="col subtotal" scope="col"><span><?= $block->escapeHtml(__('Subtotal')) ?></span></th>
+                <?php if ($quoteHelper->isSubmitAvailable()) : ?>
+                    <th class="col delete" scope="col">&nbsp;</th>
+                <?php endif ?>
+            </tr>
+            </thead>
+            <?php foreach ($block->getItems() as $item) : ?>
+                <?= $block->getItemHtml($item) ?>
+            <?php endforeach ?>
+            <tr class="item-actions">
+                <td colspan="100">
+                    <div class="actions-toolbar">
+                        <?php if ($block->isAllowedManage()) : ?>
+                            <button type="submit" title="<?= $block->escapeHtmlAttr(__('Update')) ?>"
+                                    class="action update _disabled" disabled data-role="quote-update">
+                                <span><?= $block->escapeHtml(__('Update')) ?></span>
+                            </button>
+                        <?php endif ?>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        </form>
+        <div class="quote-table-totals-wrap">
+            <table id="shopping-cart-table-totals" class="items data table quote-table-totals">
+                <tfoot>
+                <?= $block->getChildHtml() ?>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

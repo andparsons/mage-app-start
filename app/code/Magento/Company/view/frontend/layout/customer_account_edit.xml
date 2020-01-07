@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_form_template_handle"/>
+    <body>
+        <referenceBlock name="customer_edit">
+            <container name="customer.form.edit.fields.before.in.form" as="form_fields_before_in_form" label="Extend Customer Edit">
+                <block class="Magento\Company\Block\Company\CompanyInfo" name="extended_customer_edit"
+                       ifconfig="btob/website_configuration/company_active"
+                       template="Magento_Company::customer/extended_customer_edit.phtml"/>
+            </container>
+        </referenceBlock>
+    </body>
+</page>

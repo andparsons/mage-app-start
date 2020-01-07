@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminCreateCartPriceRuleAndVerifyRuleConditionAndFreeShippingIsAppliedTest">
+        <remove keyForRemoval="selectCustomerGroup"/>
+        <click selector="{{CartPriceRuleSection.customerGroupsToggle}}" stepKey="clickCustomerGroupsToggle" after="selectWebsites"/>
+        <waitForPageLoad stepKey="waitForCustGrpPanelLoad" after="clickCustomerGroupsToggle"/>
+        <click selector="{{CartPriceRuleSection.customerGroupsOptions('NOT LOGGED IN')}}" stepKey="clickCustomerGroups" after="waitForCustGrpPanelLoad"/>
+        <click selector="{{CartPriceRuleSection.doneButton}}" stepKey="clickDoneButton" after="clickCustomerGroups"/>
+        <seeElement selector="{{CartPriceRuleSection.customerGroupsOptions('NOT LOGGED IN')}}" stepKey="seeNotLoggedIn" after="seeWebsites"/>
+        <remove keyForRemoval="seeCustomerGroup"/>
+    </test>
+</tests>

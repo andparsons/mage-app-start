@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminCreateVirtualProductWithTierPriceForGeneralGroupTest">
+        <remove keyForRemoval="selectProductTierPriceGroup"/>
+        <remove keyForRemoval="seeProductTierPriceGroup"/>
+
+        <!-- First merge point -->
+        <click selector="{{AdminProductFormAdvancedPricingSection.productTierPriceCustGroupSelect('0')}}" stepKey="clickProductTierPriceCustGroupSelect1" after="selectProductTierPriceWebsite"/>
+        <waitForElement selector="{{AdminProductFormAdvancedPricingSection.productTierPriceGroupOrCatalogOption('Default (General)')}}" time="30" stepKey="waitProductTierPriceGroupOrCatalogOption1" after="clickProductTierPriceCustGroupSelect1"/>
+        <click selector="{{AdminProductFormAdvancedPricingSection.productTierPriceGroupOrCatalogOption('Default (General)')}}" stepKey="clickProductTierPriceGroupOrCatalogOption1" after="waitProductTierPriceGroupOrCatalogOption1"/>
+
+        <!-- Second merge point -->
+        <see selector="{{AdminProductFormAdvancedPricingSection.productTierPriceCustGroupSelect('0')}}" userInput="Default (General)" stepKey="seeCustGroup" after="seeProductTierPriceWebsite"/>
+    </test>
+</tests>

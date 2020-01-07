@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminCreateCompanyActionGroup">
+      <arguments>
+          <argument name="company"/>
+          <argument name="customer" defaultValue="CustomerEntityOne"/>
+      </arguments>
+      <click selector="{{AdminMenuSection.customers}}" stepKey="clickCustomers"/>
+      <waitForLoadingMaskToDisappear stepKey="waitForLoadCompanies"/>
+      <click selector="{{AdminMenuSection.companies}}" stepKey="clickCompanies"/>
+      <waitForPageLoad stepKey="waitForCompaniesPageLoad"/>
+      <click selector="{{AdminGridMainControls.add}}" stepKey="clickAddNewCompany"/>
+      <fillField selector="{{AdminNewCompanySection.companyName}}" userInput="{{company.company_name}}" stepKey="fillName"/>
+      <fillField selector="{{AdminNewCompanySection.companyEmail}}" userInput="{{customer.email}}" stepKey="fillEmail"/>
+      <click selector="{{AdminNewCompanySection.companyLegalAddress}}" stepKey="clickLegalAddress"/>
+      <fillField selector="{{AdminNewCompanySection.companyStreet}}" userInput="{{company.street[0]}}" stepKey="fillStreet"/>
+      <fillField selector="{{AdminNewCompanySection.companyCity}}" userInput="{{company.city}}" stepKey="fillCity"/>
+      <selectOption selector="{{AdminNewCompanySection.companyCountry}}" userInput="{{company.country_id}}" stepKey="setCountry"/>
+      <selectOption selector="{{AdminNewCompanySection.companyState}}" userInput="{{company.region_id}}" stepKey="setState"/>
+      <fillField selector="{{AdminNewCompanySection.companyPostcode}}" userInput="{{company.postcode}}" stepKey="fillPostcode"/>
+      <fillField selector="{{AdminNewCompanySection.companyTelephone}}" userInput="{{company.telephone}}" stepKey="fillTelephone"/>
+      <click selector="{{AdminNewCompanySection.companyAdmin}}" stepKey="clickAdmin"/>
+      <fillField selector="{{AdminNewCompanySection.companyAdminEmail}}" userInput="{{customer.email}}" stepKey="fillAdminEmail"/>
+      <fillField selector="{{AdminNewCompanySection.companyAdminFirstName}}" userInput="{{customer.firstname}}" stepKey="fillAdminFirstName"/>
+      <fillField selector="{{AdminNewCompanySection.companyAdminLastName}}" userInput="{{customer.lastname}}" stepKey="fillAdminLastName"/>
+      <click selector="{{AdminGridMainControls.save}}" stepKey="clickSave"/>
+      <see selector="{{AdminMessagesSection.successMessage}}" userInput="You have created company" stepKey="seeSuccess"/>
+    </actionGroup>
+    <actionGroup name="AdminDeleteCompanyActionGroup">
+      <arguments>
+          <argument name="company"/>
+      </arguments>
+      <amOnPage url="{{AdminCompaniesPage.url}}" stepKey="amOnAdmin"/>
+      <waitForPageLoad stepKey="waitCompaniesPageLoad"/>
+      <conditionalClick selector="{{AdminDataGridHeaderSection.clearFilters}}" dependentSelector="{{AdminDataGridHeaderSection.clearFilters}}" visible="true" stepKey="clickOnButtonToRemoveFiltersIfPresent"/>
+      <fillField selector="{{AdminDataGridHeaderSection.search}}" userInput="{{company.company_name}}" stepKey="fillName"/>
+      <click selector="{{AdminDataGridHeaderSection.submitSearch}}" stepKey="clickSubmitSearch"/>
+      <click selector="{{AdminCompaniesSection.selectAll}}" stepKey="selectAll"/>
+      <click selector="{{AdminGridSelectRows.bulkActionDropdown}}" stepKey="clickActions"/>
+      <click selector="{{AdminCompaniesSection.delete}}" stepKey="clickDelete"/>
+      <waitForAjaxLoad stepKey="waitForLoadConfirmation"/>
+      <click selector="{{AdminConfirmationModalSection.ok}}" stepKey="confirmDelete"/>
+      <see selector="{{AdminMessagesSection.successMessage}}" userInput="A total of 1 record(s) were deleted" stepKey="seeSuccess"/>
+      <conditionalClick selector="{{AdminDataGridHeaderSection.clearFilters}}" dependentSelector="{{AdminDataGridHeaderSection.clearFilters}}" visible="true" stepKey="clickOnButtonToRemoveFiltersIfPresent1"/>
+    </actionGroup>
+    <actionGroup name="AdminClearCompaniesFiltersActionGroup">
+        <amOnPage url="{{AdminCompaniesPage.url}}" stepKey="amOnCompaniesPage"/>
+        <waitForPageLoad stepKey="WaitForPageToLoad"/>
+        <conditionalClick selector="{{AdminDataGridHeaderSection.clearFilters}}" dependentSelector="{{AdminDataGridHeaderSection.clearFilters}}" visible="true" stepKey="clickOnButtonToRemoveFiltersIfPresent"/>
+    </actionGroup>
+</actionGroups>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminChangeCompanyCreditCurrencyForDifferentAdminLocaleTest">
+        <annotations>
+            <stories value="Company Credit"/>
+            <title value="Change company credit currency for different admin locale"/>
+            <description value="Change company credit currency for different admin locale"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MC-12129"/>
+            <group value="b2b"/>
+            <group value="company"/>
+            <group value="companyCredit"/>
+        </annotations>
+        <before>
+            <!-- Deploy ru_RU locale static content -->
+            <magentoCLI command="setup:static-content:deploy" arguments="-f ru_RU" stepKey="staticDeployAfterChangeLocaleToRU" />
+            <!--Enable B2B configs-->
+            <createData entity="B2BEnabledCompanyAndQuote" stepKey="enableCompanyAndQuote"/>
+            <createData entity="secondCustomWebsite" stepKey="createCustomWebsite"/>
+            <createData entity="CatalogPriceScopeWebsite" stepKey="setCatalogPriceScopeWebsite"/>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginToAdminPanel"/>
+            <actionGroup ref="AdminStoreGroupCreateActionGroup" stepKey="createNewStore">
+                <argument name="Website" value="secondCustomWebsite"/>
+                <argument name="storeGroup" value="customStoreGroup"/>
+            </actionGroup>
+            <actionGroup ref="AdminCreateStoreViewActionGroup" stepKey="createCustomStoreView">
+                <argument name="StoreGroup" value="customStoreGroup"/>
+                <argument name="customStore" value="customStoreEN"/>
+            </actionGroup>
+            <amOnPage url="{{ConfigCurrencySetupPage.url}}" stepKey="navigateToConfigCurrencySetupPage"/>
+            <actionGroup ref="AdminSwitchWebsiteActionGroup" stepKey="switchToSecondWebsite">
+                <argument name="website" value="secondCustomWebsite"/>
+            </actionGroup>
+            <actionGroup ref="AdminSetBaseCurrencyActionGroup" stepKey="setBaseCurrencyRUB">
+                <argument name="currency" value="RUB"/>
+            </actionGroup>
+            <!-- Change Admin locale to Russian (Russia) -->
+            <actionGroup ref="SetAdminAccountActionGroup" stepKey="setAdminAccountToRussian">
+                <argument name="InterfaceLocaleByValue" value="ru_RU" />
+            </actionGroup>
+        </before>
+        <after>
+            <createData entity="DefaultConfigCatalogPrice" stepKey="setCatalogPriceScopeDefault"/>
+            <!--Set default configs-->
+            <createData entity="B2BDefaultConfig" stepKey="setB2BDefault"/>
+            <actionGroup ref="DeleteCustomWebsiteActionGroup" stepKey="deleteCustomWeWebsite">
+                <argument name="websiteName" value="$createCustomWebsite.website[name]$"/>
+            </actionGroup>
+            <!-- Change Admin locale to en_US -->
+            <actionGroup ref="SetAdminAccountActionGroup" stepKey="setAdminAccountToEnUS">
+                <argument name="InterfaceLocaleByValue" value="en_US" />
+            </actionGroup>
+            <actionGroup ref="AdminDeleteCompanyActionGroup" stepKey="deleteCompanyFromPreconditions">
+                <argument name="company" value="Default_Company"/>
+            </actionGroup>
+            <actionGroup ref="DeleteCustomerFromAdminActionGroup" stepKey="deleteCustomer">
+                <argument name="customer" value="CustomerEntityOne"/>
+            </actionGroup>
+            <actionGroup ref="AdminClearCustomersFiltersActionGroup" stepKey="clearCustomersFilters"/>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+        <!-- 1. Go to Customers-> Companies-> Add New Company -->
+        <!-- 2. Fill in all the required fields, setup 'Credit Limit' value inside 'Company Credit' tab-> Save company -->
+        <actionGroup ref="AdminCreateCompanyWithCreditLimitActionGroup" stepKey="createCompany">
+            <argument name="company" value="Default_Company"/>
+            <argument name="customer" value="CustomerEntityOne"/>
+            <argument name="amount" value="100000"/>
+        </actionGroup>
+        <actionGroup ref="AdminAssertCreditLimitActionGroup" stepKey="assertCompanyCreditLimit">
+            <argument name="creditLimit" value="100000,00"/>
+        </actionGroup>
+        <!-- 3. View created company, expand 'Company Credit' tab and changed 'Credit Currency' value -->
+        <!-- 4. Specify currency rate and click 'Proceed' button -->
+        <actionGroup ref="AdminChangeCreditCurrencyActionGroup" stepKey="changeCreditCurrency">
+            <argument name="creditCurrency" value="RUB"/>
+            <argument name="currencyRate" value="0.1"/>
+        </actionGroup>
+        <actionGroup ref="AdminAssertCreditLimitActionGroup" stepKey="assertCompanyCreditLimitAfterChangeCreditCurrency">
+            <argument name="creditLimit" value="10000.00"/>
+        </actionGroup>
+        <!-- 5. Save the company and after that expand 'Company Credit' tab -->
+        <actionGroup ref="AdminCompanySaveActionGroup" stepKey="clickSaveButtonAndAssertSuccessMessage"/>
+        <actionGroup ref="AdminAssertCompanyCreditHistoryListingGridValueActionGroup" stepKey="assertCompanyCreditHistoryListingCreditLimitValue">
+            <argument name="columnName" value="Credit Limit"/>
+            <argument name="columnValue" value="10 000,00 руб."/>
+        </actionGroup>
+        <actionGroup ref="AdminAssertCreditLimitActionGroup" stepKey="assertCompanyCreditLimitAfterSaveCompany">
+            <argument name="creditLimit" value="10000,00"/>
+        </actionGroup>
+    </test>
+</tests>

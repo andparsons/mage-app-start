@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <actionGroup name="ProductSetAdvancedPricingB2B" extends="ProductSetAdvancedPricing">
+        <remove keyForRemoval="selectProductCustomGroupValue"/>
+        <click selector="{{AdminProductFormAdvancedPricingSection.productTierPriceCustGroupSelect('0')}}" after="selectProductWebsiteValue" stepKey="clickProductTierPriceCustomerGroupB2B"/>
+        <selectMultipleOptions filterSelector="{{AdminProductFormAdvancedPricingSection.customerGroupFilterInput}}" after="clickProductTierPriceCustomerGroupB2B" optionSelector="{{AdminProductFormAdvancedPricingSection.customerGroupOption}}" stepKey="selectProductCustomGroupValueB2B">
+            <array>['{{group}}']</array>
+        </selectMultipleOptions>
+    </actionGroup>
+</actionGroups>

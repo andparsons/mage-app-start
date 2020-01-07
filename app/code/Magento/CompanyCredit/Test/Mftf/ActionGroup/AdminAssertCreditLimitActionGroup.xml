@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <!-- To use this action group you must be on company edit page -->
+    <actionGroup name="AdminAssertCreditLimitActionGroup">
+        <arguments>
+            <argument name="creditLimit" type="string"/>
+        </arguments>
+        <conditionalClick selector="{{AdminCompanyEditSection.customerCredit}}" dependentSelector="{{AdminCompanyEditSection.customerCredit}}" visible="true" stepKey="clickOnCustomerCredit"/>
+        <waitForElementVisible selector="{{AdminCompanyEditSection.creditLimit}}" stepKey="waitForCreditLimitFieldVisible"/>
+        <seeInField selector="{{AdminCompanyEditSection.creditLimit}}" userInput="{{creditLimit}}" stepKey="assertCreditLimit"/>
+    </actionGroup>
+</actionGroups>

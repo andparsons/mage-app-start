@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">company_listing.company_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="add">
+                <url path="*/*/new"/>
+                <class>primary</class>
+                <label translate="true">Add New Company</label>
+            </button>
+        </buttons>
+        <spinner>company_columns</spinner>
+        <deps>
+            <dep>company_listing.company_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="company_listing_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Magento_Company::index</aclResource>
+        <dataProvider class="CompanyProvider" name="company_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>main_table.entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <container name="listing_top" template="ui/grid/toolbar">
+        <bookmark name="bookmarks">
+            <settings>
+                <storageConfig>
+                    <namespace>company_listing</namespace>
+                </storageConfig>
+            </settings>
+        </bookmark>
+        <component name="columns_controls" component="Magento_Ui/js/grid/controls/columns" displayArea="dataGridActions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="columnsData" xsi:type="array">
+                        <item name="provider" xsi:type="string">company_listing.company_listing.company_columns</item>
+                    </item>
+                </item>
+            </argument>
+        </component>
+        <exportButton name="export_button">
+            <settings>
+                <selectProvider>company_listing.company_listing.company_columns.ids</selectProvider>
+            </settings>
+        </exportButton>
+        <filterSearch name="fulltext" provider="company_listing.company_listing_data_source">
+            <settings>
+                <storageConfig>
+                    <namespace>current.search</namespace>
+                    <provider>company_listing.company_listing.listing_top.bookmarks</provider>
+                </storageConfig>
+                <chipsProvider>company_listing.company_listing.listing_top.listing_filters_chips</chipsProvider>
+            </settings>
+        </filterSearch>
+        <filters name="listing_filters">
+            <settings>
+                <columnsProvider>company_listing.company_listing.company_columns</columnsProvider>
+                <childDefaults>
+                    <param name="imports" xsi:type="array">
+                        <item name="visible" xsi:type="string">company_listing.company_listing.company_columns.${ $.index }:visible</item>
+                    </param>
+                    <param name="provider" xsi:type="string">company_listing.company_listing.listing_top.listing_filters</param>
+                </childDefaults>
+                <storageConfig>
+                    <namespace>current.filters</namespace>
+                    <provider>company_listing.company_listing.listing_top.bookmarks</provider>
+                </storageConfig>
+            </settings>
+        </filters>
+        <massaction name="listing_massaction" component="Magento_Company/js/grid/massactions">
+            <settings>
+                <selectProvider>company_listing.company_listing.company_columns.ids</selectProvider>
+                <indexField>entity_id</indexField>
+            </settings>
+            <action name="enable">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure you want to set the selected companies as active?</message>
+                        <title translate="true">Set a Company as Active</title>
+                    </confirm>
+                    <url path="company/index/massEnable"/>
+                    <type>enable</type>
+                    <label translate="true">Set Active</label>
+                </settings>
+            </action>
+            <action name="block">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure you want to block the selected companies?</message>
+                        <title translate="true">Block a Company</title>
+                    </confirm>
+                    <url path="company/index/massBlock"/>
+                    <type>block</type>
+                    <label translate="true">Block</label>
+                </settings>
+            </action>
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">This action cannot be undone. Are you sure you want to delete the selected companies? After the company is deleted, all the company members will be set to Inactive.</message>
+                        <title translate="true">Delete a Company?</title>
+                    </confirm>
+                    <url path="company/index/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+            <action name="edit">
+                <settings>
+                    <callback>
+                        <target>editSelected</target>
+                        <provider>company_listing.company_listing.company_columns_editor</provider>
+                    </callback>
+                    <type>edit</type>
+                    <label translate="true">Edit</label>
+                </settings>
+            </action>
+        </massaction>
+        <paging name="listing_paging">
+            <settings>
+                <selectProvider>company_listing.company_listing.company_columns.ids</selectProvider>
+                <storageConfig>
+                    <namespace>current.paging</namespace>
+                    <provider>company_listing.company_listing.listing_top.bookmarks</provider>
+                </storageConfig>
+            </settings>
+        </paging>
+    </container>
+    <columns name="company_columns">
+        <settings>
+            <editorConfig>
+                <param name="clientConfig" xsi:type="array">
+                    <item name="saveUrl" xsi:type="url" path="company/index/inlineEdit"/>
+                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                </param>
+                <param name="indexField" xsi:type="string">entity_id</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="selectProvider" xsi:type="string">company_listing.company_listing.company_columns.ids</param>
+            </editorConfig>
+            <childDefaults>
+                <param name="storageConfig" xsi:type="array">
+                    <item name="provider" xsi:type="string">company_listing.company_listing.listing_top.bookmarks</item>
+                    <item name="root" xsi:type="string">columns.${ $.index }</item>
+                    <item name="namespace" xsi:type="string">current.${ $.storageConfig.root }</item>
+                </param>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">company_listing.company_listing.company_columns_editor</item>
+                    <item name="target" xsi:type="string">startEdit</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="boolean">true</item>
+                    </item>
+                </param>
+            </childDefaults>
+            <storageConfig>
+                <namespace>current</namespace>
+                <provider>company_listing.company_listing.listing_top.bookmarks</provider>
+            </storageConfig>
+        </settings>
+        <selectionsColumn name="ids" sortOrder="10">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="entity_id" sortOrder="20">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="company_name" sortOrder="30">
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Company Name</label>
+            </settings>
+        </column>
+        <column name="status" class="Magento\Company\Ui\Component\Listing\Column\Status" sortOrder="40">
+            <settings>
+                <filter>select</filter>
+                <options class="Magento\Company\Model\Company\Source\Status"/>
+                <dataType>select</dataType>
+                <label translate="true">Status</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="legal_name" sortOrder="50">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Company Legal Name</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="company_email" sortOrder="60">
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Company Email</label>
+            </settings>
+        </column>
+        <column name="vat_tax_id" sortOrder="70">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">VAT/TAX ID</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="reseller_id" sortOrder="80">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Reseller ID</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="comment" sortOrder="90">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Comment</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="telephone" sortOrder="100">
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Phone Number</label>
+            </settings>
+        </column>
+        <column name="country_id" class="Magento\Company\Ui\Component\Listing\Column\Country" sortOrder="110">
+            <settings>
+                <filter>select</filter>
+                <options class="Magento\Directory\Model\ResourceModel\Country\Collection"/>
+                <dataType>select</dataType>
+                <label translate="true">Country</label>
+            </settings>
+        </column>
+        <column name="region_name" sortOrder="120">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">State/Province</label>
+            </settings>
+        </column>
+        <column name="postcode" sortOrder="130">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">ZIP</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="city" sortOrder="140">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">City</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        <column name="customer_group_id" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <filter>select</filter>
+                <options class="Magento\Customer\Ui\Component\Listing\Column\Group\Options"/>
+                <dataType>select</dataType>
+                <label translate="true">Customer Group</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        <column name="street" sortOrder="180">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Street Address</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="company_admin" sortOrder="190">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Company Admin</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        <column name="job_title" sortOrder="200">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Job Title</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        <column name="email_admin" sortOrder="210">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Email</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        <column name="gender" class="Magento\Company\Ui\Component\Listing\Column\Gender" sortOrder="220">
+            <settings>
+                <filter>select</filter>
+                <options class="Magento\Company\Model\Company\Source\Gender"/>
+                <dataType>select</dataType>
+                <label translate="true">Gender</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="Magento\Company\Ui\Component\Listing\Column\Actions" sortOrder="230">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

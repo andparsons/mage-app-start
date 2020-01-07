@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminDisplayMyQuotesCustomerAccountPageTest">
+        <annotations>
+            <features value="Negotiable Quotes"/>
+            <stories value="Customer quotes"/>
+            <title value="Displaying of 'My Quotes' on customer account page"/>
+            <description value="Check displaying of 'My Quotes' on customer account page"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="MC-13628"/>
+            <useCaseId value="MC-10944"/>
+            <group value="negotiable_quotes"/>
+        </annotations>
+        <before>
+            <!-- Login as Admin -->
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+
+            <!--Enable B2B configs-->
+            <createData entity="B2BEnabledCompanyAndQuote" stepKey="enableCompanyAndQuote"/>
+
+            <!--Disable Reward Points settings-->
+            <createData entity="DisableRewardPointsSettings" stepKey="disableRewardsConfig"/>
+
+            <magentoCLI command="cache:flush" stepKey="flushCache"/>
+
+            <!--Create customer and company-->
+            <createData entity="Simple_US_Customer" stepKey="createCustomer"/>
+            <createData entity="Ukraine_Company" stepKey="createCompany">
+                <requiredEntity createDataKey="createCustomer"/>
+            </createData>
+        </before>
+        <after>
+
+            <!--Set default configs-->
+            <createData entity="B2BDefaultConfig" stepKey="setB2BDefault"/>
+            <createData entity="RewardPointDefaultSetting" stepKey="setRewardDefault"/>
+            <magentoCLI command="cache:flush" stepKey="flushCache"/>
+
+            <!--Delete created data-->
+            <deleteData createDataKey="createCompany" stepKey="deleteCompany"/>
+            <deleteData createDataKey="createCustomer" stepKey="deleteCustomer"/>
+
+            <actionGroup ref="logout" stepKey="amOnLogoutPage"/>
+        </after>
+
+        <!--Log in to Storefront as Customer-->
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="signUpNewUser">
+            <argument name="Customer" value="$$createCustomer$$"/>
+        </actionGroup>
+
+        <!--Go to Storefront > Account Information-->
+        <conditionalClick selector="{{StorefrontCustomerSidebarSection.sidebarTab('My Account')}}"
+                          dependentSelector="{{StorefrontCustomerSidebarSection.sidebarCurrentTab('My Account')}}" visible="false" stepKey="clickToOpenMyAccount" />
+        <waitForPageLoad stepKey="waitForAccountInformationPageLoad"/>
+        <seeElement selector="{{StorefrontCustomerSidebarSection.sidebarTab('My Quotes')}}" stepKey="seeMyQuotesInLeftTab"/>
+        <click selector="{{StorefrontCustomerSidebarSection.sidebarTab('My Quotes')}}" stepKey="clickMyQuotesInLeftTab"/>
+        <seeElement selector="{{StorefrontCustomerSidebarSection.sidebarCurrentTab('My Quotes')}}" stepKey="seeMyQuotesInLeftTab1"/>
+    </test>
+</tests>

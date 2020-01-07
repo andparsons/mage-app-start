@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @var $block \Magento\CompanyCredit\Block\Company\CreditBalance
+ */
+?>
+<ul class="credit-balance-list" data-role="credit-balance">
+    <li class="credit-balance-item">
+        <p class="credit-balance-label"><?= $block->escapeHtml(__('Outstanding Balance')) ?></p>
+        <span class="credit-balance-price<?= $block->isOutstandingBalanceNegative() ? ' _negative' : ''; ?>">
+            <?= $block->escapeHtml($block->getOutstandingBalance()) ?>
+        </span>
+    </li>
+    <li class="credit-balance-item">
+        <p class="credit-balance-label"><?= $block->escapeHtml(__('Available Credit')) ?></p>
+        <span class="credit-balance-price">
+            <?= $block->escapeHtml($block->getAvailableCredit()) ?>
+        </span>
+    </li>
+    <li class="credit-balance-item">
+        <p class="credit-balance-label"><?= $block->escapeHtml(__('Credit Limit')) ?></p>
+        <span class="credit-balance-price">
+            <?= $block->escapeHtml($block->getCreditLimit()) ?>
+        </span>
+    </li>
+</ul>

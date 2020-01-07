@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_invoice_register">
+        <observer name="invoiceCreditCompanyComment" instance="Magento\CompanyCredit\Observer\InvoiceRegisterObserver" />
+    </event>
+    <event name="payment_method_assign_data_companycredit">
+        <observer name="paymentMethodAssignDataCompanycredit" instance="Magento\CompanyCredit\Observer\AssignPaymentMethodDataObserver" />
+    </event>
+    <event name="sales_order_payment_cancel">
+        <observer name="companyCreditSalesOrderPaymentCancel" instance="Magento\CompanyCredit\Observer\SalesOrderPaymentCancel" />
+    </event>
+</config>

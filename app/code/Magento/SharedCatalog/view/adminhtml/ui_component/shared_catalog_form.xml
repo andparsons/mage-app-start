@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">shared_catalog_form.shared_catalog_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Shared Catalog Information</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="save_and_continue" class="Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Edit\SaveAndContinueButton"/>
+            <button name="duplicate" class="Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Edit\DuplicateSharedCatalogButton"/>
+            <button name="delete" class="Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Edit\DeleteSharedCatalogButton"/>
+            <button name="reset" class="Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Edit\ResetButton"/>
+            <button name="save" class="Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Edit\SaveSharedCatalogButton"/>
+            <button name="back" class="Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Edit\BackToListingButton"/>
+        </buttons>
+        <layout>
+            <navContainerName>left</navContainerName>
+            <type>tabs</type>
+        </layout>
+        <deps>
+            <dep>shared_catalog_form.shared_catalog_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="shared_catalog_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </argument>
+        <settings>
+            <submitUrl path="shared_catalog/sharedCatalog/save"/>
+        </settings>
+        <dataProvider class="Magento\SharedCatalog\Ui\DataProvider\SharedCatalog" name="shared_catalog_form_data_source">
+            <settings>
+                <requestFieldName>shared_catalog_id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="catalog_details">
+        <settings>
+            <label translate="true">Catalog Details</label>
+        </settings>
+        <field name="name" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="sortOrder" xsi:type="number">10</item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="max-characters" xsi:type="number">32</rule>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label>Name</label>
+            </settings>
+        </field>
+        <field name="type" component="Magento_SharedCatalog/js/form/element/select/shared_catalog_type" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="confirmation" xsi:type="array">
+                        <item name="text_create" xsi:type="array">
+                            <item name="header" xsi:type="string" translate="true">Public Catalog Already Exists</item>
+                            <item name="message" xsi:type="string" translate="true">A public shared catalog already exists. If you proceed, the existing public shared catalog will be converted to a custom catalog. All the companies defined in the existing public shared catalog will be assigned to the new public shared catalog.</item>
+                        </item>
+                        <item name="text_edit" xsi:type="array">
+                            <item name="header" xsi:type="string" translate="true">Change Catalog Type?</item>
+                            <item name="message" xsi:type="string" translate="true">A public shared catalog already exists. If you proceed, the existing public shared catalog will be converted to a custom catalog. All the companies defined in the existing public shared catalog will be re-assigned to the new public shared catalog.</item>
+                        </item>
+                        <item name="valueToConfirm" xsi:type="string">1</item>
+                    </item>
+                </item>
+                <item name="sortOrder" xsi:type="number">20</item>
+            </argument>
+            <settings>
+                <dataType>int</dataType>
+                <label>Type</label>
+                <visible>true</visible>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Magento\SharedCatalog\Model\Source\SharedCatalogType"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="tax_class_id" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="sortOrder" xsi:type="number">30</item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>int</dataType>
+                <label>Customer Tax Class</label>
+                <visible>true</visible>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Magento\Tax\Model\TaxClass\Source\Customer"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="description" formElement="textarea">
+            <argument name="data" xsi:type="array">
+                <item name="sortOrder" xsi:type="number">40</item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label>Description</label>
+            </settings>
+        </field>
+    </fieldset>
+</form>

@@ -1,0 +1,10 @@
+<?php
+
+/** @var \Magento\VersionsCms\Block\Hierarchy\Menu $block */
+
+$_tree = $block->getTree();
+$_menu = $block->drawMenu($_tree);
+?>
+<?php if ($block->geMenuNodesQty() > 1) : ?>
+    <?= /* @noEscape */ $_menu ?>
+<?php endif; ?>

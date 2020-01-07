@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\CompanyPayment\Block\Company\Profile\PaymentMethod" name="company_payment_method"
+                   after="company_profile"
+                   ifconfig="btob/website_configuration/company_active"
+                   template="Magento_CompanyPayment::company/management/profile/payment-method-list.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,28 @@
+<?php
+
+/** @var $block \Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Wizard\Store\Switcher */
+?>
+<div class="admin__data-store-switcher-outer-wrap"
+    data-bind="scope: 'structure_store_switcher'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "structure_store_switcher": {
+                        "component": "Magento_SharedCatalog/js/wizard/step/structure/store/switcher",
+                        "treeProvider": "shared_catalog_structure_category_tree.provider",
+                        <?php if ($block->isOptionSelected()) : ?>
+                        "disabled": true,
+                        "selectedStoreId": "<?= /* @noEscape */ $block->getSelectedOptionValue() ?>",
+                        <?php endif; ?>
+                        "stores": <?= /* @noEscape */ $block->getStoreOptionsAsJson() ?>,
+                        "storeElementSelector": "#edit_form input[name='store_id']"
+                    }
+                }
+            }
+        }
+    }
+</script>

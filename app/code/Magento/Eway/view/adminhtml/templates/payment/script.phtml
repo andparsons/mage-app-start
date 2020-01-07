@@ -1,0 +1,22 @@
+<?php
+
+/** @var Magento\Eway\Block\Payment $block */
+
+?>
+<script>
+    //<![CDATA[
+    require(
+        [
+            'Magento_Eway/js/eway/<?= /* @noEscape */ $block->getConnectionType() ?>',
+            'jquery',
+            'domReady!'
+        ], function(Eway, $) {
+            var config = <?= /* @noEscape */ $block->getPaymentConfig() ?>,
+                payment,
+                form = $('#payment_form_<?= /* @noEscape */ $block->getCode() ?>');
+
+            config.active = form.length > 0 && !form.is(':hidden');
+            payment = new Eway(config);
+        });
+    //]]>
+</script>

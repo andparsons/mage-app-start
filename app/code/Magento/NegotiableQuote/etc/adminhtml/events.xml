@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="admin_system_config_changed_section_shipping">
+        <observer name="recalculate_tax" instance="Magento\NegotiableQuote\Observer\AfterOriginalShippingAddressChangedObserver" />
+    </event>
+    <event name="admin_system_config_changed_section_btob">
+        <observer name="negotiablequote_observer_update_config" instance="Magento\NegotiableQuote\Observer\UpdateConfig"/>
+    </event>
+    <event name="tax_config_notification_save_commit_after">
+        <observer name="negotiablequote_observer_tax_config_update" instance="Magento\NegotiableQuote\Observer\TaxConfigNotificationSaveAfter"/>
+    </event>
+    <event name="customer_save_after_data_object">
+        <observer name="quote_group_change" instance="Magento\NegotiableQuote\Observer\QuoteChangeGroup"/>
+    </event>
+</config>

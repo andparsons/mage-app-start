@@ -1,0 +1,28 @@
+<?php
+?>
+<?php /* @var $block \Magento\NegotiableQuote\Block\Adminhtml\Sales\Order\Create\Sku\Errors */ ?>
+<div data-mage-init='{"Magento_NegotiableQuote/quote/create/init-errors": {
+    "listType" : "<?= $block->escapeHtml($block->getListType()) ?>",
+    "url" : "<?= $block->escapeHtml($block->getConfigureUrl()) ?>"}
+}' class="fieldset-wrapper admin__fieldset-wrapper">
+    <div class="fieldset-wrapper-title admin__fieldset-wrapper-title">
+        <div class="message message-notice">
+            <span>
+                <span id="sku-attention-num"><?= (int) $block->getNumberOfFailed() ?></span> product(s) require attention.</span>
+        </div>
+        <strong class="title"><?= $block->escapeHtml(__('Products Not Added to the Quote')) ?></strong>
+        <div class="actions">
+            <?=
+            $block->getButtonHtml(
+                __('Add Products to Quote'),
+                'addBySku.submitConfigured()',
+                'action-add'
+            ); ?>
+            <button title="<?= $block->escapeHtmlAttr(__('Remove All')) ?>" type="button" class="action-default action-delete"
+                    onclick="addBySku.removeAllFailed()">
+                <span><?= $block->escapeHtml(__('Remove All')) ?></span>
+            </button>
+        </div>
+    </div>
+    <?= $block->getChildHtml() ?>
+</div>

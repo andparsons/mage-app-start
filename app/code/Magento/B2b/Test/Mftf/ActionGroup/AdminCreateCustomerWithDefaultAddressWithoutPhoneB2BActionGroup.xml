@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminCreateCustomerWithDefaultAddressWithoutPhoneB2BActionGroup" extends="AdminCreateCustomerWithDefaultAddressWithoutPhoneActionGroup">
+        <click selector="{{CustomerInformationSection.customerGroup}}" after="addNewCustomer" stepKey="clickCustomerGroup"/>
+        <waitForElementVisible selector="{{CustomerInformationSection.defaultGeneral}}" after="clickCustomerGroup" stepKey="waitForDropDownMenuOpen"/>
+        <click selector="{{CustomerInformationSection.defaultGeneral}}" after="waitForDropDownMenuOpen" stepKey="selectCustomerGroup"/>
+    </actionGroup>
+</actionGroups>

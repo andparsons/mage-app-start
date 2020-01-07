@@ -1,0 +1,17 @@
+<!--
+-->
+<!--@subject Assigned to {{var customer.companyName}} as Sales Representative @-->
+<!--@vars {
+"var customer.email":"Customer Email",
+"var customer.companyName":"Company Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting"><strong>{{trans "%name," name=$customer.name}}</strong></p>
+<p>{{trans "You have been assigned to %company_name as the Sales Representative." company_name=$customer.companyName}}</p>
+<p class="permissions">{{trans "When you sign in to your account, you will be able to:"}}</p>
+<p>{{trans "* View and manage company quotes in Admin Panel"}}</p>
+<p>{{trans "* View and edit company profile in Admin Panel"}}</p>
+
+{{template config_path="design/email/footer_template"}}

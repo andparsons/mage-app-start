@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/PageObject.xsd">
+    <page name="AdminCatalogEventPage" url="admin/catalog_event/new/category/1/category_id/{{category_id}}/" area="admin" module="Magento_CatalogEvent" parameterized="true">
+        <section name="CatalogEventInfoSection"/>
+    </page>
+</pages>

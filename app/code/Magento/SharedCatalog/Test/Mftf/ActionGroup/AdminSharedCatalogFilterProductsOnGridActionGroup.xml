@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminSharedCatalogFilterProductsOnGridActionGroup">
+        <arguments>
+            <argument name="productName" type="string"/>
+        </arguments>
+        <click selector="{{AdminSharedCatalogCatalogStructureProductGridSection.filterButton}}" stepKey="openFiltersSectionOnSharedCatalogIndexPage"/>
+        <conditionalClick selector="{{AdminSharedCatalogCatalogStructureProductGridSection.clearFiltersButton}}" dependentSelector="{{AdminSharedCatalogCatalogStructureProductGridSection.clearFiltersButton}}" visible="true" stepKey="cleanFiltersIfTheySet"/>
+        <fillField userInput="{{productName}}" selector="{{AdminSharedCatalogCatalogStructureProductGridSection.nameField}}" stepKey="fillNameFieldOnFiltersSection"/>
+        <click selector="{{AdminSharedCatalogCatalogStructureProductGridSection.applyFilters}}" stepKey="clickApplyFiltersButton"/>
+    </actionGroup>
+
+    <!--Filter "Shared Catalog" by ID in the grid-->
+    <actionGroup name="AdminSharedCatalogFilterByIdInTheGridActionGroup">
+        <arguments>
+            <argument name="id" type="string"/>
+        </arguments>
+        <!--Clear all filters in grid if they present-->
+        <conditionalClick selector="{{AdminDataGridHeaderSection.clearFilters}}" dependentSelector="{{AdminDataGridHeaderSection.clearFilters}}" visible="true" stepKey="clearTheFiltersIfPresent"/>
+
+        <click selector="{{AdminDataGridHeaderSection.filters}}" stepKey="clickOnFilters"/>
+        <fillField userInput="{{id}}" selector="{{AdminDataGridHeaderSection.filterFieldInput('entity_id[from]')}}" stepKey="fillFromIdField"/>
+        <fillField userInput="{{id}}" selector="{{AdminDataGridHeaderSection.filterFieldInput('entity_id[to]')}}" stepKey="fillToIdField"/>
+        <click selector="{{AdminDataGridHeaderSection.applyFilters}}" stepKey="clickOnApplyFilters"/>
+    </actionGroup>
+</actionGroups>

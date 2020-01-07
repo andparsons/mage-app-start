@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontAddProductWithFileToTheCartFromRequisitionListTest">
+        <annotations>
+            <features value="Requisition List"/>
+            <stories value="Cannot add product with custom file option to requisition list"/>
+            <title value="Verify that a product with a custom file option can be added to a requisition list"/>
+            <description value="Verify that a product with a custom file option can be added to a requisition list"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MC-13625"/>
+            <useCaseId value="MC-15064"/>
+            <group value="requisitionList"/>
+        </annotations>
+        <before>
+            <!-- Create customer and product -->
+            <createData entity="Simple_US_Customer" stepKey="createSimpleUSCustomer">
+                <field key="group_id">1</field>
+            </createData>
+            <createData entity="ApiCategory" stepKey="createCategory"/>
+            <magentoCLI command="config:set btob/website_configuration/requisition_list_active 1" stepKey="enableRequisitionListFunctionality"/>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <amOnPage url="{{AdminProductIndexPage.url}}" stepKey="adminProductIndexPageAdd"/>
+            <waitForPageLoad stepKey="waitForProductIndexPageLoad"/>
+            <actionGroup ref="goToCreateProductPage" stepKey="goToCreateProductPage">
+                <argument name="product" value="SimpleProduct"/>
+            </actionGroup>
+            <actionGroup ref="fillMainProductForm" stepKey="fillProductForm">
+                <argument name="product" value="SimpleProduct"/>
+            </actionGroup>
+            <actionGroup ref="AddProductCustomOptionFile" stepKey="addCustomOptionToProduct"/>
+            <click selector="{{AdminProductFormActionSection.saveButton}}" stepKey="saveProduct"/>
+        </before>
+        <after>
+            <deleteData createDataKey="createSimpleUSCustomer" stepKey="deleteCreatedSimpleUSCustomer"/>
+            <deleteData createDataKey="createCategory" stepKey="deletePreReqCategory"/>
+            <magentoCLI command="config:set btob/website_configuration/requisition_list_active 0" stepKey="enableRequisitionListFunctionality"/>
+
+            <actionGroup ref="deleteProductBySku" stepKey="deleteProduct">
+                <argument name="sku" value="{{SimpleProduct.sku}}"/>
+            </actionGroup>
+
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!-- Open created product -->
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="customerLogin1">
+            <argument name="Customer" value="$$createSimpleUSCustomer$$" />
+        </actionGroup>
+        <amOnPage url="{{StorefrontProductPage.url(SimpleProduct.name)}}" stepKey="goToDetailProductPageOnStorefront" />
+        <waitForPageLoad time="30" stepKey="waitForProductPageLoad"/>
+
+        <!--Attach a valid file-->
+        <attachFile selector="{{StorefrontProductInfoMainSection.addLinkFileUploadFile(ProductOptionFile.title)}}" userInput="{{MagentoLogo.file}}" stepKey="attachValidFile"/>
+
+        <!-- Add product to requisition list -->
+        <click selector="{{StorefrontProductPageSection.addToRequisitionListButton}}" stepKey="clickAddToRequisitionListButton"/>
+        <click selector="{{StorefrontProductPageSection.createNewRequisitionListButton}}" stepKey="clickCreateNewRequisitionListButton"/>
+        <waitForElementVisible selector="{{StorefrontProductPageSection.requisitionListName}}" stepKey="waitForNameInputElementVisible"/>
+        <fillField selector="{{StorefrontProductPageSection.requisitionListName}}" userInput="RL {{SimpleProduct.name}}" stepKey="fillRequisitionListNameField"/>
+        <click selector="{{StorefrontCreateRequisitionListSection.saveButton}}" stepKey="clickSaveButton"/>
+        <see selector="{{StorefrontProductPageSection.successMsg}}" userInput="Product {{SimpleProduct.name}} has been added to the requisition list RL {{SimpleProduct.name}}." stepKey="seeSuccessMessage"/>
+    </test>
+</tests>

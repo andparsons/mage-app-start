@@ -1,0 +1,12 @@
+<?php
+/**
+ * @var $block \Magento\NegotiableQuote\Block\Adminhtml\Quote\PrintQuote\Subtotals
+ */
+?>
+<div class="admin__page-section-item-content">
+    <table class="data-table admin__table-secondary quote-subtotal-table">
+        <?php foreach ($block->getTotals() as $code => $total) : ?>
+            <?= $block->getChildHtml('negotiable.quote.totals.subtotals', false) ?>
+        <?php endforeach ?>
+    </table>
+</div>

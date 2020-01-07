@@ -1,0 +1,46 @@
+<?php
+//phpcs:disable Magento2.Files.LineLength.MaxExceeded
+//phpcs:disable Squiz.PHP.NonExecutableCode.Unreachable
+?>
+<?php /** @var $block \Magento\Rma\Block\Adminhtml\Rma\Edit\Tab\General\Shipping\Methods */ ?>
+
+<?php if ($block->getShippingMethods()) : ?>
+    <?php $carrier = false; ?>
+    <div id="checkout-shipping-method-load">
+        <dl class="admin__order-shipment-methods">
+    <?php foreach ($block->getShippingMethods() as $method) : ?>
+        <?php if ($method->getCode() == $method->getCarrier() . '_error') : ?>
+            <?php continue; ?>
+        <?php endif; ?>
+        <?php if ($carrier != $method->getCarrier()) : ?>
+            <?php if ($carrier) : ?>
+                </ul>
+            </dd>
+            <?php endif;?>
+            <dt class="admin__order-shipment-methods-title">
+                <?= $block->escapeHtml($method->getCarrierTitle()) ?>
+            </dt>
+            <dd class="admin__order-shipment-methods-options">
+                <ul class="admin__order-shipment-methods-options-list">
+                <?php $carrier = $method->getCarrier(); ?>
+        <?php endif; ?>
+                    <li class="admin__field-option">
+                        <input name="shipping_method" type="radio" value="<?= $block->escapeHtmlAttr($method->getCode()) ?>" id="s_method_<?= $block->escapeHtmlAttr($method->getCode()) ?>" class="admin__control-radio" />
+                        <label for="s_method_<?= $block->escapeHtmlAttr($method->getCode()) ?>" class="admin__field-label">
+                            <?= $block->escapeHtml($method->getMethodTitle()) ?>
+                            <span><span class="price"><?= /* @noEscape */ $block->getShippingPrice($method->getPrice()) ?></span></span>
+                        </label>
+                        <div style="display:none;" id="h_method_<?= $block->escapeHtmlAttr($method->getCode()) ?>"><?= /* @noEscape */ $block->jsonData($method) ?></div>
+                    </li>
+    <?php endforeach; ?>
+            <?php if ($carrier) : ?>
+                </ul>
+            </dd>
+            <?php endif; ?>
+        </dl>
+    </div>
+</div>
+<?php else : ?>
+    <?= $block->escapeHtml(__('No authorized items or allowed shipping methods')) ?>
+<?php endif; ?>
+

@@ -1,0 +1,79 @@
+<?php
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php /** @var $block \Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Shipping\Method */ ?>
+<?php $_shippingRateGroups = $block->getShippingRates(); ?>
+<?php if ($_shippingRateGroups) : ?>
+    <div id="quote-shipping-method-choose" data-role='quote-shipping-method-choose'
+        class="quote-shipping-method-choose">
+        <dl class="admin__quote-shipment-methods">
+        <?php foreach ($_shippingRateGroups as $code => $_rates) : ?>
+            <dt class="admin__quote-shipment-methods-title"><?= $block->escapeHtml($block->getCarrierName($code)) ?></dt>
+            <dd class="admin__quote-shipment-methods-options">
+                <ul class="admin__quote-shipment-methods-options-list">
+                <?php foreach ($_rates as $_rate) : ?>
+                    <?php $_code = $_rate->getCode() ?>
+                    <li class="admin__field-option">
+                        <?php if ($_rate->getErrorMessage()) : ?>
+                            <div class="messages">
+                               <div class="message message-error">
+                                   <div><?= $block->escapeHtml($_rate->getErrorMessage()) ?></div>
+                               </div>
+                            </div>
+                        <?php else : ?>
+                            <?php $_checked = $block->isMethodActive($_code) ? 'checked="checked"' : '' ?>
+                            <input name="quote[shipping_method]" type="radio"
+                                value="<?= $block->escapeHtmlAttr($_code) ?>"
+                                <?= /* @noEscape */ !$block->canEdit() ? 'disabled' : '' ?>
+                                id="s_method_<?= /* @noEscape */ $_code ?>" <?= /* @noEscape */ $_checked ?>
+                                class="admin__control-radio"/>
+                            <label class="admin__field-label" for="s_method_<?= $block->escapeHtmlAttr($_code) ?>">
+                                <?= $block->escapeHtml($_rate->getMethodTitle() ? $_rate->getMethodTitle() : $_rate->getMethodDescription()) ?> -
+                                <strong>
+                                    <?php $_excl = $block->getOriginalShippingPrice($_rate, $this->helper(\Magento\Tax\Helper\Data::class)->displayShippingPriceIncludingTax()); ?>
+                                    <?php $_incl = $block->getOriginalShippingPrice($_rate, true); ?>
+
+                                    <?= /* @noEscape */ $_excl ?>
+                                    <?php if ($this->helper(\Magento\Tax\Helper\Data::class)->displayShippingBothPrices() && $_incl != $_excl) : ?>
+                                        (<?= $block->escapeHtml(__('Incl. Tax')) ?> <?= /* @noEscape */ $_incl ?>)
+                                    <?php endif; ?>
+                                </strong>
+                            </label>
+                        <?php endif ?>
+                    </li>
+                <?php endforeach; ?>
+                </ul>
+            </dd>
+        <?php endforeach; ?>
+        </dl>
+    </div>
+    <div class="quote-shipping-proposed-price">
+        <div class="quote-shipment-proposed-price-title">
+            <?= $block->escapeHtml(__('Proposed Shipping Price')) ?>
+        </div>
+        <form class="quote-shipping-price-form"
+              data-role="quote-shipping-price-form"
+              data-mage-init='{"validation":{"errorClass": "admin__field-error"}}'>
+            <div class="admin__field-control">
+                <div class="admin__control-addon addon">
+                    <input id="quote-shipping-price-input" class="admin__control-text"
+                           disabled
+                           data-validate='{
+                                "validate-zero-or-greater": true
+                           }'
+                           data-role="shipping-price"
+                           type="text" name="quote[shipping_price]"
+                           value="<?= $block->escapeHtmlAttr($block->getProposedShippingPrice()) ?>" />
+                    <label class="admin__addon-prefix">
+                        <?= $block->escapeHtml($block->getCurrencySymbol()); ?>
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
+<?php else : ?>
+    <div id="quote-shipping-method-summary" class="quote-shipping-method-summary" >
+        <strong class="quote-shipping-method-not-available"><?= $block->escapeHtml(__('Sorry, rates are not available for this quote.')) ?></strong>
+    </div>
+<?php endif; ?>

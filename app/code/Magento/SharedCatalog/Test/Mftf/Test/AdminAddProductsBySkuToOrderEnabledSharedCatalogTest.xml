@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminAddProductsBySkuToOrderEnabledSharedCatalogTest">
+        <annotations>
+            <features value="SharedCatalog"/>
+            <stories value="Shared Catalog"/>
+            <title value="Configuring bundle/grouped/configurable products added by sku to an order with enabled shared catalog"/>
+            <description value="Configuring bundle/grouped/configurable products added by sku to an order with enabled shared catalog"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MAGETWO-98798"/>
+            <useCaseId value="MAGETWO-94004"/>
+            <group value="sharedCatalog"/>
+        </annotations>
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <!--Enable company and shared catalog configs-->
+            <comment userInput="Enable company and shared catalog configs" stepKey="commentEnableConfigs"/>
+            <magentoCLI command="config:set btob/website_configuration/company_active 1" stepKey="enableCompany"/>
+            <magentoCLI command="config:set btob/website_configuration/sharedcatalog_active 1" stepKey="enableSharedCatalog"/>
+            <magentoCLI command="indexer:reindex" stepKey="indexerReindex"/>
+            <magentoCLI command="cache:flush" stepKey="flushCache"/>
+            <!--Create grouped product-->
+            <comment userInput="Create grouped product" stepKey="commentCreateGroupedProduct"/>
+            <createData entity="SimpleProduct2" stepKey="createFirstSimpleGroupedProd"/>
+            <createData entity="SimpleProduct2" stepKey="createSecondSimpleGroupedProd"/>
+            <createData entity="ApiGroupedProduct" stepKey="createGroupedProduct"/>
+            <createData entity="OneSimpleProductLink" stepKey="addProductOne">
+                <requiredEntity createDataKey="createGroupedProduct"/>
+                <requiredEntity createDataKey="createFirstSimpleGroupedProd"/>
+            </createData>
+            <updateData entity="OneMoreSimpleProductLink" createDataKey="addProductOne" stepKey="addProductTwo">
+                <requiredEntity createDataKey="createGroupedProduct"/>
+                <requiredEntity createDataKey="createSecondSimpleGroupedProd"/>
+            </updateData>
+            <!--Create bundle product with two option-->
+            <comment userInput="Create bundle product with two option" stepKey="commentCreateBundleProduct"/>
+            <createData entity="SimpleProduct2" stepKey="createFirstSimpleProduct"/>
+            <createData entity="SimpleProduct2" stepKey="createSecondSimpleProduct"/>
+            <createData entity="ApiBundleProduct" stepKey="createBundleProduct"/>
+            <createData entity="CheckboxOption" stepKey="checkboxBundleOption">
+                <requiredEntity createDataKey="createBundleProduct"/>
+            </createData>
+            <createData entity="ApiBundleLink" stepKey="createBundleLinkOne">
+                <requiredEntity createDataKey="createBundleProduct"/>
+                <requiredEntity createDataKey="checkboxBundleOption"/>
+                <requiredEntity createDataKey="createFirstSimpleProduct"/>
+                <field key="is_default">1</field>
+            </createData>
+            <createData entity="ApiBundleLink" stepKey="createBundleLinkTwo">
+                <requiredEntity createDataKey="createBundleProduct"/>
+                <requiredEntity createDataKey="checkboxBundleOption"/>
+                <requiredEntity createDataKey="createSecondSimpleProduct"/>
+                <field key="is_default">1</field>
+            </createData>
+            <!--Create configurable product with two child-->
+            <comment userInput="Create configurable product with two child" stepKey="commentCreateConfigProduct"/>
+            <createData entity="ApiCategory" stepKey="createCategory"/>
+            <createData entity="ApiConfigurableProduct" stepKey="createConfigProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="productAttributeWithTwoOptions" stepKey="createConfigProductAttribute"/>
+            <createData entity="productAttributeOption1" stepKey="createConfigProductAttributeOption1">
+                <requiredEntity createDataKey="createConfigProductAttribute"/>
+            </createData>
+            <createData entity="productAttributeOption2" stepKey="createConfigProductAttributeOption2">
+                <requiredEntity createDataKey="createConfigProductAttribute"/>
+            </createData>
+            <createData entity="AddToDefaultSet" stepKey="createConfigAddToAttributeSet">
+                <requiredEntity createDataKey="createConfigProductAttribute"/>
+            </createData>
+            <getData entity="ProductAttributeOptionGetter" index="1" stepKey="getConfigAttributeOption1">
+                <requiredEntity createDataKey="createConfigProductAttribute"/>
+            </getData>
+            <getData entity="ProductAttributeOptionGetter" index="2" stepKey="getConfigAttributeOption2">
+                <requiredEntity createDataKey="createConfigProductAttribute"/>
+            </getData>
+            <createData entity="ApiSimpleProductWithShortSKU" stepKey="createConfigFirstChildProduct">
+                <requiredEntity createDataKey="createConfigProductAttribute"/>
+                <requiredEntity createDataKey="getConfigAttributeOption1"/>
+            </createData>
+            <createData entity="ApiSimpleProductWithShortSKU" stepKey="createConfigSecondChildProduct">
+                <requiredEntity createDataKey="createConfigProductAttribute"/>
+                <requiredEntity createDataKey="getConfigAttributeOption2"/>
+            </createData>
+            <createData entity="ConfigurableProductTwoOptions" stepKey="createConfigProductOption">
+                <requiredEntity createDataKey="createConfigProduct"/>
+                <requiredEntity createDataKey="createConfigProductAttribute"/>
+                <requiredEntity createDataKey="getConfigAttributeOption1"/>
+                <requiredEntity createDataKey="getConfigAttributeOption2"/>
+            </createData>
+            <createData entity="ConfigurableProductAddChild" stepKey="createConfigProductAddFirstChild">
+                <requiredEntity createDataKey="createConfigProduct"/>
+                <requiredEntity createDataKey="createConfigFirstChildProduct"/>
+            </createData>
+            <createData entity="ConfigurableProductAddChild" stepKey="createConfigProductSecondAddChild">
+                <requiredEntity createDataKey="createConfigProduct"/>
+                <requiredEntity createDataKey="createConfigSecondChildProduct"/>
+            </createData>
+            <!--Create new shared catalog-->
+            <comment userInput="Create new shared catalog" stepKey="commentCreateSharedCatalog"/>
+            <createData entity="NewSharedCatalog" stepKey="createSharedCatalog"/>
+        </before>
+        <after>
+            <!--Disable company and shared catalog configs-->
+            <comment userInput="Disable company and shared catalog configs" stepKey="commentDisableConfigs"/>
+            <magentoCLI command="config:set btob/website_configuration/company_active 0" stepKey="disableCompany"/>
+            <magentoCLI command="config:set btob/website_configuration/sharedcatalog_active 0" stepKey="disableSharedCatalog"/>
+            <magentoCLI command="indexer:reindex" stepKey="indexerReindex"/>
+            <magentoCLI command="cache:flush" stepKey="flushCache"/>
+            <!--Delete created data-->
+            <comment userInput="Delete created data" stepKey="commentDeleteData"/>
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createConfigProduct" stepKey="deleteConfigProduct"/>
+            <deleteData createDataKey="createConfigProductAttribute" stepKey="deleteConfigProductAttr"/>
+            <deleteData createDataKey="createConfigFirstChildProduct" stepKey="deleteFirstChildProduct"/>
+            <deleteData createDataKey="createConfigSecondChildProduct" stepKey="deleteSecondChildProduct"/>
+            <deleteData createDataKey="createFirstSimpleProduct" stepKey="deleteFirstSimpleProduct"/>
+            <deleteData createDataKey="createSecondSimpleProduct" stepKey="deleteSecondSimpleProduct"/>
+            <deleteData createDataKey="createBundleProduct" stepKey="deleteBundleProduct"/>
+            <deleteData createDataKey="createFirstSimpleGroupedProd" stepKey="deleteFirstSimpleGroupedProd"/>
+            <deleteData createDataKey="createSecondSimpleGroupedProd" stepKey="deleteSecondSimpleGroupedProd"/>
+            <deleteData createDataKey="createGroupedProduct" stepKey="deleteGroupedProduct"/>
+            <deleteData createDataKey="createSharedCatalog" stepKey="deleteSharedCatalog"/>
+            <actionGroup ref="logout" stepKey="logOut"/>
+        </after>
+        <!--Assign shared catalog to products-->
+        <comment userInput="Assign shared catalog to products" stepKey="commentAssignSharedCatalog"/>
+        <amOnPage url="{{AdminProductEditPage.url($$createConfigProduct.id$$)}}" stepKey="goToConfigProductPage"/>
+        <waitForPageLoad stepKey="waitForConfigProductPageLoad"/>
+        <actionGroup ref="AdminAssignSharedCatalogToProductActionGroup" stepKey="assignSharedCatalogToConfigProduct">
+            <argument name="catalog" value="NewSharedCatalog.name"/>
+        </actionGroup>
+        <actionGroup ref="saveProductForm" stepKey="saveConfigProduct"/>
+        <amOnPage url="{{AdminProductEditPage.url($$createGroupedProduct.id$$)}}" stepKey="goToGroupedProductPage"/>
+        <waitForPageLoad stepKey="waitForGroupedProductPageLoad"/>
+        <actionGroup ref="AdminAssignSharedCatalogToProductActionGroup" stepKey="assignSharedCatalogToGroupedProduct">
+            <argument name="catalog" value="NewSharedCatalog.name"/>
+        </actionGroup>
+        <actionGroup ref="saveProductForm" stepKey="saveGroupedProduct"/>
+        <amOnPage url="{{AdminProductEditPage.url($$createBundleProduct.id$$)}}" stepKey="goToBundleProductPage"/>
+        <waitForPageLoad stepKey="waitForBundleProductPageLoad"/>
+        <actionGroup ref="AdminAssignSharedCatalogToProductActionGroup" stepKey="assignSharedCatalogToBundleProduct">
+            <argument name="catalog" value="NewSharedCatalog.name"/>
+        </actionGroup>
+        <actionGroup ref="saveProductForm" stepKey="saveBundleProduct"/>
+        <!--Create new order-->
+        <comment userInput="Create new order" stepKey="commentCreateOrder"/>
+        <actionGroup ref="navigateToNewOrderPageNewCustomerSingleStore" stepKey="gotoNewOrderCreationPage"/>
+        <!--Add configurable product to order-->
+        <comment userInput="Add configurable product to order" stepKey="commentAddConfProductToOrder"/>
+        <selectOption selector="{{AdminOrderFormAccountSection.group}}" userInput="{{NewSharedCatalog.name}}" stepKey="selectGroup"/>
+        <waitForPageLoad stepKey="waitForSharedCatalogLoad"/>
+        <actionGroup ref="AdminAddProductToOrderBySKU" stepKey="addConfigProductToOrderBySKU">
+            <argument name="productSKU" value="$$createConfigProduct.sku$$"/>
+            <argument name="productQty" value="1"/>
+            <argument name="productNumber" value="0"/>
+        </actionGroup>
+        <see userInput="1 product(s) require attention." stepKey="seeMessage"/>
+        <see userInput="You need to choose options for your item." stepKey="seeSecondMessage"/>
+        <!--Add configurable product option to order-->
+        <comment userInput="Add configurable product option to order" stepKey="commentAddOptionToOrder"/>
+        <actionGroup ref="AdminOrderConfigureConfigurableProduct" stepKey="addProductOption">
+            <argument name="optionName" value="$$getConfigAttributeOption1.label$$"/>
+            <argument name="productQty" value="1"/>
+        </actionGroup>
+        <dontSee userInput="1 product(s) require attention." stepKey="dontSeeMessage"/>
+        <dontSee userInput="You need to choose options for your item." stepKey="dontSeeSecondMessage"/>
+        <click selector="{{AdminOrderFormItemsOrderedSection.addProductToOrder}}" stepKey="clickAddProductsToOrder"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoadingMaskToDisappear"/>
+        <grabTextFrom selector="{{AdminOrderFormItemsOrderedSection.itemsSKU('1')}}" stepKey="grabAddedOptionsSKU"/>
+        <assertContains expected="$$createConfigFirstChildProduct.sku$$" actual="$grabAddedOptionsSKU" stepKey="assertConfigurableProductOptionsSKU"/>
+        <!--Add bundle product to order-->
+        <comment userInput="Add bundle product to order" stepKey="addBundleProductToOrder"/>
+        <scrollToTopOfPage stepKey="scrollToTop"/>
+        <actionGroup ref="AdminAddProductToOrderBySKU" stepKey="addBundleProductToOrderBySKU">
+            <argument name="productSKU" value="$$createBundleProduct.sku$$"/>
+            <argument name="productQty" value="1"/>
+            <argument name="productNumber" value="0"/>
+        </actionGroup>
+        <see userInput="1 product(s) require attention." stepKey="seeMessage1"/>
+        <see userInput="You need to choose options for your item." stepKey="seeSecondMessage1"/>
+        <actionGroup ref="AdminOrderConfigureBundleProduct" stepKey="configureFirstBundleProduct">
+            <argument name="productName" value="$$createFirstSimpleProduct.name$$"/>
+            <argument name="productQty" value="1"/>
+            <argument name="productNumber" value="1"/>
+        </actionGroup>
+        <actionGroup ref="AdminOrderConfigureBundleProduct" stepKey="configureSecondBundleProduct">
+            <argument name="productName" value="$$createSecondSimpleProduct.name$$"/>
+            <argument name="productQty" value="1"/>
+            <argument name="productNumber" value="2"/>
+        </actionGroup>
+        <dontSee userInput="1 product(s) require attention." stepKey="dontSeeMessage1"/>
+        <dontSee userInput="You need to choose options for your item." stepKey="dontSeeSecondMessage1"/>
+        <click selector="{{AdminOrderFormItemsOrderedSection.addProductToOrder}}" stepKey="clickAddProductsToOrder1"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoadingMaskToDisappear1"/>
+        <grabTextFrom selector="{{AdminOrderFormItemsOrderedSection.itemsSKU('2')}}" stepKey="grabAddedBundleProductsSKU"/>
+        <assertContains expected="$$createFirstSimpleProduct.sku$$" actual="$grabAddedBundleProductsSKU" stepKey="assertFirstBundleProductOptionsSKU"/>
+        <assertContains expected="$$createSecondSimpleProduct.sku$$" actual="$grabAddedBundleProductsSKU" stepKey="assertSecondBundleProductOptionsSKU"/>
+        <!--Add grouped product to order-->
+        <comment userInput="Add grouped product to order" stepKey="addGroupedProductToOrder"/>
+        <scrollToTopOfPage stepKey="scrollToTop1"/>
+        <actionGroup ref="AdminAddProductToOrderBySKU" stepKey="addGroupedProductToOrderBySKU">
+            <argument name="productSKU" value="$$createGroupedProduct.sku$$"/>
+            <argument name="productQty" value="1"/>
+            <argument name="productNumber" value="0"/>
+        </actionGroup>
+        <see userInput="1 product(s) require attention." stepKey="seeMessage2"/>
+        <see userInput="You need to choose options for your item." stepKey="seeSecondMessage2"/>
+        <actionGroup ref="AdminOrderConfigureGroupedProduct" stepKey="configureFirstGroupedProduct">
+            <argument name="productSku" value="$$createFirstSimpleGroupedProd.sku$$"/>
+            <argument name="productQty" value="1"/>
+        </actionGroup>
+        <actionGroup ref="AdminOrderConfigureGroupedProduct" stepKey="configureSecondGroupedProduct">
+            <argument name="productSku" value="$$createSecondSimpleGroupedProd.sku$$"/>
+            <argument name="productQty" value="1"/>
+        </actionGroup>
+        <dontSee userInput="1 product(s) require attention." stepKey="dontSeeMessage2"/>
+        <dontSee userInput="You need to choose options for your item." stepKey="dontSeeSecondMessage2"/>
+        <click selector="{{AdminOrderFormItemsOrderedSection.addProductToOrder}}" stepKey="clickAddProductsToOrder2"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoadingMaskToDisappear2"/>
+        <grabTextFrom selector="{{AdminOrderFormItemsOrderedSection.itemsSKU('3')}}" stepKey="grabFirstGroupedProductsSKU"/>
+        <assertContains expected="$$createFirstSimpleGroupedProd.sku$$" actual="$grabFirstGroupedProductsSKU" stepKey="assertFirstGroupedProductOptionsSKU"/>
+        <grabTextFrom selector="{{AdminOrderFormItemsOrderedSection.itemsSKU('4')}}" stepKey="grabSecondGroupedProductsSKU"/>
+        <assertContains expected="$$createSecondSimpleGroupedProd.sku$$" actual="$grabSecondGroupedProductsSKU" stepKey="assertSecondGroupedProductOptionsSKU"/>
+    </test>
+</tests>

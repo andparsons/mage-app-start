@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataOperation.xsd">
+    <operation name="AdminAccountCustomersCompanyRegistrationConfig" dataType="admin_account_customers_company_config" type="create" auth="adminFormKey" url="/admin/system_config/save/section/company/" method="POST">
+        <object key="groups" dataType="admin_account_customers_company_config">
+            <object key="general" dataType="admin_account_customers_company_config">
+                 <object key="fields" dataType="admin_account_customers_company_config">
+                    <object key="allow_company_registration" dataType="admin_account_customers_company_config_value">
+                        <field key="value">string</field>
+                    </object>
+                 </object>
+            </object>
+        </object>
+    </operation>
+
+    <operation name="DefaultCustomersCompanyRegistrationConfig" dataType="default_customers_company_config" type="create" auth="adminFormKey" url="/admin/system_config/save/section/company/" method="POST">
+        <object key="groups" dataType="default_customers_company_config">
+            <object key="general" dataType="default_customers_company_config">
+                <object key="fields" dataType="default_customers_company_config">
+                    <object key="allow_company_registration" dataType="default_customers_company_config">
+                        <object key="inherit" dataType="checkoutTotalFlagZero">
+                            <field key="value">integer</field>
+                        </object>
+                    </object>
+                </object>
+            </object>
+        </object>
+    </operation>
+</operations>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminVerifyCustomerGroupOfACustomerChangesWhenACompanyIsAssignedToTheCustomerTest">
+        <annotations>
+            <group value="Company"/>
+            <stories value="Customer groups"/>
+            <title value="Verify customer group of a customer changes when a company is assigned to the customer"/>
+            <description value="Verify Customer group of a customer changes when a Company is assigned to the customer"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MC-14362"/>
+            <group value="mtf_migrated"/>
+        </annotations>
+
+        <before>
+            <!--Enable Shared Catalog feature-->
+            <magentoCLI command="config:set {{EnableCompanyConfigData.path}} {{EnableCompanyConfigData.value}}" stepKey="enableCompany"/>
+            <magentoCLI command="config:set {{EnableSharedCatalogConfigData.path}} {{EnableSharedCatalogConfigData.value}}" stepKey="enableSharedCatalog"/>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginToAdminPanel"/>
+
+            <!-- Create Customers -->
+            <createData entity="Simple_US_Customer" stepKey="createCustomer"/>
+            <createData entity="Simple_US_Customer" stepKey="createCustomer1"/>
+            <createData entity="Simple_US_Customer" stepKey="createCustomer2"/>
+
+            <!-- Create a Company -->
+            <createData entity="Default_Company" stepKey="createCompany">
+                <requiredEntity createDataKey="createCustomer"/>
+            </createData>
+
+            <!--Create new Shared Catalog-->
+            <createData entity="NewSharedCatalog" stepKey="sharedCatalog"/>
+
+            <!-- Assign Company to the new shared catalog -->
+            <createData entity="AssignCompanyToSharedCatalog" stepKey="assignCompany">
+                <requiredEntity createDataKey="sharedCatalog"/>
+                <requiredEntity createDataKey="createCompany"/>
+            </createData>
+        </before>
+        <after>
+            <deleteData createDataKey="createCompany" stepKey="createCompany"/>
+            <deleteData createDataKey="createCustomer" stepKey="deleteCustomer"/>
+            <deleteData createDataKey="createCustomer1" stepKey="deleteCustomer1"/>
+            <deleteData createDataKey="createCustomer2" stepKey="deleteCustomer2"/>
+            <deleteData createDataKey="sharedCatalog" stepKey="deleteSharedCatalog"/>
+
+            <!--Disable Shared Catalog feature-->
+            <magentoCLI command="config:set {{DisableCompanyConfigData.path}} {{DisableCompanyConfigData.value}}" stepKey="disableCompany"/>
+            <magentoCLI command="config:set {{DisableSharedCatalogConfigData.path}} {{DisableSharedCatalogConfigData.value}}" stepKey="disableSharedCatalog"/>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!-- Open CustomerIndex Page and Filter First Customer -->
+        <actionGroup ref="AdminFilterCustomerByEmail" stepKey="filterFirstCustomer">
+            <argument name="email" value="$$createCustomer1.email$$"/>
+        </actionGroup>
+        <click selector="{{AdminCustomerGridSection.firstRowEditLink}}" stepKey="clickEditLink"/>
+        <waitForPageLoad stepKey="waitForPageToLoad"/>
+
+        <!-- Assign created Company to the First Customer -->
+        <actionGroup ref="AdminAddACompanyToCustomerActionGroup" stepKey="assignCompanyToTheFirstCustomer">
+            <argument name="companyName" value="$$createCompany.company_name$$"/>
+        </actionGroup>
+
+        <!-- Filter Second Customer in grid -->
+        <actionGroup ref="AdminFilterCustomerGridByEmail" stepKey="filterSecondCustomer">
+            <argument name="email" value="$$createCustomer1.email$$"/>
+        </actionGroup>
+
+        <!-- Verify updated Customer Type, Group and Company after first customer assigned to a company -->
+        <see selector="{{AdminCustomerGridSection.gridRow('1')}}" userInput="$$createCustomer1.email$$"  stepKey="seeFirstCustomerEmailInGrid"/>
+        <see selector="{{AdminCustomerGridSection.gridRow('1')}}" userInput="Company user"  stepKey="seeFirstCustomerTypeInGrid"/>
+        <see selector="{{AdminCustomerGridSection.gridRow('1')}}" userInput="{{NewSharedCatalog.name}}"  stepKey="seeFirstCustomerGroupInGrid"/>
+        <see selector="{{AdminCustomerGridSection.gridRow('1')}}" userInput="$$createCompany.company_name$$"  stepKey="seeFirstCustomerCompanyInGrid"/>
+
+        <!-- Verify Customer Group is disabled after first customer assigned to a company -->
+        <click selector="{{AdminCustomerGridSection.firstRowEditLink}}" stepKey="clickGridFirstRowEditLink"/>
+        <waitForPageLoad stepKey="waitForGridRowToPLoad"/>
+        <click selector="{{AdminCustomerAccountInformationSection.accountInformationTab}}" stepKey="clickOnAccountInformation"/>
+        <waitForPageLoad stepKey="waitForAccountInformationToBeLoaded"/>
+        <seeElement selector="{{AdminCustomerAccountInformationSection.disabledGroup}}" stepKey="seeDisabledGroup"/>
+
+        <!-- Open Customer Index Page and Filter the Second Customer -->
+        <actionGroup ref="AdminFilterCustomerByEmail" stepKey="selectSecondCustomer">
+            <argument name="email" value="$$createCustomer2.email$$"/>
+        </actionGroup>
+        <click selector="{{AdminCustomerGridSection.firstRowEditLink}}" stepKey="clickSecondCustomerEditLink"/>
+        <waitForPageLoad stepKey="waitForCustomer2PageToLoad"/>
+
+        <!-- Assign a Company to the Second Customer -->
+        <actionGroup ref="AdminAddACompanyToCustomerActionGroup" stepKey="assignCompanyToSecondCustomer">
+            <argument name="companyName" value="$$createCompany.company_name$$"/>
+        </actionGroup>
+
+        <!-- Filter Second Customer in grid -->
+        <actionGroup ref="AdminFilterCustomerGridByEmail" stepKey="selectSecondCustomerFromGrid">
+            <argument name="email" value="$$createCustomer2.email$$"/>
+        </actionGroup>
+
+        <!-- Verify updated Customer Type, Group and Company after Second customer assigned to a company -->
+        <see selector="{{AdminCustomerGridSection.gridRow('1')}}" userInput="$$createCustomer2.email$$"  stepKey="seeSecondCustomerEmailInGrid"/>
+        <see selector="{{AdminCustomerGridSection.gridRow('1')}}" userInput="Company user"  stepKey="seeSecondCustomerTypeInGrid"/>
+        <see selector="{{AdminCustomerGridSection.gridRow('1')}}" userInput="{{NewSharedCatalog.name}}"  stepKey="seeSecondCustomerGroupInGrid"/>
+        <see selector="{{AdminCustomerGridSection.gridRow('1')}}" userInput="$$createCompany.company_name$$"  stepKey="seeSecondCustomerCompanyInGrid"/>
+
+        <!-- Verify Customer Group is disabled after second customer assigned to a company -->
+        <click selector="{{AdminCustomerGridSection.firstRowEditLink}}" stepKey="clickEditButton"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <click selector="{{AdminCustomerAccountInformationSection.accountInformationTab}}" stepKey="proceedToAccountInformation"/>
+        <waitForPageLoad stepKey="waitForAccountInformationToLoad1"/>
+        <seeElement selector="{{AdminCustomerAccountInformationSection.disabledGroup}}" stepKey="seeSecondCustomerDisabledGroup"/>
+
+        <!-- Assert Company and Company Customer Group -->
+        <amOnPage url="{{AdminCompanyEditPage.url($$createCompany.id$$)}}" stepKey="openCompanyEditPage"/>
+        <waitForPageLoad stepKey="waitForCompanyEditPageToOpen"/>
+        <seeInField selector="{{AdminNewCompanySection.companyName}}" userInput="$$createCompany.company_name$$" stepKey="fillName"/>
+        <seeInField selector="{{AdminNewCompanySection.companyEmail}}" userInput="$$createCustomer.email$$" stepKey="fillEmail"/>
+        <scrollTo selector="{{AdminCompanyEditSection.advancedSettings}}" stepKey="scrollToAdvancedSetting"/>
+        <click selector="{{AdminCompanyEditSection.advancedSettings}}" stepKey="clickOnAdvancedSetting"/>
+        <waitForPageLoad stepKey="waitForAdvancedSettingDetailsToLoad"/>
+        <see selector="{{AdminCompanyEditSection.customerGroups}}" userInput="{{NewSharedCatalog.name}}" stepKey="assertCompanyCustomerGroup"/>
+    </test>
+</tests>

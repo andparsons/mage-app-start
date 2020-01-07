@@ -1,0 +1,7 @@
+<?php
+
+?>
+
+<select id="<?= $block->escapeHtmlAttr($block->getSelectRegionId()) ?>" name="<?= $block->escapeHtmlAttr($block->getSelectRegionName()) ?>" title="<?= $block->escapeHtmlAttr(__('State/Province')) ?>" class="<?= $block->escapeHtmlAttr($block->getSelectRegionClass()) ?>" <?= /* @noEscape */ $block->getSelectRegionParams() ?>>
+    <option value=""><?= $block->escapeHtml($block->getSelectRegionDefault()) ?></option>
+</select>

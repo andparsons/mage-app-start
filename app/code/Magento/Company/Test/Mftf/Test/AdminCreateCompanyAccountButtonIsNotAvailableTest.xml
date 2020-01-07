@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminCreateCompanyAccountButtonIsNotAvailableTest">
+        <annotations>
+            <features value="Company"/>
+            <stories value="Create company"/>
+            <title value="Check that 'Create a Company Account' button isn't available if Website Restrictions are enabled"/>
+            <description value="Check that 'Create a Company Account' and 'Create an Account' buttons aren't available"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="MAGETWO-96733"/>
+            <useCaseId value="MAGETWO-96419"/>
+            <group value="b2b"/>
+        </annotations>
+
+        <before>
+            <!--Enable All B2B Features-->
+            <createData entity="B2BEnabledSharedCatalogConfig" stepKey="setYesValueForB2bFeaturesCompany"/>
+            <createData entity="B2BEnabledNegotiableQuoteConfig" stepKey="setYesValueForB2bFeaturesQuote"/>
+            <createData entity="B2BEnabledQuickOrderConfig" stepKey="setYesValueForB2bFeaturesQuickOrder"/>
+            <createData entity="B2BEnabledRequisitionListActiveConfig" stepKey="setYesValueForB2bFeaturesRequisitionList"/>
+
+            <!--Enable Customer Company Registration from Storefront-->
+            <createData entity="EnableAdminAccountAllowCompanyRegFromStorefront" stepKey="setYesAllowCompanyRegFromStorefrontCountries"/>
+
+            <!--Enable Web Restriction Access-->
+            <createData entity="EnableAdminAccountWebAccessRestriction" stepKey="setYesValueForWebRestrictionAccess"/>
+            <createData entity="EnableAdminAccountWebAccessRestrictionMode" stepKey="setLoginOnlyValueForWebRestrictionMode"/>
+        </before>
+        <after>
+            <!--Reset changes in the B2B features configs-->
+            <createData entity="B2BDefaultConfig" stepKey="B2BDefaultConfig"/>
+
+            <!--Reset changes in the Company Info section-->
+            <createData entity="DisableAdminAccountAllowCompanyReg" stepKey="setDefaultValueForAllowCompanyReg"/>
+
+            <!--Reset changes in the Web Restrictions section-->
+            <createData entity="DisableAdminAccountWebAccessRestriction" stepKey="setNoValueForWebRestrictionAccess"/>
+            <createData entity="DisableAdminAccountWebAccessRestrictionMode" stepKey="setWebsiteClosedValueForWebRestrictionMode"/>
+        </after>
+
+        <!--Navigate to the Storefront and verify that Create a Company Account and/or Create an Account buttons are missing-->
+        <amOnPage stepKey="amOnSignInPage"  url="{{StorefrontCustomerSignInPage.url}}"/>
+        <waitForPageLoad stepKey="WaitForPageLoad"/>
+        <dontSeeElement selector="{{StorefrontSignInFormSection.createAccount}}" stepKey="dontCreateAccount" />
+        <dontSeeElement selector="{{StorefrontSignInFormSection.createCompanyAccount}}" stepKey="dontSeeCreateCompanyAccount"/>
+        <conditionalClick stepKey="clickCreateAnAccountLinkIfVisible" selector="{{StorefrontPanelHeaderSection.createAnAccountLink}}" dependentSelector="{{StorefrontPanelHeaderSection.createAnAccountLink}}" visible="true" />
+        <dontSeeElement selector="{{StorefrontPanelHeaderSection.createAnAccountLink}}" stepKey="dontSeeCreateAnAccountButton" />
+        <dontSeeElement selector="{{StorefrontHeaderSection.createNewCustomer}}" stepKey="dontSeeCreateNewCustomer" />
+        <dontSeeElement selector="{{StorefrontHeaderSection.createNewCompanyAccount}}" stepKey="dontSeeCreateNewCompanyAccount" />
+    </test>
+</tests>

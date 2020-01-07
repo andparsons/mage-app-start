@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="StorefrontRequisitionListViewSection">
+        <element name="itemCheckbox" type="checkbox" selector="//td[contains(., '{{productName}}')]/parent::tr/td/input[@type='checkbox']" parameterized="true"/>
+        <element name="addToCartButton" type="button" selector=".requisition-view-buttons button.action.primary" timeout="30"/>
+        <element name="productSKU" type="text" selector="//div[@class='product-item-sku']/span[contains(text(), '{{arg}}')]" parameterized="true"/>
+        <element name="productQTY" type="input" selector="(//td[@class='col qty']/input)[{{arg}}]" parameterized="true"/>
+        <element name="updateList" type="button" selector='button[title="Update List"]'/>
+        <element name="productName" type="text" selector="(//a[contains(text(), '{{arg1}}')])[{{arg2}}]" parameterized="true" timeout="30"/>
+    </section>
+</sections>

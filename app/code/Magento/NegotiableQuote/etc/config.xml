@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <btob>
+            <website_configuration>
+                <negotiablequote_active>0</negotiablequote_active>
+            </website_configuration>
+        </btob>
+        <quote>
+            <general>
+                <minimum_amount>0</minimum_amount>
+                <minimum_amount_message><![CDATA[]]></minimum_amount_message>
+                <default_expiration_period>30</default_expiration_period>
+                <default_expiration_period_time>day</default_expiration_period_time>
+            </general>
+            <attached_files>
+                <file_formats>doc,docx,xls,xlsx,pdf,txt,jpg,png,jpeg</file_formats>
+                <maximum_file_size>2</maximum_file_size>
+            </attached_files>
+        </quote>
+        <sales_email>
+            <quote>
+                <enabled>1</enabled>
+                <updated_buyer_template>sales_email_quote_updated_buyer_template</updated_buyer_template>
+                <declined_buyer_template>sales_email_quote_declined_buyer_template</declined_buyer_template>
+                <new_seller_template>sales_email_quote_new_seller_template</new_seller_template>
+                <updated_seller_template>sales_email_quote_updated_seller_template</updated_seller_template>
+                <expire_one_day_template>sales_email_quote_expire_one_day_template</expire_one_day_template>
+                <expire_two_days_template>sales_email_quote_expire_two_days_template</expire_two_days_template>
+                <expire_reset_template>sales_email_quote_expire_reset_template</expire_reset_template>
+                <copy_method>bcc</copy_method>
+            </quote>
+        </sales_email>
+    </default>
+</config>

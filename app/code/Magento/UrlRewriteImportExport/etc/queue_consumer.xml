@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/consumer.xsd">
+    <consumer name="urlRewriteImport" queue="url_rewrite_import" connection="db" maxMessages="5000" consumerInstance="Magento\Framework\MessageQueue\BatchConsumer" handler="Magento\UrlRewriteImportExport\Model\Consumer::processOperations" />
+</config>

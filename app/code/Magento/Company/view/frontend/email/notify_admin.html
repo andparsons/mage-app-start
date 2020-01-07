@@ -1,0 +1,21 @@
+<!--
+-->
+<!--@subject New company registration request @-->
+<!--@vars {
+"var admin":"Admin Name",
+"var customer":"Company Name",
+"var company":"Company Name",
+"var company_url":"Company page admin url"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting company-greeting"><strong>{{trans "Dear %name," name=$admin}}</strong></p>
+<p>
+    {{trans "A company registration request has been submitted by customer %customer. The account is temporarily locked until you approve or reject this company." customer=$customer}}
+</p>
+<p>
+    <a href="{{var company_url}}">{{trans "Company: %company" company=$company}}</a>
+</p>
+
+{{template config_path="design/email/footer_template"}}

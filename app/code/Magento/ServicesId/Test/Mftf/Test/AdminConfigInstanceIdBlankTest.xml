@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminConfigInstanceIdBlankTest">
+        <annotations>
+            <features value="ServicesId"/>
+            <stories value="Cannot set blank Instance ID when Production environment is set"/>
+            <title value="Cannot set blank Instance ID when Production environment is set"/>
+            <description value="An admin cannot set a blank Instance ID when Production environment type value is set."/>
+            <severity value="MAJOR"/>
+            <group value="servicesid"/>
+        </annotations>
+
+        <actionGroup ref="LoginActionGroup" stepKey="loginAsAdmin"/>
+        <amOnPage url="{{AdminConfigServicesIdPage.url}}" stepKey="amOnAdminConfig"/>
+        <seeElement selector="{{AdminConfigServicesIdSection.dsEnvironment}}" stepKey="seeEnvironmentSetting"/>
+        <selectOption selector="{{AdminConfigServicesIdSection.dsEnvironment}}" userInput="Testing" stepKey="fillFieldServicesIdEnvironment"/>
+        <seeElement selector="{{AdminConfigServicesIdSection.dsInstanceId}}" stepKey="seeInstanceIdSetting"/>
+        <fillField selector="{{AdminConfigServicesIdSection.dsInstanceId}}" userInput="" stepKey="fillInstanceIdBlank"/>
+        <click selector="{{AdminMainActionsSection.save}}" stepKey="clickSaveConfigButton"/>
+        <seeInField selector="{{AdminConfigServicesIdSection.dsEnvironment}}" userInput="Testing" stepKey="seeTestingInEnvironmentSetting"/>
+        <see selector="{{AdminConfigServicesIdSection.dsInstanceIdError}}" userInput="This is a required field." stepKey="seeRequiredFieldError"/>
+        <actionGroup ref="logout" stepKey="logout"/>
+    </test>
+</tests>

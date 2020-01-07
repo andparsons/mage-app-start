@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <attribute name="class" value="page-print negotiable-quote-print"/>
+        <referenceContainer name="page.menu" remove="true"/>
+        <referenceContainer name="header" remove="true"/>
+        <referenceContainer name="footer" remove="true"/>
+        <referenceBlock name="page.main.actions" remove="true"/>
+        <referenceBlock name="user" remove="true"/>
+        <referenceBlock name="global.search" remove="true"/>
+        <referenceBlock name="notification.messages" remove="true"/>
+        <referenceBlock name="notices.wrapper" remove="true"/>
+        <move element="logo" destination="page.content" before="-" />
+        <move element="page.title" destination="page.content" after="store.name"/>
+        <move element="legal.copyright" destination="page.wrapper" after="-" />
+        <referenceBlock name="logo">
+            <arguments>
+                <argument name="logo_image_src" xsi:type="string">images/magento-logo.svg</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceContainer name="page.content">
+            <block class="Magento\NegotiableQuote\Block\Adminhtml\Quote\PrintQuote\StoreInformation" name="store.name" template="Magento_NegotiableQuote::quote/print/store_name.phtml" before="-"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Info" name="negotiable.quote.info" template="Magento_NegotiableQuote::quote/print/info.phtml">
+                <block class="Magento\Framework\View\Element\Template"
+                       name="negotiable.quote.info.extra.container" as="extra.container">
+                    <block class="Magento\NegotiableQuote\Block\Adminhtml\Quote\View\CustomerGroup"
+                       name="customer.group.extra.data"
+                       after="negotiable.quote.info.extra.container"
+                       template="Magento_NegotiableQuote::quote/print/group.phtml"/>
+                </block>
+            </block>
+            <block class="Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Items" template="Magento_NegotiableQuote::quote/view/items.phtml" name="negotiable.quote.items">
+                <block class="Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Items\Grid" template="Magento_NegotiableQuote::quote/view/items/grid.phtml" name="negotiable.quote.items.grid"/>
+            </block>
+            <block class="Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Totals" name="negotiable.quote.totals" template="Magento_NegotiableQuote::quote/print/totals.phtml">
+                <block class="Magento\NegotiableQuote\Block\Adminhtml\Quote\PrintQuote\Subtotals" name="negotiable.quote.subtotals" template="Magento_NegotiableQuote::quote/print/totals/subtotals.phtml" >
+                    <block class="Magento\NegotiableQuote\Block\Quote\Totals\Original" name="negotiable.quote.totals.subtotals" template="Magento_NegotiableQuote::quote/print/totals/original.phtml" />
+                </block>
+                <block class="Magento\NegotiableQuote\Block\Adminhtml\Quote\PrintQuote\Negotiation" name="negotiable.quote.totals.negotiation" template="Magento_NegotiableQuote::quote/print/totals/negotiation.phtml" />
+                <block class="Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Totals\Shipping" name="negotiable.quote.totals.shipping" template="Magento_NegotiableQuote::quote/print/totals/shipping.phtml" />
+            </block>
+            <block class="Magento\NegotiableQuote\Block\Quote\Info" name="negotiable.quote.shipping" template="Magento_NegotiableQuote::quote/view/shipping.phtml">
+                <block class="Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Shipping\Method" template="Magento_NegotiableQuote::quote/view/shipping/method.phtml" name="negotiable.quote.shipping.form"/>
+            </block>
+            <block class="Magento\NegotiableQuote\Block\Quote\Comments" name="negotiable.quote.comments" as="quote_comments" template="Magento_NegotiableQuote::quote/print/comments.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

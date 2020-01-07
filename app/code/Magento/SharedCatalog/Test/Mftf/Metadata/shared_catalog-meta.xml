@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<operations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataOperation.xsd">
+    <operation name="CreateSharedCatalog" dataType="sharedCatalog" type="create" auth="adminOauth" url="/V1/sharedCatalog" method="POST">
+        <contentType>application/json</contentType>
+        <object dataType="sharedCatalog" key="sharedCatalog">
+            <field key="id">integer</field>
+            <field key="name">string</field>
+            <field key="type">integer</field>
+            <field key="store_id">integer</field>
+            <field key="tax_class_id">integer</field>
+        </object>
+    </operation>
+    <operation name="AssignCategoryToSharedCatalog" dataType="sharedCatalogCategory" type="create" auth="adminOauth" url="/V1/sharedCatalog/{return}/assignCategories" method="POST">
+        <contentType>application/json</contentType>
+        <array key="categories">
+            <value>category_to_assign</value>
+        </array>
+    </operation>
+    <operation name="AssignProductToSharedCatalog" dataType="sharedCatalogProduct" type="create" auth="adminOauth" url="/V1/sharedCatalog/{return}/assignProducts" method="POST">
+        <contentType>application/json</contentType>
+        <array key="products">
+            <value>product_to_assign</value>
+        </array>
+    </operation>
+    <operation name="AssignCategoryToDefaultSharedCatalog" dataType="defaultSharedCatalogCategory" type="create" auth="adminOauth" url="/V1/sharedCatalog/1/assignCategories" method="POST">
+        <contentType>application/json</contentType>
+        <array key="categories">
+            <value>category_to_assign</value>
+        </array>
+    </operation>
+    <operation name="AssignProductToDefaultSharedCatalog" dataType="defaultSharedCatalogProduct" type="create" auth="adminOauth" url="/V1/sharedCatalog/1/assignProducts" method="POST">
+        <contentType>application/json</contentType>
+        <array key="products">
+            <value>product_to_assign</value>
+        </array>
+    </operation>
+    <operation name="AssignCompanyToSharedCatalog" dataType="sharedCatalogCompany" type="create" auth="adminOauth" url="/V1/sharedCatalog/{return}/assignCompanies" method="POST">
+        <contentType>application/json</contentType>
+        <array key="companies">
+            <value>company_to_assign</value>
+        </array>
+    </operation>
+    <operation name="DeleteSharedCatalog" dataType="sharedCatalog" type="delete" auth="adminOauth" url="/V1/sharedCatalog/{return}" method="DELETE">
+        <contentType>application/json</contentType>
+    </operation>
+</operations>

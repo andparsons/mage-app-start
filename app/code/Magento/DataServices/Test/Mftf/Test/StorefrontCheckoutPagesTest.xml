@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontCheckoutPagesTest">
+        <annotations>
+            <features value="DataServices"/>
+            <stories value="Check for Data Services data layer on the Storefront checkout page"/>
+            <title value="Check for Data Services data layer on the Storefront checkout pages"/>
+            <description value="Verify that the Data Services data layer is present on the Storefront checkout pages."/>
+            <severity value="MAJOR"/>
+            <group value="dataservices"/>
+        </annotations>
+
+        <before>
+            <createData entity="dsSimpleCategory" stepKey="createPreReqCategory"/>
+            <createData entity="dsSimpleProduct" stepKey="createPreReqProduct">
+                <requiredEntity createDataKey="createPreReqCategory"/>
+            </createData>
+        </before>
+
+        <amOnPage url="{{dsSimpleProduct.urlKey}}.html" stepKey="amOnProductPage"/>
+        <click selector="{{StorefrontCategoryMainSection.AddToCartBtn}}" stepKey="addToCart"/>
+        <waitForElementVisible selector="{{StorefrontCategoryMainSection.SuccessMsg}}" time="30" stepKey="waitForProductAdded"/>
+        <seeCookie userInput="dataservices_product_context" stepKey="seeCookieProductContext"/>
+        <seeCookie userInput="dataservices_cart_id" stepKey="seeCookieCartId"/>
+
+        <amOnPage url="/checkout/cart" stepKey="amOnCartPage"/>
+        <waitForPageLoad stepKey="waitForPageLoad"/>
+        <actionGroup ref="VerifyCartDsDataLayerActionGroup" stepKey="verifyCartDsDataLayer"/>
+
+        <wait time="10" stepKey="wait10Seconds"/>
+        <click selector="{{DsCheckoutSection.proceedToCheckout}}" stepKey="clickProceedToCheckoutButton"/>
+        <amOnPage url="/checkout/" stepKey="amOnCheckoutPage"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <actionGroup ref="VerifyCheckoutDsDataLayerActionGroup" stepKey="verifyCheckoutDsDataLayer"/>
+
+        <actionGroup ref="GuestCheckoutFillingShippingSectionActionGroup" stepKey="guestCheckoutFillingShippingSection">
+            <argument name="customerVar" value="CustomerEntityOne" />
+            <argument name="customerAddressVar" value="CustomerAddressSimple" />
+        </actionGroup>
+        <actionGroup ref="CheckoutSelectCheckMoneyOrderPaymentActionGroup" stepKey="guestSelectCheckMoneyOrderPayment" />
+        <waitForElement selector="{{CheckoutPaymentSection.placeOrder}}" time="30" stepKey="waitForPlaceOrderButton"/>
+        <click selector="{{CheckoutPaymentSection.placeOrder}}" stepKey="clickPlaceOrder"/>
+        <waitForPageLoad stepKey="waitForPageLoad3"/>
+        <actionGroup ref="VerifyCheckoutSuccessDsDataLayerActionGroup" stepKey="verifyCheckoutSuccessDsDataLayer"/>
+
+        <after>
+            <deleteData createDataKey="createPreReqCategory" stepKey="deletePreReqCategory"/>
+            <deleteData createDataKey="createPreReqProduct" stepKey="deletePreReqProduct"/>
+        </after>
+    </test>
+</tests>

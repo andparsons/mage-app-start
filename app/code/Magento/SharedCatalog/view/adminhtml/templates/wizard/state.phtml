@@ -1,0 +1,13 @@
+<?php
+
+/** @var $block \Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Wizard\State */
+?>
+<div class="shared-catalog-configure-state">
+    <?php if ($block->isCatalogConfigured()) : ?>
+        <?= $block->getChildHtml() ?>
+    <?php else : ?>
+        <span data-role="shared-catalog-configuration-description" class="config-description">
+            <?= $block->escapeHtml(__('Continue to configure the shared catalog structure and pricing.')) ?>
+        </span>
+    <?php endif; ?>
+</div>

@@ -1,0 +1,12 @@
+<!--
+-->
+<div class="action-select-wrap" collapsible>
+    <span class="store-switcher-label"><!-- ko i18n: 'Store:' --><!-- /ko --></span>
+    <button class="action-select" toggleCollapsible type="button"
+            data-bind="attr: {disabled: isDisabled()}, i18n: selectedStore().label" />
+    <ul class="action-menu" css="_active: $collapsible.opened">
+        <li repeat="foreach: stores, item: '$store'">
+            <span class="action-menu-item" click="$data.setSelectedStore.bind($data, $store())" text="$store().label" closeCollapsible/>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,15 @@
+<!--
+-->
+<button visible="isApplied()"
+        class="action action-clear"
+        type="button"
+        click="clear"
+        translate="'Show All Quotes'"/>
+
+<button visible="!isApplied()"
+        class="action action-secondary"
+        type="button"
+        data-action="grid-filter-apply"
+        click="apply">
+    <span translate="'Show My Quotes'"/>
+</button>

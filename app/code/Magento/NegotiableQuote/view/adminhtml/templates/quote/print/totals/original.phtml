@@ -1,0 +1,32 @@
+<?php
+?>
+<?php /** @var $block \Magento\NegotiableQuote\Block\Quote\Totals\Original */ ?>
+<?php $total = $block->getTotal() ?>
+<?php foreach ($total->getSubtotals() as $key => $option) : ?>
+    <tr class="<?= $block->escapeHtmlAttr($key . ' ' . $option['class']) ?>">
+        <th scope="row">
+            <?= $block->escapeHtml($option['label']) ?>
+        </th>
+        <td data-th="<?= $block->escapeHtmlAttr($option['label']) ?>">
+            <?php if ($option['value']) : ?>
+                <?= /* @noEscape */ $block->displayPrices($option['value'], $total->getBaseCurrency()) ?>
+            <?php endif; ?>
+        </td>
+    </tr>
+<?php endforeach; ?>
+<tr class="<?= $block->escapeHtmlAttr($total->getCode()) ?>">
+    <th scope="row">
+        <?= $block->escapeHtml($total->getLabel()) ?>
+    </th>
+    <td data-th="<?= $block->escapeHtmlAttr($total->getLabel()) ?>">
+        <?php if ($total->getValue()) : ?>
+            <?= /* @noEscape */ $block->displayPrices($total->getValue(), $total->getBaseCurrency()) ?>
+            <?php if ($total->getBaseCurrency() != $total->getCurrency()) : ?>
+                <br />
+                [<?=
+                /* @noEscape */ $block->displayPrices($total->getValue(), $total->getCurrency());
+                ?>]
+            <?php endif; ?>
+        <?php endif ?>
+    </td>
+</tr>

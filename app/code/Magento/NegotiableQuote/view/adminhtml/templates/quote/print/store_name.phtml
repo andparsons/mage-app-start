@@ -1,0 +1,8 @@
+<?php
+?>
+<?php if ($block->getStoreName()) : ?>
+    <div class="store-name">
+        <strong><?= $block->escapeHtml(__('Store')) ?>: </strong>
+        <span><?= $block->escapeHtml($block->getStoreName()) ?></span>
+    </div>
+<?php endif ?>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="StorefrontQuickOrderSection">
+        <element name="enterSkuOrProductName" type="input" selector="//input[contains(@data-id, 'sku')]"/>
+        <element name="Qty" type="input" selector="//input[@class='qty']"/>
+        <element name="enterMultipleSKUs" type="input" selector="#multiple_skus"/>
+        <element name="addToList" type="button" selector="//button[@title='Add to List']"/>
+        <element name="productName" type="text" selector="[data-role='product-block'] .name"/>
+        <element name="remove" type="button" selector="[data-role='new-block'] [data-role='delete']" timeout="30"/>
+        <element name="addToCart" type="button" selector="button[title='Add to Cart']:not([disabled])" timeout="30"/>
+        <element name="errorMessage" type="text" selector="[data-role='block-addbysku'] [data-role='show-errors']"/>
+        <element name="skuErrorMessage" type="text" selector="input[data-id*='sku'] + .mage-error"/>
+    </section>
+</sections>

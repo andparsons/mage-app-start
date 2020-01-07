@@ -1,0 +1,27 @@
+<?php
+?>
+<div data-bind="scope: 'add_to_requisition_popup'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "add_to_requisition_popup": {
+                        "component": "Magento_RequisitionList/js/requisition/list/edit/modal",
+                        "options": {
+                            "title": "<?= $block->escapeHtml(__('Create Requisition List')) ?>"
+                        },
+                        "children": {
+                            "form": {
+                                "component": "Magento_RequisitionList/js/requisition/list/edit/form",
+                                "template": "Magento_RequisitionList/requisition-list/form"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+</script>

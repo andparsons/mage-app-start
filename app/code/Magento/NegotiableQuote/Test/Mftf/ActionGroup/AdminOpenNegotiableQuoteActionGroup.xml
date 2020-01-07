@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminOpenNegotiableQuoteActionGroup">
+        <arguments>
+            <argument name="quoteName" type="string"/>
+        </arguments>
+        <amOnPage url="{{AdminNegotiableQuotesPage.url}}" stepKey="amOnQuotesPage"/>
+        <conditionalClick selector="{{AdminDataGridHeaderSection.clearFilters}}" dependentSelector="{{AdminDataGridHeaderSection.clearFilters}}" visible="true" stepKey="clearFilters"/>
+        <click selector="{{AdminDataGridHeaderSection.filters}}" stepKey="clickFilterButton"/>
+        <fillField selector="{{AdminDataGridHeaderSection.filterFieldInput('quote_name')}}" userInput="{{quoteName}}" stepKey="fillQuoteName"/>
+        <click selector="{{AdminDataGridHeaderSection.applyFilters}}" stepKey="applyFilters"/>
+        <click selector="{{AdminDataGridTableSection.rowTemplate(quoteName)}}" stepKey="clickOnQuoteName"/>
+        <see selector="{{AdminNegotiableQuoteViewSection.quoteName}}" userInput="{{quoteName}}" stepKey="seeOpenedQuote"/>
+    </actionGroup>
+</actionGroups>

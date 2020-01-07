@@ -1,0 +1,33 @@
+<!--
+-->
+<div class="admin__field-control">
+    <!-- ko if: $col.getValue($row(), $col.hasTierPricesName) -->
+    <select class="admin__control-select" data-bind="
+        value: $col.getValue($row(), $col.priceTypeName),
+        attr: {disabled: !$col.getValue($row(), $col.enableStateName)},
+        options: $col.getOptions($row()),
+        optionsText: 'text',
+        optionsValue: 'value',
+        event: {
+            change: function(e){
+                onChangePriceType($row(), $element)
+            }}">
+    </select>
+
+    <div class="currency-addon">
+        <input class="admin__control-text" type="text"
+               data-bind="
+                value: $col.getValue($row(), $col.customPriceName),
+                attr: {disabled: !$col.getValue($row(), $col.enableStateName)},
+                event: {
+                    keydown: function (data, e) {
+                        return onPriceInputKeyDown($row(), $element, e);
+                    },
+                    change: function(e){
+                        onChangePrice($row(), $element)
+                    }
+                }"/>
+        <span class="currency-symbol" data-bind="text: $col.getCurrencySymbol($row())"></span>
+    </div>
+    <!-- /ko -->
+</div>

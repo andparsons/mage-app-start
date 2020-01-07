@@ -1,0 +1,12 @@
+<?php
+
+?>
+<?php
+/** @var \Magento\Sales\Block\Adminhtml\Order\Create\Items\Grid $block */
+
+$item = $block->getItem();
+?>
+
+<div class="price-excl-tax">
+    <?= /* @noEscape */ $block->formatPrice($item->getRowTotal()) ?>
+</div>

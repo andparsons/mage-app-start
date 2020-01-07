@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="AdminSharedCatalogCatalogStructureProductGridSection">
+        <element name="filterButton" type="button" selector="#catalog-steps-wizard_step_structure button[data-action='grid-filter-expand']" timeout="30"/>
+        <element name="clearFiltersButton" type="button" selector="#catalog-steps-wizard_step_structure button.action-tertiary.action-clear" timeout="30"/>
+        <element name="applyFilters" type="button" selector="#catalog-steps-wizard_step_structure button[data-action=grid-filter-apply]" timeout="30"/>
+        <element name="nameField" type="input" selector="#catalog-steps-wizard_step_structure input[name='name']" timeout="30"/>
+        <element name="productSwitchLabel" type="button" selector=".admin__actions-switch" timeout="30"/>
+        <element name="tierPriceConfByProductName" type="button" selector="//div[@id='catalog-steps-wizard_step_pricing']//div[contains(text(), '{{productName}}')]/../../td[contains(@class, 'configure-column-field-tier-price')]/a" parameterized="true" timeout="30"/>
+    </section>
+</sections>

@@ -1,0 +1,13 @@
+<?php
+
+?>
+<?php
+/**
+ * @var $block \Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Errors\GridContainer
+ */
+?>
+<div id="itemsErrors"
+    data-role="items-errors"
+    data-mage-init='{"Magento_NegotiableQuote/js/quote/actions/notification-modal" : {"text": "<?=
+    $block->escapeHtml($block->getErrorText()) ?>", "title": "<?=$block->escapeHtml($block->getErrorTitle()) ?>"}}' ?>
+</div>

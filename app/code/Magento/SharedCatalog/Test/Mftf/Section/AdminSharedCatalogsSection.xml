@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../dev/tests/acceptance/vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/Page/etc/SectionObject.xsd">
+    <section name="AdminSharedCatalogsSection">
+        <element name="select" type="button" selector=".data-grid-actions-cell>div>button" timeout="30"/>
+        <element name="setPricingAndStructure" type="button" selector=".data-grid-actions-cell>div>ul>li:nth-child(1)>a" timeout="30"/>
+        <element name="configure" type="button" selector=".config-button" timeout="30"/>
+        <element name="multiCheckForProductsAndCatalog" type="button" selector="#catalog-steps-wizard_step_structure .action-multicheck-toggle"/>
+        <element name="multiCheckForCustomPrices" type="button" selector="#catalog-steps-wizard_step_pricing .action-multicheck-toggle"/>
+        <element name="selectAllForProductsAndCatalog" type="select" selector="#catalog-steps-wizard_step_structure .data-grid-multicheck-cell>div>ul>li:nth-child(1)>span" timeout="30"/>
+        <element name="selectAllForCustomPrices" type="select" selector="#catalog-steps-wizard_step_pricing .data-grid-multicheck-cell>div>ul>li:nth-child(1)>span" timeout="30"/>
+        <element name="deselectAllForProductsAndCatalog" type="select" selector="#catalog-steps-wizard_step_structure .data-grid-multicheck-cell>div>ul>li:nth-child(2)>span" timeout="30"/>
+        <element name="next" type="button" selector=".action-default.action-primary.action-next-step" timeout="30"/>
+        <element name="generateCatalog" type="button" selector=".action-wrap.action-wrap-next.button-last-step" timeout="30"/>
+        <element name="assignCompanies" type="button" selector=".data-grid-actions-cell>div>ul>li:nth-child(2)>a" timeout="30"/>
+        <element name="selectAllCompanies" type="select" selector=".data-grid-multicheck-cell>div>label" timeout="30"/>
+        <element name="delete" type="button" selector="//div[text()='{{sharedCatalogName}}']/parent::td//following-sibling::td[@class='data-grid-actions-cell']//a[text()='Delete']" timeout="30" parameterized="true"/>
+    </section>
+</sections>
+

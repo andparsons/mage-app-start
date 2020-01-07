@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontCustomerCheckoutWithEnabledAddressSearchNegotiableQuoteTest">
+        <annotations>
+            <features value="Negotiable Quote checkout with search address enabled"/>
+            <stories value="MC-5681: Implement handling of large number of addresses on Onepage Checkout"/>
+            <title value="One Page Checkout with physical product and enabled customer Address Search - Negotiable Quote"/>
+            <description value="One Page Checkout with physical product and enabled customer Address Search - Negotiable Quote"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MC-15884"/>
+            <group value="checkout"/>
+            <skip>
+                <issueId value="MC-17140"/>
+            </skip>
+        </annotations>
+        <before>
+            <!-- Create Simple Product and Assign product to default shared catalog -->
+            <createData entity="SimpleProduct2" stepKey="createSimpleProduct"/>
+            <createData entity="AssignProductToDefaultSharedCatalog" stepKey="assignProductToSharedCatalog">
+                <requiredEntity createDataKey="createSimpleProduct"/>
+            </createData>
+            <!-- Create company admin -->
+            <createData entity="Simple_US_Customer_Two_Addresses" stepKey="createCompanyAdmin"/>
+            <createData entity="Default_Company" stepKey="createDefaultCompany">
+                <requiredEntity createDataKey="createCompanyAdmin"/>
+            </createData>
+            <createData entity="NegotiableQuoteSystemConfig" stepKey="enableB2BQuotesConfig"/>
+            <magentoCLI command="config:set {{EnableCustomerAddressSearch.path}} {{EnableCustomerAddressSearch.value}}" stepKey="enableCustomerAddressSearch"/>
+            <magentoCLI command="config:set {{AddressSearchLimitTwo.path}} {{AddressSearchLimitTwo.value}}" stepKey="setAddressSearchLimitTwo"/>
+        </before>
+        <after>
+            <!--Logout customer-->
+            <actionGroup ref="StorefrontCustomerLogoutActionGroup" stepKey="customerLogout"/>
+            <!-- Delete Simple Product -->
+            <deleteData createDataKey="createSimpleProduct" stepKey="deleteProduct"/>
+            <!--Clear filter negotiable quotes grid-->
+            <amOnPage url="{{AdminNegotiableQuotesPage.url}}" stepKey="navigateToNegotiableQuotesGridPage2"/>
+            <actionGroup ref="clearFiltersAdminDataGrid" stepKey="clearFiltersNegotiableQuotesGrid"/>
+            <!-- Delete Company and Company admin -->
+            <actionGroup ref="AdminDeleteCompanyActionGroup" stepKey="deleteCompany">
+                <argument name="company" value="Default_Company"/>
+            </actionGroup>
+            <deleteData createDataKey="createCompanyAdmin" stepKey="deleteCompanyAdmin"/>
+            <!-- Logout Admin -->
+            <actionGroup ref="logout" stepKey="logout"/>
+            <!--Enable Default B2B Config -->
+            <createData entity="B2BDefaultConfig" stepKey="defaultB2BConfig"/>
+            <magentoCLI command="config:set {{DisableCustomerAddressSearch.path}} {{DisableCustomerAddressSearch.value}}" stepKey="disableCustomerAddressSearch"/>
+            <magentoCLI command="config:set {{DefaultAddressSearchLimit.path}} {{DefaultAddressSearchLimit.value}}" stepKey="setAddressSearchLimitTen"/>
+        </after>
+        <!-- Login to storefront company admin -->
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginToStoreFront">
+            <argument name="Customer" value="$$createCompanyAdmin$$"/>
+        </actionGroup>
+        <!--Go to Simple Product page-->
+        <amOnPage url="{{StorefrontProductPage.url($$createSimpleProduct.custom_attributes[url_key]$$)}}"
+                  stepKey="navigateToSimpleProductPage"/>
+        <!--Add Product to Shopping Cart-->
+        <actionGroup ref="addToCartFromStorefrontProductPage" stepKey="addToCartFromStorefrontProductPage7">
+            <argument name="productName" value="$$createSimpleProduct.name$$"/>
+        </actionGroup>
+        <!--Go to shopping cart add request a quote-->
+        <actionGroup ref="clickViewAndEditCartFromMiniCart" stepKey="goToShoppingCartFromMinicart"/>
+        <actionGroup ref="StorefrontRequestQuoteActionGroup" stepKey="requestQuote">
+            <argument name="quote" value="NeqotiableQuote"/>
+        </actionGroup>
+        <click selector="{{StorefrontMyQuoteGridSection.gridButtonAction}}" stepKey="clickViewButton"/>
+        <see selector="{{StorefrontNegotiableQuoteViewSection.quoteName}}" userInput="{{NeqotiableQuote.name}}" stepKey="seeQuotePresentGrid"/>
+        <!--Select Existing Address-->
+        <click selector="{{StorefrontNegotiableQuoteViewSection.selectExistingAddressButton}}" stepKey="clickSelectExistingAddressButton"/>
+        <click selector="{{StorefrontNegotiableQuoteChangeAddressSection.selectQuoteAddress}}" stepKey="openQuoteAddressSelection"/>
+        <click selector="{{StorefrontNegotiableQuoteChangeAddressSection.selectShippingAddress(US_Address_NY_Not_Default_Address.city)}}" stepKey="selectShippingAddress"/>
+        <click selector="{{StorefrontNegotiableQuoteChangeAddressSection.saveAddressButton}}" stepKey="clickSaveAddressButton"/>
+        <see selector="{{StorefrontNegotiableQuoteViewSection.noticeMessage}}" stepKey="seeNoticeMessage"
+               userInput="You have added or changed the shipping address on this quote. Please re-submit the quote to Seller."/>
+        <!--Login as admin-->
+        <actionGroup ref="LoginAsAdmin" stepKey="LoginAsAdmin"/>
+        <!-- Go to Quote Page and search -->
+        <amOnPage url="{{AdminNegotiableQuotesPage.url}}" stepKey="navigateToNegotiableQuotesGridPage"/>
+        <actionGroup ref="AdminGridFilterSearchResultsByInput" stepKey="searchQuote">
+            <argument name="selector" value="AdminDataGridHeaderSection.filterFieldInput('quote_name')"/>
+            <argument name="value" value="{{NeqotiableQuote.name}}"/>
+        </actionGroup>
+        <click selector="{{AdminDataGridTableSection.firstRow}}" stepKey="clickQuote"/>
+        <waitForPageLoad time="30" stepKey="waitForNegotiableQuoteLoad"/>
+        <fillField selector="{{AdminNegotiableQuoteViewSection.percentageDiscount}}" userInput="10" stepKey="fillFieldPercentageDiscount"/>
+        <click selector="{{AdminGridHeaders.title}}" stepKey="clickTitle"/>
+        <waitForAjaxLoad time="30" stepKey="waitForAjax"/>
+        <!--Select Shipping Method and Price-->
+        <click selector="{{StorefrontNegotiableQuoteViewSection.getShippingMethodsAndRates}}" stepKey="clickGetShippingMethodsAndRates"/>
+        <click selector="{{StorefrontNegotiableQuoteViewSection.flatRateShippingMethod}}" stepKey="chooseFlatRateShippingMethod"/>
+        <!--Send Quote-->
+        <click selector="{{AdminNegotiableQuoteViewSection.sendQuote}}" stepKey="clickSendQuote"/>
+        <see selector="{{AdminMessagesSection.warningMessage}}"
+             userInput="This quote is currently locked for editing. It will become available once released by the buyer."
+             stepKey="seeWarningMessage"/>
+        <!-- Go to frontend and open quote details and Click View button -->
+        <amOnPage url="{{StorefrontNegotiableQuotePage.url}}" stepKey="goToNegotiableQuotePage"/>
+        <click selector="{{StorefrontMyQuoteGridSection.gridButtonAction}}" stepKey="clickViewButton1"/>
+        <!--Proceed to Checkout-->
+        <click selector="{{StorefrontNegotiableQuoteViewSection.proceedToCheckout}}" stepKey="clickProceedToCheckoutButton"/>
+        <!--Verify shipping address *B* data-->
+        <actionGroup ref="CheckSelectedShippingAddressInCheckoutWithSearchActionGroup" stepKey="checkDefaultShippingAddressSelected">
+            <argument name="customerVar" value="$$createCompanyAdmin$$" />
+            <argument name="customerAddressVar" value="US_Address_NY_Not_Default_Address" />
+        </actionGroup>
+        <see selector="{{CheckoutShippingSection.quoteAddressLockedMessage}}"
+             userInput="Your shipping address is locked. To change your shipping address, go "
+             stepKey="quoteAddressIsLockedMessageIsDisplayed"/>
+        <click stepKey="ProceedToBillingStep" selector="{{CheckoutShippingMethodsSection.next}}" />
+        <!--Select Check / Money order Payment method-->
+        <actionGroup ref="CheckoutSelectCheckMoneyOrderPaymentActionGroup" stepKey="selectCheckMoneyPayment"/>
+        <!--Address *A* is displayed as billing address for selected payment method-->
+        <actionGroup ref="CheckBillingAddressInCheckoutActionGroup" stepKey="checkFirstBillingAddressOnBillingPage">
+            <argument name="customerVar" value="$$createCompanyAdmin$$" />
+            <argument name="customerAddressVar" value="US_Address_TX" />
+        </actionGroup>
+        <!-- Place order -->
+        <actionGroup ref="ClickPlaceOrderActionGroup" stepKey="PlaceOrder" />
+    </test>
+</tests>

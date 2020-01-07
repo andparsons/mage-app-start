@@ -1,0 +1,9 @@
+<!--
+-->
+<!-- ko if: $col.isAvailable($row()) -->
+<a
+    class="action-menu-item"
+    click="$col.toggleAssign.bind($col, $row())"
+    href="#"
+    text="$col.getLabel($row())"/>
+<!-- /ko -->

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontCheckoutWithDifferentShippingAndBillingAddressAndProductWithTierPricesTest" insertAfter="filterAndSelectTheProduct">
+        <before>
+            <remove keyForRemoval="setTierPrice"/>
+            <waitForElementVisible selector="{{AdminProductFormSection.advancedPricingLink}}" stepKey="waitForElementToBeVisible"/>
+            <click selector="{{AdminProductFormSection.advancedPricingLink}}" stepKey="clickOnAdvancedPricingButton"/>
+            <waitForElement selector="{{AdminProductFormAdvancedPricingSection.customerGroupPriceAddButton}}" stepKey="waitForCustomerGroupPriceAddButton"/>
+            <click selector="{{AdminProductFormAdvancedPricingSection.customerGroupPriceAddButton}}" stepKey="addCustomerGroupAllGroupsQty1PriceDiscountAnd10percent"/>
+            <fillField selector="{{AdminProductFormAdvancedPricingSection.productTierPriceQtyInput('0')}}" userInput="3" stepKey="fillProductTierPriceQtyInput"/>
+            <selectOption selector="{{AdminProductFormAdvancedPricingSection.productTierPriceValueTypeSelect('0')}}" userInput="Fixed" stepKey="selectProductTierPriceValueType"/>
+            <fillField selector="{{AdminProductFormAdvancedPricingSection.productTierPriceFixedPriceInput('0')}}" userInput="24.00" stepKey="selectProductTierPricePriceInput" after="selectProductTierPriceValueType"/>
+            <click selector="{{AdminProductFormAdvancedPricingSection.doneButton}}" stepKey="clickDoneButton"/>
+            <waitForPageLoad stepKey="WaitForProductSave"/>
+            <click selector="{{AdminProductFormAdvancedPricingSection.save}}" stepKey="clickSaveProduct1"/>
+            <waitForPageLoad time="60" stepKey="WaitForProductSave1"/>
+            <see userInput="You saved the product." stepKey="seeSaveConfirmation"/>
+        </before>
+    </test>
+</tests>

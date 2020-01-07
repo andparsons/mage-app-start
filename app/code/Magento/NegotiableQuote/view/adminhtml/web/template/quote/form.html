@@ -1,0 +1,25 @@
+<!--
+-->
+<form class="modal-decline-quote" action="<%- data.url %>" method="post">
+    <input type="hidden" name="form_key" value="<%- data.key %>">
+    <div class="messages" data-role="modal-decline-notice">
+        <div class="message message-warning warning">
+            <p><%- data.messagenotice %></p>
+        </div>
+    </div>
+    <div class="decline-message">
+        <p><%- data.message %></p>
+    </div>
+    <div class="admin__field _required" data-role="modal-decline-inputs">
+        <label data-bind="i18n: 'Please specify the reason'" for="reason-textarea" class="label admin__field-label">
+            <span><%- data.textarealabel %></span>
+        </label>
+        <div class="admin__field-control admin__control-textarea">
+            <textarea class="modal-decline-textarea" data-validate='{"required": true}' name="quote_message"
+                          id="reason-textarea"></textarea>
+            <label class="admin__field-error" data-role="modal-textarea-error"
+                 id="reason-textarea-error"><%- data.textareaerror %></label>
+        </div>
+
+    </div>
+</form>

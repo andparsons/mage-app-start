@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\RequisitionList\Api\Data\RequisitionListInterface" type="Magento\RequisitionList\Model\RequisitionList" />
+    <preference for="Magento\RequisitionList\Api\Data\RequisitionListItemInterface" type="Magento\RequisitionList\Model\RequisitionListItem" />
+    <preference for="Magento\RequisitionList\Api\RequisitionListRepositoryInterface" type="Magento\RequisitionList\Model\RequisitionListRepository" />
+    <preference for="Magento\RequisitionList\Api\RequisitionListManagementInterface" type="Magento\RequisitionList\Model\RequisitionListManagement" />
+    <type name="Magento\RequisitionList\Model\RequisitionListItem\Validation">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="sku" xsi:type="object">\Magento\RequisitionList\Model\RequisitionListItem\Validator\Sku</item>
+                <item name="stock" xsi:type="object">\Magento\RequisitionList\Model\RequisitionListItem\Validator\Stock</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\RequisitionList\Model\RequisitionListRepository">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface</argument>
+        </arguments>
+    </type>
+    <type name="Magento\RequisitionList\Model\Checker\ProductChangesAvailability">
+        <arguments>
+            <argument name="productQtyChangeAvailabilityCheckers" xsi:type="array">
+                <item name="simple" xsi:type="object">Magento\RequisitionList\Model\Checker\ProductQtyChangeAvailability</item>
+            </argument>
+            <argument name="ignoreTypes" xsi:type="array">
+                <item name="simple" xsi:type="const">Magento\Catalog\Model\Product\Type::TYPE_SIMPLE</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\RequisitionList\Api\RequisitionListManagementInterface">
+        <arguments>
+            <argument name="addToCartProcessors" xsi:type="array">
+                <item name="simple" xsi:type="object">Magento\RequisitionList\Model\AddToCartProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

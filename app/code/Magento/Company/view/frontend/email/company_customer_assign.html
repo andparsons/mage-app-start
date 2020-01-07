@@ -1,0 +1,23 @@
+<!--
+-->
+<!--@subject You've been linked to a company @-->
+<!--@vars {
+"var this.getUrl($store, 'customer/account/')":"Customer Account URL",
+"var customer.name":"Customer Name",
+"var customer.companyName":"Company Name",
+"var customer.companyAdminEmail":"Company Admin Email"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting company-greeting"><strong>{{trans "Dear %name," name=$customer.name}}</strong></p>
+<p>{{trans
+    "You've been added to the <a href=%customer_url>%company_name</a> as the company member.
+    Once you enter your account,
+    the company's shared resources will be available for you."
+    company_name=$customer.companyName customer_url=$this.getUrl($store,'customer/account/',[_nosid:1])
+    |raw}}</p>
+<p>{{trans "If this is a mistake,
+    please contact the company Admin at %company_admin_email." company_admin_email=$customer.companyAdminEmail}}</p>
+
+{{template config_path="design/email/footer_template"}}

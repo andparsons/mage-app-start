@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="btob">
+            <group id="website_configuration">
+                <field id="sharedcatalog_active" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1">
+                    <label>Enable Shared Catalog</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="company_active">1</field>
+                    </depends>
+                    <comment><![CDATA[Enabling the shared catalog feature enables the category permissions for all stores. Disabling the shared catalog feature does not disable custom prices (tier prices) for companies.]]></comment>
+                </field>
+            </group>
+        </section>
+        <section id="general">
+            <group id="restriction">
+                <field id="is_active" translate="comment">
+                    <frontend_model>Magento\SharedCatalog\Block\Adminhtml\System\Config\WebsiteRestriction\IsActive</frontend_model>
+                    <comment><![CDATA[To select No, please <a href="%1">create</a> the Public Catalog first.]]></comment>
+                </field>
+            </group>
+        </section>
+        <section id="catalog">
+            <group id="magento_catalogpermissions" translate="label" type="text" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="enabled" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <frontend_model>Magento\SharedCatalog\Block\Adminhtml\System\Config\CategoryPermissions\IsActive</frontend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

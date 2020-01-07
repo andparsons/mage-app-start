@@ -1,0 +1,74 @@
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+//
+//  Variables
+//  _____________________________________________
+
+@company-credit-control-grid__column: 8;
+@company-credit-label-grid__column: 4;
+@company-credit-price__color: @color-phoenix;
+
+.company-credit-form-modal {
+    .modal-inner-wrap {
+        width: 700px;
+
+        .admin__field-label {
+            #mix-grid .width(@company-credit-label-grid__column);
+        }
+
+        .admin__field:not(.admin__field-small) {
+            .admin__field-control {
+                #mix-grid .width(@company-credit-control-grid__column);
+            }
+        }
+
+        .modal-footer {
+            padding-top: 0;
+
+            .action-secondary {
+                margin-right: @indent__s;
+            }
+        }
+
+        .convert-credit {
+            margin-bottom: @indent__base;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    }
+
+    .warning-message {
+        margin-bottom: @indent__s * 2;
+        margin-top: -@indent__s * 1.5;
+    }
+}
+
+.credit-balance-list {
+    .lib-vendor-prefix-display(flex);
+    list-style: none;
+
+    .credit-balance-item {
+        margin-right: 15rem;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    .credit-balance-label {
+        font-size: 1.3rem;
+        font-weight: @font-weight__bold;
+    }
+
+    .credit-balance-price {
+        font-size: 2.4rem;
+        font-weight: @font-weight__semibold;
+
+        &._negative {
+            color: @company-credit-price__color;
+        }
+    }
+}

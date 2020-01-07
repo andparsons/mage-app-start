@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../../../../dev/tests/acceptance/vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/Page/etc/PageObject.xsd">
+    <page name="AdminB2BConfigPage" url="admin/system_config/edit/section/btob/" area="admin" module="Magento_Config">
+        <section name="AdminB2BConfigSection"/>
+    </page>
+</pages>
+

@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="shared_catalog" resource="default" engine="innodb" comment="Shared Catalog Table">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Shared Catalog Entity Id"/>
+        <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Shared Catalog Name"/>
+        <column xsi:type="text" name="description" nullable="true" comment="Shared Catalog description"/>
+        <column xsi:type="int" name="customer_group_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Customer Group Id"/>
+        <column xsi:type="smallint" name="type" padding="5" unsigned="true" nullable="false" identity="false"
+                default="1" comment="Type: 0-custom, 1-public"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="int" name="created_by" padding="10" unsigned="true" nullable="true" identity="false"
+                comment="Customer Id"/>
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="true" identity="false"
+                comment="Store ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="SHARED_CATALOG_CREATED_BY_ADMIN_USER_USER_ID" table="shared_catalog"
+                    column="created_by" referenceTable="admin_user" referenceColumn="user_id" onDelete="SET NULL"/>
+        <constraint xsi:type="foreign" referenceId="SHARED_CAT_CSTR_GROUP_ID_CSTR_GROUP_CSTR_GROUP_ID" table="shared_catalog"
+                    column="customer_group_id" referenceTable="customer_group" referenceColumn="customer_group_id"
+                    onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="SHARED_CATALOG_STORE_ID_STORE_STORE_ID" table="shared_catalog"
+                    column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+        <constraint xsi:type="unique" referenceId="SHARED_CATALOG_NAME">
+            <column name="name"/>
+        </constraint>
+        <index referenceId="SHARED_CATALOG_STORE_ID" indexType="btree">
+            <column name="store_id"/>
+        </index>
+    </table>
+    <table name="shared_catalog_product_item" resource="default" engine="innodb"
+           comment="Shared Catalog Product Item Table">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Record Id"/>
+        <column xsi:type="int" name="customer_group_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Customer Group Id"/>
+        <column xsi:type="varchar" name="sku" nullable="false" length="64" comment="Product SKU"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="SHARED_CAT_PRD_ITEM_CSTR_GROUP_ID_CSTR_GROUP_CSTR_GROUP_ID"
+                    table="shared_catalog_product_item" column="customer_group_id" referenceTable="customer_group"
+                    referenceColumn="customer_group_id" onDelete="CASCADE"/>
+        <index referenceId="SHARED_CATALOG_PRODUCT_ITEM_SKU_CUSTOMER_GROUP_ID" indexType="btree">
+            <column name="sku"/>
+            <column name="customer_group_id"/>
+        </index>
+    </table>
+    <table name="sharedcatalog_category_permissions" resource="default" engine="innodb"
+           comment="Shared Catalog Permissions Table">
+        <column xsi:type="int" name="permission_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Permission Id"/>
+        <column xsi:type="int" name="category_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Category Id"/>
+        <column xsi:type="smallint" name="website_id" padding="5" unsigned="true" nullable="true" identity="false"
+                comment="Website Id"/>
+        <column xsi:type="int" name="customer_group_id" padding="10" unsigned="true" nullable="true" identity="false"
+                comment="Customer Group Id"/>
+        <column xsi:type="smallint" name="permission" padding="6" unsigned="false" nullable="false" identity="false"
+                comment="Grant Checkout Items"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="permission_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="FK_9BF8BC2D7B7DB821AF98309272379955"
+                    table="sharedcatalog_category_permissions" column="customer_group_id"
+                    referenceTable="customer_group" referenceColumn="customer_group_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="SHAREDCAT_CTGR_PERMISSIONS_WS_ID_STORE_WS_WS_ID"
+                    table="sharedcatalog_category_permissions" column="website_id" referenceTable="store_website"
+                    referenceColumn="website_id" onDelete="CASCADE"/>
+        <constraint xsi:type="unique" referenceId="SHAREDCAT_CTGR_PERMISSIONS_CTGR_ID_WS_ID_CSTR_GROUP_ID">
+            <column name="category_id"/>
+            <column name="website_id"/>
+            <column name="customer_group_id"/>
+        </constraint>
+        <index referenceId="SHAREDCATALOG_CATEGORY_PERMISSIONS_WEBSITE_ID" indexType="btree">
+            <column name="website_id"/>
+        </index>
+        <index referenceId="SHAREDCATALOG_CATEGORY_PERMISSIONS_CUSTOMER_GROUP_ID" indexType="btree">
+            <column name="customer_group_id"/>
+        </index>
+    </table>
+</schema>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <actionGroup name="CreateCatalogPriceRuleB2b" extends="CreateCatalogPriceRuleForStagingActionGroup">
+        <remove keyForRemoval="selectCustomGroup"/>
+        <remove keyForRemoval="ClickToSetStartDate"/>
+
+        <click selector="{{CreateScheduleUpdateSection.customerGroup}}" after="SelectWebsite" stepKey="clickToExpand"/>
+        <click selector="{{AdminProductFormAdvancedPricingSection.productTierPriceGroupOrCatalogOption('Default (General)')}}" after="clickToExpand" stepKey="setCustomerGroup"/>
+        <click selector="{{CreateScheduleUpdateSection.done}}" after="setCustomerGroup" stepKey="ClickToDoneButton"/>
+        <click selector="{{AdminStagingSlideOutSection.datepickerStartDate}}" stepKey="clickDatePicker"  after="TypeUpdatedRuleName"/>
+    </actionGroup>
+</actionGroups>

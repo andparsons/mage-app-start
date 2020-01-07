@@ -1,0 +1,30 @@
+<?php
+?>
+<?php /** @var $block \Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Totals\Negotiation */ ?>
+<?php $total = $block->getTotal() ?>
+<?php foreach ($block->getTotalOptions() as $key => $option) : ?>
+    <tr class="<?= $block->escapeHtmlAttr($key) ?>">
+        <th scope="row">
+            <input type="radio"
+                   disabled="disabled"
+                   name="quote[<?= $block->escapeHtmlAttr($total->getCode()) ?>]"
+                   value="<?= $block->escapeHtmlAttr($option->getCode()) ?>"
+                    <?= /* @noEscape */ ($option->getCode() == $total->getType()) ? 'checked' : ''; ?> />
+            <?= $block->escapeHtml($option->getLabel()) ?>
+        </th>
+        <td data-th="<?= $block->escapeHtmlAttr($option->getLabel()) ?>">
+            <span class="price">
+                <?php if ($option->getIsPrice()) : ?>
+                    <?= /* @noEscape */
+                    $block->formatPrice(
+                        $option->getValue(),
+                        $block->getQuote()->getBaseCurrencyCode()
+                    ) ?>
+                <?php else : ?>
+                    <?= $block->escapeHtml($block->displayPrices($option->getValue())) ?>
+                    <span class="addon-suffix">%</span>
+                <?php endif; ?>
+            </span>
+        </td>
+    </tr>
+<?php endforeach ?>

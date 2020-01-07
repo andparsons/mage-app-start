@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @var $block \Magento\Company\Block\Adminhtml\Customer\Edit\Tab\View\PersonalInfo
+ */
+?>
+
+<tr>
+    <th><?= $block->escapeHtml(__('Customer Type:')) ?></th>
+    <td><?= $block->escapeHtml($block->getCustomerTypeLabel($block->getCustomerType())) ?></td>
+</tr>
+<tr>
+    <th><?= $block->escapeHtml(__('Company:')) ?></th>
+    <td><?= $block->escapeHtml($block->getCompanyName()) ?></td>
+</tr>
+<tr>
+    <th><?= $block->escapeHtml(__('Job Title:')) ?></th>
+    <td><?= $block->escapeHtml($block->getJobTitle()) ?></td>
+</tr>

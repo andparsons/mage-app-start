@@ -1,0 +1,187 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+@company-form-label__background-color: @color-lighter-gray;
+@company-form-label__border-color: @color-gray68;
+@company-form-label__color: @color-very-dark-gray-black;
+@multiselect-items__hover__background-color: @color-gray89;
+@multiselect-items__selected__background-color: #cdecf6;
+@multiselect-items-no-result__color: @color-red9;
+@multiselect-items-result__color: @color-gray62;
+
+.company-admin-email-success {
+    color: @multiselect-items-result__color;
+    font-size: @font-size__xs;
+    padding-top: .8rem;
+}
+
+.modal-popup {
+    .modal-footer {
+        .action-inactive {
+            background-color: @color-gray60;
+            border-color: @color-gray60;
+        }
+    }
+
+    &.change-status {
+        .modal-inner-wrap {
+            max-width: 35%;
+
+            .cancel {
+                background: none;
+                border: none;
+                color: @link__color;
+                font-size: @quote-comment__font-size;
+                font-weight: @font-weight__regular;
+                text-shadow: none;
+
+                &:hover {
+                    background: none;
+                    border: none;
+                    box-shadow: none;
+                    color: @link__hover__color;
+                    font-size: @quote-comment__font-size;
+                    text-decoration: @link__active__text-decoration;
+                }
+
+                &:focus {
+                    background: none;
+                    color: @link__color;
+                }
+            }
+
+            .admin__field {
+                position: relative;
+            }
+
+            .admin__control-textarea {
+                background: @textarea__background;
+                min-height: 10rem;
+                width: @textarea__width;
+            }
+
+            .admin__field-error {
+                &:focus {
+                    border-color: @field-error-control__border-color;
+                }
+            }
+
+            .additional-text {
+                font-size: 1.2rem;
+            }
+        }
+    }
+}
+
+.admin__reason-rejection {
+    background-color: @company-form-label__background-color;
+    border: 1px solid @company-form-label__border-color;
+    color: @company-form-label__color;
+    cursor: not-allowed;
+    opacity: .5;
+    padding: 1rem;
+    vertical-align: baseline;
+    width: 100%;
+
+    strong {
+        display: block;
+        margin-bottom: 1rem;
+    }
+
+    textarea {
+        background: transparent;
+        border: 0;
+        height: 8.48rem;
+        resize: vertical;
+        width: 100%;
+    }
+}
+
+.company-index-edit,
+.company-index-new {
+    .admin__field {
+        legend {
+            &.admin__field-label {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+.auto-complete-wrap {
+
+    &._disabled {
+        pointer-events: none;
+    }
+
+    .auto-complete-label {
+        padding: .6rem 1rem;
+        position: relative;
+
+        &:before {
+            border-bottom: 0;
+            border-right: 0;
+        }
+    }
+
+    .action-menu {
+        display: none;
+        z-index: 1;
+
+        .admin__action-multiselect-search-wrap {
+            border-bottom: 0;
+        }
+
+        .admin__action-multiselect-results-amount {
+            color: @multiselect-items-result__color;
+            padding: .6875em @indent__s;
+        }
+
+        .admin__action-multiselect-menu-inner-item {
+            cursor: pointer;
+            display: block;
+            padding: .6875em 1em;
+
+            &:hover {
+                background: @multiselect-items__hover__background-color;
+            }
+
+            &._selected {
+                background: @multiselect-items__selected__background-color;
+            }
+
+            &:after {
+                color: @multiselect-items-result__color;
+                content: attr(data-address);
+            }
+        }
+
+        .no-results {
+            color: @multiselect-items-no-result__color;
+            padding: 0 0 @indent__s @indent__s;
+        }
+    }
+}
+
+.confirm.delete-company {
+    .modal-inner-wrap {
+        width: 600px;
+    }
+}
+
+.confirm-customer-group-change .modal-inner-wrap {
+    margin-top: 20%;
+    width: 45%;
+
+    h1 {
+        font-weight: @font-weight__light;
+    }
+}
+
+.fieldset-wrapper {
+    &._block-wrapper {
+        .__collapsible-block-wrapper-pattern();
+    }
+}

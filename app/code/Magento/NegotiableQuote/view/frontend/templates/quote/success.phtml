@@ -1,0 +1,26 @@
+<?php
+?>
+<?php /** @var $block \Magento\NegotiableQuote\Block\Quote\Success */ ?>
+<?php $quoteId = $block->getQuoteId(); ?>
+<div class="negotiable-quote-success">
+    <?php if ($quoteId) : ?>
+        <p><?= $block->escapeHtml(__(
+            'Your quote number is: %1.',
+            sprintf(
+                '<a href="%s" class="quote-number"><strong>%s</strong></a>',
+                $block->escapeUrl($block->getViewQuoteUrl($quoteId)),
+                $block->escapeHtml($quoteId)
+            )
+        ), ['a', 'strong']) ?>
+        </p>
+    <?php endif; ?>
+    <p><?= $block->escapeHtml(__('The quote has been sent to the merchant.')) ?></p>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <a class="action primary continue" href="<?= $block->escapeUrl($block->getUrl()) ?>">
+                <span><?= $block->escapeHtml(__('Continue Shopping')) ?></span>
+            </a>
+        </div>
+    </div>
+</div>

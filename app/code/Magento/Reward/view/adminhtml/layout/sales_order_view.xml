@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="order_totals">
+            <block class="Magento\Sales\Block\Adminhtml\Order\Totals\Item" name="reward_points" template="Magento_Reward::sales/order/total.phtml">
+                <action method="setBeforeCondition">
+                    <argument name="condition" xsi:type="string">customerbalance</argument>
+                </action>
+            </block>
+            <block class="Magento\Sales\Block\Adminhtml\Order\Totals\Item" name="reward.points.refunded" template="Magento_Reward::sales/order/refunded.phtml">
+                <action method="setDisplayArea">
+                    <argument name="area" xsi:type="string">footer</argument>
+                </action>
+                <action method="setAfterCondition">
+                    <argument name="condition" xsi:type="string">last</argument>
+                </action>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

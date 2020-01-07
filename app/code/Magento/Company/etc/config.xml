@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <btob>
+            <website_configuration>
+                <company_active>0</company_active>
+            </website_configuration>
+        </btob>
+        <company>
+            <general>
+                <allow_company_registration>1</allow_company_registration>
+            </general>
+            <email>
+                <company_registration>general</company_registration>
+                <company_copy_method>bcc</company_copy_method>
+                <company_status_copy_method>bcc</company_status_copy_method>
+                <company_status_pending_approval_to_active_template>company_email_company_status_pending_approval_to_active_template</company_status_pending_approval_to_active_template>
+                <company_status_rejected_blocked_to_active_template>company_email_company_status_rejected_blocked_to_active_template</company_status_rejected_blocked_to_active_template>
+                <company_status_pending_approval_template>company_email_company_status_pending_approval_template</company_status_pending_approval_template>
+                <company_status_rejected_template>company_email_company_status_rejected_template</company_status_rejected_template>
+                <company_status_blocked_template>company_email_company_status_blocked_template</company_status_blocked_template>
+                <customer_assign_super_user_template>company_email_customer_assign_super_user_template</customer_assign_super_user_template>
+                <customer_inactivate_super_user_template>company_email_customer_inactivate_super_user_template</customer_inactivate_super_user_template>
+                <customer_remove_super_user_template>company_email_customer_remove_super_user_template</customer_remove_super_user_template>
+                <customer_sales_representative_template>company_email_customer_sales_representative_template</customer_sales_representative_template>
+                <customer_company_customer_assign_template>company_email_customer_company_customer_assign_template</customer_company_customer_assign_template>
+                <company_notify_admin_template>company_email_company_notify_admin_template</company_notify_admin_template>
+                <customer_account_activated_template>company_email_customer_account_activated_template</customer_account_activated_template>
+                <customer_account_locked_template>company_email_customer_account_locked_template</customer_account_locked_template>
+            </email>
+        </company>
+        <captcha>
+            <frontend>
+                <areas>
+                    <company_create>
+                        <label>Create company</label>
+                    </company_create>
+                </areas>
+            </frontend>
+        </captcha>
+    </default>
+</config>

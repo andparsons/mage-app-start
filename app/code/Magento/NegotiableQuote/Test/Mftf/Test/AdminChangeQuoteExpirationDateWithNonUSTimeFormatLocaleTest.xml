@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminChangeQuoteExpirationDateWithNonUSTimeFormatLocaleTest">
+        <annotations>
+            <stories value="Negotiable Quotes"/>
+            <title value="Change quote expiration date with non US time format locale"/>
+            <description value="Change quote expiration date with non US time format locale"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MC-12679"/>
+            <group value="negotiable_quotes"/>
+        </annotations>
+        <before>
+            <createData entity="_defaultCategory" stepKey="createSubCategory"/>
+            <createData entity="_defaultProduct" stepKey="createProduct">
+                <requiredEntity createDataKey="createSubCategory"/>
+            </createData>
+            <createData entity="NegotiableQuoteSystemConfig" stepKey="enableB2BQuotesAndCompaniesFeature"/>
+            <createData entity="Simple_US_Customer" stepKey="createCompanyAdmin"/>
+            <createData entity="Default_Company" stepKey="createCompany">
+                <requiredEntity createDataKey="createCompanyAdmin"/>
+            </createData>
+            <magentoCLI command="setup:static-content:deploy" arguments="uk_UA --area adminhtml -j" stepKey="deployLocale"/>
+            <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginToStorefront">
+                <argument name="Customer" value="$$createCompanyAdmin$$"/>
+            </actionGroup>
+            <actionGroup ref="AddSimpleProductToCart" stepKey="addProductToCart">
+                <argument name="product" value="$$createProduct$$"/>
+            </actionGroup>
+            <amOnPage url="{{CheckoutCartPage.url}}" stepKey="goToCheckoutCartPage"/>
+            <actionGroup ref="StorefrontRequestQuoteActionGroup" stepKey="requestQuote">
+                <argument name="quote" value="NeqotiableQuote"/>
+            </actionGroup>
+        </before>
+        <after>
+            <deleteData createDataKey="createProduct" stepKey="deleteProduct"/>
+            <deleteData createDataKey="createSubCategory" stepKey="deleteSubCategory"/>
+            <deleteData createDataKey="createCompany" stepKey="deleteCompany"/>
+            <deleteData createDataKey="createCompanyAdmin" stepKey="deleteCompanyAdmin"/>
+            <createData entity="B2BDefaultConfig" stepKey="setB2BDefaultConfig"/>
+            <actionGroup ref="SetAdminAccountActionGroup" stepKey="setDefaultAdminInterfaceLocale"/>
+            <amOnPage url="{{AdminNegotiableQuotesPage.url}}" stepKey="navigateToNegotiableQuotesGrid"/>
+            <actionGroup ref="clearFiltersAdminDataGrid" stepKey="clearFiltersNegotiableQuotesGrid"/>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+        <!-- 1. Login to backend as merchant-->
+        <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+        <!-- 2. On the top right corner menu select "Account Setting (admin)" and in the "Interface Locale" choose non US time format locale (e.g. Chinese) Click "Save Account" button-->
+        <actionGroup ref="SetAdminAccountActionGroup" stepKey="changeAdminInterfaceLocale">
+            <argument name="InterfaceLocaleByValue" value="uk_UA"/>
+        </actionGroup>
+        <!-- 3. Go to Sales -> Quotes -> open submitted quote-->
+        <actionGroup ref="AdminOpenNegotiableQuoteActionGroup" stepKey="searchAndOpenQuoteInAdmin">
+            <argument name="quoteName" value="{{NeqotiableQuote.name}}"/>
+        </actionGroup>
+        <!-- 4. Change quote expiration date-->
+        <!-- 5. Send quote-->
+        <generateDate date="+1 day" format="d.m.y" stepKey="generateExpirationDateForAdmin"/>
+        <generateDate date="+1 day" format="F j, Y" stepKey="generateExpirationDateForStorefront"/>
+        <actionGroup ref="AdminChangeNegotiableQuoteExpirationDateActionGroup" stepKey="changeExpirationDateAndSend">
+            <argument name="expirationDate" value="{$generateExpirationDateForAdmin}"/>
+        </actionGroup>
+        <!-- 6. Login to frontend as buyer and open updated quote-->
+        <actionGroup ref="StorefrontAssertNegotiableQuoteExpirationDateActionGroup" stepKey="openAndAssertQuoteOnStorefront">
+            <argument name="quoteName" value="{{NeqotiableQuote.name}}"/>
+            <argument name="expirationDate" value="{$generateExpirationDateForStorefront}"/>
+        </actionGroup>
+        <!-- TODO: Remove this line after MC-17932 was fixed -->
+        <click selector="{{StorefrontNegotiableQuoteViewSection.sendForReview}}" stepKey="clickSendForReview"/>
+    </test>
+</tests>

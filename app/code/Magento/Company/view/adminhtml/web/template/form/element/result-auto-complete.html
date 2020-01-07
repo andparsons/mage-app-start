@@ -1,0 +1,26 @@
+<!--
+-->
+<div>
+    <% if (data.list.length) { %>
+    <div class="admin__action-multiselect-results-amount"><%- data.list.length %> <%- data.options %></div>
+    <% } %>
+    <ul class="admin__action-multiselect-menu-inner">
+        <% _.each(data.list, function(company) { %>
+            <li class="admin__action-multiselect-menu-inner-item" data-action="select"
+                data-name="<%- company.name %>" data-id="<%- company.id %>"
+                data-address="<%- company.address %>" data-group="<%- company.group %>"
+            >
+                <%- company.name %>
+            </li>
+        <% }); %>
+    </ul>
+    <% if (!data.list.length) { %>
+        <div class="no-results"><%- data.noResults %></div>
+    <% } %>
+
+    <div class="admin__action-multiselect-actions-wrap">
+        <button disabled="disabled" class="action-default" data-action="done-select">
+            <span><%- data.done %></span>
+        </button>
+    </div>
+</div>

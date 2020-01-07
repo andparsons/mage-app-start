@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontQuickOrderAddToCartWithoutProductTest">
+        <annotations>
+            <features value="QuickOrder"/>
+            <stories value="Create quick order"/>
+            <title value="Storefront quick order add to cart without product"/>
+            <description value="Storefront quick order add to cart without product"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="MC-17844"/>
+            <useCaseId value="MC-17642"/>
+            <group value="quickOrder"/>
+        </annotations>
+        <before>
+            <!-- Enable Quick order functionality -->
+            <createData entity="B2BEnabledQuickOrderConfig" stepKey="enabledQuickOrderConfig"/>
+            <!-- Create a product -->
+            <createData entity="SimpleProduct2" stepKey="createProduct"/>
+        </before>
+        <after>
+            <!--Set b2b config to default-->
+            <createData entity="B2BDefaultConfig" stepKey="defaultB2BConfig"/>
+            <!--Delete created data-->
+            <deleteData createDataKey="createProduct" stepKey="deleteProduct"/>
+        </after>
+
+        <!--Go to Quick order and enter the product-->
+        <amOnPage url="{{StorefrontQuickOrderPage.url}}" stepKey="goQuickOrderPage"/>
+
+        <!--Enter the product name-->
+        <fillField selector="{{StorefrontQuickOrderSection.enterSkuOrProductName}}" userInput="$$createProduct.sku$$" stepKey="fillProductSku"/>
+        <click selector="{{StorefrontQuickOrderSection.Qty}}" stepKey="clickQty"/>
+        <waitForElementVisible selector="{{StorefrontQuickOrderSection.addToCart}}" stepKey="waitAddToCart"/>
+        <!--Check that QTY is 1-->
+        <seeInField selector="{{StorefrontQuickOrderSection.Qty}}" userInput="1" stepKey="assertProductQty"/>
+        <!--Check product name-->
+        <see selector="{{StorefrontQuickOrderSection.productName}}" userInput="$$createProduct.sku$$" stepKey="assertProductSku"/>
+        <!--Remove product-->
+        <click selector="{{StorefrontQuickOrderSection.remove}}" stepKey="removeProduct"/>
+        <!-- wait Add to Cart visible -->
+        <waitForElementVisible selector="{{StorefrontQuickOrderSection.addToCart}}" stepKey="waitAddToCartEnabled"/>
+        <!--Add to Cart-->
+        <click selector="{{StorefrontQuickOrderSection.addToCart}}" stepKey="clickAddToCart"/>
+        <!--Verify assert message-->
+        <waitForElementVisible selector="{{StorefrontQuickOrderSection.skuErrorMessage}}" stepKey="waitForNoSkuErrorMessage"/>
+        <see selector="{{StorefrontQuickOrderSection.skuErrorMessage}}" userInput="Please enter valid SKU key." stepKey="assertNoSkuErrorMessage"/>
+    </test>
+</tests>

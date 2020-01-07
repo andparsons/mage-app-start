@@ -1,0 +1,9 @@
+<?php
+?>
+<?php
+/** @var \Magento\Sales\Block\Adminhtml\Order\Create\Items\Grid $block */
+
+$item = $block->getItem();
+?>
+<?php $rowTotalWithoutDiscount = $item->getRowTotal() - $item->getTotalDiscountAmount() ?>
+<?= /* @noEscape */ $block->formatPrice(max(0, $rowTotalWithoutDiscount)) ?>

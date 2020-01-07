@@ -1,0 +1,145 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Variables
+//  _____________________________________________
+
+@action-group-action-link__border-color: @color-gray80;
+@action-group-form-element__focus__border-color: @focus__color;
+@action-group-list__z-index: @z-index-1;
+@action-group-option__hover__background-color: @color-gray89;
+
+//
+.admin__action-group-wrap {
+    width: 15rem;
+
+    &._disabled {
+        pointer-events: none;
+    }
+
+    &._multiple {
+        min-width: 40rem;
+    }
+
+    &.admin__action-multiselect-wrap {
+        &.action-select-wrap {
+            .crumb-action {
+                padding: 0;
+
+                &:before {
+                    font-size: .5rem;
+                }
+            }
+
+            &._active {
+                .action-select-list {
+                    min-width: 20rem;
+                    z-index: @action-group-list__z-index;
+
+                    .action-menu-item {
+                        height: 3rem;
+                        padding: @indent__xs @indent__s @indent__xs @indent__m;
+
+                        .admin__action-multiselect-label {
+                            width: 100%;
+                            .lib-text-overflow-ellipsis();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    input::-ms-clear {
+        display: none;
+    }
+
+    &._focus {
+        .admin__action-multiselect,
+        .admin__action-multiselect:before {
+            border-color: @action-group-form-element__focus__border-color;
+        }
+    }
+
+    .admin__action-multiselect-text {
+        .lib-text-overflow-ellipsis();
+    }
+
+    .admin__action-multiselect-menu-inner {
+        max-height: 30.5rem;
+        padding-top: @indent__xs;
+
+        &:empty {
+            overflow-y: visible;
+        }
+    }
+
+    .admin__action-group-optgroup {
+        padding: @indent__xs @indent__s;
+    }
+
+    .admin__action-group-option {
+        &:hover,
+        &._hover {
+            background-color: @action-group-option__hover__background-color;
+            cursor: pointer;
+        }
+    }
+
+    .admin__action-multiselect-search-label {
+        right: 1.2rem;
+    }
+
+    .admin__action-multiselect-remove-label {
+        cursor: pointer;
+        display: block;
+        font-size: @font-size__xl;
+        overflow: hidden;
+        position: absolute;
+        right: 0.7rem;
+        top: 1.5rem;
+        width: 1.2em;
+
+        &:before {
+            &:extend(.abs-icon all);
+            content: @icon-remove-small__content;
+        }
+    }
+
+    .admin__action-multiselect-search-count {
+        font-size: @font-size__s;
+        line-height: 2;
+    }
+
+    .admin__action-multiselect-action-links {
+        float: right;
+
+        .action {
+            float: left;
+            padding: 0;
+
+            span {
+                font-size: @font-size__s;
+                font-weight: @font-weight__regular;
+            }
+
+            &:not(:last-child) {
+                &:after {
+                    border-left: 1px solid @action-group-action-link__border-color;
+                    content: '';
+                    display: inline-block;
+                    height: 1.2rem;
+                    margin: 0 @indent__s;
+                    vertical-align: middle;
+                }
+            }
+        }
+    }
+
+    .admin__action-multiselect-actions-wrap {
+        text-align: right;
+    }
+}

@@ -1,0 +1,16 @@
+<?php
+?>
+<?php if ($block->isNegotiableQuote() && $block->getCatalogTotals()) : ?>
+    <tr class="admin__page-section-negotiable">
+        <td colspan="2">
+            <table class="data-table">
+                <?php foreach ($block->getCatalogTotals() as $_code => $_total) : ?>
+                    <tr class="col-<?= $block->escapeHtmlAttr($_code) ?>">
+                        <td><?= $block->escapeHtml($_total->getLabel()) ?></td>
+                        <td><span><?= /* @noEscape */ $block->displayPrice($_total) ?></span></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </td>
+    </tr>
+<?php endif ?>

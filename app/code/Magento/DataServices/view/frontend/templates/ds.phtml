@@ -1,0 +1,25 @@
+<?php
+?>
+
+<?php
+/** @var \Magento\DataServices\Block\Context $block */
+?>
+
+<script>
+    window.dsDataLayer = {
+        storefrontInstanceContext: <?= /* @noEscape */ $block->getStorefrontInstanceContext(); ?>,
+        magentoExtensionVersion: "<?= /* @noEscape */ $block->getExtensionVersion(); ?>",
+        page: {
+            pageType: "<?= /* @noEscape */ $block->getData('page_type'); ?>",
+            action: "<?= /* @noEscape */ $block->getData('step_name'); ?>"
+        }
+    };
+</script>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "dataServicesBase": {}
+        }
+    }
+</script>

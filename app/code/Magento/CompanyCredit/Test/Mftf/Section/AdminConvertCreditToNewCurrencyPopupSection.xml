@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="AdminConvertCreditToNewCurrencyPopupSection">
+        <element name="title" type="text" selector=".company_form_company_form_modalContainer_change_credit_limit_modal h1.modal-title"/>
+        <element name="currencyRate" type="text" selector="[name='credit_limit_change[currency_rate]']"/>
+        <element name="proceed" type="button" selector=".company_form_company_form_modalContainer_change_credit_limit_modal .modal-footer .action-primary span" timeout="30"/>
+    </section>
+</sections>

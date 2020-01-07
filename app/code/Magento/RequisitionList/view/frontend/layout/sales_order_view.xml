@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="requisition_list"/>
+    <body>
+        <referenceBlock name="sales.order.info.buttons">
+            <block class="Magento\Sales\Block\Order\Info\Buttons" as="requisition.add"
+                   template="Magento_RequisitionList::order/info/requisition.phtml"
+                   ifconfig="btob/website_configuration/requisition_list_active"
+                   name="sales.order.info.button.requisition.add"/>
+        </referenceBlock>
+    </body>
+</page>

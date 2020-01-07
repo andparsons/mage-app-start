@@ -1,0 +1,26 @@
+<?php
+
+/** @var $block \Magento\RequisitionList\Block\Catalog\Product\View\Addto\Requisition */
+?>
+<div class="block block-requisition-list social-button update" data-bind="scope: 'requisition_item_update'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "requisition_item_update": {
+                        "component": "Magento_RequisitionList/js/requisition/action/product/view/update",
+                        "template": "Magento_RequisitionList/requisition-list/action/update",
+                        "title": "<?= $block->escapeJs(__('Update Requisition List')) ?>",
+                        "action": "<?= $block->escapeUrl($block->getUrl('requisition_list/item/add')) ?>",
+                        "sku": "<?= $block->escapeJs($block->getProduct()->getSku()) ?>",
+                        "itemId": "<?= (int) $block->getRequest()->getParam('item_id') ?>",
+                        "productFormSelector": "#product_addtocart_form"
+                    }
+                }
+            }
+        }
+    }
+</script>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <!-- Go to product staging preview page -->
+    <actionGroup name="GoToProductStagingPreview">
+        <arguments>
+            <argument name="productId" type="string" defaultValue="1"/>
+            <argument name="updateName" type="string" defaultValue="{{_defaultStaging.name}}"/>
+        </arguments>
+
+        <amOnPage url="{{AdminProductEditPage.url(productId)}}" stepKey="goToProductEditToSeePreview"/>
+        <click selector="{{AdminScheduledChangesSection.scheduleActions(updateName, 'Preview')}}" stepKey="clickPreview"/>
+        <switchToNextTab stepKey="switchToPreviewTab"/>
+        <waitForPageLoad time="30" stepKey="waitForPreviewTabLoad"/>
+    </actionGroup>
+    <!-- Focus on Preview IFrame to work with it -->
+    <actionGroup name="FocusOnStagingPreviewIframe">
+        <!--Set frame id because switchToIFrame requires ID as parameter-->
+        <executeJS function="document.querySelector('[data-role=\'preview-iframe\']').id = 'preview-iframe'" stepKey="setStagedPreviewFrameId"/>
+        <switchToIFrame userInput="preview-iframe" stepKey="switchToStagedPreviewFrame"/>
+        <waitForPageLoad time="30" stepKey="waitForIFrameContentLoad"/>
+    </actionGroup>
+
+    <actionGroup name="FocusOnHostPage">
+        <switchToIFrame stepKey="switchOutFromIFrame"/>
+    </actionGroup>
+</actionGroups>

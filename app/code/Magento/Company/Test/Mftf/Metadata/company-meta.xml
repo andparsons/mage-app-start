@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataOperation.xsd">
+    <operation name="CreateCompany" dataType="company" type="create" auth="adminOauth" url="/V1/company" method="POST">
+        <contentType>application/json</contentType>
+        <object dataType="company" key="company">
+            <field key="status">integer</field>
+            <field key="company_name">string</field>
+            <field key="legal_name">string</field>
+            <field key="company_email">string</field>
+            <field key="vat_tax_id">string</field>
+            <field key="reseller_id">string</field>
+            <field key="comment">string</field>
+            <array key="street">
+                <value>string</value>
+            </array>
+            <field key="city">string</field>
+            <field key="country_id">string</field>
+            <field key="region">string</field>
+            <field key="region_id">string</field>
+            <field key="postcode">string</field>
+            <field key="telephone">string</field>
+            <field key="customer_group_id">integer</field>
+            <field key="sales_representative_id">integer</field>
+            <field key="reject_reason">string</field>
+            <field key="rejected_at">string</field>
+            <field key="super_user_id">integer</field>
+            <field key="extension_attributes">empty_extension_attribute-meta</field>
+        </object>
+    </operation>
+    <operation name="DeleteCompany" dataType="company" type="delete" auth="adminOauth" url="/V1/company/{id}" method="DELETE">
+        <contentType>application/json</contentType>
+    </operation>
+</operations>

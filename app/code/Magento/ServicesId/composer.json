@@ -1,0 +1,26 @@
+{
+    "name": "magento/module-services-id",
+    "description": "N/A",
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": "7.0.2||7.0.4||>=7.0.6 <7.4",
+        "ramsey/uuid": "^3.8",
+        "magento/framework": "*"
+    },
+    "type": "magento2-module",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Magento\\ServicesId\\": ""
+        }
+    },
+    "version": "1.1.2"
+}

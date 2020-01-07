@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <btob>
+            <website_configuration>
+                <requisition_list_active>0</requisition_list_active>
+            </website_configuration>
+        </btob>
+        <requisitionlist>
+            <general>
+                <number_requisition_lists>999</number_requisition_lists>
+            </general>
+        </requisitionlist>
+    </default>
+</config>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="settings">
+        <field name="customer_group_id" class="Magento\SharedCatalog\Ui\Component\Form\Field\CustomerGroup" formElement="select">
+            <settings>
+                <notice translate="true">Use this field to change company's shared catalog</notice>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Magento\SharedCatalog\Model\Customer\Source\Group"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+    </fieldset>
+</form>

@@ -1,0 +1,21 @@
+<!--
+-->
+<!--@subject Your company registration request rejected  @-->
+<!--@vars {
+"var customer.name":"Customer Name",,
+"var customer.companyName": "Company Name"
+"var customer.rejectReason":"Company Reject Reason"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting company-greeting"><strong>{{trans "Dear %name," name=$customer.name}}</strong></p>
+<p>{{trans
+    "Your company registration request (for the <strong>%company_name</strong>) has been rejected
+    for the following reason:"
+    company_name=$escaper.escapeHtml($customer.companyName)
+    |raw}}</p>
+<p>{{var customer.rejectReason|escape|nl2br}}</p>
+<p>{{trans "If you have any questions, please contact the seller."}}</p>
+
+{{template config_path="design/email/footer_template"}}

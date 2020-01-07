@@ -1,0 +1,21 @@
+<?php
+?>
+<script>
+require([
+    'prototype',
+    'Magento_Rma/rma'
+], function(){
+
+    rma.setLoadAttributesUrl('<?= $block->escapeJs($block->escapeUrl($block->getLoadAttributesUrl())) ?>');
+    rma.setLoadBundleUrl('<?= $block->escapeJs($block->escapeUrl($block->getLoadBundleUrl())) ?>');
+    rma.setLoadOrderId('<?= (int) $block->getLoadOrderId() ?>');
+    $$('a[class="product_to_add"]').each(function(obj) {
+        obj.observe('click', rma.showBundleItems.bind(rma));
+    });
+
+    $('edit_form').insert({
+        bottom: new Element('div', {id: 'details_container'})
+    });
+
+});
+</script>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminConfigureGroupedProductInQuoteActionGroup">
+        <arguments>
+            <argument name="firstProductSku" type="string"/>
+            <argument name="secondProductSku" type="string"/>
+            <argument name="QtyFirstProduct" type="string"/>
+            <argument name="QtySecondProduct" type="string"/>
+        </arguments>
+        <!-- Click button "Configure" groupedProduct -->
+        <click selector="{{AdminNegotiableQuoteItemSection.buttonConfigureProduct}}" stepKey="clickConfigureButton"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForConfigureProduct"/>
+        <!-- Focus on aside window -->
+        <scrollTo selector="{{AdminNegotiableQuoteItemSection.blockConfigProduct}}" x="-1000" y="-1000" stepKey="scrollToQtyField"/>
+        <click selector="{{AdminNegotiableQuoteItemSection.blockConfigProduct}}" stepKey="clickOnFocus"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoading"/>
+        <!-- Fill Qty for products in Grouped product -->
+        <fillField userInput="{{QtyFirstProduct}}" selector="{{AdminNegotiableQuoteItemSection.fieldQty(firstProductSku)}}" stepKey="fillGroupedProductQty"/>
+        <fillField userInput="{{QtySecondProduct}}" selector="{{AdminNegotiableQuoteItemSection.fieldQty(secondProductSku)}}" stepKey="fillGroupedProductQty1"/>
+        <!-- Push button "OK" -->
+        <click selector="{{AdminNegotiableQuoteItemSection.buttonOk}}" stepKey="clickOKButton"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoadingQuotes"/>
+    </actionGroup>
+</actionGroups>

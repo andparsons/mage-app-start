@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="header.panel">
+            <block class="Magento\Framework\View\Element\Html\Links" name="b2blinks" before="top.links">
+                <arguments>
+                    <argument name="css_class" xsi:type="string">header links</argument>
+                </arguments>
+                <block class="Magento\QuickOrder\Block\Link" name="quick_order_link" ifconfig="btob/website_configuration/quickorder_active" after="-"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

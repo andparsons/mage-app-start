@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminUpdateCustomerGroupByEmailActionGroup" insertAfter="waitForPageLoad04">
+        <remove keyForRemoval="clickOnCustomerGroup01"/>
+        <remove keyForRemoval="selectCustomerGroup01"/>
+
+        <waitForPageLoad stepKey="waitForPageLoad001"/>
+        <click selector="{{AdminCustomerAccountInformationSection.group}} .action-select.admin__action-multiselect" stepKey="clickDropdown001"/>
+
+        <selectMultipleOptions filterSelector="{{AdminCustomerAccountInformationSection.group}} .admin__action-multiselect-search-wrap>input" optionSelector="{{AdminCustomerAccountInformationSection.group}} .admin__action-multiselect-label>span" stepKey="selectSpecifiedOptions001">
+            <array>[{{customerGroup}}]</array>
+        </selectMultipleOptions>
+    </actionGroup>
+</actionGroups>

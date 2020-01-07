@@ -1,0 +1,12 @@
+<div class="product-error general-error">
+    <% if (data.countError) { %>
+    <div class="message error">
+        <div><%- data.countError %><%- data.countErrorText %></div>
+    </div>
+    <% } %>
+    <% if (data.text) { %>
+    <div class="message error">
+        <div><%- data.text %></div>
+    </div>
+    <% } %>
+</div>

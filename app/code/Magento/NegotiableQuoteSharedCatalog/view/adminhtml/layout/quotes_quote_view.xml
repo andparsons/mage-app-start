@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <referenceBlock name="negotiable.quote.info.extra.container">
+                <block class="Magento\NegotiableQuoteSharedCatalog\Block\Adminhtml\Quote\View\Info"
+                       name="customer.group.extra.data"
+                       after="negotiable.quote.info.extra.container"
+                       template="Magento_NegotiableQuoteSharedCatalog::quote/view/info.phtml"/>
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * @var $block \Magento\NegotiableQuote\Block\Quote\Totals
+ */
+?>
+<div class="quote-block-content negotiated-price">
+    <div class="quote-block-title">
+        <?= $block->escapeHtml(__('Negotiated Price')) ?>
+    </div>
+    <table id="shopping-cart-table-totals" class="items data table quote-table-totals">
+        <tbody>
+        <?php foreach ($block->getTotals() as $code => $total) : ?>
+            <?php if (!$total->getBlockName()) : ?>
+                <?php $style = ($total->getStyle() ? ' ' . $total->getStyle() : '' ); ?>
+                <tr class="<?= $block->escapeHtmlAttr($code . $style) ?>">
+                    <th <?= /* @noEscape */ $block->getLabelProperties() ?> scope="row">
+                        <?php if ($total->getStrong()) : ?>
+                            <strong><?= $block->escapeHtml($total->getLabel()) ?></strong>
+                        <?php else : ?>
+                            <?= $block->escapeHtml($total->getLabel()) ?>
+                        <?php endif ?>
+                    </th>
+                    <td <?= /* @noEscape */ $block->getValueProperties() ?>
+                        data-th="<?= $block->escapeHtmlAttr($total->getLabel()) ?>">
+                        <?php $currencyCode = $total->getCurrency()
+                            ? $total->getCurrency()
+                            : $block->getQuote()->getQuoteCurrencyCode(); ?>
+                        <?php if ($total->getStrong()) : ?>
+                            <strong>
+                                <?= /* @noEscape */
+                                $block->formatPrice(
+                                    $total->getValue(),
+                                    $currencyCode
+                                ) ?>
+                            </strong>
+                        <?php else : ?>
+                            <?= /* @noEscape */
+                            $block->formatPrice(
+                                $total->getValue(),
+                                $currencyCode
+                            ) ?>
+                        <?php endif ?>
+                    </td>
+                </tr>
+            <?php endif ?>
+        <?php endforeach ?>
+        <?= $block->getChildHtml() ?>
+        </tbody>
+    </table>
+</div>

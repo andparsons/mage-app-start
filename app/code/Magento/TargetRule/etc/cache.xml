@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Cache/etc/cache.xsd">
+    <type name="target_rule" translate="label,description" instance="Magento\TargetRule\Model\Cache\Index">
+        <label>Target Rule</label>
+        <description>Target Rule Index</description>
+    </type>
+</config>

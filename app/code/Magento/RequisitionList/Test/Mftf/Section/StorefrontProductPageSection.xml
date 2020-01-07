@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="StorefrontProductPageSection">
+        <element name="addToRequisitionListButton" type="button" selector="button.requisition-list-button" timeout="30"/>
+        <element name="createNewRequisitionListButton" type="button" selector="//span[@data-action='add-to-requisition-list']//span[contains(., 'Create New Requisition List')]" timeout="30"/>
+        <element name="requisitionListName" type="button" selector="#requisition-list-name" timeout="30"/>
+        <element name="selectRequisitionListName" type="button" selector="//div[@class='items']//span[contains(text(), '{{arg}}')]" parameterized="true"/>
+    </section>
+</sections>

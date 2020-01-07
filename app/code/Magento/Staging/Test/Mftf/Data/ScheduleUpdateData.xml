@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="ScheduleData" type="data">
+        <data key="name" unique="suffix">New Catalog Price Rule</data>
+        <data key="newName" unique="suffix">Updated Catalog Price Rule</data>
+        <data key="year">2020</data>
+        <data key="newYear">2049</data>
+    </entity>
+</entities>

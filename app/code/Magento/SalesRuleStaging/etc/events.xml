@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_rule_updated">
+        <observer name="update_experation_date_for_coupon" instance="Magento\SalesRuleStaging\Model\Coupon\ExpirationDateResolver" />
+    </event>
+</config>

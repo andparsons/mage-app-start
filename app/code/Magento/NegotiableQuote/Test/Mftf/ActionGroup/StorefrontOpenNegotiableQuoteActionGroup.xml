@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="StorefrontOpenNegotiableQuoteActionGroup">
+        <arguments>
+            <argument name="quoteName" type="string"/>
+        </arguments>
+        <amOnPage url="{{StorefrontNegotiableQuotePage.url}}" stepKey="goToNegotiableQuotePage"/>
+        <waitForElementVisible selector="{{StorefrontMyQuoteGridSection.viewQuoteByName(quoteName)}}" stepKey="waitForQuoteVisible"/>
+        <click selector="{{StorefrontMyQuoteGridSection.viewQuoteByName(quoteName)}}" stepKey="clickViewButton"/>
+        <waitForElementVisible selector="{{StorefrontNegotiableQuoteViewSection.quoteName}}" stepKey="waitForElementVisible"/>
+        <see selector="{{StorefrontNegotiableQuoteViewSection.quoteName}}" userInput="{{quoteName}}" stepKey="seeOpenedQuote"/>
+    </actionGroup>
+</actionGroups>

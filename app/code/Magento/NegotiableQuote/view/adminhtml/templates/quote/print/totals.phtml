@@ -1,0 +1,56 @@
+<?php
+?>
+<?php
+/** @var $block \Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Totals */
+?>
+<section class="admin__page-section quote-view-totals">
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item quote-catalog-price">
+            <div class="admin__page-section-item-title">
+                <span class="title"><?= $block->escapeHtml(__('Catalog Price')) ?></span>
+            </div>
+            <?= $block->getChildHtml('negotiable.quote.subtotals') ?>
+        </div>
+        <div class="admin__page-section-item quote-negotiated-price">
+            <div class="admin__page-section-item-title">
+                <span class="title"><?= $block->escapeHtml(__('Negotiated Price')) ?></span>
+            </div>
+            <div class="admin__page-section-item-content">
+                <table class="data-table admin__table-secondary quote-subtotal-table">
+                    <?= /* @noEscape */ $block->getOutputFormat() ?>
+                    <?php foreach ($block->getTotals() as $code => $total) : ?>
+                        <?php if ($total->getBlockName()) : ?>
+                            <?= $block->getChildHtml($total->getBlockName(), false) ?>
+                        <?php else : ?>
+                            <tr class="<?= $block->escapeHtmlAttr($code) ?>">
+                                <th <?= /* @noEscape */ $block->getLabelProperties() ?> scope="row">
+                                    <?php if ($total->getStrong()) : ?>
+                                        <strong><?= $block->escapeHtml($total->getLabel()) ?></strong>
+                                    <?php else : ?>
+                                        <?= $block->escapeHtml($total->getLabel()) ?>
+                                    <?php endif; ?>
+                                </th>
+                                <td <?= /* @noEscape */ $block->getValueProperties() ?>
+                                    data-th="<?= $block->escapeHtmlAttr($total->getLabel()) ?>">
+                                    <?php if ($total->getStrong()) : ?>
+                                    <strong>
+                                    <?php endif; ?>
+                                        <?= /* @noEscape */ $block->displayPrices($total->getValue()) ?>
+                                        <?php if ($total->getCurrency()) : ?>
+                                            <br />
+                                            [<?=
+                                            /* @noEscape */ $block->displayPrices($total->getValue(), $total->getCurrency())
+                                            ?>]
+                                        <?php endif; ?>
+                                    <?php if ($total->getStrong()) : ?>
+                                    </strong>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminRestrictedAdminUserBackendOrderCreationTest">
+        <annotations>
+            <features value="Negotiable Quotes"/>
+            <stories value="Restricted Admin User Backend Order Creation Issue With B2B"/>
+            <title value="Restricted Admin User - Backend order creation"/>
+            <description value="Check auto filling of FirstName field in Shipping section while order creation with Restricted Admin user"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="MAGETWO-96602"/>
+            <useCaseId value="MAGETWO-96413"/>
+            <group value="negotiable_quotes"/>
+        </annotations>
+        <before>
+            <!-- Login as Admin -->
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <createData entity="customWebsite" stepKey="createWebSite"/>
+            <createData entity="customStoreGroup" stepKey="createStoreGroup"/>
+        </before>
+        <after>
+            <!--Login as Admin-->
+            <actionGroup ref="SignOut" stepKey="SignOut"/>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+
+            <!-- Rerun cron and indexer to refresh grids -->
+            <magentoCLI stepKey="runCron" command="cron:run"/>
+            <magentoCLI stepKey="reindex" command="indexer:reindex"/>
+
+            <!-- Delete created data -->
+            <actionGroup ref="AdminDeleteCustomerActionGroup" stepKey="deleteCustomer">
+                <argument name="customerEmail" value="Simple_US_Customer.email"/>
+            </actionGroup>
+            <actionGroup ref="AdminDeleteCreatedUserActionGroup" stepKey="deleteUser">
+                <argument name="user" value="newAdmin"/>
+            </actionGroup>
+            <actionGroup ref="AdminDeleteUserRoleWithSpecifiedPermissionActionGroup" stepKey="deleteUserRole">
+                <argument name="role" value="adminRole"/>
+            </actionGroup>
+            <actionGroup ref="AdminDeleteWebsiteActionGroup" stepKey="deleteWebsite">
+                <argument name="websiteName" value="{{customWebsite.name}}"/>
+            </actionGroup>
+
+            <actionGroup ref="logout" stepKey="amOnLogoutPage"/>
+        </after>
+
+         <!--Add website to store and create store view-->
+        <actionGroup ref="AdminAddCustomWebSiteToStoreGroup" stepKey="addWebsiteToStoreGroup">
+            <argument name="storeGroup" value="customStoreGroup"/>
+            <argument name="website" value="customWebsite"/>
+        </actionGroup>
+        <actionGroup ref="AdminCreateStoreViewActionGroup" stepKey="createCustomStoreView">
+            <argument name="StoreGroup" value="customStoreGroup"/>
+            <argument name="customStore" value="customStore"/>
+        </actionGroup>
+
+        <!-- Create user role with custom website and user with user role-->
+        <actionGroup ref="AdminCreateUserRoleActionGroup" stepKey="createUserRole">
+            <argument name="role" value="adminRole"/>
+            <argument name="StoreGroup" value="customWebsite"/>
+        </actionGroup>
+        <actionGroup ref="AdminCreateUserActionGroup" stepKey="createNewUser">
+            <argument name="role" value="adminRole"/>
+            <argument name="User" value="newAdmin"/>
+        </actionGroup>
+
+        <!-- Create customer with custom website-->
+        <actionGroup ref="AdminCreateCustomerWithWebSiteAndGroup" stepKey="createCustomerWithWebsiteAndStoreView">
+            <argument name="customerData" value="Simple_US_Customer"/>
+            <argument name="website" value="{{customWebsite.name}}"/>
+            <argument name="storeView" value="{{customStore.name}}"/>
+        </actionGroup>
+
+        <!-- Log in as new created user-->
+        <actionGroup ref="SignOut" stepKey="SignOut"/>
+        <actionGroup ref="LoginAsAnyUser" stepKey="logAsNewUser">
+            <argument name="uname" value="{{newAdmin.username}}"/>
+            <argument name="passwd" value="{{newAdmin.password}}"/>
+        </actionGroup>
+
+        <!-- Go to new Order page and check Shipping FirstName field automatically filling-->
+        <actionGroup ref="NavigateToNewOrderPageExistingCustomerAndStoreActionGroup" stepKey="navigateToNewOrderPage">
+            <argument name="customer" value="Simple_US_Customer"/>
+            <argument name="storeView" value="customStore"/>
+        </actionGroup>
+        <fillField selector="{{AdminOrderFormBillingAddressSection.FirstName}}" userInput="test" stepKey="fillFirstNameField"/>
+        <pressKey selector="{{AdminOrderFormBillingAddressSection.FirstName}}" parameterArray="[\Facebook\WebDriver\WebDriverKeys::ENTER]" stepKey="enter"/>
+        <grabValueFrom selector="{{AdminOrderFormBillingAddressSection.FirstName}}" stepKey="grabBillingFirstName"/>
+        <grabValueFrom selector="{{AdminOrderFormShippingAddressSection.FirstName}}" stepKey="grabShippingFirstName"/>
+        <assertEquals expected='$grabBillingFirstName' actual="$grabShippingFirstName"  stepKey="checkShippingFirstNameValue1"/>
+    </test>
+</tests>

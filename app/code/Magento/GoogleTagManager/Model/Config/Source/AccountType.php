@@ -1,0 +1,29 @@
+<?php
+namespace Magento\GoogleTagManager\Model\Config\Source;
+
+use \Magento\GoogleTagManager\Helper\Data as Helper;
+
+/**
+ * Class AccountType
+ *
+ * @api
+ * @since 100.0.2
+ */
+class AccountType
+{
+    /**
+     * @return array
+     */
+    public function toOptionArray()
+    {
+        return [
+            [
+                'value' => Helper::TYPE_UNIVERSAL,
+                'label' => __('Universal Analytics')
+            ],[
+                'value' => Helper::TYPE_TAG_MANAGER,
+                'label' => __('Google Tag Manager')
+            ],
+        ];
+    }
+}

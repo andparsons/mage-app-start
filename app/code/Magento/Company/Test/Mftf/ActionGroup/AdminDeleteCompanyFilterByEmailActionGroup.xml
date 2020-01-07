@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminDeleteCompanyFilterByEmailActionGroup">
+        <arguments>
+            <argument name="email" type="string"/>
+        </arguments>
+        <amOnPage url="{{AdminCompanyIndexPage.url}}" stepKey="goToCompanyIndexPage"/>
+        <waitForPageLoad stepKey="waitForPageLoad"/>
+        <conditionalClick selector="{{AdminCompanyGridFiltersSection.clearFilters}}" dependentSelector="{{AdminCompanyGridFiltersSection.clearFilters}}" visible="true" stepKey="clickClearFilters"/>
+        <click selector="{{AdminCompanyGridFiltersSection.filtersButton}}" stepKey="openFilter"/>
+        <fillField userInput="{{email}}" selector="{{AdminCompanyGridFiltersSection.companyEmailInput}}" stepKey="fillCompanyEmailFilter"/>
+        <click selector="{{AdminCompanyGridFiltersSection.apply}}" stepKey="applyFilter"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoadingMaskToDisappear"/>
+        <click selector="{{AdminCompaniesSection.selectAll}}" stepKey="selectAll"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoadingMask"/>
+        <click selector="{{AdminGridSelectRows.bulkActionDropdown}}" stepKey="clickActions"/>
+        <click selector="{{AdminCompaniesSection.delete}}" stepKey="clickDelete"/>
+        <waitForAjaxLoad stepKey="waitForLoadConfirmation"/>
+        <click selector="{{AdminConfirmationModalSection.ok}}" stepKey="confirmDelete"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForDelete"/>
+        <conditionalClick selector="{{AdminDataGridHeaderSection.clearFilters}}" dependentSelector="{{AdminDataGridHeaderSection.clearFilters}}" visible="true" stepKey="clickOnButtonToRemoveFiltersIfPresent1"/>
+    </actionGroup>
+</actionGroups>
+

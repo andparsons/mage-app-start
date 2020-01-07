@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontCategoryPermissionsScheduledWithSharedCatalogTest">
+        <annotations>
+            <description value="Shared Catalog Permissions after reindex by schedule"/>
+            <stories value="Shared Catalog Permissions"/>
+            <features value="Shared Catalog"/>
+            <title value="Shared Catalog Permissions after reindex by schedule"/>
+            <severity value="CRITICAL"/>
+            <useCaseId value="MAGETWO-98563"/>
+            <testCaseId value="MAGETWO-98647"/>
+            <group value="b2b"/>
+            <group value="sharedCatalog"/>
+        </annotations>
+        <before>
+            <createData entity="_defaultCategory" stepKey="createCategoryForAssign"/>
+            <createData entity="_defaultCategory" stepKey="createCategoryForUnAssign"/>
+            <createData entity="B2BEnabledSharedCatalogConfig" stepKey="enableSharedCatalog"/>
+            <magentoCLI command="indexer:set-mode schedule catalogpermissions_category" stepKey="setScheduleIndexer"/>
+            <createData entity="AssignCategoryToDefaultSharedCatalog" stepKey="assignCategoryToDefault">
+                <requiredEntity createDataKey="createCategoryForAssign"/>
+            </createData>
+        </before>
+        <after>
+            <magentoCLI command="indexer:set-mode realtime catalogpermissions_category" stepKey="setUpdateOnSaveIndexer"/>
+            <deleteData createDataKey="createCategoryForAssign" stepKey="deleteCategory1"/>
+            <deleteData createDataKey="createCategoryForUnAssign" stepKey="deleteCategory2"/>
+            <createData entity="B2BDefaultConfig" stepKey="defaultB2BConfig"/>
+        </after>
+        <magentoCLI command="cron:run" stepKey="cronSchedule"/>
+        <magentoCLI command="cron:run" stepKey="cronRun"/>
+        <amOnPage url="{{StorefrontCategoryPage.url($$createCategoryForAssign.name$$)}}" stepKey="goToCategoryStorefront"/>
+        <see selector="{{StorefrontCategoryMainSection.emptyProductMessage}}" userInput="We can't find products matching the selection." stepKey="seeCategoryEmpty"/>
+        <amOnPage url="{{StorefrontCategoryPage.url($$createCategoryForUnAssign.name$$)}}" stepKey="goToUnassignedCategoryStorefront"/>
+        <seeInTitle userInput="404 Not Found" stepKey="seeNotFound"/>
+    </test>
+</tests>

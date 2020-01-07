@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/PageObject.xsd">
+    <page name="AdminReturnEditPage" url="rma/edit/id/" area="admin" module="Magento_Rma">
+        <section name="AdminEditReturnInformationSection"/>
+        <section name="AdminEditReturnMainActionsSection"/>
+        <section name="AdminEditReturnOrderInformationSection"/>
+        <section name="AdminReturnAddressInformationSection"/>
+        <section name="AdminReturnInformationSection"/>
+        <section name="AdminReturnItemsSection"/>
+        <section name="AdminReturnTotalsSection"/>
+    </page>
+</pages>

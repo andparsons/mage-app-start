@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="selectNotLoggedInCustomerGroup">
+        <!-- This actionGroup overwrites CE -->
+        <remove keyForRemoval="selectCustomerGroup"/>
+        <click selector="{{AdminCartPriceRulesFormSection.customerGroups}}" stepKey="expandCustomerGroups"/>
+        <fillField selector="{{AdminCartPriceRulesFormSection.customerGroupsInput}}" userInput="NOT LOGGED IN" stepKey="fillCustomerGroups"/>
+        <click selector="{{AdminCartPriceRulesFormSection.customerGroupsFirstResult}}" stepKey="selectNotLoggedInGroup"/>
+        <click selector="{{AdminCartPriceRulesFormSection.customerGroupsDoneBtn}}" stepKey="closeMultiSelect"/>
+    </actionGroup>
+
+    <actionGroup name="CreateCardPriceRule">
+        <!-- Search and Multi select does not work, UI component is missing IDs -->
+        <click selector="{{AdminCartPriceRulesFormSection.customerGroups}}" stepKey="clickToSelectCustomerGroup"/>
+        <fillField selector="{{AdminCartPriceRulesFormSection.customerGroupsInput}}" userInput="NOT LOGGED IN" stepKey="searchOption" after="clickToSelectCustomerGroup"/>
+        <click selector="{{AdminCartPriceRulesFormSection.customerGroupsFirstResult}}" stepKey="clickOption" after="searchOption"/>
+        <click selector="{{AdminCartPriceRulesFormSection.customerGroupsDoneBtn}}" stepKey="clickDone" after="clickOption"/>
+    </actionGroup>
+
+    <actionGroup name="selectRetailerCustomerGroup">
+        <!-- The actionGroup overwrites CE -->
+        <remove keyForRemoval="selectRetailerCustomerGroup"/>
+        <click selector="{{AdminCartPriceRulesFormSection.customerGroups}}" stepKey="expandCustomerGroups"/>
+        <fillField selector="{{AdminCartPriceRulesFormSection.customerGroupsInput}}" userInput="Retailer" stepKey="fillCustomerGroups"/>
+        <click selector="{{AdminCartPriceRulesFormSection.customerGroupsFirstResult}}" stepKey="selectNotLoggedInGroup"/>
+        <click selector="{{AdminCartPriceRulesFormSection.customerGroupsDoneBtn}}" stepKey="closeMultiSelect"/>
+    </actionGroup>
+</actionGroups>

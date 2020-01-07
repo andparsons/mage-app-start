@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminManagingAdvancedPricesFromSharedCatalogPageTest">
+        <annotations>
+            <description value="Ability to configure Advanced Prices from Shared Catalog Page for different type of products"/>
+            <stories value="Managing Advanced Prices from Shared Catalog Page"/>
+            <features value="Shared Catalog"/>
+            <title value="Managing Advanced Prices from Shared Catalog Page"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MAGETWO-56400"/>
+            <group value="sharedCatalog"/>
+        </annotations>
+        <before>
+            <!--Create Dynamic Bundle product-->
+            <actionGroup ref="AdminCreateApiDynamicBundleProductActionGroup" stepKey="createDynamicBundle">
+                <argument name="productName" value="ApiDynamicBundle forSharedCatalog"/>
+            </actionGroup>
+            <!--Create Fixed Bundle product-->
+            <actionGroup ref="AdminCreateApiFixedBundleProductActionGroup" stepKey="createFixedBundle">
+                <argument name="productName" value="ApiFixedBundle forSharedCatalog"/>
+            </actionGroup>
+            <!--Create Simple product-->
+            <createData entity="SimpleProduct2" stepKey="createSimpleProduct">
+                <field key="name">Simple Product forSharedCatalog</field>
+            </createData>
+            <!--Create Virtual product-->
+            <createData entity="VirtualProduct" stepKey="createVirtualProduct">
+                <field key="name">Virtual Product forSharedCatalog</field>
+            </createData>
+
+            <!--Create new SharedCatalog-->
+            <createData entity="NewSharedCatalog" stepKey="newSharedCatalog"/>
+
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+        </before>
+        <after>
+            <!--Delete Dynamic Bundle Product-->
+            <deleteData createDataKey="simpleProduct1CreateDynamicBundle" stepKey="deleteSimpleProduct1"/>
+            <deleteData createDataKey="simpleProduct2CreateDynamicBundle" stepKey="deleteSimpleProduct2"/>
+            <deleteData createDataKey="simpleProduct3CreateDynamicBundle" stepKey="deleteSimpleProduct3"/>
+            <deleteData createDataKey="simpleProduct4CreateDynamicBundle" stepKey="deleteSimpleProduct4"/>
+            <deleteData createDataKey="createBundleProductCreateDynamicBundle" stepKey="deleteDynamicBundleProduct"/>
+
+            <!--Delete Fixed Bundle Product-->
+            <deleteData createDataKey="simpleProduct1CreateFixedBundle" stepKey="deleteSimpleProduct21"/>
+            <deleteData createDataKey="simpleProduct2CreateFixedBundle" stepKey="deleteSimpleProduct22"/>
+            <deleteData createDataKey="simpleProduct3CreateFixedBundle" stepKey="deleteSimpleProduct23"/>
+            <deleteData createDataKey="simpleProduct4CreateFixedBundle" stepKey="deleteSimpleProduct24"/>
+            <deleteData createDataKey="createBundleProductCreateFixedBundle" stepKey="deleteFixedBundleProduct"/>
+
+            <deleteData createDataKey="createSimpleProduct" stepKey="deleteSimpleProduct"/>
+            <deleteData createDataKey="createVirtualProduct" stepKey="deleteVirtualProduct"/>
+
+            <!--Delete Shared Catalog-->
+            <deleteData createDataKey="newSharedCatalog" stepKey="deleteSharedCatalog"/>
+
+            <actionGroup ref="logout" stepKey="logoutFromAdmin"/>
+
+            <magentoCLI command="indexer:reindex" stepKey="reindexAfter"/>
+            <magentoCLI command="cache:flush" stepKey="cacheFlushAfter"/>
+        </after>
+
+        <!-- Select 'Set Pricing And Structure' form Actions menu for created catalog-> Configure-> toggle simple products in the grid-> Next-> Generate-> Save -->
+        <amOnPage url="{{AdminSharedCatalogIndexPage.url}}" stepKey="goToAdminSharedCatalogIndexPage"/>
+        <actionGroup ref="AdminSharedCatalogFilterByIdInTheGridActionGroup" stepKey="filterSharedCatalog">
+            <argument name="id" value="$$newSharedCatalog.return$$"/>
+        </actionGroup>
+        <click selector="{{AdminSharedCatalogsSection.select}}" stepKey="clickSelectButton1"/>
+        <click selector="{{AdminSharedCatalogsSection.setPricingAndStructure}}" stepKey="clickOnSetPricingAndStructureItem1"/>
+        <click selector="{{AdminSharedCatalogCatalogStructureSection.configureButton}}" stepKey="clickOnConfigureButton"/>
+        <!--Assign created products to Shared Catalog-->
+        <actionGroup ref="AdminSharedCatalogFilterProductsOnGridActionGroup" stepKey="filterProductsOnGrid1">
+            <argument name="productName" value="forSharedCatalog"/>
+        </actionGroup>
+        <click selector="{{AdminSharedCatalogsSection.multiCheckForProductsAndCatalog}}" stepKey="clickMultiCheck"/>
+        <click selector="{{AdminSharedCatalogsSection.selectAllForProductsAndCatalog}}" stepKey="clickSelectAll"/>
+        <actionGroup ref="resetAdminDataGridToDefaultView" stepKey="resetProductFilter"/>
+
+        <click selector="{{AdminSharedCatalogCatalogStructureSection.nextButton}}" stepKey="clickNextButton"/>
+
+        <!--Set tier price-->
+        <waitForElementVisible selector="{{AdminSharedCatalogCatalogStructureProductGridSection.tierPriceConfByProductName($$createSimpleProduct.name$$)}}" stepKey="seeSimpleTierPrice"/>
+        <click selector="{{AdminSharedCatalogCatalogStructureProductGridSection.tierPriceConfByProductName($$createSimpleProduct.name$$)}}" stepKey="clickConfigSimpleTierPrice"/>
+        <actionGroup ref="SetTierPricePercentDiscountViaSharedCatalogActionGroup" stepKey="setTierPriceForSimpleProduct"/>
+
+        <waitForElementVisible selector="{{AdminSharedCatalogCatalogStructureProductGridSection.tierPriceConfByProductName($$createBundleProductCreateDynamicBundle.name$$)}}" stepKey="seeDynamicBundleTierPrice"/>
+        <click selector="{{AdminSharedCatalogCatalogStructureProductGridSection.tierPriceConfByProductName($$createBundleProductCreateDynamicBundle.name$$)}}" stepKey="clickConfigDynamicBundleTierPrice"/>
+        <actionGroup ref="SetTierPricePercentDiscountViaSharedCatalogActionGroup" stepKey="setTierPriceForDynamicBundleProduct"/>
+
+        <waitForElementVisible selector="{{AdminSharedCatalogCatalogStructureProductGridSection.tierPriceConfByProductName($$createBundleProductCreateFixedBundle.name$$)}}" stepKey="seeFixedBundleTierPrice"/>
+        <click selector="{{AdminSharedCatalogCatalogStructureProductGridSection.tierPriceConfByProductName($$createBundleProductCreateFixedBundle.name$$)}}" stepKey="clickConfigFixedBundleTierPrice"/>
+        <actionGroup ref="SetTierPricePercentDiscountViaSharedCatalogActionGroup" stepKey="setTierPriceForFixedBundleProduct"/>
+
+        <waitForElementVisible selector="{{AdminSharedCatalogCatalogStructureProductGridSection.tierPriceConfByProductName($$createVirtualProduct.name$$)}}" stepKey="seeVirtualTierPrice"/>
+        <click selector="{{AdminSharedCatalogCatalogStructureProductGridSection.tierPriceConfByProductName($$createVirtualProduct.name$$)}}" stepKey="clickConfigVirtualProductTierPrice"/>
+        <actionGroup ref="SetTierPricePercentDiscountViaSharedCatalogActionGroup" stepKey="setTierPriceForVirtualProduct"/>
+
+        <click selector="{{AdminSharedCatalogsSection.generateCatalog}}" stepKey="clickGenerateCatalog"/>
+        <click selector="{{AdminMainActionsSection.save}}" stepKey="clickSaveSharedCatalog"/>
+        <seeElement selector="{{AdminMessagesSection.success}}" stepKey="seeSuccessMessage"/>
+
+        <magentoCLI command="cron:run" arguments="--group=consumers" stepKey="updatePricesCronSchedule"/>
+        <magentoCLI command="cron:run" arguments="--group=consumers" stepKey="updatePricesCronRun"/>
+
+        <!--Clear filters shared catalog grid-->
+        <actionGroup ref="clearFiltersAdminDataGrid" stepKey="clearFiltersSharedCatalogGrid"/>
+
+        <!--Check tier price in products-->
+        <amOnPage url="{{AdminProductEditPage.url($$createSimpleProduct.id$$)}}" stepKey="goToSimpleProductEditPage"/>
+        <actionGroup ref="AssertDiscountsPercentageOfProducts" stepKey="checkDiscountsPercentageOfSimpleProduct"/>
+
+        <amOnPage url="{{AdminProductEditPage.url($$createBundleProductCreateDynamicBundle.id$$)}}" stepKey="goToDynamicBundleProductEditPage"/>
+        <actionGroup ref="AssertDiscountsPercentageOfProducts" stepKey="checkDiscountsPercentageOfDynamicBundleProduct"/>
+
+        <amOnPage url="{{AdminProductEditPage.url($$createBundleProductCreateFixedBundle.id$$)}}" stepKey="goToFixedBundleProductEditPage"/>
+        <actionGroup ref="AssertDiscountsPercentageOfProducts" stepKey="checkDiscountsPercentageOfFixedBundleProduct"/>
+
+        <amOnPage url="{{AdminProductEditPage.url($$createVirtualProduct.id$$)}}" stepKey="goToVirtualProductEditPage"/>
+        <actionGroup ref="AssertDiscountsPercentageOfProducts" stepKey="checkDiscountsPercentageOfVirtualProduct"/>
+    </test>
+</tests>

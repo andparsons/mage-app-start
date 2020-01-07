@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">history_listing.history_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>history_listing_columns</spinner>
+        <deps>
+            <dep>history_listing.history_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="history_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Magento_Company::index</aclResource>
+        <dataProvider class="Magento\CompanyCredit\Ui\Component\History\DataProvider" name="history_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>main_table.entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>false</sticky>
+        </settings>
+        <filters name="listing_filters">
+            <settings>
+                <columnsProvider>history_listing.history_listing.history_listing_columns</columnsProvider>
+            </settings>
+        </filters>
+        <columnsControls name="columns_controls"/>
+        <paging name="listing_paging"/>
+        <bookmark name="bookmarks">
+            <settings>
+                <storageConfig>
+                    <namespace>history_listing</namespace>
+                </storageConfig>
+            </settings>
+        </bookmark>
+    </listingToolbar>
+    <columns name="history_listing_columns">
+        <settings>
+            <childDefaults>
+                <param name="storageConfig" xsi:type="array">
+                    <item name="provider" xsi:type="string">history_listing.history_listing.listing_top.bookmarks</item>
+                    <item name="root" xsi:type="string">columns.${ $.index }</item>
+                    <item name="namespace" xsi:type="string">current.${ $.storageConfig.root}</item>
+                </param>
+                <param name="clickAction" xsi:type="string">view</param>
+                <param name="actionField" xsi:type="string">actions</param>
+                <param name="controlVisibility" xsi:type="boolean">true</param>
+            </childDefaults>
+            <storageConfig>
+                <namespace>current</namespace>
+                <provider>history_listing.history_listing.listing_top.bookmarks</provider>
+            </storageConfig>
+        </settings>
+        <column name="datetime" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Date</label>
+                <bodyTmpl>Magento_CompanyCredit/history/cells/date_with_title</bodyTmpl>
+                <sorting>desc</sorting>
+            </settings>
+        </column>
+        <column name="type" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <filter>select</filter>
+                <options class="Magento\CompanyCredit\Model\History\Source\Operation"/>
+                <dataType>select</dataType>
+                <label translate="true">Operation</label>
+            </settings>
+        </column>
+        <column name="amount" class="Magento\CompanyCredit\Ui\Component\History\Listing\Column\CurrencyOperation">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Amount</label>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+            </settings>
+        </column>
+        <column name="balance" class="Magento\CompanyCredit\Ui\Component\History\Listing\Column\CurrencyCredit">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Outstanding Balance</label>
+            </settings>
+        </column>
+        <column name="available_credit" class="Magento\CompanyCredit\Ui\Component\History\Listing\Column\CurrencyCredit">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Available Credit</label>
+            </settings>
+        </column>
+        <column name="credit_limit" class="Magento\CompanyCredit\Ui\Component\History\Listing\Column\CurrencyCredit">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Credit Limit</label>
+            </settings>
+        </column>
+        <column name="user_id" class="Magento\CompanyCredit\Ui\Component\History\Listing\Column\UpdatedBy">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Updated By</label>
+            </settings>
+        </column>
+        <column name="purchase_order">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Purchase Order</label>
+            </settings>
+        </column>
+        <column name="comment" class="Magento\CompanyCredit\Ui\Component\History\Listing\Column\Comment">
+            <settings>
+                <label translate="true">Comment</label>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="Magento\CompanyCredit\Ui\Component\History\Listing\Column\EditAction">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

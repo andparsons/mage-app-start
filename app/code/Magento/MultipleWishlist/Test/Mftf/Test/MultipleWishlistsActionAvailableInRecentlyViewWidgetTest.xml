@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="MultipleWishlistsActionAvailableInRecentlyViewWidgetTest">
+        <annotations>
+            <stories value="MultipleWishlist"/>
+            <title value="Multiple wishlists action available in recently view widget"/>
+            <description value="Multiple wishlists action available in recently view widget"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="MAGETWO-98648"/>
+            <useCaseId value="MAGETWO-98635"/>
+            <group value="wishlist"/>
+            <group value="WYSIWYGDisabled"/>
+        </annotations>
+        <before>
+            <createData entity="SimpleSubCategory" stepKey="categoryFirst"/>
+            <createData entity="SimpleProduct" stepKey="simpleProduct1">
+                <requiredEntity createDataKey="categoryFirst"/>
+            </createData>
+            <createData entity="SimpleProduct" stepKey="simpleProduct2">
+                <requiredEntity createDataKey="categoryFirst"/>
+            </createData>
+            <createData entity="Simple_US_Customer" stepKey="customer"/>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginToAdmin"/>
+        </before>
+        <after>
+            <deleteData createDataKey="simpleProduct1" stepKey="deleteSimpleProduct1"/>
+            <deleteData createDataKey="simpleProduct2" stepKey="deleteSimpleProduct2"/>
+            <deleteData createDataKey="categoryFirst" stepKey="deleteCategoryFirst"/>
+            <deleteData createDataKey="customer" stepKey="deleteCustomer"/>
+            <magentoCLI command="config:set wishlist/general/multiple_enabled 0" stepKey="resetWishlistConfiguration"/>
+            <actionGroup ref="ClearWidgetsForCMSHomePageContentWYSIWYGDisabled" stepKey="clearWidgetsFromCMSContent"/>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+        <!--Enable multiple wishlist-->
+        <comment userInput="Enable multiple wishlist" stepKey="enableMultipleWishlist"/>
+        <magentoCLI command="config:set wishlist/general/multiple_enabled 1" stepKey="enableCustomerWishlist"/>
+        <!--Create widget for recently viewed products-->
+        <comment userInput="Create widget for recently viewed products" stepKey="createWidgetComment"/>
+        <amOnPage url="{{CmsPageEditPage.url('2')}}" stepKey="navigateToEditHomePagePage"/>
+        <waitForPageLoad time="5" stepKey="waitForPageLoad"/>
+        <click selector="{{CmsNewPagePageActionsSection.contentSectionName}}" stepKey="expandContent"/>
+        <waitForPageLoad time="2" stepKey="waitForPageLoad2"/>
+        <conditionalClick selector="{{CmsNewPagePageActionsSection.showHideEditor}}" dependentSelector="{{CmsNewPagePageActionsSection.showHideEditor}}" visible="true" stepKey="clickShowHideEditorIfVisible"/>
+        <waitForElementVisible selector="{{CatalogWidgetSection.insertWidgetButton}}" stepKey="waitForInsertWidgetElement"/>
+        <click selector="{{CatalogWidgetSection.insertWidgetButton}}" stepKey="clickInsertWidget"/>
+        <waitForElementVisible selector="{{InsertWidgetSection.widgetTypeDropDown}}" time="30" stepKey="waitForWidgetTypeDropDownVisible"/>
+        <!--Select "Widget Type"-->
+        <comment userInput="Select Widget Type" stepKey="widgetTypeComment"/>
+        <selectOption selector="{{WidgetSection.WidgetType}}" userInput="Recently Viewed Products" stepKey="selectRecentlyViewedProducts"/>
+        <waitForPageLoad time="3" stepKey="waitForPageLoad3"/>
+        <!--Select all product attributes-->
+        <comment userInput="Select all product attributes" stepKey="selectProdAttrComment"/>
+        <dragAndDrop selector1="{{WidgetSection.ProductAttribute}} option:nth-of-type(1)" selector2="{{WidgetSection.ProductAttribute}} option:nth-of-type(4)" stepKey="selectSpecifiedOptions"/>
+        <!--Select all buttons to show-->
+        <comment userInput="Select all buttons to show" stepKey="selectBtnToShowComment"/>
+        <dragAndDrop selector1="{{WidgetSection.ButtonToShow}} option:nth-of-type(1)" selector2="{{WidgetSection.ButtonToShow}} option:nth-of-type(3)" stepKey="selectSpecifiedOptions1"/>
+        <click selector="{{WidgetSection.InsertWidget}}" stepKey="clickInsertWidgetToSave"/>
+        <waitForPageLoad time="3" stepKey="waitForPageLoad4"/>
+        <click selector="{{CmsNewPagePageActionsSection.saveAndContinueEdit}}" stepKey="clickSave"/>
+        <waitForPageLoad stepKey="waitForPageLoad5"/>
+        <!--Login to storefront-->
+        <comment userInput="Login to storefront" stepKey="loginToStorefrontComment"/>
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginToStorefrontAccount">
+            <argument name="Customer" value="$$customer$$"/>
+        </actionGroup>
+        <!-- Add first product to the wishlist-->
+        <comment userInput="Add first product to the wishlist" stepKey="addFirstProdToWishlistComment"/>
+        <actionGroup ref="AddProductToWishlistActionGroup" stepKey="addProduct1ToWishlistActionGroup">
+            <argument name="name" value="list1"/>
+            <argument name="category" value="$$categoryFirst.name$$"/>
+            <argument name="product" value="$$simpleProduct1.name$$"/>
+        </actionGroup>
+        <!-- Add second product to the wishList-->
+        <comment userInput="Add second product to the wishlist" stepKey="addSecondProdToWishlistComment"/>
+        <actionGroup ref="AddProductToWishlistActionGroup" stepKey="addProduct2ToWishlistActionGroup">
+            <argument name="name" value="list2"/>
+            <argument name="category" value="$$categoryFirst.name$$"/>
+            <argument name="product" value="$$simpleProduct2.name$$"/>
+        </actionGroup>
+        <!-- Go to home page and check available products in the widget-->
+        <comment userInput="Go to home page and check available products in the widget" stepKey="checkProductsInTheHomePageWidgetComment"/>
+        <amOnPage url="{{StorefrontHomePage.url}}" stepKey="goToHomePage"/>
+        <waitForPageLoad stepKey="waitForHomePageLoad"/>
+        <seeElement selector="{{StorefrontCategoryMainSection.mediaDescription($$simpleProduct1.name$$)}}" stepKey="assertProduct1InWidget"/>
+        <seeElement selector="{{StorefrontCategoryMainSection.mediaDescription($$simpleProduct2.name$$)}}" stepKey="assertProduct2InWidget"/>
+        <!--Check multiple wishlists availability-->
+        <comment userInput="Check multiple wishlists availability" stepKey="hoverProducts"/>
+        <moveMouseOver selector="{{StorefrontCategoryProductSection.ProductImageByNumber('1')}}" stepKey="hoverProduct1"/>
+        <click selector="{{StorefrontCreateMultipleWishlistSection.wishListItem}}" stepKey="clickOnWishListItem"/>
+        <waitForElementVisible selector="{{StorefrontCreateMultipleWishlistSection.wishListByName('list1')}}" stepKey="waitwishListItem"/>
+        <seeElement selector="{{StorefrontCreateMultipleWishlistSection.wishListByName('list1')}}" stepKey="assertWishlist1"/>
+        <seeElement selector="{{StorefrontCreateMultipleWishlistSection.wishListByName('list2')}}" stepKey="assertWishlist2"/>
+    </test>
+</tests>

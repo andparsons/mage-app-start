@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="StorefrontCompanyCreditHistorySection">
+        <element name="outstandingBalance" type="text" selector="//li[contains(.,'Outstanding Balance')]/span"/>
+        <element name="availableCredit" type="text" selector="//li[contains(.,'Available Credit')]/span"/>
+        <element name="creditLimit" type="text" selector="//li[contains(.,'Credit Limit')]/span"/>
+        <element name="creditHistoryGrid" type="text" selector="//td/div[contains(.,'{{Operation}}')]/ancestor::tr" parameterized="true"/>
+    </section>
+</sections>

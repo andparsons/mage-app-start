@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/queue.xsd">
+    <broker topic="shared.catalog.product.price.updated" exchange="magento-db" type="db">
+        <queue name="shared_catalog_product_price_update" consumer="sharedCatalogUpdatePrice" consumerInstance="Magento\Framework\MessageQueue\BatchConsumer" handler="Magento\SharedCatalog\Model\ResourceModel\ProductItem\Price\Consumer::processOperations" />
+    </broker>
+    <broker topic="shared.catalog.category.permissions.updated" exchange="magento-db" type="db">
+        <queue name="shared_catalog_category_permissions_update" consumer="sharedCatalogUpdateCategoryPermissions" consumerInstance="Magento\Framework\MessageQueue\BatchConsumer" handler="Magento\SharedCatalog\Model\ResourceModel\Permission\CategoryPermissions\Consumer::processOperations" />
+    </broker>
+</config>

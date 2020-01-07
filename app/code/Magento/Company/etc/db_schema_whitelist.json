@@ -1,0 +1,144 @@
+{
+    "company": {
+        "column": {
+            "entity_id": true,
+            "status": true,
+            "company_name": true,
+            "legal_name": true,
+            "company_email": true,
+            "vat_tax_id": true,
+            "reseller_id": true,
+            "comment": true,
+            "street": true,
+            "city": true,
+            "country_id": true,
+            "region": true,
+            "region_id": true,
+            "postcode": true,
+            "telephone": true,
+            "customer_group_id": true,
+            "sales_representative_id": true,
+            "super_user_id": true,
+            "reject_reason": true,
+            "rejected_at": true
+        },
+        "index": {
+            "COMPANY_COMPANY_NAME_LEGAL_NAME": true,
+            "COMPANY_COUNTRY_ID": true,
+            "COMPANY_REGION_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "COMPANY_COUNTRY_ID_DIRECTORY_COUNTRY_COUNTRY_ID": true,
+            "COMPANY_REGION_ID_DIRECTORY_COUNTRY_REGION_REGION_ID": true,
+            "COMPANY_CUSTOMER_GROUP_ID_CUSTOMER_GROUP_CUSTOMER_GROUP_ID": true,
+            "COMPANY_SALES_REPRESENTATIVE_ID_ADMIN_USER_USER_ID": true
+        }
+    },
+    "company_team": {
+        "column": {
+            "team_id": true,
+            "name": true,
+            "description": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "company_structure": {
+        "column": {
+            "structure_id": true,
+            "parent_id": true,
+            "entity_id": true,
+            "entity_type": true,
+            "path": true,
+            "position": true,
+            "level": true
+        },
+        "index": {
+            "COMPANY_STRUCTURE_PARENT_ID": true,
+            "COMPANY_STRUCTURE_ENTITY_ID": true,
+            "COMPANY_STRUCTURE_ENTITY_TYPE": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "company_advanced_customer_entity": {
+        "column": {
+            "customer_id": true,
+            "company_id": true,
+            "job_title": true,
+            "status": true,
+            "telephone": true
+        },
+        "index": {
+            "COMPANY_ADVANCED_CUSTOMER_ENTITY_STATUS": true
+        },
+        "constraint": {
+            "COMPANY_ADVANCED_CSTR_ENTT_CSTR_ID_CSTR_ENTT_ENTT_ID": true,
+            "COMPANY_ADVANCED_CUSTOMER_ENTITY_CUSTOMER_ID": true
+        }
+    },
+    "company_roles": {
+        "column": {
+            "role_id": true,
+            "sort_order": true,
+            "role_name": true,
+            "company_id": true
+        },
+        "index": {
+            "COMPANY_ROLES_COMPANY_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "COMPANY_ROLES_COMPANY_ID_COMPANY_ENTITY_ID": true
+        }
+    },
+    "company_user_roles": {
+        "column": {
+            "user_role_id": true,
+            "role_id": true,
+            "user_id": true
+        },
+        "index": {
+            "COMPANY_USER_ROLES_ROLE_ID": true,
+            "COMPANY_USER_ROLES_USER_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "COMPANY_USER_ROLES_ROLE_ID_COMPANY_ROLES_ROLE_ID": true,
+            "COMPANY_USER_ROLES_USER_ID_CUSTOMER_ENTITY_ENTITY_ID": true
+        }
+    },
+    "company_permissions": {
+        "column": {
+            "permission_id": true,
+            "role_id": true,
+            "resource_id": true,
+            "permission": true
+        },
+        "index": {
+            "COMPANY_PERMISSIONS_ROLE_ID": true,
+            "COMPANY_USER_ROLES_ROLE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "COMPANY_PERMISSIONS_ROLE_ID_COMPANY_ROLES_ROLE_ID": true
+        }
+    },
+    "company_order_entity": {
+        "column": {
+            "entity_id": true,
+            "order_id": true,
+            "company_id": true,
+            "company_name": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "COMPANY_ORDER_ENTITY_ORDER_ID_SALES_ORDER_ENTITY_ID": true,
+            "COMPANY_ORDER_ENTITY_ENTITY_ID": true,
+            "COMPANY_ORDER_ENTITY_ORDER_ID": true
+        }
+    }
+}

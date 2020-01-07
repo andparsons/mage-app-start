@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminCheckSharedCatalogForRestrictedUser">
+        <annotations>
+            <features value="SharedCatalog"/>
+            <stories value="Shared Catalog"/>
+            <title value="Shared Catalog menu should be present for non-Adminstrator role with the granted permission"/>
+            <description value="Shared Catalog menu item should be available for restricted user"/>
+            <severity value="MAJOR"/>
+            <useCaseId value="MAGETWO-99368"/>
+            <testCaseId value="MC-16278"/>
+            <group value="b2b"/>
+            <group value="sharedCatalog"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminCreateRoleActionGroup" stepKey="adminCreateRole">
+                <argument name="restrictedRole" value="Shared Catalog"/>
+                <argument name="User" value="adminRole"/>
+            </actionGroup>
+            <actionGroup ref="AdminCreateUserActionGroup" stepKey="adminCreateUser">
+                <argument name="role" value="adminRole"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logoutAsAdmin"/>
+        </before>
+
+        <after>
+            <actionGroup ref="logout" stepKey="logoutFromAdminAsRestricted"/>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginToAdminPanel"/>
+            <actionGroup ref="AdminDeleteCustomUserActionGroup" stepKey="deleteAdminUserActionGroup">
+                <argument name="user" value="newAdmin"/>
+            </actionGroup>
+            <actionGroup ref="AdminDeleteUserRoleActionGroup" stepKey="AdminDeleteRoleActionGroup">
+                <argument name="roleName" value="{{adminRole.name}}"/>
+            </actionGroup>
+            <actionGroup ref="clearFiltersAdminDataGrid" stepKey="resetRoleFilters"/>
+            <actionGroup ref="logout" stepKey="logoutFromAdminPanel"/>
+        </after>
+
+        <actionGroup ref="LoginAsAnyUser" stepKey="LoginActionGroup">
+            <argument name="uname" value="{{newAdmin.username}}"/>
+            <argument name="passwd" value="{{newAdmin.password}}"/>
+        </actionGroup>
+        <seeElementInDOM selector="{{AdminSharedCatalogMenuSection.sharedCatalogMenuItem}}" stepKey="checkThatSharedCatalogMenuItemIsPresent"/>
+    </test>
+</tests>

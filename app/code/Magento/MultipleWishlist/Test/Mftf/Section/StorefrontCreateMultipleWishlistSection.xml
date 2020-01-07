@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="../../../../../../../dev/tests/acceptance/vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/Page/etc/SectionObject.xsd">
+    <section name="StorefrontCreateMultipleWishlistSection">
+        <element name="productImage" type="file" selector="//*[@class='product-image-photo']"/>
+        <element name="wishListItem" type="button" selector="//button[@data-action='add-to-wishlist']/following-sibling::button"/>
+        <element name="wishListByName" type="button" selector="//span[contains(text(),'{{wishlistName}}')]" parameterized="true"/>
+        <element name="addNewWishListItem" type="button" selector="//span[contains(text(),'Create New Wish List')]"/>
+        <element name="addNewWishListLink" type="button" selector="#wishlist-create-button"/>
+    </section>
+
+    <section name="CreateNewWishListSection">
+        <element name="wishListNameField" type="input" selector="#wishlist-name"/>
+        <element name="saveButton" type="button" selector="//span[contains(text(),'Save')]" timeout="30"/>
+    </section>
+</sections>

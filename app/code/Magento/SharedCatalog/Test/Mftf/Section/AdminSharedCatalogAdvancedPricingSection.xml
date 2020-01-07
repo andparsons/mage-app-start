@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="AdminSharedCatalogAdvancedPricingSection">
+        <element name="website" type="input" selector="select[name='tier_price[{{serialLineNum}}][website_id]']" parameterized="true"/>
+        <element name="quantity" type="input" selector="input[name='tier_price[{{serialLineNum}}][qty]']" parameterized="true"/>
+        <element name="discountType" type="input" selector="select[name='tier_price[{{serialLineNum}}][value_type]']" parameterized="true"/>
+        <element name="fixedDiscountInput" type="input" selector="input[name='tier_price[{{serialLineNum}}][price]']" parameterized="true"/>
+        <element name="percentDiscountInput" type="input" selector="input[name='tier_price[{{serialLineNum}}][percentage_value]']" parameterized="true"/>
+        <element name="done" type="button" selector="#done" timeout="30"/>
+    </section>
+</sections>

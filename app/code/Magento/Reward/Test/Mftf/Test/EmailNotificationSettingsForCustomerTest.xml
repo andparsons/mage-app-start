@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="EmailNotificationSettingsForCustomerTest">
+        <annotations>
+            <features value="Reward"/>
+            <stories value="MAGETWO-91647 - Magento not subscribing customer to reward points email notifications"/>
+            <title value="Checking Email Notification Settings for customer"/>
+            <description value="Checking Email Notification Settings for customer"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="MAGETWO-94854"/>
+            <group value="reward"/>
+            <skip>
+                <issueId value="MC-17140"/>
+            </skip>
+        </annotations>
+
+        <before>
+            <magentoCLI command="config:set {{RewardsPointsEmailNotificationSubscribeByDefaultConfigData.path}} {{RewardsPointsEmailNotificationSubscribeByDefaultConfigData.value}}" stepKey="enableRewardsPoints"/>
+        </before>
+        <after>
+            <!--Logout customer-->
+            <actionGroup ref="StorefrontCustomerLogoutActionGroup" stepKey="customerLogout"/>
+        </after>
+
+        <!--Create account-->
+        <actionGroup ref="StorefrontOpenCustomerAccountCreatePageActionGroup" stepKey="openCreateAccountPage"/>
+        <actionGroup ref="StorefrontFillCustomerAccountCreationFormActionGroup" stepKey="fillCreateAccountForm">
+            <argument name="customer" value="Simple_US_Customer"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontClickCreateAnAccountCustomerAccountCreationFormActionGroup" stepKey="submitCreateAccountForm"/>
+
+        <!--Go to reward points and check checkbox states-->
+        <amOnPage url="{{StorefrontRewardPage.url}}" stepKey="GoToRewardsPage"/>
+        <waitForPageLoad stepKey="waitForRewardsPageLoad"/>
+        <seeElement selector="{{StorefrontCustomerOrderViewSection.balanceUpdateState}}" stepKey="SubscribeForBalanceUpdatesIsChecked"/>
+        <seeElement selector="{{StorefrontCustomerOrderViewSection.expirationNotificationState}}" stepKey="SubscribeForPointsExpirationNotificationsIsChecked"/>
+    </test>
+</tests>

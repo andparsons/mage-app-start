@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\NegotiableQuote\Block\Order\Reorder"
+                   name="customer_account_reorder"
+                   ifconfig="btob/website_configuration/negotiablequote_active"
+                   after="customer_account_dashboard_top"
+                   template="Magento_NegotiableQuote::order/reorder.phtml" />
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,45 @@
+<?php
+
+/** @var $block \Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Wizard\Container */
+?>
+<div data-role="spinner" data-component="catalog-steps-wizard"
+     class="admin__data-grid-loading-mask">
+    <div class="spinner">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+</div>
+<div data-role="shared-catalog-configuration" class="shared-catalog-config-container">
+    <div data-bind="scope: 'catalog-steps-wizard'" data-role="shared-catalog-configuration-button-container"
+        class="config-button">
+        <button type="button" data-action="open-steps-wizard" title="Create Product Configurations"
+                class="action-secondary" data-bind="click: open">
+        <span data-role="button-label" data-edit-label="<?= $block->escapeHtmlAttr(__('Edit Configurations')) ?>">
+            <?= $block->escapeHtml(__('Configure')) ?>
+        </span>
+        </button>
+    </div>
+    <?= $block->getChildHtml('state') ?>
+</div>
+<div data-role="step-wizard-dialog"
+     data-mage-init='{"Magento_Ui/js/modal/modal":{
+        "type":"slide",
+        "title":"<?= $block->escapeJs(__('Products in Catalog')) ?>",
+        "buttons":[]}}'
+     class="modal-container">
+    <?= /* @noEscape */ $block->getWizard([]) ?>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "confirmation_modal": {
+                        "component": "Magento_SharedCatalog/js/notification",
+                        "providerStructure": "shared_catalog_product_listing_structure.shared_catalog_product_listing_structure_data_source",
+                        "providerPricing": "shared_catalog_product_listing_pricing.shared_catalog_product_listing_data_source"
+                    }
+                }
+            }
+        }
+    }
+</script>

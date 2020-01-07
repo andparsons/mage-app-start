@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontCheckBundleProductOptionTierPrices">
+        <before>
+            <remove keyForRemoval="addTierPriceProduct1"/>
+            <remove keyForRemoval="addTierPriceProduct2"/>
+            <actionGroup ref="ProductSetAdvancedPricingB2B" after="openAdminEditPageProduct1" stepKey="addTierPriceProductB2B1">
+                <argument name="group" value="ALL GROUPS"/>
+                <argument name="quantity" value="5"/>
+                <argument name="price" value="Discount"/>
+                <argument name="amount" value="50"/>
+            </actionGroup>
+            <actionGroup ref="ProductSetAdvancedPricingB2B" after="openAdminEditPageProduct2" stepKey="addTierPriceProductB2B2">
+                <argument name="group" value="ALL GROUPS"/>
+                <argument name="quantity" value="7"/>
+                <argument name="price" value="Discount"/>
+                <argument name="amount" value="25"/>
+            </actionGroup>
+        </before>
+    </test>
+</tests>

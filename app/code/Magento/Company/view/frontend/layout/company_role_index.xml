@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="customer_form_template_handle"/>
+    <body>
+        <referenceContainer name="content">
+            <uiComponent name="role_listing"/>
+            <block class="Magento\Company\Block\Company\Management\Info" name="grid.buttons" template="Magento_Company::company/role/grid/buttons.phtml" cacheable="false"/>
+            <block class="Magento\Company\Block\Company\Management\Info"
+                   name="company.management.info" as="info"
+                   template="Magento_Company::company/management/info.phtml" />
+        </referenceContainer>
+    </body>
+</page>

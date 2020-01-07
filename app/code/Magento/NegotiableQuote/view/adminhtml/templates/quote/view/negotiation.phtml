@@ -1,0 +1,19 @@
+<?php
+?>
+<section class="admin__page-section quote-view-shipping">
+    <div class="admin__page-section-title">
+        <span class="title"><?= $block->escapeHtml(__('Negotiation')) ?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item quote-comments-history">
+            <?= $block->getChildHtml('quote_comments') ?>
+        </div>
+
+        <div class="admin__page-section-item quote-totals">
+            <div class="admin__page-section-item-title">
+                <span class="title"><?= $block->escapeHtml(__('Quote Totals')) ?></span>
+            </div>
+            <?= $block->getChildHtml('negotiable.quote.totals') ?>
+        </div>
+    </div>
+</section>

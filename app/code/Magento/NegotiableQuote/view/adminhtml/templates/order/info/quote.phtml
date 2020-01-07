@@ -1,0 +1,13 @@
+<?php
+?>
+<?php if ($block->isNegotiableQuote()) : ?>
+    <tr>
+        <th><?= $block->escapeHtml(__('Order Placed From Quote')) ?></th>
+        <td>
+            <span><?= $block->escapeHtml($block->getViewQuoteLabel()) ?></span>
+            <a href="<?= $block->escapeUrl($block->getViewQuoteUrl()) ?>">
+                <span><?= $block->escapeHtml($block->getQuoteName()) ?></span>
+            </a>
+        </td>
+    </tr>
+<?php endif; ?>

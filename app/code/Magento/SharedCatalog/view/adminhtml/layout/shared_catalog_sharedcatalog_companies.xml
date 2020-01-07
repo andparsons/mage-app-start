@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <!-- Save form -->
+            <block class="Magento\SharedCatalog\Block\Adminhtml\Company\Edit" name="form" />
+            <!-- Company Listing -->
+            <uiComponent name="shared_catalog_company_listing"/>
+        </referenceContainer>
+        <referenceContainer name="page.messages">
+            <block class="Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Messages\Notification"
+                   name="sharedCatalog.messages.notification"
+                   template="Magento_SharedCatalog::messages/notification.phtml" />
+        </referenceContainer>
+    </body>
+</page>

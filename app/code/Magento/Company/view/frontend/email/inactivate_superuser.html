@@ -1,0 +1,10 @@
+<!--
+-->
+<!--@subject Your account set inactive @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting company-greeting"><strong>{{trans "Dear %name," name=$customer.name}}</strong></p>
+<p>{{trans "Your account has been set to inactive and you cannot now access the company account. If you think this is a mistake, please contact your manager for details."}}</p>
+
+{{template config_path="design/email/footer_template"}}

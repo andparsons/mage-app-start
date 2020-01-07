@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="DeleteCompanyActionGroup">
+
+        <click stepKey="openCustomers" selector="{{CreateCompanySection.customers}}"/>
+        <waitForPageLoad stepKey="waitForCustomersSubMenu" time="1"/>
+        <click stepKey="openCompanies" selector="{{CreateCompanySection.companies}}"/>
+        <waitForPageLoad stepKey="waitForCompanies" time="5"/>
+        <click stepKey="chooseCompany" selector="{{DeleteCompanySection.company}}"/>
+        <click stepKey="openAction" selector="{{DeleteCompanySection.action}}"/>
+        <click stepKey="chooseAction" selector="{{DeleteCompanySection.delete}}"/>
+        <waitForPageLoad stepKey="waitForConfirmation" time="5"/>
+        <click stepKey="confirm" selector="{{DeleteCompanySection.confirmDelete}}"/>
+        <waitForPageLoad stepKey="waitForSuccessPageLoad" time="10"/>
+        <see stepKey="seeSuccessMessage" userInput="A total of 1 record(s) were deleted."/>
+
+    </actionGroup>
+</actionGroups>

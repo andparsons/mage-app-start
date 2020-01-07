@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="UseStoreCreditPaymentSectionActionGroup">
+        <click selector="{{CheckoutStoreCreditSection.useStoreCredit}}" stepKey="clickUseStoreCredit"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad"/>
+        <see userInput="Your store credit was successfully applied" stepKey="seeUseStoreCreditSuccessMessage"/>
+        <seeElement selector="{{CheckoutStoreCreditSection.remove}}" stepKey="seeRemoveButton"/>
+        <seeElement selector="{{CheckoutStoreCreditSection.price}}" stepKey="seePrice"/>
+    </actionGroup>
+</actionGroups>

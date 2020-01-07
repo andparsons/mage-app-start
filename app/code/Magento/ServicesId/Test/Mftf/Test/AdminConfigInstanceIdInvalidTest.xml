@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminConfigInstanceIdInvalidTest">
+        <annotations>
+            <features value="ServicesId"/>
+            <stories value="Cannot set Instance ID with invalid input"/>
+            <title value="Cannot set Instance ID with invalid input"/>
+            <description value="An admin cannot set an Instance ID that is not a valid UUID."/>
+            <severity value="MAJOR"/>
+            <group value="servicesid"/>
+        </annotations>
+
+        <actionGroup ref="LoginActionGroup" stepKey="loginAsAdmin"/>
+        <amOnPage url="{{AdminConfigServicesIdPage.url}}" stepKey="amOnAdminConfig"/>
+        <seeElement selector="{{AdminConfigServicesIdSection.dsEnvironment}}" stepKey="seeEnvironmentSetting"/>
+        <selectOption selector="{{AdminConfigServicesIdSection.dsEnvironment}}" userInput="Production" stepKey="fillFieldServicesIdEnvironment"/>
+        <seeElement selector="{{AdminConfigServicesIdSection.dsInstanceId}}" stepKey="seeInstanceIdSetting"/>
+
+        <fillField selector="{{AdminConfigServicesIdSection.dsInstanceId}}" userInput="invalid-instance-id$" stepKey="fillInstanceIdInvalid1"/>
+        <click selector="{{AdminMainActionsSection.save}}" stepKey="clickSaveConfigButtonInvalid1"/>
+        <see selector="{{AdminConfigServicesIdSection.dsInstanceIdError}}" userInput="Please enter a valid Instance ID." stepKey="seeInvalidFieldErrorInvalid1"/>
+
+        <fillField selector="{{AdminConfigServicesIdSection.dsInstanceId}}" userInput="0-0-0-0-0" stepKey="fillInstanceIdInvalid2"/>
+        <click selector="{{AdminMainActionsSection.save}}" stepKey="clickSaveConfigButtonInvalid2"/>
+        <see selector="{{AdminConfigServicesIdSection.dsInstanceIdError}}" userInput="Please enter a valid Instance ID." stepKey="seeInvalidFieldErrorInvalid2"/>
+
+        <fillField selector="{{AdminConfigServicesIdSection.dsInstanceId}}" userInput="1234567-1234-1234-1234-1234567890ab" stepKey="fillInstanceIdInvalid3"/>
+        <click selector="{{AdminMainActionsSection.save}}" stepKey="clickSaveConfigButtonInvalid3"/>
+        <see selector="{{AdminConfigServicesIdSection.dsInstanceIdError}}" userInput="Please enter a valid Instance ID." stepKey="seeInvalidFieldErrorInvalid"/>
+
+        <fillField selector="{{AdminConfigServicesIdSection.dsInstanceId}}" userInput="12345678-1234-1234-1234-1234567890abcdef" stepKey="fillInstanceIdInvalid4"/>
+        <click selector="{{AdminMainActionsSection.save}}" stepKey="clickSaveConfigButtonInvalid4"/>
+        <see selector="{{AdminConfigServicesIdSection.dsInstanceIdError}}" userInput="Please enter a valid Instance ID." stepKey="seeInvalidFieldErrorInvalid4"/>
+
+        <fillField selector="{{AdminConfigServicesIdSection.dsInstanceId}}" userInput="12345678-123-1234-1234-1234567890ab" stepKey="fillInstanceIdInvalid5"/>
+        <click selector="{{AdminMainActionsSection.save}}" stepKey="clickSaveConfigButtonInvalid5"/>
+        <see selector="{{AdminConfigServicesIdSection.dsInstanceIdError}}" userInput="Please enter a valid Instance ID." stepKey="seeInvalidFieldErrorInvalid5"/>
+
+        <fillField selector="{{AdminConfigServicesIdSection.dsInstanceId}}" userInput="12345678-1234-1234-12345-1234567890ab" stepKey="fillInstanceIdInvalid6"/>
+        <click selector="{{AdminMainActionsSection.save}}" stepKey="clickSaveConfigButtonInvalid6"/>
+        <see selector="{{AdminConfigServicesIdSection.dsInstanceIdError}}" userInput="Please enter a valid Instance ID." stepKey="seeInvalidFieldErrorInvalid6"/>
+
+        <fillField selector="{{AdminConfigServicesIdSection.dsInstanceId}}" userInput="12345678-1234-123456-123-1234567890ab" stepKey="fillInstanceIdInvalid7"/>
+        <click selector="{{AdminMainActionsSection.save}}" stepKey="clickSaveConfigButtonInvalid7"/>
+        <see selector="{{AdminConfigServicesIdSection.dsInstanceIdError}}" userInput="Please enter a valid Instance ID." stepKey="seeInvalidFieldErrorInvalid7"/>
+
+        <actionGroup ref="logout" stepKey="logout"/>
+    </test>
+</tests>

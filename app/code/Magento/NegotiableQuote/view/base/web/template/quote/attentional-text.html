@@ -1,0 +1,8 @@
+<!--
+-->
+<% if (data.subText) { %>
+    <p data-role="attentional-content" class="with-subtext"><%- data.text %> <span><%- data.subText %></span></p>
+<% } else { %>
+    <p data-role="attentional-content"><%- data.text %></p>
+<% } %>
+

@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Sales\Controller\AbstractController\OrderViewAuthorizationInterface" type="Magento\NegotiableQuote\Controller\Order\OrderViewAuthorization" />
+    <type name="Magento\Framework\Url\SecurityInfo">
+        <arguments>
+            <argument name="secureUrlList" xsi:type="array">
+                <item name="negotiable_quote" xsi:type="string">/negotiable_quote/</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Checkout\Model\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="negotiable_quote_config_provider" xsi:type="object">Magento\NegotiableQuote\Model\NegotiableQuoteConfigProvider</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Checkout\Block\Onepage">
+        <arguments>
+            <argument name="layoutProcessors" xsi:type="array">
+                <item name="negotiableQuote" xsi:type="object">Magento\NegotiableQuote\Block\Checkout\LayoutProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Customer\CustomerData\SectionPoolInterface">
+        <arguments>
+            <argument name="sectionSourceMap" xsi:type="array">
+                <item name="negotiable_quote" xsi:type="string">Magento\NegotiableQuote\CustomerData\Quote</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\CustomerData\Authorization">
+        <arguments>
+            <argument name="authorizationResources" xsi:type="array">
+                <item name="sales_all" xsi:type="string">Magento_Sales::all</item>
+                <item name="negotiable_quote_all" xsi:type="string">Magento_NegotiableQuote::all</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Sales\Block\Order\History">
+        <plugin name="negotiable_quote_sales_block_order_history"
+            type="Magento\NegotiableQuote\Plugin\Sales\Block\Order\HistoryPlugin" />
+    </type>
+    <type name="Magento\Sales\Helper\Reorder">
+        <plugin name="company_user_limitations"
+                type="Magento\NegotiableQuote\Plugin\Sales\Helper\Reorder\CompanyUserLimitationsPlugin"
+                sortOrder="10"/>
+        <plugin name="company_allow_specific_products"
+                type="Magento\NegotiableQuote\Plugin\Sales\Helper\Reorder\AllowSpecificProductsPlugin"
+                sortOrder="20"/>
+    </type>
+</config>

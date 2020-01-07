@@ -1,0 +1,38 @@
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+//
+//  SharedCatalog page styles
+//  _____________________________________________
+
+@import 'module/_configure-modal.less';
+@import 'module/_shared-catalog-configuration.less';
+
+.configure-pricing-custom-price {
+    .admin__field-control {
+        .lib-vendor-prefix-display(inline-flex);
+        .lib-vendor-prefix-flex-direction(row);
+
+        .currency-addon {
+            margin-left: @indent__s;
+        }
+    }
+}
+
+.configure-column-field-tier-price {
+    white-space: nowrap;
+
+    a {
+        cursor: pointer;
+    }
+}
+
+.modal-slide {
+    &.tier_price_modal {
+        .page-main-actions {
+            margin-bottom: 3rem;
+        }
+    }
+}

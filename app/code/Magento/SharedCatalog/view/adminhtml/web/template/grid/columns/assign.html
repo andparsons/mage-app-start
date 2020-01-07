@@ -1,0 +1,22 @@
+<!--
+-->
+<th class="data-grid-multicheck-cell">
+    <div class="action-multicheck-wrap" collapsible="">
+        <input class="admin__control-checkbox" type="checkbox"
+               data-bind="
+                attr: {id: ++ko.uid},
+                enable: false">
+        <label attr="for: ko.uid"/>
+        <button class="action-multicheck-toggle" data-toggle="dropdown" type="button"
+                data-bind="css: { '_active': $collapsible.opened },
+                       toggleCollapsible">
+            <span translate="'Options'"/>
+        </button>
+        <ul class="action-menu" each="actions" closeCollapsible="">
+            <li data-bind="click: $parent[value].bind($parent),
+                           visible: $parent.isActionRelevant(value)">
+                <span class="action-menu-item" text="label"/>
+            </li>
+        </ul>
+    </div>
+</th>

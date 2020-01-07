@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="CreateProductUpdateAndValidateUpdateInCustomWebsiteTest">
+        <annotations>
+            <stories value="CatalogStaging"/>
+            <title value="Create product update and validate update in custom website test"/>
+            <description value="Create product update and validate update in custom website test"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MC-15855"/>
+            <group value="CatalogStaging"/>
+            <group value="mtf_migrated"/>
+            <skip>
+                <issueId value="MC-17175"/>
+            </skip>
+        </annotations>
+        <before>
+            <!-- Create category -->
+            <createData entity="_defaultCategory" stepKey="createCategory"/>
+
+            <!-- Create Simple Product -->
+            <createData entity="_defaultProduct" stepKey="createSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+
+            <!-- Login as admin -->
+            <actionGroup ref="LoginAsAdmin" stepKey="login"/>
+
+            <!-- Create store view -->
+            <actionGroup ref="AdminCreateStoreViewActionGroup" stepKey="createStoreView"/>
+        </before>
+        <after>
+            <!-- Delete store view -->
+            <actionGroup ref="AdminDeleteStoreViewActionGroup" stepKey="deleteStoreView"/>
+
+            <!-- Delete product -->
+            <deleteData createDataKey="createSimpleProduct" stepKey="deleteSimpleProduct"/>
+
+            <!-- Delete category -->
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+
+            <!-- Log out -->
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!-- Open product edit -->
+        <amOnPage url="{{AdminProductEditPage.url($$createSimpleProduct.id$$)}}" stepKey="goToProductPage"/>
+        <waitForPageLoad stepKey="waitForProductPageLoad"/>
+
+        <!-- Switch store view -->
+        <actionGroup ref="AdminSwitchStoreViewActionGroup" stepKey="adminSwitchStoreViewActionGroup"/>
+        <actionGroup ref="saveProductForm" stepKey="saveProduct"/>
+
+        <!-- Create schedule new update for store view -->
+        <click selector="{{AdminStagingSlideOutSection.scheduleNewUpdateBtn}}" stepKey="clickNewUpdateBtn"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoadingNewUpdateMask"/>
+
+        <!-- Fill new product values -->
+        <generateDate date="+1 minute" format="m/d/Y g:i A" stepKey="generateNewStartDate"/>
+        <actionGroup ref="FillScheduleUpdateHeaderForProductActionGroup" stepKey="fillScheduleUpdate">
+            <argument name="staging" value="S8UpdateNameStaging"/>
+            <argument name="timeStart" value="{$generateNewStartDate}"/>
+        </actionGroup>
+
+        <!-- Fill out the field to be changed in the staging update -->
+        <uncheckOption selector="{{AdminCatalogStagingSlideOutSection.useDefaultName}}" stepKey="uncheckUseDefaultName"/>
+        <fillField selector="{{AdminStagingSlideOutSection.name}}" userInput="{{ApiSimpleProductUpdateName.name}}" stepKey="fillNewProductName"/>
+        <fillField selector="{{AdminCatalogStagingSlideOutSection.productPrice}}" userInput="{{ApiSimpleProductWithCustomPrice.price}}" stepKey="fillNewProductPrice"/>
+
+        <!-- Save update and check the update is appears in "Scheduled Changes" grid -->
+        <actionGroup ref="SaveScheduleUpdateForProductActionGroup" stepKey="saveScheduleUpdate">
+            <argument name="staging" value="S8UpdateNameStaging"/>
+        </actionGroup>
+
+        <!-- Wait 1 minute for update to be applied -->
+        <wait time="60" stepKey="wait"/>
+
+        <!-- Run cron to update to be applied -->
+        <magentoCLI command="cron:run --group=staging" stepKey="runCronFirstTime"/>
+        <magentoCLI command="cron:run --group=staging" stepKey="runCronSecondTime"/>
+
+        <!-- Switch store view -->
+        <amOnPage url="{{StorefrontHomePage.url}}" stepKey="amOnStorefrontPage"/>
+        <waitForPageLoad stepKey="waitForStorefrontPageLoad"/>
+        <actionGroup ref="StorefrontSwitchStoreViewActionGroup" stepKey="switchStoreViewActionGroup"/>
+
+        <!-- Open category page on storefront -->
+        <click selector="{{StorefrontHeaderSection.NavigationCategoryByName($$createCategory.name$$)}}" stepKey="openCategoryPage"/>
+        <waitForPageLoad stepKey="waitForCategoryPageLoad"/>
+
+         <!--Open the product -->
+        <click selector="{{StorefrontCategoryMainSection.productLink}}" stepKey="openProduct"/>
+        <waitForPageLoad  stepKey="waitForStorefrontProductPageLoad"/>
+
+        <!-- Assert product name and price correct after update -->
+        <see selector="{{StorefrontProductInfoMainSection.productName}}" userInput="{{ApiSimpleProductUpdateName.name}}" stepKey="seeName"/>
+        <see selector="{{StorefrontProductInfoMainSection.productPrice}}" userInput="{{ApiSimpleProductWithCustomPrice.price}}" stepKey="seePrice"/>
+
+        <!-- Information about update is not displayed in 'Scheduled Changes' block -->
+        <amOnPage url="{{AdminProductEditPage.url($$createSimpleProduct.id$$)}}" stepKey="goToEditProductPage"/>
+        <waitForPageLoad stepKey="waitForProductPageLoadAfterUpdate"/>
+        <dontSeeElement selector="{{AdminScheduledChangesSection.scheduleDetails(S8UpdateNameStaging.updateName)}}" stepKey="dontSeeName"/>
+        <dontSeeElement selector="{{AdminScheduledChangesSection.scheduleDetails(S8UpdateNameStaging.updateDescription)}}" stepKey="dontSeeDescription"/>
+    </test>
+</tests>

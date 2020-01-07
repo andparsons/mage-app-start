@@ -1,0 +1,49 @@
+<?php
+
+/** @var $block \Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Wizard\Step\Structure\Category\Tree */
+?>
+<div data-role="spinner" data-component="shared_catalog_structure_category_tree"
+     class="jstree-spinner-helper admin__data-grid-loading-mask">
+    <div class="spinner">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+</div>
+<div data-role='jstree-shared-catalog' data-bind="scope: 'shared_catalog_structure_category_tree'">
+    <div class="shared-catalog-tree-controls">
+        <button class="action" data-action="expand-structure-tree" type="button"
+                data-role="button-expand-tree" data-button-state="expand"></button>
+        <button class="action" data-action="select-structure-tree" type="button"
+                data-role="button-select-tree" data-button-state="select"></button>
+    </div>
+    <div data-role='jstree-shared-catalog-container' data-bind="afterRender: initTree"></div>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "shared_catalog_structure_category_tree": {
+                        "component": "Magento_SharedCatalog/js/wizard/step/structure/category/tree",
+                        "listingFilters": "shared_catalog_product_listing_structure.shared_catalog_product_listing_structure.listing_top.listing_filters",
+                        "treeContainerSelector": "[data-role='jstree-shared-catalog-container']",
+                        "provider": "shared_catalog_structure_category_tree.provider",
+                        "treeConfig": {
+                            "initUrl": "<?= $block->escapeJs($block->getTreeUrl()) ?>"
+                        },
+                        "clientConfig": {
+                            "validateBeforeSave": false,
+                            "saveUrl": "<?= $block->escapeJs($block->getAssignUrl()) ?>"
+                        }
+                    },
+                    "shared_catalog_structure_category_tree.provider": {
+                        "component": "Magento_Ui/js/grid/provider",
+                        "storageConfig": {
+                            "cacheRequests": false
+                        },
+                        "update_url": "<?= $block->escapeJs($block->getTreeUrl()) ?>"
+                    }
+                }
+            }
+        }
+    }
+</script>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <settings>
+        <buttons>
+            <button name="delete" class="Magento\Company\Block\Adminhtml\Customer\Edit\DeleteButton"/>
+        </buttons>
+    </settings>
+    <fieldset name="customer">
+        <field name="extension_attributes.company_attributes.status" component="Magento_Company/js/form/element/customer/status" sortOrder="0" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="source" xsi:type="string">customer</item>
+                    <item name="superuser_config" xsi:type="array">
+                        <item name="notice" xsi:type="string" translate="true"><![CDATA[The user <%- username %> is the company admin and cannot be set to inactive. You must set another user as the company admin first.]]></item>
+                        <item name="disabled" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Customer Active</label>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="extension_attributes.company_attributes.company_id" component="Magento_Company/js/form/element/customer/auto-complete" sortOrder="15" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">customer</item>
+                    <item name="url" xsi:type="url" path="company/customer/companyList"/>
+                    <item name="noticeModal" xsi:type="string" translate="true"><![CDATA[This customer is a user of a different company. If you proceed, the customer will be unlinked from the current company and linked to the selected company.]]></item>
+                    <item name="noticeTitle" xsi:type="string" translate="true"><![CDATA[Change Company?]]></item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Associate to Company</label>
+                <visible>true</visible>
+            </settings>
+        </field>
+        <container name="container_group">
+            <field name="group_id" component="Magento_Company/js/form/element/customer/group" />
+        </container>
+    </fieldset>
+</form>

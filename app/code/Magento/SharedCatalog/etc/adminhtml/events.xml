@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="admin_system_config_changed_section_btob">
+        <observer name="sharedcatalog_observer_update_config" instance="Magento\SharedCatalog\Observer\UpdateConfig"/>
+    </event>
+    <event name="catalog_product_delete_after_done">
+        <observer name="magento_shared_product_delete" instance="Magento\SharedCatalog\Observer\DeleteProduct" />
+    </event>
+    <event name="controller_action_catalog_product_save_entity_after">
+        <observer name="shared_catalog_controller_action_catalog_product_save_entity_after" instance="Magento\SharedCatalog\Observer\Controller\SaveProduct"/>
+    </event>
+</config>

@@ -1,0 +1,6 @@
+<?php
+/* @var $block \Magento\Reward\Block\Checkout\Payment\Additional */
+?>
+<?php if ($block->getCanUseRewardPoints()) :?>
+quoteBaseGrandTotal = <?= (float)$block->getQuote()->getBaseGrandTotal() ?>;
+<?php endif; ?>

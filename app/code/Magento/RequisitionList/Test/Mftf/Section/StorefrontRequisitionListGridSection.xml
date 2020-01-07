@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="StorefrontRequisitionListGridSection">
+        <element name="requesitionListViewLink" type="button" selector="//td[contains(., '{{rlName}}')]/parent::tr//a" timeout="30" parameterized="true"/>
+        <element name="createRequisitionList" type="button" selector=".add"/>
+    </section>
+</sections>

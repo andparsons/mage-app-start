@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="customer_account_navigation">
+            <block class="Magento\Company\Block\Link\CompanyLink"
+                   ifconfig="btob/website_configuration/company_active"
+                   name="customer-account-navigation-company-link">
+                <arguments>
+                    <argument name="path" xsi:type="string">company/</argument>
+                    <argument translate="true" name="label" xsi:type="string">Company Structure</argument>
+                    <argument name="resource" xsi:type="string">Magento_Company::users_view</argument>
+                    <argument name="sortOrder" xsi:type="number">102</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Company\Block\Link\Current"
+                   ifconfig="btob/website_configuration/company_active"
+                   name="customer-account-navigation-company-users-link">
+                <arguments>
+                    <argument name="path" xsi:type="string">company/users</argument>
+                    <argument name="label" xsi:type="string" translate="true">Company Users</argument>
+                    <argument name="resource" xsi:type="string">Magento_Company::users_view</argument>
+                    <argument name="sortOrder" xsi:type="number">101</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Company\Block\Link\Current"
+                   ifconfig="btob/website_configuration/company_active"
+                   name="customer-account-navigation-company-profile-link"
+                   after="customer-account-navigation-address-link">
+                <arguments>
+                    <argument name="path" xsi:type="string">company/profile/</argument>
+                    <argument translate="true" name="label" xsi:type="string">Company Profile</argument>
+                    <argument name="resource" xsi:type="string">Magento_Company::view</argument>
+                    <argument name="sortOrder" xsi:type="number">104</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Company\Block\Link\Current"
+                   ifconfig="btob/website_configuration/company_active"
+                   name="customer-account-navigation-company-roles-link"
+                   after="customer-account-navigation-company-users-link">
+                <arguments>
+                    <argument name="path" xsi:type="string">company/role/</argument>
+                    <argument translate="true" name="label" xsi:type="string">Roles and Permissions</argument>
+                    <argument name="resource" xsi:type="string">Magento_Company::roles_view</argument>
+                    <argument name="sortOrder" xsi:type="number">100</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Company\Block\Link\DelimiterContainer" name="customer-account-navigation-delimiter-container-b2b">
+                <arguments>
+                    <argument name="sortOrder" xsi:type="number">80</argument>
+                </arguments>
+                <block class="Magento\Company\Block\Link\Delimiter" name="customer-account-navigation-delimiter-b2b" template="Magento_Customer::account/navigation-delimiter.phtml">
+                    <arguments>
+                        <argument name="resources" xsi:type="array">
+                            <item name="companyUsers" xsi:type="string">Magento_Company::users_view</item>
+                            <item name="company" xsi:type="string">Magento_Company::view</item>
+                            <item name="companyRoles" xsi:type="string">Magento_Company::roles_view</item>
+                        </argument>
+                    </arguments>
+                </block>
+            </block>
+            <referenceBlock name="customer-account-navigation-orders-link" remove="true"/>
+            <block class="Magento\Company\Block\Link\OrdersLink" name="company-customer-account-navigation-orders-link">
+                <arguments>
+                    <argument name="path" xsi:type="string">sales/order/history</argument>
+                    <argument name="label" xsi:type="string" translate="true">My Orders</argument>
+                    <argument name="sortOrder" xsi:type="number">230</argument>
+                    <argument name="resource" xsi:type="string">Magento_Sales::all</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

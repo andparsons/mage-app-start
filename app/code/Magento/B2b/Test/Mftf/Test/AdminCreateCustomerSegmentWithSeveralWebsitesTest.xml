@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminCreateCustomerSegmentWithSeveralWebsitesTest">
+       <before>
+           <remove keyForRemoval="createCustomerWithWebsiteAndStoreView"/>
+           <remove keyForRemoval="createCustomerWithCustomWebsiteAndStoreView"/>
+
+            <actionGroup ref="AdminCreateCustomerWithWebsiteAndStoreViewB2BActionGroup" after="LoginAsAdmin" stepKey="createCustomer">
+                <argument name="customerData" value="Simple_US_Customer"/>
+                <argument name="address" value="US_Address_NY"/>
+                <argument name="website" value="{{_defaultWebsite.name}}"/>
+                <argument name="storeView" value="{{_defaultStore.name}}"/>
+            </actionGroup>
+
+           <actionGroup ref="AdminCreateCustomerWithWebsiteAndStoreViewB2BActionGroup" after="createCustomStoreView" stepKey="createSecondCustomer">
+               <argument name="customerData" value="Simple_US_CA_Customer"/>
+               <argument name="address" value="US_Address_NY"/>
+               <argument name="website" value="{{customWebsite.name}}"/>
+               <argument name="storeView" value="{{customStoreGroup.name}}"/>
+           </actionGroup>
+       </before>
+    </test>
+</tests>

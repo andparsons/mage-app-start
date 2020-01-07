@@ -1,0 +1,16 @@
+<!--
+-->
+<!--@subject Expiration date reset for Quote  {{var data.getQuoteName()}} @-->
+<!--@vars {
+"var data.getCustomerName()":"Customer name",
+"var data.getQuoteName()":"Quote name",
+"var data.getCustomerCompany()":"Company Name",
+"var merchantName":"Merchant Name",
+"var quote_url":"Quote URL"
+} @-->
+
+<p class="greeting">Dear {{trans "%merchant_name," merchant_name=$merchantName}}</p>
+<p>Expiration date for the Quote <a href="{{var quote_url}}">#{{trans "%quote_id" quote_id=$data.getQuoteName()}}</a>
+    has been reset so you can keep working on the quote.</p>
+<p>You can set a new expiration date if you wish.</p>
+<br /><p>{{trans "Thank you,"}}</p><p>{{trans "%store_name" store_name=$store.getFrontendName() |raw}}</p>

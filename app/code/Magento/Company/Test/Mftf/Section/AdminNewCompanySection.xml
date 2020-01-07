@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../dev/tests/acceptance/vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/Page/etc/SectionObject.xsd">
+    <section name="AdminNewCompanySection">
+        <element name="companyName" type="input" selector="general[company_name]"/>
+        <element name="companyEmail" type="input" selector="general[company_email]"/>
+        <element name="companyLegalAddress" type="text" selector="div[data-index='address'] strong>span:nth-of-type(1)"/>
+        <element name="companyStreet" type="input" selector="address[street][0]"/>
+        <element name="companyCity" type="input" selector="address[city]"/>
+        <element name="companyCountry" type="select" selector="address[country_id]"/>
+        <element name="companyState" type="select" selector="address[region_id]"/>
+        <element name="companyPostcode" type="input" selector="address[postcode]"/>
+        <element name="companyTelephone" type="input" selector="address[telephone]"/>
+        <element name="companyAdmin" type="text" selector="div[data-index='company_admin'] strong>span:nth-of-type(1)"/>
+        <element name="companyAdminEmail" type="input" selector="company_admin[email]"/>
+        <element name="companyAdminFirstName" type="input" selector="company_admin[firstname]"/>
+        <element name="companyAdminLastName" type="input" selector="company_admin[lastname]"/>
+        <element name="advancedSettings" type="button" selector="//span[text()='Advanced Settings']"/>
+        <element name="customerGroupDropDown" type="button" selector="div[data-action='open-search']"/>
+        <element name="customerGroupSearch" type="input" selector=".admin__action-multiselect-search-wrap input"/>
+        <element name="customerGroupFirstSharedCatalog" type="select" selector="//div[@class='action-menu-item _with-checkbox']//span[text()='{{var}}']" parameterized="true"/>
+        <element name="proceedButton" type="button" selector="//button[@class='action-primary action-accept']//span[text()='Proceed']"/>
+    </section>
+</sections>
+

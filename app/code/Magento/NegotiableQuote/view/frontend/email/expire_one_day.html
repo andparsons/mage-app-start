@@ -1,0 +1,19 @@
+<!--
+-->
+<!--@subject Quote expires soon {{var data.getQuoteName()}}@-->
+<!--@vars {
+"var data.getCustomerName()":"Customer name",
+"var data.getQuoteName()":"Quote name",
+"var data.getExpirationPeriod()":"Expiration period",
+"var frontend_quote_url":"Quote URL",
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting">{{trans "Dear %customer_name," customer_name=$data.getCustomerName()}}</p>
+<p>{{trans "Your quote "}}<a href="{{var frontend_quote_url}}">{{var data.getQuoteName()}}</a>
+    {{trans " expires on "}}<b>{{var data.getExpirationPeriod()}}</b>,
+    {{trans " after which time you can’t order the items in the quote. After the expiration,
+    you’ll have to negotiate the price with the seller again."}}</p>
+
+{{template config_path="design/email/footer_template"}}

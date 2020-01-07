@@ -1,0 +1,18 @@
+<!--
+-->
+<!--@subject {{trans "Order %order_id reverted" order_id=$companyCredit.orderId}} @-->
+<!--@vars {
+"var companyCredit.customerName":"Customer Name",
+"var companyCredit.orderId":"Order Id"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting company-greeting"><strong>{{trans "Dear %name," name=$companyCredit.customerName}}</strong></p>
+<p>{{trans "Your order #%order_id has been cancelled. The order amount reverted to the company credit."
+    order_id=$companyCredit.orderId
+    }}</p>
+<p>{{trans "The history of your credit operations is available on the Company Credit page."}}</p>
+<p>{{trans "If you have any questions, please contact the seller."}}</p>
+
+{{template config_path="design/email/footer_template"}}

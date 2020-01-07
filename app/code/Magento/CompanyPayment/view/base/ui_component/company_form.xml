@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="settings">
+        <container name="payment_container" component="Magento_Ui/js/form/components/group" sortOrder="40">
+            <argument name="data" xsi:type="array">
+                <item name="type" xsi:type="string">group</item>
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="string">payment-config-group</item>
+                </item>
+            </argument>
+            <field name="extension_attributes.applicable_payment_method" class="Magento\CompanyPayment\Ui\Component\Form\Field\PaymentMethod" component="Magento_CompanyPayment/js/form/element/select/select-company-payment-method" formElement="select">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="source" xsi:type="string">extension_attributes.applicable_payment_method</item>
+                        <item name="value" xsi:type="string">0</item>
+                        <item name="paymentsFieldName" xsi:type="string">company_form.company_form.settings.extension_attributes.available_payment_methods</item>
+                        <item name="applicablePaymentMethods" xsi:type="array">
+                            <item name="b2b" xsi:type="string">0</item>
+                            <item name="allEnabled" xsi:type="string">1</item>
+                        </item>
+                    </item>
+                </argument>
+                <settings>
+                    <dataType>text</dataType>
+                    <label translate="true">Applicable Payment Methods</label>
+                </settings>
+                <formElements>
+                    <select>
+                        <settings>
+                            <options class="Magento\CompanyPayment\Model\Source\CompanyApplicablePaymentMethod"/>
+                        </settings>
+                    </select>
+                </formElements>
+            </field>
+            <field name="extension_attributes.use_config_settings" component="Magento_CompanyPayment/js/form/element/use-config-settings" formElement="checkbox">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="source" xsi:type="string">extension_attributes.use_config_settings</item>
+                        <item name="applicablePaymentsFieldName" xsi:type="string">company_form.company_form.settings.payment_container.extension_attributes.applicable_payment_method</item>
+                        <item name="paymentsFieldName" xsi:type="string">company_form.company_form.settings.extension_attributes.available_payment_methods</item>
+                        <item name="applicablePaymentMethods" xsi:type="array">
+                            <item name="allEnabled" xsi:type="string">1</item>
+                            <item name="specific" xsi:type="string">2</item>
+                        </item>
+                        <item name="default" xsi:type="string">1</item>
+                    </item>
+                </argument>
+                <settings>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">false</rule>
+                    </validation>
+                    <dataType>boolean</dataType>
+                </settings>
+                <formElements>
+                    <checkbox>
+                        <settings>
+                            <description translate="true">Use config settings</description>
+                            <valueMap>
+                                <map name="false" xsi:type="string">0</map>
+                                <map name="true" xsi:type="string">1</map>
+                            </valueMap>
+                        </settings>
+                    </checkbox>
+                </formElements>
+            </field>
+        </container>
+        <field name="extension_attributes.available_payment_methods" component="Magento_CompanyPayment/js/form/element/select/payment-methods-multiselect" sortOrder="50" formElement="multiselect">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">extension_attributes.available_payment_methods</item>
+                    <item name="value" xsi:type="string">0</item>
+                    <item name="applicablePaymentsFieldName" xsi:type="string">company_form.company_form.settings.payment_container.extension_attributes.applicable_payment_method</item>
+                    <item name="useConfigSettingsFieldName" xsi:type="string">company_form.company_form.settings.payment_container.extension_attributes.use_config_settings</item>
+                    <item name="applicablePaymentMethods" xsi:type="array">
+                        <item name="specific" xsi:type="string">2</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Payment Methods</label>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Magento\CompanyPayment\Model\Source\PaymentMethod"/>
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+    </fieldset>
+</form>

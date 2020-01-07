@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.main.title">
+            <block class="Magento\NegotiableQuote\Block\Order\Reorder"
+                   name="sales_order_view_reorder"
+                   ifconfig="btob/website_configuration/negotiablequote_active"
+                   after="sales.order.info.buttons"
+                   template="Magento_NegotiableQuote::order/reorder.phtml" />
+            <container htmlTag="div" htmlClass="negotiable-quote-order-information"
+                       after="order.status" name="sales.order.quote.container">
+                <block class="Magento\NegotiableQuote\Block\Order\Info\CreationInfo"
+                       name="sales.order.view.creation_info"
+                       template="Magento_NegotiableQuote::order/info/creation_info.phtml" />
+                <block class="Magento\NegotiableQuote\Block\Order\Info\Quote"
+                       name="sales.order.view.quote"
+                       template="Magento_NegotiableQuote::order/info/quote.phtml" />
+            </container>
+        </referenceContainer>
+        <move element="order.date" destination="sales.order.view.quote" before="-" />
+        <move element="order.actions.container" destination="page.main.title" after="-" />
+    </body>
+</page>

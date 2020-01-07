@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontSortingByPriceForConfigurableProductWithCatalogRuleAppliedTest">
+        <annotations>
+            <skip>
+                <issueId value="MC-17175" />
+            </skip>
+        </annotations>
+        <click selector="{{AdminNewCatalogPriceRule.saveAndContinue}}" after="selectNotLoggedInCustomerGroup" stepKey="saveAndContinue"/>
+        <actionGroup ref="createCatalogRuleStagingUpdateWithItsStart" after="saveAndContinue" stepKey="fillOutActionGroup">
+            <argument name="stagingUpdate" value="CatalogRuleByPercentWith96Amount"/>
+        </actionGroup>
+        <remove keyForRemoval="clickSaveAndApplyRules"/>
+        <remove keyForRemoval="reindex"/>
+        <remove keyForRemoval="flushCache"/>
+    </test>
+</tests>

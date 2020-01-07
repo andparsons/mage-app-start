@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="backend_expire_date" instance="Magento\NegotiableQuote\Cron\ExpireQuote" method="execute">
+            <schedule>0 0 * * *</schedule>
+        </job>
+        <job name="negotiable_quote_send_emails" instance="Magento\NegotiableQuote\Cron\SendEmails" method="execute">
+            <schedule>0 0 * * *</schedule>
+        </job>
+    </group>
+</config>

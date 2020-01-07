@@ -1,0 +1,15 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+
+<?= $block->escapeHtml(
+    __(
+        'The base currency for %1 has been updated. The currency %2 is still defined as the credit currency '
+        . 'for one or more companies. Use the following <a href="%3" id="update-credit-link">link</a> to perform '
+        . 'a bulk operation that updates the credit currency for those companies.',
+        $block->getData('websiteName'),
+        $block->getData('currencyCode'),
+        $block->getData('url')
+    ),
+    ['a']
+);

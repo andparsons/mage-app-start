@@ -1,0 +1,10 @@
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="formatted-price">
+    <span if="hasPriceView($row())" text="$t('From ') + getValue($row(), index)"/>
+    <span ifnot="hasPriceView($row())" text="getValue($row(), index) + ' - ' + getMaxValue($row(), index)"/>
+</div>

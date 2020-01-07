@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="StorefrontHeaderSection">
+        <element name="createNewCustomer" type="button" selector="//div[@class='panel wrapper']//a[text()='Create New Customer']"/>
+        <element name="createNewCompanyAccount" selector="//div[@class='panel wrapper']//a[text()='Create New Company Account']" type="button"/>
+    </section>
+</sections>

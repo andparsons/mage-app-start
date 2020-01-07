@@ -1,0 +1,16 @@
+{
+    "company_payment": {
+        "column": {
+            "company_id": true,
+            "applicable_payment_method": true,
+            "available_payment_methods": true,
+            "use_config_settings": true
+        },
+        "index": {
+            "COMPANY_PAYMENT_COMPANY_ID": true
+        },
+        "constraint": {
+            "COMPANY_PAYMENT_COMPANY_ID_COMPANY_ENTITY_ID": true
+        }
+    }
+}

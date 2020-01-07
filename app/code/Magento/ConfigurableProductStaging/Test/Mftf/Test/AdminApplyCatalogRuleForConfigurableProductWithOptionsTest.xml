@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminApplyCatalogRuleForConfigurableProductWithOptionsTest">
+        <annotations>
+            <skip>
+                <issueId value="MC-17175"/>
+            </skip>
+        </annotations>
+        <!-- Change configurable product staging for first price rule -->
+        <click selector="{{AdminNewCatalogPriceRule.saveAndContinue}}" after="createFirstCatalogPriceRuleCondition" stepKey="firstSaveAndContinue"/>
+        <click selector="{{AdminEntityStagingSection.nthViewEditButton('1')}}" stepKey="clickOnViewEditForFirstRule" after="firstSaveAndContinue"/>
+        <actionGroup ref="UpdateCatalogRuleStagingStarDateActionGroup" stepKey="updateStarDateForFirstRule" after="clickOnViewEditForFirstRule"/>
+        <actionGroup ref="ActivateCatalogRuleStagingActionGroup" stepKey="activateFirstPriceRule" after="updateStarDateForFirstRule"/>
+        <actionGroup ref="SaveRuleStagingActionGroup" stepKey="saveFirstRuleStaging" after="activateFirstPriceRule"/>
+
+        <!-- Change configurable product staging for second price rule -->
+        <click selector="{{AdminNewCatalogPriceRule.saveAndContinue}}" after="createSecondCatalogPriceRuleCondition" stepKey="secondSaveAndContinue"/>
+        <click selector="{{AdminEntityStagingSection.nthViewEditButton('1')}}" stepKey="clickOnViewEditForSecondRule" after="secondSaveAndContinue"/>
+        <actionGroup ref="UpdateCatalogRuleStagingStarDateActionGroup" stepKey="updateStarDateForSecondRule" after="clickOnViewEditForSecondRule"/>
+        <actionGroup ref="ActivateCatalogRuleStagingActionGroup" stepKey="activateSecondPriceRule" after="updateStarDateForSecondRule"/>
+        <actionGroup ref="SaveRuleStagingActionGroup" stepKey="saveSecondRuleStaging" after="activateSecondPriceRule"/>
+
+        <!-- Change configurable product staging for third price rule -->
+        <click selector="{{AdminNewCatalogPriceRule.saveAndContinue}}" after="createThirdCatalogPriceRuleCondition" stepKey="thirdSaveAndContinue"/>
+        <click selector="{{AdminEntityStagingSection.nthViewEditButton('1')}}" stepKey="clickOnViewEditForThirdRule" after="thirdSaveAndContinue"/>
+        <actionGroup ref="UpdateCatalogRuleStagingStarDateActionGroup" stepKey="updateStarDateForThirdRule" after="clickOnViewEditForThirdRule"/>
+        <actionGroup ref="ActivateCatalogRuleStagingActionGroup" stepKey="activateThirdPriceRule" after="updateStarDateForThirdRule"/>
+        <actionGroup ref="SaveRuleStagingActionGroup" stepKey="saveThirdRuleStaging" after="activateThirdPriceRule"/>
+
+        <!-- Add 1 minute waiting because catalog rule staging updated for 1 minute -->
+        <wait time="60" stepKey="wait" after="assertSuccessMessageForThirdPriceRule"/>
+        <actionGroup ref="ApplyUpdatedRuleStagingByCron" stepKey="applyUpdatedRuleStagingByCron" after="wait"/>
+    </test>
+</tests>

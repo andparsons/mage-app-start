@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * @var Magento\NegotiableQuote\Block\Order\Info\CreationInfo $block
+ */
+?>
+
+<div class="order-date">
+    <strong><?= $block->escapeHtml(__('Created')) ?>: </strong>
+    <?= /* @noEscape */ $block->getCreationInfo() ?>
+</div>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">shared_catalog_company_listing.shared_catalog_company_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>shared_catalog_company_columns</spinner>
+        <deps>
+            <dep>shared_catalog_company_listing.shared_catalog_company_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="shared_catalog_company_listing_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                <item name="storageConfig" xsi:type="array">
+                    <item name="cacheRequests" xsi:type="boolean">false</item>
+                </item>
+            </item>
+        </argument>
+        <settings>
+            <filterUrlParams>
+                <param name="configure_key">*</param>
+            </filterUrlParams>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Magento_SharedCatalog::list</aclResource>
+        <dataProvider class="Magento\SharedCatalog\Ui\DataProvider\Company" name="shared_catalog_company_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <container name="listing_top" template="ui/grid/toolbar">
+        <bookmark name="bookmarks" class="Magento\SharedCatalog\Ui\Component\Bookmark\Company">
+            <settings>
+                <storageConfig>
+                    <param name="isSaveEnabled" xsi:type="boolean">false</param>
+                    <param name="component" xsi:type="string">Magento_SharedCatalog/js/grid/controls/bookmarks/storage</param>
+                    <namespace>shared_catalog_company_listing</namespace>
+                </storageConfig>
+            </settings>
+        </bookmark>
+        <component name="columns_controls" component="Magento_Ui/js/grid/controls/columns" displayArea="dataGridActions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="columnsData" xsi:type="array">
+                        <item name="provider" xsi:type="string">shared_catalog_company_listing.shared_catalog_company_listing.shared_catalog_company_columns</item>
+                    </item>
+                </item>
+            </argument>
+        </component>
+        <filters name="listing_filters">
+            <settings>
+                <columnsProvider>shared_catalog_company_listing.shared_catalog_company_listing.shared_catalog_company_columns</columnsProvider>
+                <storageConfig>
+                    <namespace>current.filters</namespace>
+                    <provider>shared_catalog_company_listing.shared_catalog_company_listing.listing_top.bookmarks</provider>
+                </storageConfig>
+            </settings>
+        </filters>
+        <massaction name="listing_massaction" class="Magento\SharedCatalog\Ui\Component\MassAction\Companies" component="Magento_SharedCatalog/js/grid/massactions/companies">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <!-- assign action -->
+                    <item name="assignActionConfig" xsi:type="array">
+                        <item name="component" xsi:type="string">Magento_SharedCatalog/js/grid/massaction/company/assign</item>
+                        <item name="is_assign" xsi:type="boolean">true</item>
+                        <item name="confirmation" xsi:type="array">
+                            <item name="text" xsi:type="array">
+                                <item name="header" xsi:type="string" translate="true">Change Catalog?</item>
+                                <item name="message" xsi:type="string" translate="true">The selected companies are already using a different shared catalog. This action will change a shared catalog for selected companies. Would you like to continue?</item>
+                            </item>
+                        </item>
+                        <item name="provider" xsi:type="string">shared_catalog_company_listing.shared_catalog_company_listing_data_source</item>
+                        <item name="columnsProvider" xsi:type="string">shared_catalog_company_listing.shared_catalog_company_listing.shared_catalog_company_columns</item>
+                        <item name="clientConfig" xsi:type="array">
+                            <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                        </item>
+                    </item>
+                    <!-- unassign action -->
+                    <item name="unassignActionConfig" xsi:type="array">
+                        <item name="component" xsi:type="string">Magento_SharedCatalog/js/grid/massaction/company/assign</item>
+                        <item name="is_assign" xsi:type="boolean">false</item>
+                        <item name="confirmation" xsi:type="array">
+                            <item name="text" xsi:type="array">
+                                <item name="header" xsi:type="string" translate="true">Change Catalog?</item>
+                                <item name="message" xsi:type="string" translate="true">The selected companies will be unlinked from the current shared catalog and linked to the default public catalog. Would you like to continue?</item>
+                            </item>
+                        </item>
+                        <item name="provider" xsi:type="string">shared_catalog_company_listing.shared_catalog_company_listing_data_source</item>
+                        <item name="columnsProvider" xsi:type="string">shared_catalog_company_listing.shared_catalog_company_listing.shared_catalog_company_columns</item>
+                        <item name="clientConfig" xsi:type="array">
+                            <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <selectProvider>shared_catalog_company_listing.shared_catalog_company_listing.shared_catalog_company_columns.ids</selectProvider>
+                <indexField>entity_id</indexField>
+            </settings>
+            <action name="assign">
+                <settings>
+                    <type>assign</type>
+                    <label translate="true">Assign Catalog</label>
+                </settings>
+            </action>
+            <action name="unassign">
+                <settings>
+                    <type>unassign</type>
+                    <label translate="true">Unassign Catalog</label>
+                </settings>
+            </action>
+        </massaction>
+        <paging name="listing_paging">
+            <settings>
+                <selectProvider>shared_catalog_company_listing.shared_catalog_company_listing.shared_catalog_company_columns.ids</selectProvider>
+                <storageConfig>
+                    <namespace>current.paging</namespace>
+                    <provider>shared_catalog_company_listing.shared_catalog_company_listing.listing_top.bookmarks</provider>
+                </storageConfig>
+            </settings>
+        </paging>
+    </container>
+    <columns name="shared_catalog_company_columns">
+        <settings>
+            <childDefaults>
+                <param name="storageConfig" xsi:type="array">
+                    <item name="provider" xsi:type="string">shared_catalog_company_listing.shared_catalog_company_listing.listing_top.bookmarks</item>
+                    <item name="root" xsi:type="string">columns.${ $.index }</item>
+                    <item name="namespace" xsi:type="string">current.${ $.storageConfig.root}</item>
+                </param>
+            </childDefaults>
+            <storageConfig>
+                <namespace>current</namespace>
+                <provider>shared_catalog_company_listing.shared_catalog_company_listing.listing_top.bookmarks</provider>
+            </storageConfig>
+        </settings>
+        <selectionsColumn name="ids" sortOrder="10">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="entity_id" sortOrder="20">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="company_name" sortOrder="30">
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Company</label>
+            </settings>
+        </column>
+        <column name="country_id" class="Magento\Company\Ui\Component\Listing\Column\Country" sortOrder="40">
+            <settings>
+                <filter>select</filter>
+                <options class="Magento\Directory\Model\ResourceModel\Country\Collection"/>
+                <dataType>select</dataType>
+                <label translate="true">Country</label>
+            </settings>
+        </column>
+        <column name="region" sortOrder="50">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">State/Province</label>
+            </settings>
+        </column>
+        <column name="is_current" component="Magento_Ui/js/grid/columns/select" sortOrder="60">
+            <settings>
+                <filter>select</filter>
+                <options class="Magento\SharedCatalog\Model\Source\IsCurrent"/>
+                <dataType>select</dataType>
+                <label translate="true">Assigned</label>
+                <sortable>true</sortable>
+            </settings>
+        </column>
+        <column name="shared_catalog_id"
+                component="Magento_SharedCatalog/js/grid/columns/select/short_text"
+                class="Magento\SharedCatalog\Ui\Component\Listing\Column\Company\SharedCatalogId"
+                sortOrder="70">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="labelMaxLength" xsi:type="number">15</item>
+                </item>
+            </argument>
+            <settings>
+                <filter>select</filter>
+                <options class="Magento\SharedCatalog\Model\Source\SharedCatalog"/>
+                <dataType>select</dataType>
+                <label translate="true">Catalog</label>
+                <sortable>true</sortable>
+            </settings>
+        </column>
+        <column name="action" class="Magento\SharedCatalog\Ui\Component\Listing\Column\Company\Assign" component="Magento_SharedCatalog/js/grid/columns/company/assign" sortOrder="90">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="columnsProvider" xsi:type="string">shared_catalog_company_listing.shared_catalog_company_listing.shared_catalog_company_columns</item>
+                    <item name="confirmation" xsi:type="array">
+                        <item name="text" xsi:type="array">
+                            <item name="header" xsi:type="string" translate="true">Change Catalog?</item>
+                            <item name="message_unassign" xsi:type="string" translate="true">The selected companies will be unlinked from the current shared catalog and linked to the default public catalog. Would you like to continue?</item>
+                            <item name="message_assign" xsi:type="string" translate="true">The selected companies are already using a different shared catalog. This action will change a shared catalog for selected companies. Would you like to continue?</item>
+                        </item>
+                    </item>
+                    <item name="assignClientConfig" xsi:type="array">
+                        <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Action</label>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+    </columns>
+</listing>

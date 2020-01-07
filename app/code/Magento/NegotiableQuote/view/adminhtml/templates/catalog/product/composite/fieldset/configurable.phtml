@@ -1,0 +1,34 @@
+<?php
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php /* @var $block \Magento\ConfigurableProduct\Block\Adminhtml\Product\Composite\Fieldset\Configurable */ ?>
+<?php $product = $block->getProduct(); ?>
+<?php $attributes = $block->decorateArray($block->getAllowAttributes()); ?>
+<?php $skipSaleableCheck = $this->helper(\Magento\Catalog\Helper\Product::class)->getSkipSaleableCheck(); ?>
+<?php if (($product->isSaleable() || $skipSaleableCheck) && !empty($attributes)) :?>
+<fieldset data-mage-init='{"Magento_NegotiableQuote/quote/create/product-configure": {
+            "config" : <?= /* @noEscape */ $block->getJsonConfig() ?>}}'
+          id="catalog_product_composite_configure_fields_configurable" class="fieldset admin__fieldset">
+    <legend class="legend admin__legend">
+        <span><?= $block->escapeHtml(__('Associated Products')) ?></span>
+    </legend>
+    <br />
+    <div class="product-options">
+        <div class="field admin__field _required">
+            <?php foreach ($attributes as $attribute) : ?>
+                <label class="label admin__field-label">
+                    <?= $block->escapeHtml($attribute->getProductAttribute()->getStoreLabel($product->getStoreId())) ?>
+                </label>
+                <div class="control admin__field-control <?= ($attribute->getDecoratedIsLast() ? ' last' : '') ?>">
+                    <select name="super_attribute[<?= (int) $attribute->getAttributeId() ?>]"
+                            id="attribute<?= (int) $attribute->getAttributeId() ?>"
+                            class="admin__control-select required-entry super-attribute-select">
+                        <option><?= $block->escapeHtml(__('Choose an Option...')) ?></option>
+                    </select>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</fieldset>
+<?php endif;?>

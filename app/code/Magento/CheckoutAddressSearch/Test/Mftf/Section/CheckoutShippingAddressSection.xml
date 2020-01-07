@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="CheckoutShippingAddressSection">
+        <element name="selectedShippingAddress" type="text" selector=".shipping-address-item.selected"/>
+        <element name="editAddressButton" type="button" selector="//button[contains(@data-bind, 'editAddress')]" timeout="30"/>
+        <element name="changeAddressButton" type="button" selector="//button[contains(@data-bind, 'openAddressSelection')]" timeout="30"/>
+        <element name="newAddressButton" type="button" selector=".action-show-popup" timeout="30"/>
+    </section>
+</sections>

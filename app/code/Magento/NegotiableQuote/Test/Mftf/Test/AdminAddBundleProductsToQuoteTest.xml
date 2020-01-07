@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminAddBundleProductsToQuoteTest">
+        <annotations>
+            <stories value="Add Complex products to quote"/>
+            <title value="Add bundle product to quote"/>
+            <description value="Add bundle product to quote"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MC-15858"/>
+            <group value="negotiableQuote"/>
+            <group value="mtf_migrated"/>
+        </annotations>
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="LoginAsAdmin"/>
+
+            <!-- Apply configuration settings -->
+            <magentoCLI command="config:set {{EnableCompanyConfigData.path}} {{EnableCompanyConfigData.value}}" stepKey="enableCompany"/>
+            <magentoCLI command="config:set {{EnableB2BQuoteConfigData.path}} {{EnableB2BQuoteConfigData.value}}" stepKey="enableB2BQuote"/>
+
+            <!-- Create customer -->
+            <createData entity="Simple_US_Customer" stepKey="createCompanyAdmin"/>
+
+            <!-- Create company -->
+            <createData entity="Default_Company" stepKey="createDefaultCompany">
+                <requiredEntity createDataKey="createCompanyAdmin"/>
+            </createData>
+
+            <!-- Create products -->
+            <createData entity="_defaultCategory" stepKey="createCategory"/>
+            <createData entity="SimpleProduct" stepKey="createSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+                <field key="price">100.00</field>
+            </createData>
+            <createData entity="ApiProductWithDescription" stepKey="createFirstSimpleProduct" before="createSecondSimpleProduct">
+                <field key="price">100.00</field>
+            </createData>
+            <createData entity="ApiProductWithDescription" stepKey="createSecondSimpleProduct" before="createBundleProduct">
+                <field key="price">560.00</field>
+            </createData>
+            <createData entity="ApiBundleProduct" stepKey="createBundleProduct">
+                <field key="quantity">100</field>
+            </createData>
+            <createData entity="DropDownBundleOption" stepKey="bundleOption">
+                <requiredEntity createDataKey="createBundleProduct"/>
+            </createData>
+            <createData entity="ApiBundleLink" stepKey="createBundleLink1">
+                <requiredEntity createDataKey="createBundleProduct"/>
+                <requiredEntity createDataKey="bundleOption"/>
+                <requiredEntity createDataKey="createFirstSimpleProduct"/>
+            </createData>
+            <createData entity="ApiBundleLink" stepKey="createBundleLink2">
+                <requiredEntity createDataKey="createBundleProduct"/>
+                <requiredEntity createDataKey="bundleOption"/>
+                <requiredEntity createDataKey="createSecondSimpleProduct"/>
+            </createData>
+
+            <magentoCLI command="indexer:reindex" stepKey="reindex"/>
+            <magentoCLI command="cache:flush" stepKey="flushCache"/>
+
+            <!-- Create Tax Rule -->
+            <createData entity="USFullTaxRate" stepKey="initialTaxRate"/>
+            <actionGroup ref="AdminCreateTaxRuleActionGroup" stepKey="createTaxRule">
+                <argument name="taxRate" value="$$initialTaxRate$$"/>
+                <argument name="taxRule" value="SimpleTaxRule"/>
+            </actionGroup>
+        </before>
+        <after>
+            <actionGroup ref="AdminDeleteCompanyFilterByEmailActionGroup" stepKey="deleteCompany">
+                <argument name="email" value="$$createCompanyAdmin.email$$"/>
+            </actionGroup>
+
+            <!-- Apply default configuration settings -->
+            <magentoCLI command="config:set {{DisableCompanyConfigData.path}} {{DisableCompanyConfigData.value}}" stepKey="disableCompany"/>
+            <magentoCLI command="config:set {{DisableB2BQuoteConfigData.path}} {{DisableB2BQuoteConfigData.value}}" stepKey="disableB2BQuote"/>
+
+            <!-- Delete data -->
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createSimpleProduct" stepKey="deleteSimpleProduct"/>
+            <deleteData createDataKey="createFirstSimpleProduct" stepKey="deleteFirstSimple" before="deleteSecondSimpleProduct"/>
+            <deleteData createDataKey="createSecondSimpleProduct" stepKey="deleteSecondSimpleProduct"/>
+            <actionGroup ref="AdminDeleteTaxRule" stepKey="deleteTaxRule">
+                <argument name="taxRuleCode" value="{{SimpleTaxRule.code}}" />
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!-- Login as a customer -->
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="customerLogin">
+            <argument name="Customer" value="$$createCompanyAdmin$$"/>
+        </actionGroup>
+
+        <!-- Add simple product to cart -->
+        <actionGroup ref="StorefrontAddSimpleProductWithQtyActionGroup" stepKey="addSimpleProductToCart">
+            <argument name="product" value="$$createSimpleProduct$$"/>
+            <argument name="quantity" value="2"/>
+        </actionGroup>
+        <actionGroup ref="clickViewAndEditCartFromMiniCart" stepKey="openCart"/>
+
+        <!-- Request a quote -->
+        <actionGroup ref="StorefrontRequestQuoteActionGroup" stepKey="requestQuote">
+            <argument name="quote" value="DefaultNegotiableQuote"/>
+        </actionGroup>
+
+        <!-- Grab value of Bundle product option -->
+        <actionGroup ref="navigateToCreatedProductEditPage" stepKey="openProduct">
+          <argument name="product" value="$createBundleProduct$"/>
+        </actionGroup>
+        <waitForPageLoad stepKey="waitForProductPage"/>
+        <grabValueFrom selector="{{AdminProductFormBundleSection.firstOptionTitle}}" stepKey="grabBundleOption"/>
+
+        <!-- Go to negotiable quotes page -->
+        <actionGroup ref="AdminFilterQuoteByCompanyNameActionGroup" stepKey="goToQuotePage">
+            <argument name="company" value="$$createDefaultCompany$$"/>
+        </actionGroup>
+        <click selector="{{AdminQuotesGridSection.viewFirstQuote}}" stepKey="clickOnQuote"/>
+        <waitForPageLoad stepKey="waitForQuoteViewPage"/>
+
+        <magentoCLI command="cache:flush config" stepKey="flushCache"/>
+        <magentoCLI command="cache:flush config_webservice" stepKey="flushCacheConfigWebService"/>
+
+        <!-- Add one grouped product and one fake product by SKU -->
+        <actionGroup ref="AdminAddTwoProductsToQuoteActionGroup" stepKey="addTwoProducts">
+            <argument name="productSku1" value="$$createBundleProduct.sku$$"/>
+            <argument name="quantity" value="5"/>
+            <argument name="productSku2" value="SimpleProduct.sku"/>
+            <argument name="quantity2" value="5"/>
+        </actionGroup>
+
+        <!-- Configure bundle product -->
+        <waitForPageLoad stepKey="waitForLoading"/>
+        <see userInput="You need to choose options for your item." stepKey="seeMessageForGroupedProduct"/>
+
+        <actionGroup ref="AdminConfigureBundleProductInQuoteActionGroup" stepKey="configureBundleProduct">
+            <argument name="bundleOption" value="{$grabBundleOption}"/>
+            <argument name="selectedProductName" value="$$createFirstSimpleProduct.name$$"/>
+            <argument name="productQty" value="1"/>
+        </actionGroup>
+
+        <!-- Unfocus after activate aside window -->
+        <scrollToTopOfPage stepKey="scrollToTop"/>
+        <scrollTo selector="{{AdminNegotiableQuoteViewSection.expirationDate}}" stepKey="scrollForUnfocus"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoadingMaskDisappear"/>
+
+        <!-- Add Products to Quote -->
+        <waitForElementVisible selector="{{AdminNegotiableQuoteItemSection.addProductToQuote}}" stepKey="waitForElement"/>
+        <click selector="{{AdminNegotiableQuoteItemSection.addProductToQuote}}" stepKey="addProductsToQuote"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoadingQuote"/>
+
+        <!-- Assert correct Bundle product in Quote -->
+        <actionGroup ref="AdminAssertBundleProductInQuoteActionGroup" stepKey="assertBundleProduct">
+            <argument name="product" value="$$createBundleProduct$$"/>
+            <argument name="qty" value="5"/>
+            <argument name="price" value="$500.00"/>
+            <argument name="bundleOption" value="{$grabBundleOption}"/>
+            <argument name="dependedProductName" value="$$createFirstSimpleProduct.name$$"/>
+            <argument name="qtyDependedProduct" value="1"/>
+        </actionGroup>
+
+        <!-- Assert correct Simple Product in Quote -->
+        <actionGroup ref="AdminAssertProductInQuoteActionGroup" stepKey="assertSimpleProduct">
+            <argument name="product" value="$$createSimpleProduct$$"/>
+            <argument name="qty" value="2"/>
+            <argument name="price" value="$200.00"/>
+        </actionGroup>
+
+        <!-- Remove products that failed validation -->
+        <scrollTo selector="{{AdminNegotiableQuoteItemSection.errorItem}}" stepKey="scrollToErrorItem"/>
+        <see userInput="The SKU was not found in the catalog." stepKey="seeErrorMessage"/>
+        <click selector="{{AdminNegotiableQuoteItemSection.buttonRemove}}" stepKey="removeFailedProducts"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForRemoveFailedProducts"/>
+
+        <!-- Save quote as draft -->
+        <click selector="{{AdminNegotiableQuoteViewSection.saveAsDraft}}" stepKey="saveAsDraft"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForSaving"/>
+
+        <!-- Assert items block is not visible on Storefront -->
+        <amOnPage url="{{StorefrontNegotiableQuotePage.url}}" stepKey="onStorefrontQuotePage"/>
+        <click selector="{{StorefrontMyQuoteGridSection.gridButtonAction}}" stepKey="clickOnView"/>
+        <waitForPageLoad stepKey="waitForLoad"/>
+        <see userInput="This quote is currently locked for editing. It will become available once released by the Merchant." stepKey="seeMessageAboutEditing"/>
+        <scrollTo selector="{{StorefrontNegotiableQuoteViewSection.sectionItemsQuoted}}" stepKey="scrollToProducts"/>
+        <seeElement selector="{{StorefrontNegotiableQuoteViewSection.inputQtyDisabled}}" stepKey="seeDisabledQtyField"/>
+    </test>
+</tests>

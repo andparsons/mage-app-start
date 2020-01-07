@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="AdminProductFormAdvancedPricingSection">
+        <element name="productTierPriceGroupOrCatalogOption" type="text" selector="//label//span[contains(.,'{{var1}}')]" parameterized="true"/>
+        <element name="productTierPriceGroupOrCatalogOptionByIndex" type="text" selector="//div[@name='product[tier_price][{{rowIndex}}][cust_group]']//span[contains(.,'{{name}}')]" parameterized="true"/>
+        <element name="customerGroupFilterInput" type="input" selector="[data-index='cust_group'] .admin__action-multiselect-search-wrap>input"/>
+        <element name="customerGroupOption" type="text" selector="[data-index='cust_group'] .admin__action-multiselect-label>span"/>
+    </section>
+</sections>

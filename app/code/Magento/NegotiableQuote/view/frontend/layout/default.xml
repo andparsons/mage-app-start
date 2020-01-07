@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="top.links">
+            <block class="Magento\NegotiableQuote\Block\Link\Order" name="order.list.link" after="my-account-link"
+                   ifconfig="btob/website_configuration/negotiablequote_active"
+                   template="Magento_NegotiableQuote::link.phtml">
+                <arguments>
+                    <argument name="sortOrder" xsi:type="number">80</argument>
+                </arguments>
+            </block>
+            <block class="Magento\NegotiableQuote\Block\Link\Quote" name="quote.list.link" after="order.list.link"
+                   ifconfig="btob/website_configuration/negotiablequote_active"
+                   template="Magento_NegotiableQuote::header/link.phtml">
+                <arguments>
+                    <argument name="sortOrder" xsi:type="number">90</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

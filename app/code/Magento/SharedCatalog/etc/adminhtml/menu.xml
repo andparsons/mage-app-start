@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Magento_SharedCatalog::shared_list" title="Shared Catalogs" module="Magento_SharedCatalog" sortOrder="30" parent="Magento_Catalog::inventory" action="shared_catalog/sharedCatalog/index" resource="Magento_SharedCatalog::list"/>
+    </menu>
+</config>

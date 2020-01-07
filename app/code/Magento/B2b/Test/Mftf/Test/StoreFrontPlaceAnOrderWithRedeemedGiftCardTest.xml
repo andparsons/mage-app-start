@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StoreFrontPlaceAnOrderWithRedeemedGiftCardTest">
+        <remove keyForRemoval="clickNext"/>
+         <waitForLoadingMaskToDisappear stepKey="waitForLoadingMask" after="goToCheckoutFromMinicart"/>
+        <!-- Choose Shippping - Flat Rate Shipping  -->
+        <click selector="{{CheckoutShippingMethodsSection.firstShippingMethod}}" stepKey="selectFirstShippingMethod" after="waitForLoadingMask"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoadingMask2" after="selectFirstShippingMethod"/>
+        <waitForElement selector="{{CheckoutShippingMethodsSection.next}}" time="30" stepKey="waitForNextButton" after="waitForLoadingMask2"/>
+        <click selector="{{CheckoutShippingMethodsSection.next}}" stepKey="clickNextButton" after="waitForNextButton"/>
+        <actionGroup ref="CheckoutSelectCheckMoneyOrderPaymentActionGroup" stepKey="checkMoney" after="clickNextButton"/>
+        <click selector="{{CheckoutPaymentSection.placeOrder}}" stepKey="clickPlaceOrder" after="checkMoney" />
+    </test>
+</tests>

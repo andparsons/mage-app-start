@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StoreFrontQTYChangeProductVariationOfConfigurableProductTest">
+        <annotations>
+            <features value="Requisition List"/>
+            <stories value="Requisition List"/>
+            <title value="Check QTY change only for variation product of configurable product"/>
+            <description value="Check QTY change only for variation product of configurable product"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="MAGETWO-96804"/>
+            <useCaseId value="MAGETWO-96424"/>
+            <group value="requisitionList"/>
+        </annotations>
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+
+            <!-- Enable Requisition List functionality -->
+            <createData entity="B2BEnabledRequisitionListConfig" stepKey="enabledRequisitionList"/>
+
+            <!-- Create customer and product -->
+            <createData entity="Simple_US_Customer" stepKey="createSimpleUSCustomer"/>
+            <createData entity="SimpleProduct2" stepKey="createConfigurableProduct"/>
+
+            <!--Create first product attribute with 3 options-->
+            <createData entity="productDropDownAttribute" stepKey="productAttribute1"/>
+            <createData entity="productAttributeOption1" stepKey="productAttributeOption1">
+                <requiredEntity createDataKey="productAttribute1"/>
+            </createData>
+            <createData entity="productAttributeOption2" stepKey="productAttributeOption2">
+                <requiredEntity createDataKey="productAttribute1"/>
+            </createData>
+            <createData entity="productAttributeOption3" stepKey="productAttributeOption3">
+                <requiredEntity createDataKey="productAttribute1"/>
+            </createData>
+
+            <!--Create second product attribute with 3 options-->
+            <createData entity="productAttributeWithTwoOptions" stepKey="productAttribute2"/>
+            <createData entity="productAttributeOption1" stepKey="productAttributeOption4">
+                <requiredEntity createDataKey="productAttribute2"/>
+            </createData>
+            <createData entity="productAttributeOption2" stepKey="productAttributeOption5">
+                <requiredEntity createDataKey="productAttribute2"/>
+            </createData>
+            <createData entity="productAttributeOption3" stepKey="productAttributeOption6">
+                <requiredEntity createDataKey="productAttribute2"/>
+            </createData>
+        </before>
+        <after>
+            <!--Set b2b config to default-->
+            <createData entity="B2BDefaultConfig" stepKey="defaultB2BConfig"/>
+
+            <!--Delete created data-->
+            <actionGroup ref="deleteAllDuplicateProductUsingProductGrid" stepKey="deleteAllDuplicateProducts">
+                <argument name="product" value="$$createConfigurableProduct$$"/>
+            </actionGroup>
+            <deleteData createDataKey="createSimpleUSCustomer" stepKey="deleteCreatedSimpleUSCustomer"/>
+            <deleteData createDataKey="productAttribute1" stepKey="deleteConfigProductAttribute1"/>
+            <deleteData createDataKey="productAttribute2" stepKey="deleteConfigProductAttribute2"/>
+
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Add attributes to configurable product-->
+        <amOnPage url="{{AdminProductEditPage.url($$createConfigurableProduct.id$$)}}" stepKey="amOnEditPage"/>
+        <waitForPageLoad stepKey="waitForEditPage"/>
+        <actionGroup ref="createConfigurationsForTwoAttribute" stepKey="createConfigurations">
+            <argument name="attributeCode" value="$$productAttribute1.attribute_code$$"/>
+            <argument name="secondAttributeCode" value="$$productAttribute2.attribute_code$$"/>
+        </actionGroup>
+
+        <!--Grab Attributes options label to use it in the test-->
+        <actionGroup ref="navigateToCreatedProductAttribute" stepKey="navigateToEditProductAttribute">
+            <argument name="ProductAttribute" value="$$productAttribute1$$"/>
+        </actionGroup>
+        <grabValueFrom selector="{{DropdownAttributeOptionsSection.nthOptionAdminLabel('1')}}" stepKey="optionLabel1"/>
+        <grabValueFrom selector="{{DropdownAttributeOptionsSection.nthOptionAdminLabel('2')}}" stepKey="optionLabel2"/>
+        <grabValueFrom selector="{{DropdownAttributeOptionsSection.nthOptionAdminLabel('3')}}" stepKey="optionLabel3"/>
+
+        <actionGroup ref="navigateToCreatedProductAttribute" stepKey="navigateToEditProductAttribute1">
+            <argument name="ProductAttribute" value="$$productAttribute2$$"/>
+        </actionGroup>
+        <grabValueFrom selector="{{DropdownAttributeOptionsSection.nthOptionAdminLabel('1')}}" stepKey="optionLabel4"/>
+        <grabValueFrom selector="{{DropdownAttributeOptionsSection.nthOptionAdminLabel('2')}}" stepKey="optionLabel5"/>
+        <grabValueFrom selector="{{DropdownAttributeOptionsSection.nthOptionAdminLabel('3')}}" stepKey="optionLabel6"/>
+
+        <!--Login to Storefront as customer-->
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="customerLogin1">
+            <argument name="Customer" value="$$createSimpleUSCustomer$$" />
+        </actionGroup>
+
+        <!--Create new Requisition list-->
+        <amOnPage url="{{StorefrontRequisitionListIndexPage.url}}" stepKey="goToRequisitionListPage"/>
+        <waitForPageLoad stepKey="waitForLoadRequisitionListPage"/>
+        <click selector="{{StorefrontRequisitionListGridSection.createRequisitionList}}" stepKey="clickCreateRequisitionList"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad" time="10"/>
+        <fillField selector="{{StorefrontCreateRequisitionListSection.requisitionListName}}" userInput="RL1" stepKey="fillRequisitionListName"/>
+        <click selector="{{StorefrontCreateRequisitionListSection.saveButton}}" stepKey="saveRequisitionList"/>
+
+        <!--Add product attributes different variations to Requisition list-->
+        <amOnPage url="{{StorefrontProductPage.url($$createConfigurableProduct.name$$)}}" stepKey="amOnStorefrontProductPage"/>
+        <waitForPageLoad stepKey="waitForProductPageLoad"/>
+        <selectOption userInput="$optionLabel1"
+                      selector="{{StorefrontProductInfoMainSection.optionByAttributeId($$productAttribute1.attribute_id$$)}}" stepKey="configProductFillOption11"/>
+        <selectOption userInput="$optionLabel4"
+                      selector="{{StorefrontProductInfoMainSection.optionByAttributeId($$productAttribute2.attribute_id$$)}}" stepKey="configProductFillOption21"/>
+        <click selector="{{StorefrontProductPageSection.addToRequisitionListButton}}" stepKey="clickAddToRequisitionListButton1"/>
+        <click selector="{{StorefrontProductPageSection.selectRequisitionListName('RL1')}}" stepKey="addToRequisitionList1"/>
+        <waitForPageLoad stepKey="waitForAddingToList1"/>
+        <see userInput="Product $$createConfigurableProduct.name$$ has been added to the requisition list RL1." stepKey="seeSuccessMessage1" />
+        <selectOption userInput="$optionLabel2"
+                      selector="{{StorefrontProductInfoMainSection.optionByAttributeId($$productAttribute1.attribute_id$$)}}" stepKey="configProductFillOption12"/>
+        <selectOption userInput="$optionLabel5"
+                      selector="{{StorefrontProductInfoMainSection.optionByAttributeId($$productAttribute2.attribute_id$$)}}" stepKey="configProductFillOption22"/>
+        <click selector="{{StorefrontProductPageSection.addToRequisitionListButton}}" stepKey="clickAddToRequisitionListButton2"/>
+        <click selector="{{StorefrontProductPageSection.selectRequisitionListName('RL1')}}" stepKey="addToRequisitionList2"/>
+        <waitForPageLoad stepKey="waitForAddingToList2"/>
+        <see userInput="Product $$createConfigurableProduct.name$$ has been added to the requisition list RL1." stepKey="seeSuccessMessage2" />
+        <selectOption userInput="$optionLabel3"
+                      selector="{{StorefrontProductInfoMainSection.optionByAttributeId($$productAttribute1.attribute_id$$)}}" stepKey="configProductFillOption13"/>
+        <selectOption userInput="$optionLabel6"
+                      selector="{{StorefrontProductInfoMainSection.optionByAttributeId($$productAttribute2.attribute_id$$)}}" stepKey="configProductFillOption23"/>
+        <click selector="{{StorefrontProductPageSection.addToRequisitionListButton}}" stepKey="clickAddToRequisitionListButton3"/>
+        <click selector="{{StorefrontProductPageSection.selectRequisitionListName('RL1')}}" stepKey="addToRequisitionList3"/>
+        <waitForPageLoad stepKey="waitForAddingToList3"/>
+        <see userInput="Product $$createConfigurableProduct.name$$ has been added to the requisition list RL1." stepKey="seeSuccessMessage3" />
+
+        <!--Check products existence in Requisition List-->
+        <amOnPage url="{{StorefrontRequisitionListIndexPage.url}}" stepKey="goToRequisitionListsPage"/>
+        <click selector="{{StorefrontRequisitionListGridSection.requesitionListViewLink('RL1')}}" stepKey="clickViewButton"/>
+        <seeElement selector="{{StorefrontRequisitionListViewSection.productName($$createConfigurableProduct.name$$, '1')}}"  stepKey="seeFirstProduct"/>
+        <seeElement selector="{{StorefrontRequisitionListViewSection.productName($$createConfigurableProduct.name$$, '2')}}"  stepKey="seeSecondProduct"/>
+        <seeElement selector="{{StorefrontRequisitionListViewSection.productName($$createConfigurableProduct.name$$, '3')}}"  stepKey="seeThirdProduct"/>
+
+        <!--Check QTY of the each product-->
+        <grabValueFrom selector="{{StorefrontRequisitionListViewSection.productQTY('1')}}" stepKey="grabFirstProductQTYValue"/>
+        <grabValueFrom selector="{{StorefrontRequisitionListViewSection.productQTY('2')}}" stepKey="grabSecondProductQTYValue"/>
+        <grabValueFrom selector="{{StorefrontRequisitionListViewSection.productQTY('3')}}" stepKey="grabThirdProductQTYValue"/>
+        <assertEquals expected="1"  actual="$grabFirstProductQTYValue" stepKey="assertFirstProductQTYValue"/>
+        <assertEquals expected="1"  actual="$grabSecondProductQTYValue" stepKey="assertSecondProductQTYValue"/>
+        <assertEquals expected="1"  actual="$grabThirdProductQTYValue" stepKey="assertThirdProductQTYValue"/>
+
+        <!--Change QTY in the one of the products and check result-->
+        <fillField selector="{{StorefrontRequisitionListViewSection.productQTY('1')}}" userInput="2" stepKey="changeQTYValue"/>
+        <click selector="{{StorefrontRequisitionListViewSection.updateList}}" stepKey="updateList"/>
+        <grabValueFrom selector="{{StorefrontRequisitionListViewSection.productQTY('1')}}" stepKey="grabFirstProductQTYValue1"/>
+        <grabValueFrom selector="{{StorefrontRequisitionListViewSection.productQTY('2')}}" stepKey="grabSecondProductQTYValue1"/>
+        <grabValueFrom selector="{{StorefrontRequisitionListViewSection.productQTY('3')}}" stepKey="grabThirdProductQTYValue1"/>
+        <assertEquals expected="2"  actual="$grabFirstProductQTYValue1" stepKey="assertFirstProductQTYValue1"/>
+        <assertEquals expected="1"  actual="$grabSecondProductQTYValue1" stepKey="assertSecondProductQTYValue1"/>
+        <assertEquals expected="1"  actual="$grabThirdProductQTYValue1" stepKey="assertThirdProductQTYValue1"/>
+    </test>
+</tests>

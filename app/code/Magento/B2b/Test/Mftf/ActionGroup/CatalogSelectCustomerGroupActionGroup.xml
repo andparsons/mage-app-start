@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="CatalogSelectCustomerGroupActionGroup">
+        <arguments>
+            <argument name="customerGroupName" defaultValue="NOT LOGGED IN" type="string"/>
+        </arguments>
+        <remove keyForRemoval="selectCustomerGroup"/>
+        <click selector="{{AdminCartPriceRulesFormSection.customerGroups}}" stepKey="expandCustomerGroups"/>
+        <fillField selector="{{AdminCartPriceRulesFormSection.customerGroupsInput}}" userInput="{{customerGroupName}}" stepKey="fillCustomerGroup"/>
+        <click selector="{{AdminCartPriceRulesFormSection.customerGroupsFirstResult}}" stepKey="selectGroup"/>
+        <click selector="{{AdminCartPriceRulesFormSection.customerGroupsDoneBtn}}" stepKey="closeMultiSelect"/>
+    </actionGroup>
+</actionGroups>

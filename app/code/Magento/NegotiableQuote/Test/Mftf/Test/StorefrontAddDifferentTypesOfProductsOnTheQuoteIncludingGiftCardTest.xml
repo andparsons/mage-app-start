@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontAddDifferentTypesOfProductsOnTheQuoteIncludingGiftCardTest">
+        <annotations>
+            <stories value="Negotiable Quotes"/>
+            <title value="[B2B-1351] Add different types of products on the quote including gift card [FRONTEND]"/>
+            <description value="[B2B-1351] Add different types of products on the quote including gift card [FRONTEND]"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MAGETWO-72475"/>
+            <group value="negotiable_quotes"/>
+        </annotations>
+        <before>
+            <magentoCLI stepKey="addDownloadableDomain" command="downloadable:domains:add static.magento.com"/>
+            <!-- Login as Admin -->
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+
+
+            <!-- Create attribute with 2 options -->
+            <createData entity="productAttributeWithTwoOptions" stepKey="createProductAttribute"/>
+            <createData entity="ProductAttributeOption7" stepKey="createProductAttributeOption1">
+                <requiredEntity createDataKey="createProductAttribute"/>
+            </createData>
+            <createData entity="ProductAttributeOption8" stepKey="createProductAttributeOption2">
+                <requiredEntity createDataKey="createProductAttribute"/>
+            </createData>
+            <createData entity="AddToDefaultSet" stepKey="addAttributeToAttributeSet">
+                <requiredEntity createDataKey="createProductAttribute"/>
+            </createData>
+            <getData entity="ProductAttributeOptionGetter" index="1" stepKey="getAttributeOption1">
+                <requiredEntity createDataKey="createProductAttribute"/>
+            </getData>
+            <getData entity="ProductAttributeOptionGetter" index="2" stepKey="getAttributeOption2">
+                <requiredEntity createDataKey="createProductAttribute"/>
+            </getData>
+
+            <!--Create the 2 Simple Product -->
+            <createData entity="ApiSimpleOne" stepKey="createSimpleProduct1">
+                <requiredEntity createDataKey="createProductAttribute"/>
+                <requiredEntity createDataKey="getAttributeOption1"/>
+                <field key="name">Simple Product forSharedCatalog1</field>
+            </createData>
+            <createData entity="ApiSimpleTwo" stepKey="createSimpleProduct2">
+                <requiredEntity createDataKey="createProductAttribute"/>
+                <requiredEntity createDataKey="getAttributeOption2"/>
+                <field key="name">Simple Product forSharedCatalog2</field>
+            </createData>
+
+            <!--Create Configurable product-->
+            <actionGroup ref="AdminCreateApiConfigurableProductActionGroup" stepKey="createConfigurableProduct">
+                <argument name="productName" value="ApiConfigurableProduct forSharedCatalog"/>
+            </actionGroup>
+
+            <!--Create Fixed Bundle product-->
+            <actionGroup ref="AdminCreateApiFixedBundleProductActionGroup" stepKey="createFixedBundle">
+                <argument name="productName" value="ApiFixedBundle forSharedCatalog"/>
+            </actionGroup>
+
+            <!--Create Virtual product-->
+            <createData entity="VirtualProduct" stepKey="createVirtualProduct">
+                <field key="name">Virtual Product forSharedCatalog</field>
+            </createData>
+
+            <!--Create Gift Card product-->
+            <createData entity="ApiGiftCard" stepKey="productApiGiftCard">
+                <field key="name">Api Gift Card forSharedCatalog</field>
+            </createData>
+
+            <!-- Create Downloadable product -->
+            <createData entity="ApiDownloadableProduct" stepKey="createDownloadableProduct">
+                <field key="name">Api Downloadable Product forSharedCatalog</field>
+            </createData>
+            <createData entity="ApiDownloadableLink" stepKey="addDownloadableLink">
+                <requiredEntity createDataKey="createDownloadableProduct"/>
+            </createData>
+            <createData entity="ApiDownloadableLink" stepKey="addDownloadableLink1">
+                <requiredEntity createDataKey="createDownloadableProduct"/>
+            </createData>
+
+            <!-- Create Grouped product and Create Simple product-->
+            <createData entity="SimpleProduct2" stepKey="createSimpleProduct"/>
+            <createData entity="ApiGroupedProduct" stepKey="createGroupedProduct">
+                <field key="name">Api Grouped Product forSharedCatalog</field>
+            </createData>
+            <createData entity="OneSimpleProductLink" stepKey="addProductOne">
+                <requiredEntity createDataKey="createGroupedProduct"/>
+                <requiredEntity createDataKey="createSimpleProduct"/>
+            </createData>
+
+            <!--Create new SharedCatalog-->
+            <createData entity="NewSharedCatalog" stepKey="newSharedCatalog">
+                <field key="name">NewSharedCatalogTest</field>
+            </createData>
+
+            <!--Select 'Set Pricing And Structure' form Actions menu for created-->
+            <amOnPage url="{{AdminSharedCatalogIndexPage.url}}" stepKey="goToAdminSharedCatalogIndexPage"/>
+            <actionGroup ref="AdminFilterSharedCatalogByNameActionGroup" stepKey="filterSharedCatalog">
+                <argument name="sharedCatalogName" value="NewSharedCatalogTest"/>
+            </actionGroup>
+            <click selector="{{AdminSharedCatalogsSection.select}}" stepKey="clickSelectButton1"/>
+            <click selector="{{AdminSharedCatalogsSection.setPricingAndStructure}}"
+                   stepKey="clickOnSetPricingAndStructureItem1"/>
+            <click selector="{{AdminSharedCatalogCatalogStructureSection.configureButton}}"
+                   stepKey="clickOnConfigureButton"/>
+
+            <!--Assign created products to Shared Catalog-->
+            <actionGroup ref="AdminSharedCatalogFilterProductsOnGridActionGroup" stepKey="filterProductsOnGrid1">
+                <argument name="productName" value="forSharedCatalog"/>
+            </actionGroup>
+            <click selector="{{AdminSharedCatalogsSection.multiCheckForProductsAndCatalog}}"
+                   stepKey="clickMultiCheckForProductsAndCatalog"/>
+            <click selector="{{AdminSharedCatalogsSection.selectAllForProductsAndCatalog}}"
+                   stepKey="clickSelectAllForProductsAndCatalog"/>
+            <actionGroup ref="resetAdminDataGridToDefaultView" stepKey="resetProductFilter"/>
+
+            <click selector="{{AdminSharedCatalogCatalogStructureSection.nextButton}}" stepKey="clickNextButton"/>
+
+            <click selector="{{AdminSharedCatalogsSection.multiCheckForCustomPrices}}"
+                   stepKey="clickMultiCheckForCustomPrices"/>
+            <click selector="{{AdminSharedCatalogsSection.selectAllForCustomPrices}}"
+                   stepKey="clickSelectAllForCustomPrices"/>
+            <click selector="{{AdminSharedCatalogsSection.generateCatalog}}" stepKey="clickGenerateCatalog"/>
+            <click selector="{{AdminMainActionsSection.save}}" stepKey="clickSaveButton"/>
+            <see selector="{{AdminMessagesSection.success}}"
+                 userInput="The selected changes have been applied to the shared catalog."
+                 stepKey="seeSuccessMessages"/>
+
+            <createData entity="Simple_US_Customer" stepKey="createCompanyAdmin"/>
+            <createData entity="Default_Company" stepKey="defaultCompany">
+                <requiredEntity createDataKey="createCompanyAdmin"/>
+            </createData>
+            <createData entity="AssignCompanyToSharedCatalog" stepKey="assignCompany">
+                <requiredEntity createDataKey="newSharedCatalog"/>
+                <requiredEntity createDataKey="defaultCompany"/>
+            </createData>
+            <createData entity="NegotiableQuoteSystemConfig" stepKey="enableB2BQuotesConfig"/>
+
+            <magentoCLI command="indexer:reindex" stepKey="reindex"/>
+        </before>
+        <after>
+            <magentoCLI stepKey="removeDownloadableDomain" command="downloadable:domains:remove static.magento.com"/>
+
+            <!-- Delete Product Attribute -->
+            <deleteData createDataKey="createProductAttribute" stepKey="deleteProductAttribute"/>
+
+            <!--Delete configurable product-->
+            <deleteData createDataKey="createConfigProductCreateConfigurableProduct" stepKey="deleteConfigProduct"/>
+            <deleteData createDataKey="createConfigChildProduct1CreateConfigurableProduct"
+                        stepKey="deleteConfigChildProduct"/>
+            <deleteData createDataKey="createConfigChildProduct2CreateConfigurableProduct"
+                        stepKey="deleteConfigChildProduct1"/>
+            <deleteData createDataKey="createConfigProductAttributeCreateConfigurableProduct"
+                        stepKey="deleteConfigProductAttribute"/>
+
+            <!--Delete Fixed Bundle Product-->
+            <deleteData createDataKey="simpleProduct1CreateFixedBundle" stepKey="deleteSimpleProduct21"/>
+            <deleteData createDataKey="simpleProduct2CreateFixedBundle" stepKey="deleteSimpleProduct22"/>
+            <deleteData createDataKey="simpleProduct3CreateFixedBundle" stepKey="deleteSimpleProduct23"/>
+            <deleteData createDataKey="simpleProduct4CreateFixedBundle" stepKey="deleteSimpleProduct24"/>
+            <deleteData createDataKey="createBundleProductCreateFixedBundle" stepKey="deleteFixedBundleProduct"/>
+
+            <deleteData createDataKey="createSimpleProduct" stepKey="deleteSimpleProduct"/>
+            <deleteData createDataKey="createSimpleProduct1" stepKey="deleteSimpleProduct1"/>
+            <deleteData createDataKey="createSimpleProduct2" stepKey="deleteSimpleProduct2"/>
+            <deleteData createDataKey="createVirtualProduct" stepKey="deleteVirtualProduct"/>
+            <deleteData createDataKey="productApiGiftCard" stepKey="deleteGiftCardProduct"/>
+            <deleteData createDataKey="createDownloadableProduct" stepKey="deleteDownloadableProduct"/>
+            <deleteData createDataKey="createGroupedProduct" stepKey="deleteGroupedProduct"/>
+
+            <!--Delete Shared Catalog-->
+            <deleteData createDataKey="newSharedCatalog" stepKey="deleteSharedCatalog"/>
+            <amOnPage url="{{AdminSharedCatalogIndexPage.url}}" stepKey="goToAdminSharedCatalogIndexPage"/>
+            <actionGroup ref="clearFiltersAdminDataGrid" stepKey="sharedCatalogResetFilter"/>
+
+            <!--Enable Default B2B Config -->
+            <createData entity="B2BDefaultConfig" stepKey="defaultB2BConfig"/>
+
+            <!-- Delete Company -->
+            <deleteData createDataKey="defaultCompany" stepKey="deleteCompany"/>
+
+            <!-- Delete Company Admin -->
+            <deleteData createDataKey="createCompanyAdmin" stepKey="deleteCompanyAdmin"/>
+
+            <!-- Logout Admin -->
+            <actionGroup ref="logout" stepKey="amOnLogoutPage"/>
+        </after>
+
+        <!--Login to Storefront -->
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginAsCustomer">
+            <argument name="Customer" value="$$createCompanyAdmin$$"/>
+        </actionGroup>
+
+        <!--Go to Product page Simple-->
+        <amOnPage url="{{StorefrontProductPage.url($$createSimpleProduct1.custom_attributes[url_key]$$)}}"
+                  stepKey="navigateToSimpleProductPage"/>
+
+        <!--Add Product to Shopping Cart-->
+        <actionGroup ref="addToCartFromStorefrontProductPage" stepKey="addToCartFromStorefrontProductPage">
+            <argument name="productName" value="$$createSimpleProduct1.name$$"/>
+        </actionGroup>
+
+        <!--Go to product page Simple1-->
+        <amOnPage url="{{StorefrontProductPage.url($$createSimpleProduct2.custom_attributes[url_key]$$)}}"
+                  stepKey="navigateToSimpleProductPage1"/>
+
+        <!--Add Product to Shopping Cart-->
+        <actionGroup ref="addToCartFromStorefrontProductPage" stepKey="addToCartFromStorefrontProductPage1">
+            <argument name="productName" value="$$createSimpleProduct2.name$$"/>
+        </actionGroup>
+
+        <!--Go to Configurable Product page -->
+        <amOnPage url="{{StorefrontProductPage.url($$createConfigProductCreateConfigurableProduct.custom_attributes[url_key]$$)}}"
+                stepKey="navigateToConfigurableProductPage"/>
+
+        <selectOption userInput="option1"
+                      selector="{{StorefrontProductInfoMainSection.productOptionSelect($$createConfigProductAttributeCreateConfigurableProduct.attribute_label$$)}}"
+                      stepKey="selectProductOptionDropDown"/>
+
+        <!--Add Product to Shopping Cart-->
+        <actionGroup ref="addToCartFromStorefrontProductPage" stepKey="addToCartFromStorefrontProductPage2">
+            <argument name="productName" value="$$createConfigProductCreateConfigurableProduct.name$$"/>
+        </actionGroup>
+
+        <!--Go to Virtual Product page -->
+        <amOnPage url="{{StorefrontProductPage.url($$createVirtualProduct.custom_attributes[url_key]$$)}}"
+                  stepKey="navigateToVirtualProductPage"/>
+
+        <!--Add Product to Shopping Cart-->
+        <actionGroup ref="addToCartFromStorefrontProductPage" stepKey="addToCartFromStorefrontProductPage3">
+            <argument name="productName" value="$$createVirtualProduct.name$$"/>
+        </actionGroup>
+
+        <!--Go to Gift Card  page -->
+        <amOnPage url="{{StorefrontProductPage.url($$productApiGiftCard.custom_attributes[url_key]$$)}}"
+                  stepKey="navigateToGiftCardProductPage"/>
+
+        <fillField selector="{{StorefrontAddSenderDataSection.amount}}" userInput="10" stepKey="fillFieldAmount"/>
+        <fillField selector="{{StorefrontAddSenderDataSection.sender}}" userInput="Test" stepKey="fillFieldSenderName"/>
+        <fillField selector="{{StorefrontAddSenderDataSection.receiver}}" userInput="Test"
+                   stepKey="fillFieldRecipientName"/>
+
+        <!--Add Product to Shopping Cart-->
+        <actionGroup ref="addToCartFromStorefrontProductPage" stepKey="addToCartFromStorefrontProductPage4">
+            <argument name="productName" value="$$productApiGiftCard.name$$"/>
+        </actionGroup>
+
+        <!--Go to Downloadable Product page -->
+        <amOnPage url="{{StorefrontProductPage.url($$createDownloadableProduct.custom_attributes[url_key]$$)}}"
+                  stepKey="navigateToDownloadableProductPage"/>
+
+        <!--Add Product to Shopping Cart-->
+        <actionGroup ref="addToCartFromStorefrontProductPage" stepKey="addToCartFromStorefrontProductPage5">
+            <argument name="productName" value="$$createDownloadableProduct.name$$"/>
+        </actionGroup>
+
+        <!--Go to Grouped Product page -->
+        <amOnPage url="{{StorefrontProductPage.url($$createGroupedProduct.custom_attributes[url_key]$$)}}"
+                  stepKey="navigateToGroupedProductPage"/>
+
+        <fillField selector="{{StorefrontProductPageSection.qtyInput}}" userInput="1" stepKey="fillFieldQtyInput"/>
+
+        <!--Add Product to Shopping Cart-->
+        <actionGroup ref="addToCartFromStorefrontProductPage" stepKey="addToCartFromStorefrontProductPage6">
+            <argument name="productName" value="$$createGroupedProduct.name$$"/>
+        </actionGroup>
+
+        <!--Go to Bundle Product page-->
+        <amOnPage url="{{StorefrontProductPage.url($$createBundleProductCreateFixedBundle.custom_attributes[url_key]$$)}}"
+                stepKey="navigateToBundleProductPage"/>
+
+        <click selector="{{StorefrontBundleProductActionSection.customizeAndAddToCartButton}}"
+               stepKey="clickCustomizeAndAddToCart"/>
+        <waitForPageLoad time="30" stepKey="waitForOptionLoad"/>
+        <checkOption
+                selector="{{StorefrontProductInfoMainSection.productBundleOptionsCheckbox($$simpleProduct3CreateFixedBundle.name$$)}}"
+                stepKey="selectOptionChildProduct"/>
+
+        <!--Add Product to Shopping Cart-->
+        <actionGroup ref="addToCartFromStorefrontProductPage" stepKey="addToCartFromStorefrontProductPage7">
+            <argument name="productName" value="$$createBundleProductCreateFixedBundle.name$$"/>
+        </actionGroup>
+
+        <!--Go to shopping cart add request a quote-->
+        <actionGroup ref="clickViewAndEditCartFromMiniCart" stepKey="goToShoppingCartFromMinicart"/>
+        <waitForPageLoad time="30" stepKey="waitForShoppingCartPage"/>
+        <click selector="{{StorefrontCheckoutCartRequestQuoteSection.requestQuote}}" stepKey="clickRequestQuote"/>
+        <waitForElementVisible selector="{{StorefrontCheckoutCartRequestQuoteSection.requestQuoteForm}}"
+                               stepKey="waitForVisibleRequestForm"/>
+
+        <!-- Fill "Quote name" and "Add your comment" sections -->
+        <fillField selector="{{StorefrontCheckoutCartRequestQuoteSection.requestQuoteName}}" userInput="NewQuote"
+                   stepKey="fillFieldRequestQuoteName"/>
+        <fillField selector="{{StorefrontCheckoutCartRequestQuoteSection.requestQuoteMessage}}"
+                   userInput="NewQuote comments" stepKey="fillFieldRequestQuoteMessage"/>
+
+        <!-- Click [Send Request] button -->
+        <click selector="{{StorefrontCheckoutCartRequestQuoteSection.sendRequest}}" stepKey="clickSendRequest"/>
+        <seeInCurrentUrl url="{{StorefrontNegotiableQuotePage.url}}" stepKey="seeCurrentUrl"/>
+        <see selector="{{StorefrontMyQuoteGridSection.gridMyQuote('Quote Name', 'NewQuote')}}" userInput="NewQuote"
+             stepKey="seeQuotePresentGrid"/>
+
+        <!-- Click [Send for Review] button -->
+        <click selector="{{StorefrontMyQuoteGridSection.gridButtonAction}}"
+               stepKey="clickViewButton"/>
+        <grabFromCurrentUrl regex="~/quote_id/(\d+)/~" stepKey="grabQuoteFromUrl"/>
+        <click selector="{{StorefrontNegotiableQuoteViewSection.sendForReview}}" stepKey="clickSendForReview"/>
+
+        <see selector="{{StorefrontNegotiableQuoteSendMainSection.successTitle}}" userInput="Success Page"
+             stepKey="seeSuccessTitle"/>
+        <see selector="{{StorefrontNegotiableQuoteSendMainSection.quoteMessage}}" userInput="Your quote number is: "
+             stepKey="seeQuoteMessage"/>
+        <see selector="{{StorefrontNegotiableQuoteSendMainSection.quoteNumber}}" userInput="$grabQuoteFromUrl"
+             stepKey="seeQuoteNumber"/>
+        <see selector="{{StorefrontNegotiableQuoteSendMainSection.quoteMerchant}}"
+             userInput="The quote has been sent to the merchant." stepKey="seeSuccessQuoteMerchant"/>
+    </test>
+</tests>

@@ -1,0 +1,37 @@
+<?php
+
+/** @var $block \Magento\NegotiableQuote\Block\Quote\Info\Links */
+?>
+<div class="actions quote-view-links quote-view-buttons">
+    <?php if ($block->isAllowedManage()) : ?>
+        <button type="button"
+                data-mage-init='{
+                    "Magento_NegotiableQuote/js/quote/submit-form": {
+                        "watchField" : "[data-role=cart-item-qty]",
+                         "enableBtn" : "[data-role=quote-update]"
+                         }
+                    }'
+                title="<?= $block->escapeHtmlAttr(__('Send for Review')) ?>"
+                class="action primary send<?= /* @noEscape */ $block->isSendAvailable() ? '' : ' _disabled' ?>"
+                <?= /* @noEscape */ $block->isSendAvailable() ? '' : 'disabled' ?>
+                data-mobile-label="<?= $block->escapeHtmlAttr(__('Send for Review')) ?>">
+            <span><?= $block->escapeHtml(__('Send for Review')) ?></span>
+        </button>
+    <?php endif; ?>
+    <?php if ($block->isCheckoutLinkVisible()) : ?>
+    <button type="button"
+            data-mage-init='{
+                "Magento_NegotiableQuote/js/quote/check-expired":{
+                    "isExpired":"<?= $block->escapeJs($block->isExpirationPopupDisplayed()) ?>",
+                    "removeNegotiationUrl": "<?= $block->escapeUrl($block->getRemoveNegotiationUrl()) ?>"
+                }
+            }'
+            title="<?= $block->escapeHtmlAttr(__('Proceed to Checkout')) ?>"
+            data-post='<?= /* @noEscape */ $block->getProceedToCheckoutParams(); ?>'
+            class="action checkout<?= /* @noEscape */ $block->isProceedToCheckoutAvailable() ? '' : ' _disabled' ?>"
+            <?= /* @noEscape */ $block->isProceedToCheckoutAvailable() ? '' : 'disabled' ?>
+            data-mobile-label="<?= $block->escapeHtmlAttr(__('Proceed to Checkout')) ?>">
+        <span><?= $block->escapeHtml(__('Proceed to Checkout')) ?></span>
+    </button>
+    <?php endif; ?>
+</div>

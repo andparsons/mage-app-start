@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Company\Model\SaveHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="availablePaymentMethods" xsi:type="object">\Magento\CompanyPayment\Model\Company\SaveHandler\AvailablePaymentMethods</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\Api\CompanyRepositoryInterface">
+        <plugin name="companyRepositoryPlugin" type="Magento\CompanyPayment\Plugin\Company\CompanyRepositoryPlugin" />
+    </type>
+    <type name="Magento\Company\Model\Company\DataProvider">
+        <plugin name="companyDataProviderPlugin" type="Magento\CompanyPayment\Plugin\Company\DataProviderPlugin" />
+    </type>
+    <type name="Magento\Quote\Api\PaymentMethodManagementInterface">
+        <plugin name="paymentMethodManagementPlugin" type="Magento\CompanyPayment\Plugin\Quote\PaymentMethodManagementPlugin" />
+    </type>
+    <type name="Magento\Company\Model\Customer\Company">
+        <plugin name="companyPlugin" type="Magento\CompanyPayment\Plugin\Company\Model\Customer\CompanyPlugin" />
+    </type>
+    <type name="Magento\Payment\Model\Checks\SpecificationFactory">
+        <arguments>
+            <argument name="mapping" xsi:type="array">
+                <item name="company" xsi:type="object">Magento\CompanyPayment\Model\Payment\Checks\CanUseForCompany</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Multishipping\Block\Checkout\Billing">
+        <arguments>
+            <argument name="additionalChecks" xsi:type="array">
+                <item name="0" xsi:type="string">company</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Sales\Block\Adminhtml\Order\Create\Billing\Method\Form">
+        <arguments>
+            <argument name="additionalChecks" xsi:type="array">
+                <item name="0" xsi:type="string">company</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\Model\ResourcePool">
+        <arguments>
+            <argument name="resources" xsi:type="array">
+                <item name="company_payment_information" xsi:type="string">Magento_Company::payment_information</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Payment">
+        <arguments>
+            <argument name="additionalChecks" xsi:type="array">
+                <item name="0" xsi:type="string">company</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

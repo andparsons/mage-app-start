@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @var $block \Magento\NegotiableQuote\Block\Quote\Totals
+ */
+?>
+<div class="quote-block-content catalog-price">
+    <div class="quote-block-title">
+        <?= $block->escapeHtml(__('Catalog Price')) ?>
+    </div>
+    <table class="items data table quote-table-totals">
+        <tbody>
+        <?php foreach ($block->getTotals() as $code => $total) : ?>
+            <?php if ($total->getBlockName()) : ?>
+                <?= $block->getChildHtml($total->getBlockName(), false) ?>
+            <?php endif; ?>
+        <?php endforeach?>
+        </tbody>
+    </table>
+</div>

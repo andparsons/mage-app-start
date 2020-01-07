@@ -1,0 +1,36 @@
+<?php
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+// phpcs:disable Magento2.Files.LineLength.MaxExceeded
+
+/** @var $block \Magento\GiftRegistry\Block\Search\Advanced */
+?>
+
+<?php foreach ($block->getAttributes() as $code => $attribute) :?>
+    <div class="field">
+        <label for="<?= $block->escapeHtmlAttr($block->getFieldIdPrefix() . $code) ?>" class="label">
+            <span><?= $block->escapeHtml($attribute['label']) ?></span>
+        </label>
+        <div class="control">
+            <?= /* @noEscape */ $block->renderField($code) ?>
+        </div>
+    </div>
+<?php endforeach; ?>
+
+<script type="text/x-magento-init">
+    {
+        <?php if ($block->getRegionJsVisible()) :?>
+        "#<?= $block->escapeJs($block->getFieldIdPrefix() . $block->getElementCountry()) ?>": {
+            "regionUpdater": {
+                "optionalRegionAllowed": <?= ($block->getConfig('general/region/display_all') ? 'true' : 'false') ?>,
+                "regionListId": "#<?= $block->escapeJs($block->getFieldIdPrefix() . $block->getElementRegion()) ?>",
+                "regionInputId": "#<?= $block->escapeJs($block->getFieldIdPrefix() . $block->getElementRegionText()) ?>",
+                "regionJson": <?= /* @noEscape */ $this->helper(Magento\Directory\Helper\Data::class)->getRegionJson() ?>,
+                "isRegionRequired": false,
+                "isZipRequired": false,
+                "isCountryRequired": false
+            }
+        }
+        <?php endif; ?>
+    }
+</script>

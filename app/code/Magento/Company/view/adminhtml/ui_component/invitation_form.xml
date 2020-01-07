@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="general">
+        <field name="email"/>
+        <field name="message"/>
+        <field name="store_id"/>
+        <field name="group_id" component="Magento_B2b/js/form/element/ui-group">
+            <settings>
+                <elementTmpl>Magento_B2b/form/element/ui-group</elementTmpl>
+            </settings>
+        </field>
+    </fieldset>
+</form>

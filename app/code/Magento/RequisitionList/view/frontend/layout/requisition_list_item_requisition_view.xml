@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceBlock name="page.main.title" remove="true"/>
+        <referenceContainer name="content">
+            <block class="Magento\RequisitionList\Block\Requisition\View\Items\Grid" name="requisition.items.grid"
+                   template="Magento_RequisitionList::requisition/view/items/grid.phtml">
+                <block class="Magento\RequisitionList\Block\Requisition\View\Details" name="requisition.management"
+                       template="Magento_RequisitionList::requisition/view/management.phtml">
+                    <block class="Magento\RequisitionList\Block\Requisition\View\Details" name="requisition.list.title"
+                           template="Magento_RequisitionList::requisition/actions/rename.phtml"/>
+                </block>
+            </block>
+            <block class="Magento\RequisitionList\Block\Requisition\View\Details" name="requisition.items.buttons"
+                   template="Magento_RequisitionList::requisition/view/items/buttons.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

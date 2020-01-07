@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="StorefrontRequestQuoteActionGroup">
+        <arguments>
+            <argument name="quote"/>
+        </arguments>
+        <waitForElementVisible selector="{{StorefrontCheckoutCartRequestQuoteSection.requestQuote}}"
+                               stepKey="waitRequestQuoteButton"/>
+        <click selector="{{StorefrontCheckoutCartRequestQuoteSection.requestQuote}}" stepKey="clickRequestQuote"/>
+        <waitForElementVisible selector="{{StorefrontCheckoutCartRequestQuoteSection.requestQuoteForm}}"
+                               stepKey="waitForVisibleRequestForm"/>
+        <fillField selector="{{StorefrontCheckoutCartRequestQuoteSection.requestQuoteName}}" userInput="{{quote.name}}"
+                   stepKey="fillFieldRequestQuoteName"/>
+        <fillField selector="{{StorefrontCheckoutCartRequestQuoteSection.requestQuoteMessage}}"
+                   userInput="{{quote.message}}" stepKey="fillFieldRequestQuoteMessage"/>
+        <click selector="{{StorefrontCheckoutCartRequestQuoteSection.sendRequest}}" stepKey="clickSendRequest"/>
+        <seeInCurrentUrl url="{{StorefrontNegotiableQuotePage.url}}" stepKey="seeCurrentUrl"/>
+    </actionGroup>
+</actionGroups>

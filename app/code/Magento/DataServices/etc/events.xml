@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="customer_login">
+        <observer name="dataservices_customer_login_observer" instance="Magento\DataServices\Observer\LogIn" />
+    </event>
+    <event name="customer_logout">
+        <observer name="dataservices_customer_logout_observer" instance="Magento\DataServices\Observer\LogOut" />
+    </event>
+    <event name="checkout_cart_add_product_complete">
+        <observer name="dataservices_add_to_cart_observer" instance="Magento\DataServices\Observer\AddToCart" />
+    </event>
+    <event name="sales_quote_remove_item">
+        <observer name="dataservices_remove_from_cart_observer" instance="Magento\DataServices\Observer\RemoveFromCart" />
+    </event>
+    <event name="checkout_onepage_controller_success_action">
+        <observer name="dataservices_add_to_cart_observer" instance="Magento\DataServices\Observer\CheckoutSuccess" />
+    </event>
+    <event name="multishipping_checkout_controller_success_action">
+        <observer name="dataservices_add_to_cart_observer" instance="Magento\DataServices\Observer\CheckoutSuccess" />
+    </event>
+     <event name="wishlist_add_product">
+        <observer name="dataservices_add_to_wishlist_observer" instance="Magento\DataServices\Observer\AddToWishlist" />
+    </event>
+    <event name="wishlist_item_delete_after">
+        <observer name="dataservices_wishlist_item_delete_observer" instance="Magento\DataServices\Observer\WishListDelete" />
+    </event>
+</config>

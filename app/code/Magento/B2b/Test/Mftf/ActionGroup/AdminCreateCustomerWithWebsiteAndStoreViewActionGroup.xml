@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminCreateCustomerWithWebSiteAndGroup">
+        <click selector="{{CustomerInformationSection.customerGroupTab}}" before="selectCustomerGroup" stepKey="clickToSeeGroups"/>
+        <selectMultipleOptions filterSelector="{{CustomerInformationSection.customerGroupFilter}}" optionSelector="{{CustomerInformationSection.customerGroupOptions}}" stepKey="selectCustomerGroup">
+            <array>[{{customerData.group}}]</array>
+        </selectMultipleOptions>
+    </actionGroup>
+</actionGroups>

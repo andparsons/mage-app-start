@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <listingToolbar name="listing_top">
+        <massaction name="listing_massaction" class="Magento\Company\Ui\Component\MassAction">
+            <action name="delete" sortOrder="10"/>
+            <action name="activate" sortOrder="20">
+                <settings>
+                    <url path="company/customer/massStatus">
+                        <param name="status">1</param>
+                    </url>
+                    <type>activate</type>
+                    <label translate="true">Set Active</label>
+                </settings>
+            </action>
+            <action name="inactivate" sortOrder="30">
+                <settings>
+                    <url path="company/customer/massStatus">
+                        <param name="status">0</param>
+                    </url>
+                    <type>inactivate</type>
+                    <label translate="true">Set Inactive</label>
+                </settings>
+            </action>
+            <action name="subscribe" sortOrder="40"/>
+            <action name="unsubscribe" sortOrder="50"/>
+            <action name="assign_to_group" sortOrder="60"/>
+            <action name="edit" sortOrder="70"/>
+        </massaction>
+    </listingToolbar>
+    <columns name="customer_columns">
+        <column name="status" component="Magento_Ui/js/grid/columns/select" sortOrder="280">
+            <settings>
+                <filter>select</filter>
+                <options class="Magento\Company\Model\Customer\Source\Status"/>
+                <dataType>select</dataType>
+                <label translate="true">Status</label>
+            </settings>
+        </column>
+        <column name="customer_type" component="Magento_Ui/js/grid/columns/select" sortOrder="35">
+            <settings>
+                <filter>select</filter>
+                <options class="Magento\Company\Model\Customer\Source\CustomerType"/>
+                <dataType>select</dataType>
+                <label translate="true">Customer Type</label>
+            </settings>
+        </column>
+        <column name="billing_company">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="componentDisabled" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+        </column>
+        <column name="company_name" sortOrder="240">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Company</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        <column name="group_id">
+            <settings>
+                <options class="Magento\Customer\Ui\Component\Listing\Column\Group\Options"/>
+                <editor>
+                    <editorType>false</editorType>
+                </editor>
+            </settings>
+        </column>
+    </columns>
+</listing>

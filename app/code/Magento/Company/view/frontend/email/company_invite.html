@@ -1,0 +1,17 @@
+<!--
+-->
+<!--@subject A company has invited you to join @-->
+<!--@vars {
+"var customer.getFirstname()":"Customer Name",
+"var admin.getFirstname()":"Company Admin Name",
+"var company.getCompanyName()":"Company Name",
+"var this.getUrl($store,'customer/accept-invitation/',[_query:[code:$code,customer:$companyAttributes,role_id:$roleId],_nosid:1])":"Accept URL"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting company-greeting"><strong>{{trans "Dear %firstname" firstname=$customer.getFirstname()}}</strong></p>
+<p>{{trans "%admin has invited you to join %company, click the link below to accept" admin=$admin.getFirstname(), company=$company.getCompanyName()}}</p>
+<p><a href="{{var this.getUrl($store,'company/customer/acceptinvitation/',[_query:[code:$code,customer:$companyAttributes,role_id:$roleId],_nosid:1])}}">Accept invitation</a></p>
+
+{{template config_path="design/email/footer_template"}}

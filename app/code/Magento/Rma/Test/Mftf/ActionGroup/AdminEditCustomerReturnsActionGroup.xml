@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminEditCustomerReturnsActionGroup">
+        <click selector="{{AdminCustomerReturnsSection.returns}}" stepKey="proceedToReturns"/>
+        <waitForPageLoad stepKey="waitForPageLoad" />
+        <click selector="{{AdminCustomerReturnsSection.firstRowOfReturns}}" stepKey="clickOnToOpenReturn"/>
+    </actionGroup>
+</actionGroups>

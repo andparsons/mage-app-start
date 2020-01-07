@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="catalogsearch_query_add_filter_after">
+        <observer name="shared_catalog_filter" instance="Magento\SharedCatalog\Observer\CatalogSearch\Aggregation\DataProvider"/>
+    </event>
+</config>

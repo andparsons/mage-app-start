@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminCheckStagingDashboardGridPermanentActionGroup">
+        <arguments>
+            <argument name="stage" type="entity"/>
+            <argument name="updateName" type="string"/>
+        </arguments>
+        <!-- Check changes  -->
+        <selectOption userInput="Grid" selector="{{AdminContentStagingDashboardSection.stagingViewTypeSelect}}" stepKey="selectGrid"/>
+        <see selector="{{AdminContentStagingGridDashboardSection.updateNameColumnGrid}}" userInput="{{updateName}}" stepKey="seeUpdateName"/>
+        <grabValueFrom selector="{{AdminContentStagingGridDashboardSection.endDateColumnGrid(updateName)}}"  stepKey="grabEndDate"/>
+        <assertEmpty actual="$grabEndDate" after="grabEndDate" stepKey="verifyEmptyEndDate" />
+        <see selector="{{AdminContentStagingGridDashboardSection.descriptionColumnGrid(updateName)}}" userInput="{{stage.updateDescription}}" stepKey="seeDescription"/>
+    </actionGroup>
+</actionGroups>

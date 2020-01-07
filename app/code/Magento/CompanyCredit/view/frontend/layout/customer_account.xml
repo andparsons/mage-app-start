@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="customer_account_navigation">
+            <block class="Magento\CompanyCredit\Block\Customer\Link"
+                   ifconfig="btob/website_configuration/company_active"
+                   name="customer-account-navigation-company-credit-history-link"
+                   after="customer-account-navigation-company-profile-link">
+                <arguments>
+                    <argument name="path" xsi:type="string">company_credit/history</argument>
+                    <argument name="label" xsi:type="string" translate="true">Company Credit</argument>
+                    <argument name="resource" xsi:type="string">Magento_Company::credit</argument>
+                    <argument name="sortOrder" xsi:type="number">103</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceBlock name="customer-account-navigation-delimiter-container-b2b">
+            <block class="Magento\CompanyCredit\Block\Link\Delimiter" name="company-credit-customer-account-navigation-delimiter-b2b" template="Magento_Customer::account/navigation-delimiter.phtml">
+                <arguments>
+                    <argument name="resources" xsi:type="array">
+                        <item name="companyCredit" xsi:type="string">Magento_Company::credit</item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

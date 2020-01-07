@@ -1,0 +1,9 @@
+<?php
+?>
+<?php if ($addressHtml = $block->getAddressHtml()) : ?>
+    <address>
+        <?= /* @noEscape */ $addressHtml ?>
+    </address>
+<?php else : ?>
+    <p><?= $block->escapeHtml(__('You have no shipping address for this quote.')) ?></p>
+<?php endif; ?>

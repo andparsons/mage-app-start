@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontConfigurableProductCategoryViewChildOnlyTest">
+        <before>
+            <!--Enable Shared Catalog feature-->
+            <magentoCLI command="config:set btob/website_configuration/company_active 1" stepKey="enableCompany"/>
+            <magentoCLI command="config:set btob/website_configuration/sharedcatalog_active 1" stepKey="enableSharedCatalog"/>
+        </before>
+
+        <after>
+            <!--Disable Shared Catalog feature-->
+            <magentoCLI command="config:set btob/website_configuration/company_active 0" stepKey="disableCompany"/>
+            <magentoCLI command="config:set btob/website_configuration/sharedcatalog_active 0" stepKey="disableSharedCatalog"/>
+        </after>
+
+        <!--Add only child product to Shared Catalog-->
+        <amOnPage url="{{AdminSharedCatalogCatalogStructureWizardPage.url('1')}}" stepKey="goToSharedCatalogWizard" after="assertSaveMessageSuccess"/>
+        <waitForPageLoad stepKey="waitForSharedCatalogWizardPage" after="goToSharedCatalogWizard"/>
+        <click selector="{{AdminSharedCatalogsSection.configure}}" stepKey="clickConfigure" after="waitForSharedCatalogWizardPage"/>
+        <actionGroup ref="filterProductGridBySku2" stepKey="filterGrid" after="clickConfigure">
+            <argument name="sku" value="$$createConfigChildProduct1.sku$$"/>
+        </actionGroup>
+        <click selector="{{AdminSharedCatalogsSection.multiCheckForProductsAndCatalog}}" stepKey="clickMulticheck" after="filterGrid"/>
+        <click selector="{{AdminSharedCatalogsSection.selectAllForProductsAndCatalog}}" stepKey="clickSelectAll" after="clickMulticheck"/>
+        <click selector="{{AdminSharedCatalogsSection.next}}" stepKey="clickNext" after="clickSelectAll"/>
+        <click selector="{{AdminSharedCatalogsSection.generateCatalog}}" stepKey="clickGenerate" after="clickNext"/>
+        <waitForPageLoad stepKey="waitForGenerate" after="clickGenerate"/>
+        <click selector="{{AdminMainActionsSection.save}}" stepKey="clickSaveCatalog" after="waitForGenerate"/>
+    </test>
+</tests>

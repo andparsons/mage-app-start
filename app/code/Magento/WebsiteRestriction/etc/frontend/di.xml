@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Customer\Model\Registration">
+        <plugin name="websiterestriction_customer_registration_plugin" type="Magento\WebsiteRestriction\Model\Plugin\CustomerRegistration"/>
+    </type>
+    <type name="Magento\WebsiteRestriction\Observer\RestrictWebsite">
+        <arguments>
+            <argument name="restrictor" xsi:type="object">Magento\WebsiteRestriction\Model\Restrictor\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Customer\Model\AccountManagement">
+        <plugin name="website_restriction_model_account_management" type="Magento\WebsiteRestriction\Plugin\Model\AccountManagement" />
+    </type>
+</config>

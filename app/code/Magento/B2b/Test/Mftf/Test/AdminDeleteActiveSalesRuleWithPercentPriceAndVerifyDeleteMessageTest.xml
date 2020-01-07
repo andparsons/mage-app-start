@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminDeleteActiveSalesRuleWithPercentPriceAndVerifyDeleteMessageTest">
+        <before>
+            <remove keyForRemoval="createActiveCartPriceRule"/>
+        </before>
+        <actionGroup ref="AdminCreateCartPriceRuleRuleInfoSectionSpecificCouponActionGroup" stepKey="addCouponTypeAndCouponCode" before="deleteActiveCartPriceRule">
+            <argument name="ruleName" value="ActiveSalesRuleWithPercentPriceDiscountCoupon"/>
+            <argument name="custGrp" value="NOT LOGGED IN"/>
+        </actionGroup>
+        <actionGroup ref="AssertCartPriceRuleSuccessSaveMessageActionGroup" stepKey="seeAssertCartPriceRuleSuccessSaveMessage" after="addCouponTypeAndCouponCode"/>
+    </test>
+</tests>

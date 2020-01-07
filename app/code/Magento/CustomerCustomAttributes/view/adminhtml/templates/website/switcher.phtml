@@ -1,0 +1,41 @@
+<?php
+?>
+<?php $websites = $block->getWebsites(); ?>
+<?php if ($websites) : ?>
+<div class="field field-store-switcher">
+    <label class="label" for="website_switcher"><?= $block->escapeHtml(__('Choose Website:')) ?></label>
+    <div class="control">
+        <select name="website_switcher" id="website_switcher" onchange="return switchWebsite(this);">
+        <?php if ($block->hasDefaultOption()) : ?>
+            <option value=""><?= $block->escapeHtml($block->getDefaultStoreName()) ?></option>
+        <?php endif; ?>
+            <?php foreach ($websites as $website) : ?>
+                <option value="<?= $block->escapeHtmlAttr($website->getId()) ?>"<?php if ($block->getStoreId() == $website->getId()) : ?> selected="selected"<?php endif; ?>><?= $block->escapeHtml($website->getName()) ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    <?= $block->getHintHtml() ?>
+</div>
+<script>
+    require(['prototype'], function(){
+        window.switchWebsite = function(obj){
+            var storeParam = obj.value ? 'website/'+obj.value + '/' : '';
+            if(obj.switchParams){
+                storeParam+= obj.switchParams;
+            }
+        <?php if ($block->getUseConfirm()) : ?>
+            if(confirm("<?= $block->escapeHtml(__('Please confirm site switching. All data that hasn\'t been saved will be lost.')) ?>")){
+                setLocation('<?= $block->escapeJs($block->escapeUrl($block->getSwitchUrl())) ?>'+storeParam);
+                return true;
+            }
+            else {
+                obj.value = '<?= $block->escapeJs($block->getStoreId()) ?>';
+            }
+            return false;
+        <?php else : ?>
+            setLocation('<?= $block->escapeJs($block->escapeUrl($block->getSwitchUrl())) ?>'+storeParam);
+        <?php endif; ?>
+        }
+    });
+</script>
+<?php endif; ?>

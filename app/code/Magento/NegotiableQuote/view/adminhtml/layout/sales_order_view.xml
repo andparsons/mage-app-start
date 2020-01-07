@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="order_info">
+            <block class="Magento\NegotiableQuote\Block\Adminhtml\Order\Info\Quote" name="order.info.quote"
+                   template="Magento_NegotiableQuote::order/info/quote.phtml"/>
+        </referenceBlock>
+        <referenceBlock name="order_totals">
+            <block class="Magento\NegotiableQuote\Block\Adminhtml\Order\Totals" name="order.total.catalog.price"
+                   template="Magento_NegotiableQuote::order/totals.phtml">
+                <action method="setBeforeCondition">
+                    <argument name="condition" xsi:type="string">first</argument>
+                </action>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

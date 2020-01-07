@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="NewSharedCatalog" type="sharedCatalog">
+        <data key="name" unique="suffix">New Shared Catalog</data>
+        <data key="type">0</data>
+        <data key="store_id">0</data>
+        <data key="tax_class_id">3</data>
+    </entity>
+    <entity name="AssignCategoryToSharedCatalog" type="sharedCatalogCategory">
+        <var key="id" entityKey="return" entityType="sharedCatalog"/>
+        <requiredEntity type="category_to_assign">CategoryToAssign</requiredEntity>
+    </entity>
+    <entity name="AssignProductToSharedCatalog" type="sharedCatalogProduct">
+        <var key="id" entityKey="return" entityType="sharedCatalog"/>
+        <requiredEntity type="product_to_assign">ProductToAssign</requiredEntity>
+    </entity>
+    <entity name="AssignCategoryToDefaultSharedCatalog" type="defaultSharedCatalogCategory">
+        <requiredEntity type="category_to_assign">CategoryToAssign</requiredEntity>
+    </entity>
+    <entity name="AssignProductToDefaultSharedCatalog" type="defaultSharedCatalogProduct">
+        <requiredEntity type="product_to_assign">ProductToAssign</requiredEntity>
+    </entity>
+    <entity name="AssignCompanyToSharedCatalog" type="sharedCatalogCompany">
+        <var key="id" entityKey="return" entityType="sharedCatalog"/>
+        <requiredEntity type="company_to_assign">CompanyToAssign</requiredEntity>
+    </entity>
+</entities>

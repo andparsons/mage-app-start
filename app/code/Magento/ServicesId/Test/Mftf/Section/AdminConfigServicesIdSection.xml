@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="AdminConfigServicesIdSection">
+        <element name="dsMenuItem" type="text" selector="//*[@class='admin__page-nav-link item-nav']//span[text()='Magento Services']"/>
+        <element name="dsEnvironment" type="select" selector="//*[@id='services_connector_services_id_environment']"/>
+        <element name="dsInstanceId" type="text" selector="//*[@id='services_connector_services_id_instance_id']"/>
+        <element name="dsInstanceIdError" type="text" selector="//*[@id='services_connector_services_id_instance_id-error']"/>
+    </section>
+</sections>

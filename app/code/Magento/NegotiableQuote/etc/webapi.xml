@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/negotiableQuote/request" method="POST">
+        <service class="Magento\NegotiableQuote\Api\NegotiableQuoteManagementInterface" method="create"/>
+        <resources>
+            <resource ref="Magento_NegotiableQuote::negotiable_quote"/>
+        </resources>
+    </route>
+    <route url="/V1/negotiableQuote/submitToCustomer" method="POST">
+        <service class="Magento\NegotiableQuote\Api\NegotiableQuoteManagementInterface" method="adminSend"/>
+        <resources>
+            <resource ref="Magento_NegotiableQuote::negotiable_quote"/>
+        </resources>
+    </route>
+    <route url="/V1/negotiableQuote/decline" method="POST">
+        <service class="Magento\NegotiableQuote\Api\NegotiableQuoteManagementInterface" method="decline"/>
+        <resources>
+            <resource ref="Magento_NegotiableQuote::negotiable_quote"/>
+        </resources>
+    </route>
+    <route url="/V1/negotiableQuote/pricesUpdated" method="POST">
+        <service class="Magento\NegotiableQuote\Api\NegotiableQuotePriceManagementInterface" method="pricesUpdated"/>
+        <resources>
+            <resource ref="Magento_NegotiableQuote::negotiable_quote"/>
+        </resources>
+    </route>
+    <route url="/V1/negotiableQuote/attachmentContent" method="GET">
+        <service class="Magento\NegotiableQuote\Api\AttachmentContentManagementInterface" method="get"/>
+        <resources>
+            <resource ref="Magento_NegotiableQuote::negotiable_quote"/>
+        </resources>
+    </route>
+    <route url="/V1/negotiableQuote/:quoteId/comments" method="GET">
+        <service class="Magento\NegotiableQuote\Api\CommentLocatorInterface" method="getListForQuote"/>
+        <resources>
+            <resource ref="Magento_NegotiableQuote::negotiable_quote"/>
+        </resources>
+    </route>
+    <route url="/V1/negotiableQuote/:quoteId/shippingMethod" method="PUT">
+        <service class="Magento\NegotiableQuote\Api\NegotiableQuoteShippingManagementInterface" method="setShippingMethod"/>
+        <resources>
+            <resource ref="Magento_NegotiableQuote::negotiable_quote"/>
+        </resources>
+    </route>
+    <route url="/V1/negotiable-carts/:cartId/payment-information" method="POST">
+        <service class="Magento\NegotiableQuote\Api\PaymentInformationManagementInterface" method="savePaymentInformationAndPlaceOrder"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+    </route>
+    <route url="/V1/negotiable-carts/:cartId/payment-information" method="GET">
+        <service class="Magento\NegotiableQuote\Api\PaymentInformationManagementInterface" method="getPaymentInformation"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+    </route>
+    <route url="/V1/negotiable-carts/:cartId/set-payment-information" method="POST">
+        <service class="Magento\NegotiableQuote\Api\PaymentInformationManagementInterface" method="savePaymentInformation"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+    </route>
+    <route url="/V1/negotiable-carts/:cartId/shipping-information" method="POST">
+        <service class="Magento\NegotiableQuote\Api\ShippingInformationManagementInterface" method="saveAddressInformation"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+    </route>
+    <route url="/V1/negotiable-carts/:cartId/estimate-shipping-methods" method="POST">
+        <service class="Magento\NegotiableQuote\Api\ShipmentEstimationInterface" method="estimateByExtendedAddress"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+    </route>
+    <route url="/V1/negotiable-carts/:cartId/estimate-shipping-methods-by-address-id" method="POST">
+        <service class="Magento\NegotiableQuote\Api\ShippingMethodManagementInterface" method="estimateByAddressId"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+    </route>
+    <route url="/V1/negotiableQuote/:quoteId" method="PUT">
+        <service class="Magento\NegotiableQuote\Api\NegotiableCartRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Magento_NegotiableQuote::negotiable_quote"/>
+        </resources>
+    </route>
+    <!-- Managing Cart Billing address -->
+    <route url="/V1/negotiable-carts/:cartId/billing-address" method="GET">
+        <service class="Magento\NegotiableQuote\Api\BillingAddressManagementInterface" method="get"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+    </route>
+    <route url="/V1/negotiable-carts/:cartId/billing-address" method="POST">
+        <service class="Magento\NegotiableQuote\Api\BillingAddressManagementInterface" method="assign"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+    </route>
+    <!-- Managing Cart Total -->
+    <route url="/V1/negotiable-carts/:cartId/totals" method="GET">
+        <service class="Magento\NegotiableQuote\Api\CartTotalRepositoryInterface" method="get"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+    </route>
+
+    <!-- Managing Cart Coupons -->
+    <route url="/V1/negotiable-carts/:cartId/coupons/:couponCode" method="PUT">
+        <service class="Magento\NegotiableQuote\Api\CouponManagementInterface" method="set"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+    </route>
+    <route url="/V1/negotiable-carts/:cartId/coupons" method="DELETE">
+        <service class="Magento\NegotiableQuote\Api\CouponManagementInterface" method="remove"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+    </route>
+
+    <!-- Managing giftcards from quote -->
+    <route url="/V1/negotiable-carts/:cartId/giftCards" method="POST">
+        <service class="Magento\NegotiableQuote\Api\GiftCardAccountManagementInterface" method="saveByQuoteId"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+    </route>
+    <route url="/V1/negotiable-carts/:cartId/giftCards/:giftCardCode" method="DELETE">
+        <service class="Magento\NegotiableQuote\Api\GiftCardAccountManagementInterface" method="deleteByQuoteId"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+    </route>
+</routes>

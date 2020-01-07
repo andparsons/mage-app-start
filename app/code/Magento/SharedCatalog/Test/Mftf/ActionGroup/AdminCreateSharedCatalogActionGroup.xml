@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminCreateSharedCatalogActionGroup">
+        <arguments>
+            <argument name="sharedCatalogName" defaultValue="TestSharedCatalog" type="string"/>
+        </arguments>
+        <!-- 1. Login to Admin panel and go to Catalogs-> Shared Catalogs-> Add new catalog -->
+        <amOnPage url="{{AdminSharedCatalogIndexPage.url}}" stepKey="goToAdminSharedCatalogIndexPage"/>
+        <waitForPageLoad  time="30" stepKey="waitForAdminSharedCatalogIndexPageLoaded"/>
+        <scrollToTopOfPage stepKey="scrollToTopOfPage1"/>
+        <click selector="{{AdminGridMainControls.add}}" stepKey="clickOnAddSharedCatalogButton"/>
+
+        <!-- 2. Fill in all the required fields and click 'Save' -->
+        <fillField selector="{{AdminSharedCatalogCatalogDetailsSection.name}}" userInput="{{sharedCatalogName}}" stepKey="fillCatalogDetailsNameField"/>
+        <click selector="{{AdminMainActionsSection.save}}" stepKey="clickSaveButton"/>
+        <waitForPageLoad time="30" stepKey="waitForAdminSharedCatalogIndexPageLoaded1"/>
+        <seeElement selector="{{AdminMessagesSection.success}}" stepKey="seeSuccessMessage"/>
+    </actionGroup>
+</actionGroups>

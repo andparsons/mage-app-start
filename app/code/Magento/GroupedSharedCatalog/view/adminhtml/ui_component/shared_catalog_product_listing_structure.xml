@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <columns name="shared_catalog_product_columns">
+        <column name="price">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="specialProductTypes" xsi:type="array">
+                        <item name="grouped" xsi:type="string">Magento_GroupedSharedCatalog/grid/cells/price/grouped</item>
+                    </item>
+                </item>
+            </argument>
+        </column>
+    </columns>
+</listing>

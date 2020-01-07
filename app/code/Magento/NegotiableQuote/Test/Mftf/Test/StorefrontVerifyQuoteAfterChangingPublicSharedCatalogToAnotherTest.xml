@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontVerifyQuoteAfterChangingPublicSharedCatalogToAnotherTest">
+        <annotations>
+            <stories value="Negotiable Quotes"/>
+            <title value="Verify quote after changing public shared catalog to another"/>
+            <description value="Verify quote after changing public shared catalog to another"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MAGETWO-72277"/>
+            <group value="negotiable_quotes"/>
+            <skip>
+                <issueId value="MC-17140"/>
+            </skip>
+        </annotations>
+        <before>
+            <!-- Create Simple Product and Assign product to default shared catalog -->
+            <createData entity="SimpleProduct2" stepKey="createSimpleProduct"/>
+            <createData entity="AssignProductToDefaultSharedCatalog" stepKey="assignProductToSharedCatalog">
+                <requiredEntity createDataKey="createSimpleProduct"/>
+            </createData>
+            <!-- Create new shared catalog -->
+            <createData entity="NewSharedCatalog" stepKey="createSharedCatalog"/>
+            <!-- Create company admin -->
+            <createData entity="Simple_US_Customer" stepKey="createCompanyAdmin"/>
+            <createData entity="Default_Company" stepKey="createDefaultCompany">
+                <requiredEntity createDataKey="createCompanyAdmin"/>
+            </createData>
+            <createData entity="NegotiableQuoteSystemConfig" stepKey="enableB2BQuotesConfig"/>
+        </before>
+        <after>
+            <!--Logout customer-->
+            <actionGroup ref="StorefrontCustomerLogoutActionGroup" stepKey="customerLogout"/>
+            <!-- Delete Simple Product -->
+            <deleteData createDataKey="createSimpleProduct" stepKey="deleteProduct"/>
+            <!--Clear filter negotiable quotes grid-->
+            <amOnPage url="{{AdminNegotiableQuotesPage.url}}" stepKey="navigateToNegotiableQuotesGridPage2"/>
+            <actionGroup ref="clearFiltersAdminDataGrid" stepKey="clearFiltersNegotiableQuotesGrid"/>
+            <!-- Delete Shared Catalog -->
+            <deleteData createDataKey="createSharedCatalog" stepKey="deleteSharedCatalog"/>
+            <!-- Delete Company and Company admin -->
+            <actionGroup ref="AdminDeleteCompanyActionGroup" stepKey="deleteCompany">
+                <argument name="company" value="Default_Company"/>
+            </actionGroup>
+            <deleteData createDataKey="createCompanyAdmin" stepKey="deleteCompanyAdmin"/>
+            <!-- Default Settings Configuration B2B -->
+            <createData entity="B2BDefaultConfig" stepKey="enableB2BDefaultConfig"/>
+            <!-- Logout Admin -->
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+        <!-- Login to storefront company admin -->
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginToStoreFront">
+            <argument name="Customer" value="$$createCompanyAdmin$$"/>
+        </actionGroup>
+
+        <!--Go to Simple Product page-->
+        <amOnPage url="{{StorefrontProductPage.url($$createSimpleProduct.custom_attributes[url_key]$$)}}"
+                  stepKey="navigateToSimpleProductPage"/>
+
+        <!--Add Product to Shopping Cart-->
+        <actionGroup ref="addToCartFromStorefrontProductPage" stepKey="addToCartFromStorefrontProductPage7">
+            <argument name="productName" value="$$createSimpleProduct.name$$"/>
+        </actionGroup>
+
+        <!--Go to shopping cart add request a quote-->
+        <actionGroup ref="clickViewAndEditCartFromMiniCart" stepKey="goToShoppingCartFromMinicart"/>
+
+        <actionGroup ref="StorefrontRequestQuoteActionGroup" stepKey="requestQuote">
+            <argument name="quote" value="NeqotiableQuote"/>
+        </actionGroup>
+        <click selector="{{StorefrontMyQuoteGridSection.gridButtonAction}}"
+               stepKey="clickViewButton"/>
+        <see selector="{{StorefrontNegotiableQuoteViewSection.quoteName}}" userInput="{{NeqotiableQuote.name}}" stepKey="seeQuotePresentGrid"/>
+
+        <!--Login as admin-->
+        <actionGroup ref="LoginAsAdmin" stepKey="LoginAsAdmin"/>
+
+        <!-- Go to Quote Page and search -->
+        <amOnPage url="{{AdminNegotiableQuotesPage.url}}" stepKey="navigateToNegotiableQuotesGridPage"/>
+        <actionGroup ref="AdminGridFilterSearchResultsByInput" stepKey="searchQuote">
+            <argument name="selector" value="AdminDataGridHeaderSection.filterFieldInput('quote_name')"/>
+            <argument name="value" value="{{NeqotiableQuote.name}}"/>
+        </actionGroup>
+        <click selector="{{AdminDataGridTableSection.firstRow}}" stepKey="clickQuote"/>
+        <waitForPageLoad time="30" stepKey="waitForNegotiableQuoteLoad"/>
+        <fillField selector="{{AdminNegotiableQuoteViewSection.percentageDiscount}}" userInput="10"
+                   stepKey="fillFieldPercentageDiscount"/>
+        <click selector="{{AdminGridHeaders.title}}" stepKey="clickTitle"/>
+        <waitForAjaxLoad time="30" stepKey="waitForAjax"/>
+        <click selector="{{AdminNegotiableQuoteViewSection.sendQuote}}" stepKey="clickSendQuote"/>
+        <see selector="{{AdminMessagesSection.warningMessage}}"
+             userInput="This quote is currently locked for editing. It will become available once released by the buyer."
+             stepKey="seeWarningMessage"/>
+
+        <!-- Go to company and filter -->
+        <actionGroup ref="FilterCompanyActionGroup" stepKey="filterCompany">
+            <argument name="company" value="Default_Company"/>
+        </actionGroup>
+
+        <!-- Change Shared Catalog -->
+        <click selector="{{AdminDataGridTableSection.rowViewAction('2')}}" stepKey="clickEdit"/>
+        <click selector="{{AdminCompanyEditSection.advancedSettings}}" stepKey="clickAdvancedSettingsSection"/>
+        <actionGroup ref="searchAndMultiSelectActionGroup" stepKey="searchAndSelectGroup">
+            <argument name="dropDownSelector" value="AdminCompanyEditSection.customerGroups"/>
+            <argument name="options" value="{{NewSharedCatalog.name}}"/>
+        </actionGroup>
+        <click selector="{{AdminConfirmationModalSection.ok}}" stepKey="clickProceed"/>
+        <click selector="{{CreateCompanySection.save}}" stepKey="clickSave"/>
+        <see selector="{{AdminMessagesSection.successMessage}}"
+             userInput="You have saved company $$createDefaultCompany.company_name$$" stepKey="seeSuccessMessage"/>
+
+        <!-- Go to frontend and open quote details and Click View button -->
+        <amOnPage url="{{StorefrontNegotiableQuotePage.url}}" stepKey="goToNegotiableQuotePage"/>
+        <click selector="{{StorefrontMyQuoteGridSection.gridButtonAction}}"
+               stepKey="clickViewButton1"/>
+        <see selector="{{StorefrontNegotiableQuoteViewSection.quoteName}}" userInput="{{NeqotiableQuote.name}}" stepKey="seeQuotePresentGrid1"/>
+        <see selector="{{StorefrontMessagesSection.noticeMessage}}"
+             userInput="$$createSimpleProduct.name$$ is no longer available. It was removed from your quote."
+             stepKey="seeNotice"/>
+        <see selector="{{StorefrontNegotiableQuoteViewSection.quoteSubtotal}}" userInput="$0.00"
+             stepKey="seeQuoteSubtotal"/>
+
+        <!-- Go to Quote Page and search -->
+        <amOnPage url="{{AdminNegotiableQuotesPage.url}}" stepKey="navigateToNegotiableQuotesGridPage1"/>
+        <actionGroup ref="AdminGridFilterSearchResultsByInput" stepKey="searchQuote1">
+            <argument name="selector" value="AdminDataGridHeaderSection.filterFieldInput('quote_name')"/>
+            <argument name="value" value="{{NeqotiableQuote.name}}"/>
+        </actionGroup>
+        <click selector="{{AdminDataGridTableSection.firstRow}}" stepKey="clickQuot1e"/>
+        <waitForPageLoad time="60" stepKey="waitForNegotiableQuoteLoad2"/>
+        <see selector="{{AdminMessagesSection.warningMessage}}"
+             userInput="$$createSimpleProduct.name$$ has been deleted from the catalog, so the items quoted list has been updated."
+             stepKey="seeWarningMessage1"/>
+    </test>
+</tests>

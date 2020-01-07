@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="Default_Company" type="company">
+        <data key="status">1</data>
+        <data key="company_name" unique="suffix">Customer Company</data>
+        <array key="street">
+            <item>7700 W Parmer Ln</item>
+            <item>Bld D</item>
+        </array>
+        <data key="city">Culver City</data>
+        <data key="country_id">US</data>
+        <data key="region_id">57</data>
+        <data key="postcode">90230</data>
+        <data key="telephone">555-555-5555</data>
+        <data key="customer_group_id">1</data>
+        <data key="sales_representative_id">1</data>
+        <var key="super_user_id" entityType="customer" entityKey="id" />
+        <var key="company_email" entityType="customer" entityKey="email" />
+    </entity>
+    <entity name="Ukraine_Company" type="company">
+        <data key="status">1</data>
+        <data key="company_name">Ukraine Company</data>
+        <array key="street">
+            <item>7700 Schevchenko street</item>
+            <item>Bld D</item>
+        </array>
+        <data key="city">Mukachevo</data>
+        <data key="country_id">UA</data>
+        <data key="region">Transkarpatian region</data>
+        <data key="postcode">89600</data>
+        <data key="telephone">333-333-3333</data>
+        <data key="customer_group_id">1</data>
+        <data key="sales_representative_id">1</data>
+        <var key="super_user_id" entityType="customer" entityKey="id" />
+        <var key="company_email" entityType="customer" entityKey="email" />
+    </entity>
+</entities>

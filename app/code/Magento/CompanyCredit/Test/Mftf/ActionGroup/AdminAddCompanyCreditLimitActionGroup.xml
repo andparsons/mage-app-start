@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminAddCompanyCreditLimitActionGroup">
+        <arguments>
+            <argument name="amount" defaultValue="100.00" type="string"/>
+        </arguments>
+        <conditionalClick selector="{{AdminCompanyEditSection.customerCredit}}" dependentSelector="{{AdminCompanyEditSection.customerCredit}}" visible="true" stepKey="clickOnCustomerCredit"/>
+        <fillField selector="{{AdminCompanyEditSection.creditLimit}}" userInput="{{amount}}" stepKey="fillCreditLimit"/>
+        <click selector="{{AdminCompanyEditSection.allowExceedCreditLimit}}" stepKey="selectExceedLimit"/>
+        <click selector="{{AdminCompanyEditSection.saveButton}}" stepKey="clickOnSaveButton"/>
+        <waitForPageLoad stepKey="waitToSaveTheCompany"/>
+        <seeElement selector="{{AdminCompanyEditSection.successMessage}}" stepKey="seeSuccessMessage"/>
+    </actionGroup>
+</actionGroups>

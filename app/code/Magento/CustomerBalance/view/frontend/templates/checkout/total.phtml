@@ -1,0 +1,19 @@
+<?php
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php if ($block->getTotal()->getValue()) : ?>
+    <tr class="totals balance">
+        <th colspan="<?= $block->escapeHtmlAttr($block->getColspan()) ?>" style="<?= $block->escapeHtmlAttr($block->getTotal()->getStyle()) ?>" class="mark" scope="row">
+            <?php $_title = __('Remove'); ?>
+            <?php $_url = $block->getUrl('magento_customerbalance/cart/remove'); ?>
+            <a href="<?= $block->escapeHtmlAttr($block->escapeUrl($_url)) ?>" title="<?= $block->escapeHtmlAttr($_title) ?>" class="action delete"><span><?= $block->escapeHtml($_title) ?></span></a>
+
+            <?= $block->escapeHtml($block->getTotal()->getTitle()) ?>
+        </th>
+        <td style="<?= $block->escapeHtmlAttr($block->getTotal()->getStyle()) ?>" class="amount"
+            data-th="<?= $block->escapeHtmlAttr($block->getTotal()->getTitle()) ?>">
+            <span class="discount"><?= /* @noEscape */ $this->helper(Magento\Checkout\Helper\Data::class)->formatPrice($block->getTotal()->getValue()) ?></span>
+        </td>
+    </tr>
+<?php endif; ?>

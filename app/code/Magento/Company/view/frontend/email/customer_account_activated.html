@@ -1,0 +1,19 @@
+<!--
+-->
+<!--@subject Your account is now active @-->
+<!--@vars {
+"var this.getUrl($store, 'customer/account/')":"Customer Account URL",
+"var customer.email":"Customer Email"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting company-greeting"><strong>{{trans "Dear %name," name=$customer.name}}</strong></p>
+<p>{{trans
+    'Your account is now active. You can use it to login to the <a href="%customer_url">website</a>.'
+
+        customer_url=$this.getUrl($store,'customer/account/',[_nosid:1])
+    |raw}}
+</p>
+
+{{template config_path="design/email/footer_template"}}

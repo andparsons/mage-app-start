@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="CompanyData" type="backend">
+        <data key="companyName">TestCompany</data>
+        <data key="companyEmail">c@c.com</data>
+        <data key="streetAddress">streetAddress</data>
+        <data key="city">Yerevan</data>
+        <data key="zip">7777</data>
+        <data key="phone">9999</data>
+        <data key="companyAdminEmail" unique="prefix">email@email.com</data>
+        <data key="firstName">firstName</data>
+        <data key="lastName">lastName</data>
+    </entity>
+</entities>

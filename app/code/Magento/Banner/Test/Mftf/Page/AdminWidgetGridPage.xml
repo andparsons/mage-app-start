@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/PageObject.xsd">
+    <page name="AdminWidgetGridPage" url="admin/widget_instance/" module="Widget" area="admin">
+        <section name="AdminWidgetGridSection" />
+    </page>
+</pages>

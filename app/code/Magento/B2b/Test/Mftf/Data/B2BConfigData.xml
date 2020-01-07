@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="B2BDefaultConfig" type="b2b_config_state">
+        <requiredEntity type="company_active">companyActiveDefault</requiredEntity>
+        <requiredEntity type="sharedcatalog_active">sharedCatalogActiveDefault</requiredEntity>
+        <requiredEntity type="negotiablequote_active">negotiableQuoteActiveDefault</requiredEntity>
+        <requiredEntity type="quickorder_active">quickorderActiveDefault</requiredEntity>
+        <requiredEntity type="requisition_list_active">requisitionListActiveDefault</requiredEntity>
+    </entity>
+
+    <entity name="B2BEnabledCompanyAndQuote" type="b2b_config_state">
+        <requiredEntity type="company_active">companyActive</requiredEntity>
+        <requiredEntity type="negotiablequote_active">negotiableQuoteActive</requiredEntity>
+    </entity>
+
+    <entity name="companyActiveDefault" type="company_active">
+        <data key="value">0</data>
+    </entity>
+    <entity name="sharedCatalogActiveDefault" type="sharedcatalog_active">
+        <data key="value">0</data>
+    </entity>
+    <entity name="negotiableQuoteActiveDefault" type="negotiablequote_active">
+        <data key="value">0</data>
+    </entity>
+    <entity name="quickorderActiveDefault" type="quickorder_active">
+        <data key="value">0</data>
+    </entity>
+    <entity name="requisitionListActiveDefault" type="requisition_list_active">
+        <data key="value">0</data>
+    </entity>
+
+    <entity name="B2BEnabledRequisitionListConfig" type="b2b_config_state">
+        <requiredEntity type="requisition_list_active">enabledRequisitionList</requiredEntity>
+    </entity>
+
+    <entity name="enabledRequisitionList" type="requisition_list_active">
+        <data key="value">1</data>
+    </entity>
+
+    <entity name="B2BEnabledSharedCatalogConfig" type="b2b_config_state">
+        <requiredEntity type="company_active">companyActive</requiredEntity>
+        <requiredEntity type="sharedcatalog_active">sharedCatalogActive</requiredEntity>
+    </entity>
+
+    <entity name="companyActive" type="company_active">
+        <data key="value">1</data>
+    </entity>
+    <entity name="sharedCatalogActive" type="sharedcatalog_active">
+        <data key="value">1</data>
+    </entity>
+
+    <entity name="B2BEnabledQuickOrderConfig" type="b2b_config_state">
+        <requiredEntity type="quickorder_active">enabledQuickOrder</requiredEntity>
+    </entity>
+
+    <entity name="enabledQuickOrder" type="quickorder_active">
+        <data key="value">1</data>
+    </entity>
+</entities>

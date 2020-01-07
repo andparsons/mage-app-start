@@ -1,0 +1,50 @@
+<?php
+?>
+<?php /** @var $block \Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Totals\Original */ ?>
+<?php $total = $block->getTotal() ?>
+<tr class="<?= $block->escapeHtmlAttr($total->getCode()) ?>_table">
+    <td <?= /* @noEscape */ $block->getValueProperties() ?>
+        data-th="<?= $block->escapeHtmlAttr($total->getLabel()) ?>" colspan="2">
+        <div id="toggle-part" class="collapsible-table" data-role="catalog-price">
+            <table class="data-table">
+                <tbody>
+                <?php foreach ($total->getSubtotals() as $key => $option) : ?>
+                    <tr class="<?= $block->escapeHtmlAttr($key . ' ' . $option['class']) ?>">
+                        <th scope="row">
+                            <?= $block->escapeHtml($option['label']) ?>
+                        </th>
+                        <td data-th="<?= $block->escapeHtmlAttr($option['label']) ?>">
+                            <?= /* @noEscape */ $block->displayPrices($option['value'], $total->getBaseCurrency()) ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <table class="data-table toggle-action"
+               data-mage-init='{"Magento_NegotiableQuote/js/quote/actions/toggle-show":{
+                                "toggleBlockId": "toggle-part",
+                                "delay": 300,
+                                "toggleClass": {
+                                    "element" : "[data-action=toggle-arrow]",
+                                    "class" : "active"
+                                }
+                               }}'
+            >
+            <tbody>
+            <tr class="<?= $block->escapeHtmlAttr($total->getCode()) ?>">
+                <th scope="row">
+                    <span data-action="toggle-arrow" class="toggle"><?= $block->escapeHtml($total->getLabel()) ?></span>
+                </th>
+                <td data-th="<?= $block->escapeHtmlAttr($total->getLabel()) ?>">
+                    <?= /* @noEscape */ $block->displayPrices($total->getValue(), $total->getBaseCurrency()) ?>
+                    <?php if ($total->getCurrency() && $total->getBaseCurrency() != $total->getCurrency()) : ?>
+                        <br/>
+                        [<?= /* @noEscape */ $block->displayPrices($total->getQuoteValue() !== null ? $total->getQuoteValue() : $total->getValue(), $total->getCurrency()); ?>]
+                    <?php endif; ?>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </td>
+</tr>

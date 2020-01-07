@@ -1,0 +1,3 @@
+<?php
+?>
+<button type="button" title="<?= $block->escapeHtmlAttr(__('Delete Wish List')) ?>" data-wishlist-delete='{"wishlistId":"<?= $block->escapeHtmlAttr($block->getWishlistInstance()->getId()) ?>", "redirectUrl":"<?= $block->escapeUrl($block->getRedirectUrl()) ?>", "deleteUrl":"<?= $block->escapeUrl($block->getDeleteUrl()) ?>"}' class="action remove"><span><?= $block->escapeHtmlAttr(__('Delete Wish List')) ?></span></button>

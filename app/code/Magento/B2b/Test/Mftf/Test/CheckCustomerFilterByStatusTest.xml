@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="CheckCustomerFilterByStatusTest">
+        <annotations>
+            <features value="B2B"/>
+            <stories value="MAGETWO-91614 - [B2B] Cannot filter customers by status"/>
+            <title value="Check filter by status in customers table"/>
+            <description value="Check filter by status in customers table"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MAGETWO-94859"/>
+            <group value="b2b"/>
+        </annotations>
+
+        <before>
+            <createData entity="Simple_US_Customer" stepKey="customer1"/>
+            <createData entity="Simple_US_Customer" stepKey="customer2"/>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+        </before>
+
+        <!--Edit customer info-->
+        <actionGroup ref="OpenEditCustomerFromAdminActionGroup" stepKey="OpenEditCustomerFrom">
+            <argument name="customer" value="$$customer1$$"/>
+        </actionGroup>
+        <!--Set customer1 as inactive-->
+        <click selector="{{AdminCustomerAccountInformationSection.accountInformationButton}}" stepKey="ClickOnAccountInformationSection"/>
+        <waitForPageLoad stepKey="waitForPageOpened1"/>
+        <click selector="{{AdminCustomerAccountInformationSection.statusInactive}}" stepKey="setCustomerToInactive"/>
+        <click selector="{{AdminCustomerAccountInformationSection.saveCustomer}}" stepKey="save"/>
+        <waitForPageLoad stepKey="waitForCustomersPage"/>
+        <see userInput="You saved the customer." stepKey="CustomerIsSaved"/>
+        <!--Go to customer page and clear filters-->
+        <amOnPage url="{{AdminCustomerPage.url}}" stepKey="GoToCustomerPage"/>
+        <waitForPageLoad stepKey="waitForCustomersPage2"/>
+        <click selector="{{AdminCustomerFiltersSection.clearAll}}" stepKey="clickToClearFilters"/>
+        <waitForPageLoad stepKey="waitForCustomersPage3"/>
+        <click selector="{{AdminCustomerFiltersSection.filtersButton}}" stepKey="clickToFiltersButton"/>
+        <waitForPageLoad stepKey="waitForCustomersPage4"/>
+        <selectOption selector="{{AdminCustomerFiltersSection.customerStatus}}" userInput="Active" stepKey="selectInactiveStatus"/>
+        <click selector="{{AdminCustomerFiltersSection.apply}}" stepKey="clickToApply"/>
+        <dontSee userInput="Something went wrong with processing the default view and we have restored the filter to its original state." stepKey="dontSeeErrorMessage"/>
+        <see userInput="Customers" stepKey="CustomersPageIsOpened"/>
+        <see userInput="$$customer2.email$$" stepKey="ActiveCustomerExists"/>
+        <dontSee userInput="$$customer1.email$$" stepKey="DontSeeInactiveCustomer"/>
+
+        <after>
+            <deleteData createDataKey="customer1" stepKey="deleteCustomer1"/>
+            <deleteData createDataKey="customer2" stepKey="deleteCustomer2"/>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+    </test>
+</tests>

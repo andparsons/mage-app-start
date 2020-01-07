@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="requisition_list"/>
+    <body>
+        <referenceContainer name="content">
+            <referenceBlock name="product.info.addto">
+                <block class="Magento\RequisitionList\Block\Catalog\Product\View\Addto\Requisition" name="view.addto.requisition"
+                       ifconfig="btob/website_configuration/requisition_list_active"
+                       template="Magento_RequisitionList::catalog/product/view/addto/requisition.phtml" />
+            </referenceBlock>
+        </referenceContainer>
+        <referenceContainer name="content.aside">
+            <referenceBlock name="related.product.addto">
+                <block class="Magento\RequisitionList\Block\Catalog\Product\ProductList\Item\AddTo\Requisition"
+                       name="related.product.addto.requisition" as="requisition" before="wishlist"
+                       ifconfig="btob/website_configuration/requisition_list_active"
+                       template="Magento_RequisitionList::catalog/product/list/item/addto/requisition.phtml"/>
+            </referenceBlock>
+            <referenceBlock name="upsell.product.addto">
+                <block class="Magento\RequisitionList\Block\Catalog\Product\ProductList\Item\AddTo\Requisition"
+                       name="upsell.product.addto.requisition" as="requisition" before="wishlist"
+                       ifconfig="btob/website_configuration/requisition_list_active"
+                       template="Magento_RequisitionList::catalog/product/list/item/addto/requisition.phtml"/>
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</page>

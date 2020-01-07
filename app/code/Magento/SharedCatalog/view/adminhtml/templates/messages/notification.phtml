@@ -1,0 +1,32 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * @var \Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Messages\Notification $block
+ */
+?>
+<div class="messages">
+    <div class="message message-warning warning">
+        <div data-ui-id="messages-message-warning">
+            <?php
+            if ($block->isConfigurationAvailable()) {
+                /* @noEscape */
+                echo __(
+                    'You must enable the <a href="%1" data-role="notification-dialog">shared catalog</a> feature in 
+        Stores -> Configuration -> B2B Features to use the shared catalogs in the storefront.
+        Otherwise, the categories and products you\'re configuring in shared catalogs will 
+        not be restricted to customers.',
+                    $block->getConfigurationUrl()
+                );
+            } else {
+                echo $block->escapeHtml(__(
+                    'You must enable the shared catalog feature in Stores -> Configuration -> B2B Features 
+    to use the shared catalogs in the storefront. Otherwise, the categories and products you\'re 
+    configuring in shared catalogs will not be restricted to customers.'
+                ));
+            }
+            ?>
+        </div>
+    </div>
+</div>

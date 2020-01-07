@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\NegotiableQuote\Model\History\LogProductInformation">
+        <arguments>
+            <argument name="productOptionsProviders" xsi:type="array">
+                <item name="configurable" xsi:type="object">Magento\ConfigurableNegotiableQuote\Model\ProductOptionsProvider</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\NegotiableQuote\Controller\Adminhtml\Quote\ConfigureProductToAdd">
+        <arguments>
+            <argument name="productTypesToReplace" xsi:type="array">
+                <item name="configurable" xsi:type="const">Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

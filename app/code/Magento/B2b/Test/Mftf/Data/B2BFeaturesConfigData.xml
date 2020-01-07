@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="B2BEnabledNegotiableQuoteConfig" type="b2b_config_state">
+        <requiredEntity type="negotiablequote_active">negotiableQuoteActive</requiredEntity>
+    </entity>
+    <entity name="negotiableQuoteActive" type="negotiablequote_active">
+        <data key="value">1</data>
+    </entity>
+
+    <entity name="B2BEnabledQuickOrderConfig" type="b2b_config_state">
+        <requiredEntity type="quickorder_active">quickorderActive</requiredEntity>
+    </entity>
+    <entity name="quickorderActive" type="quickorder_active">
+        <data key="value">1</data>
+    </entity>
+
+    <entity name="B2BEnabledRequisitionListActiveConfig" type="b2b_config_state">
+        <requiredEntity type="requisition_list_active">requisitionListActive</requiredEntity>
+    </entity>
+    <entity name="requisitionListActive" type="requisition_list_active">
+        <data key="value">1</data>
+    </entity>
+</entities>

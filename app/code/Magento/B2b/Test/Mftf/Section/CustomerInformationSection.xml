@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="CustomerInformationSection">
+        <element name="associateCompanyDropDown" type="button" selector="//div[@data-index='extension_attributes.company_attributes.company_id']//div[@class='admin__field-control']"/>
+        <element name="associateCompanySearchInput" type="input" selector="//div[@data-index='extension_attributes.company_attributes.company_id']//div[@class='admin__field-control']//div[@class='admin__action-multiselect-search-wrap']/input"/>
+        <element name="associateCompanySearchButton" type="button" selector="//div[@data-index='extension_attributes.company_attributes.company_id']//div[@class='admin__field-control']//label[@class='admin__action-multiselect-search-label']"/>
+        <element name="selectCompany" selector="//li[contains(text(),'{{var}}')]" type="button" parameterized="true"/>
+        <element name="doneButton" type="button" selector="//div[@class='admin__action-multiselect-actions-wrap']/button"/>
+        <element name="confirmButton" type="button" selector=".action-primary.action-accept.confirm"/>
+        <element name="customerGroup" type="button" selector="div[name='customer[group_id]']"/>
+        <element name="groupValue" type="button" selector="//span[text()='Default (General)']"/>
+        <element name="defaultGeneral" type="button" selector="//*[text()='Default (General)']"/>
+        <element name="customerGroupByName" type="button" selector="//span[text()='{{customerGroupName}}']" parameterized="true"/>
+        <element name="customerGroupTab" type="button" selector="//div[@class='admin__action-multiselect action-select']" timeout="30"/>
+        <element name="customerGroupFilter" type="input" selector="//div[@name='customer[group_id]']//div[@class='admin__action-multiselect-search-wrap']/input" timeout="30"/>
+        <element name="customerGroupOptions" type="input" selector="//div[@name='customer[group_id]']//label[@class='admin__action-multiselect-label']/span" timeout="30"/>
+        <element name="customerGroupDoneButton" type="button" selector="//button[@class='action-secondary']" timeout="30"/>
+    </section>
+</sections>

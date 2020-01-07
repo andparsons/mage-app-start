@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminAddTwoProductsToQuoteActionGroup">
+        <arguments>
+            <argument name="productSku1" type="string"/>
+            <argument name="quantity" type="string" defaultValue="1"/>
+            <argument name="productSku2" type="string"/>
+            <argument name="quantity2" type="string" defaultValue="1" />
+        </arguments>
+        <click selector="{{AdminNegotiableQuoteItemSection.buttonAddProductBySKU}}" stepKey="clickOnAddProductBySKU"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForSKUForm"/>
+        <fillField userInput="{{productSku1}}" selector="{{AdminNegotiableQuoteItemSection.fieldQuoteSKU('0')}}" stepKey="fillSKU"/>
+        <fillField userInput="{{quantity}}" selector="{{AdminNegotiableQuoteItemSection.fieldQuoteQty('0')}}" stepKey="fillQty"/>
+        <fillField userInput="{{productSku2}}" selector="{{AdminNegotiableQuoteItemSection.fieldQuoteSKU('1')}}" stepKey="fillSecondProductSKU"/>
+        <fillField userInput="{{quantity2}}" selector="{{AdminNegotiableQuoteItemSection.fieldQuoteQty('1')}}" stepKey="fillSecondProductQty"/>
+        <waitForPageLoad stepKey="waitForButton"/>
+        <click selector="{{AdminNegotiableQuoteItemSection.buttonAddToQuote}}" stepKey="addToQuote"/>
+        <wait time="30" stepKey="waitForAddingToQuote"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoadingQuotePage"/>
+    </actionGroup>
+</actionGroups>

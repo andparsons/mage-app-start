@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontValidateMyQuotesTabCustomerAccountPageTest">
+        <annotations>
+            <features value="Negotiable Quotes"/>
+            <stories value="Menu Navigation"/>
+            <title value="Validate 'My Quotes' page"/>
+            <description value="Storefront validate 'MyQuotes' tab customer account page"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MC-17562"/>
+            <useCaseId value="MC-15524"/>
+            <group value="negotiable_quotes"/>
+        </annotations>
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <!--Enable Company and Quotes-->
+            <comment userInput="Enable Company and Quotes" stepKey="commentEnableB2bConfigs"/>
+            <magentoCLI command="config:set btob/website_configuration/company_active 1" stepKey="enableCompanies"/>
+            <magentoCLI command="config:set btob/website_configuration/negotiablequote_active 1" stepKey="enableQuotes"/>
+            <!--Create customer and company-->
+            <comment userInput="Create customer and company" stepKey="commentCreateCustomerAndCompany"/>
+            <createData entity="Simple_US_Customer_CA" stepKey="createCustomer"/>
+            <createData entity="Default_Company" stepKey="createCompany">
+                <requiredEntity createDataKey="createCustomer"/>
+            </createData>
+        </before>
+        <after>
+            <!--Disable Company and Quotes-->
+            <comment userInput="Disable Company and Quotes" stepKey="commentDisableB2bConfigs"/>
+            <magentoCLI command="config:set btob/website_configuration/company_active 0" stepKey="disableCompanies"/>
+            <magentoCLI command="config:set btob/website_configuration/negotiablequote_active 0" stepKey="disableQuotes"/>
+            <!--Delete created data-->
+            <comment userInput="Delete created data" stepKey="commentDeleteCreatedData"/>
+            <deleteData createDataKey="createCompany" stepKey="deleteCompany"/>
+            <deleteData createDataKey="createCustomer" stepKey="deleteCustomer"/>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginCustomerOnStorefront">
+            <argument name="Customer" value="$$createCustomer$$"/>
+        </actionGroup>
+        <!--Check 'My Quotes' tab-->
+        <comment userInput="Check 'My Quotes' tab" stepKey="commentCheckMyQuotes"/>
+        <amOnPage url="{{StorefrontNegotiableQuotePage.url}}" stepKey="onStorefrontQuotePage"/>
+        <waitForPageLoad stepKey="waitForStorefrontPageLoaded"/>
+        <seeElement selector="{{StorefrontNegotiableQuoteViewSection.tableHeadItem('Quote Name')}}" stepKey="seeQuoteName"/>
+        <seeElement selector="{{StorefrontNegotiableQuoteViewSection.tableHeadItem('Created')}}" stepKey="seeCreated"/>
+        <seeElement selector="{{StorefrontNegotiableQuoteViewSection.tableHeadItem('Created By')}}" stepKey="seeCreatedBy"/>
+        <seeElement selector="{{StorefrontNegotiableQuoteViewSection.tableHeadItem('Status')}}" stepKey="seeStatus"/>
+        <seeElement selector="{{StorefrontNegotiableQuoteViewSection.tableHeadItem('Last Updated')}}" stepKey="seeLastUpdated"/>
+        <seeElement selector="{{StorefrontNegotiableQuoteViewSection.tableHeadItem('Quote Total')}}" stepKey="seeQuoteTotal"/>
+        <seeElement selector="{{StorefrontNegotiableQuoteViewSection.tableHeadItem('Action')}}" stepKey="seeAction"/>
+        <dontSeeElement selector="{{StorefrontNegotiableQuoteViewSection.createdFrom}}" stepKey="dontSeeCreatedFrom"/>
+        <dontSeeElement selector="{{StorefrontNegotiableQuoteViewSection.createdTo}}" stepKey="dontSeeCreatedTo"/>
+        <dontSeeElement selector="{{StorefrontNegotiableQuoteViewSection.lastUpdatedFrom}}" stepKey="dontSeeLastUpdateFrom"/>
+        <dontSeeElement selector="{{StorefrontNegotiableQuoteViewSection.lastUpdatedTo}}" stepKey="dontSeeLastUpdateTo"/>
+    </test>
+</tests>

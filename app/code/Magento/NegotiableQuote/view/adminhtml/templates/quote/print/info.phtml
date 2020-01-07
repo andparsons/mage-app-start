@@ -1,0 +1,71 @@
+<?php
+?>
+<?php /** @var $block \Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Info */ ?>
+<?php $quote = $block->getQuote() ?>
+<section class="admin__page-section quote-view-account-information">
+    <div class="admin__page-section-title">
+        <div class="quote_name"><?= $block->escapeHtml($block->getQuoteName()) ?></div>
+    </div>
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item quote-information">
+            <?php /* Quote Information */ ?>
+            <div class="admin__page-section-item-content">
+                <div class="quote-information-row">
+                    <strong><?= $block->escapeHtml(__('Status')) ?>: </strong>
+                    <span><?= $block->escapeHtml($block->getQuoteStatusLabel()) ?></span>
+                </div>
+                <div class="quote-information-row">
+                    <strong><?= $block->escapeHtml(__('Created By')) ?>: </strong>
+                    <span><?= /* @noEscape */ $block->getQuoteCreatedAt() ?></span>
+                </div>
+                <div class="quote-information-row">
+                    <strong><?= $block->escapeHtml(__('Created')) ?>: </strong>
+                    <span>
+                        <?= $block->escapeHtml($block->getQuoteOwnerFullName()) ?>
+                    </span>
+                </div>
+                <?php $currencyLabel = $block->getCurrencyRateLabel() ?>
+                <?php if ($currencyLabel) : ?>
+                    <div class="quote-information-row currency-rate">
+                        <strong><?= $block->escapeHtml($currencyLabel . ' ' . __('rate')) ?>:</strong>
+                        <span id="quote_rate"><?= /* @noEscape */ $block->getCurrencyRate() ?></span>
+                    </div>
+                <?php endif; ?>
+                <div class="quote-information-row">
+                    <strong><?= $block->escapeHtml(__('Expires')) ?>: </strong>
+                    <?php if ($block->getExpirationPeriodTime()) : ?>
+                        <span>
+                            <?= /* @noEscape */
+                            $block->formatDate(
+                                $block->getExpirationPeriodTime(),
+                                \IntlDateFormatter::MEDIUM
+                            ) ?>
+                        </span>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+        <div class="admin__page-section-item quote-account-information">
+            <?php /* Account Information */ ?>
+            <div class="admin__page-section-item-content">
+                <div class="quote-information-row">
+                    <strong><?= $block->escapeHtml(__('Company')) ?>: </strong>
+                    <span><?= $block->escapeHtml($block->getCompanyName()) ?></span>
+                </div>
+                <div class="quote-information-row">
+                    <strong><?= $block->escapeHtml(__('Company Admin Email')) ?>: </strong>
+                    <span><?= $block->escapeHtml($block->getCompanyAdminEmail()) ?></span>
+                </div>
+                <div class="quote-information-row">
+                    <strong><?= $block->escapeHtml(__('Seller')) ?>: </strong>
+                    <span><?= $block->escapeHtml($block->getSalesRep()) ?></span>
+                </div>
+                <?php $extra = $block->getChildBlock('extra.container'); ?>
+                <?php if ($extra) : ?>
+                    <?php $extra->setQuote($quote); ?>
+                    <?= $extra->getChildHtml() ?>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Customer\Model\Customer\DataProviderWithDefaultAddresses">
+        <plugin name="customerDataProvider" type="Magento\Company\Plugin\Customer\Model\Customer\DataProviderPlugin" />
+    </type>
+    <type name="Magento\Customer\Model\ResourceModel\Grid\Collection">
+        <plugin name="company" type="Magento\Company\Plugin\Customer\Model\ResourceModel\Grid\CollectionPlugin" />
+    </type>
+    <type name="Magento\Customer\Api\GroupRepositoryInterface">
+        <plugin name="groupRepositoryPlugin" type="Magento\Company\Plugin\Customer\Api\ReassignCompaniesToDefaultGroup" />
+    </type>
+    <type name="Magento\Sales\Model\ResourceModel\Order\Grid\Collection">
+        <plugin name="company" type="Magento\Company\Plugin\Sales\Model\ResourceModel\Order\Grid\CollectionPlugin" />
+    </type>
+    <type name="Magento\Company\Model\SaveValidatorPool">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="companyId" xsi:type="string">\Magento\Company\Model\SaveValidator\CompanyId</item>
+                <item name="requiredFields" xsi:type="string">\Magento\Company\Model\SaveValidator\RequiredFields</item>
+                <item name="salesRepresentative" xsi:type="string">\Magento\Company\Model\SaveValidator\SalesRepresentative</item>
+                <item name="customerGroup" xsi:type="string">\Magento\Company\Model\SaveValidator\CustomerGroup</item>
+                <item name="companyStatus" xsi:type="string">\Magento\Company\Model\SaveValidator\CompanyStatus</item>
+                <item name="rejectedFields" xsi:type="string">\Magento\Company\Model\SaveValidator\RejectedFields</item>
+                <item name="companyAdmin" xsi:type="string">\Magento\Company\Model\SaveValidator\CompanyAdmin</item>
+                <item name="companyEmail" xsi:type="string">\Magento\Company\Model\SaveValidator\CompanyEmail</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminCreateCustomerWithWebsiteAndStoreViewB2BActionGroup" extends="AdminCreateCustomerWithWebsiteAndStoreViewActionGroup">
+        <click selector="{{CustomerInformationSection.customerGroup}}" stepKey="clickCustomerGroup" after="selectWebSite"/>
+        <waitForElementVisible selector="{{CustomerInformationSection.defaultGeneral}}" stepKey="waitForDropDownMenuOpen" after="clickCustomerGroup"/>
+        <click selector="{{CustomerInformationSection.defaultGeneral}}" stepKey="selectCustomerGroup" after="waitForDropDownMenuOpen"/>
+    </actionGroup>
+</actionGroups>

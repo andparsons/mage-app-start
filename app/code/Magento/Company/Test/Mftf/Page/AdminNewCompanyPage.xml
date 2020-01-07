@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../../../../dev/tests/acceptance/vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/Page/etc/PageObject.xsd">
+    <page name="AdminNewCompanyPage" url="admin/company/index/new/" area="admin" module="Magento_Company">
+        <section name="AdminNewCompanySection"/>
+    </page>
+</pages>
+

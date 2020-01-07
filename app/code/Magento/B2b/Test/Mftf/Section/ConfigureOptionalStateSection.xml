@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/Page/etc/SectionObject.xsd">
+    <section name="ConfigureOptionalStateSection">
+        <element name="store" type="button" selector="#menu-magento-backend-stores"/>
+        <element name="configuration" type="button" selector="//li[@data-ui-id='menu-magento-config-system-config']"/>
+        <element name="configurationPageTitle" type="text" selector="//div[@class='page-title-wrapper']//*[text()='Configuration']"/>
+        <element name="stateOptions" type="text" selector="#general_region-head"/>
+        <element name="stateSelect" type="select" selector="#general_region_display_all"/>
+        <element name="stateNo" type="text" selector="//select[@id='general_region_display_all']//option[text()='No']"/>
+        <element name="stateYes" type="text" selector="//select[@id='general_region_display_all']//option[text()='Yes']"/>
+        <element name="save" type="button" selector="#save"/>
+
+    </section>
+</sections>

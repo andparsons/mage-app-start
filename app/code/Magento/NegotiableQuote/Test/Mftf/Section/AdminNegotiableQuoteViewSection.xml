@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="AdminNegotiableQuoteViewSection">
+        <element name="quoteName" type="text" selector=".quote-information table.quote-information-table #quote_name"/>
+        <element name="quoteStatus" type="text" selector=".quote-information table.quote-information-table #quote_status"/>
+        <element name="quoteCreatedBy" type="text" selector=".quote-information table.quote-information-table #quote_created_by"/>
+        <element name="expirationDate" type="input" selector="#expiration_date"/>
+        <element name="percentageDiscount" type="input" selector="[data-key='percentage']"/>
+        <element name="sendQuote" type="button" selector="#quote_send" timeout="30"/>
+        <element name="saveAsDraft" type="button" selector="#quote_save" timeout="10"/>
+    </section>
+</sections>

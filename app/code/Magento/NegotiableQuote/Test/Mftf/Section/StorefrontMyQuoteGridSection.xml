@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="StorefrontMyQuoteGridSection">
+        <element name="gridMyQuote" type="input" selector="//td[@data-th='{{colName}}']//div[contains(.,'{{quoteLabel}}')]" parameterized="true"/>
+        <element name="gridButtonAction" type="button" selector="//td[@data-th='Action']//a[contains(.,'View')]" timeout="30"/>
+        <element name="viewQuoteByName" type="button" selector="//*[@data-role='grid-wrapper']//div[contains(@class, 'data-grid-cell-content') and @title='{{quoteName}}']/ancestor::tr//a[contains(.,'View')]" timeout="30" parameterized="true"/>
+    </section>
+</sections>

@@ -1,0 +1,45 @@
+<?php
+?>
+
+<?php /** @var $block \Magento\NegotiableQuote\Block\Quote\Info */ ?>
+<?php $quote = $block->getQuote() ?>
+<?php $snapshot = $block->getQuote(true) ?>
+<?php $addresses = $block->getAllAddresses() ?>
+<div class="block block-order-details-view quote-shipping-info">
+    <div class="block-title">
+        <strong><?= $block->escapeHtml(__('Shipping Information')) ?></strong>
+    </div>
+    <div class="block-content">
+        <div class="box box-order-billing-address">
+            <div class="box-content">
+                <div class="box box-shipping-address">
+                    <strong class="box-title">
+                        <span><?= $block->escapeHtml(__('Shipping Address')) ?></span>
+                    </strong>
+                    <div class="box-content">
+                        <?php if ($addressHtml = $block->getAddressHtml()) : ?>
+                            <address>
+                                <?= /* @noEscape */ $addressHtml ?>
+                            </address>
+                        <?php else : ?>
+                            <p><?= $block->escapeHtml(__('You have no shipping address for this quote.')) ?></p>
+                        <?php endif ?>
+                    </div>
+                </div>
+                <div class="box box-order-shipping-method">
+                    <strong class="box-title">
+                        <span><?= $block->escapeHtml(__('Shipping Method')) ?></span>
+                    </strong>
+                    <div class="box-content">
+                        <?php if ($snapshot->getShippingDescription()) : ?>
+                            <?= $block->escapeHtml($snapshot->getShippingDescription()) ?>
+                        <?php else : ?>
+                            <?= $block->escapeHtml(__('No shipping information available.')) ?>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

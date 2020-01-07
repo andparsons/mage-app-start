@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="CreateProductUpdateAndValidateUpdateInDefaultWebsiteTest">
+        <annotations>
+            <stories value="CatalogStaging"/>
+            <title value="Create product update and validate update in default website test"/>
+            <description value="Create product update and validate update in default website test"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MC-15856"/>
+            <group value="CatalogStaging"/>
+            <group value="mtf_migrated"/>
+            <skip>
+                <issueId value="MC-17175"/>
+            </skip>
+        </annotations>
+        <before>
+            <!-- Create category -->
+            <createData entity="_defaultCategory" stepKey="createCategory"/>
+
+            <!-- Create Simple Product -->
+            <createData entity="_defaultProduct" stepKey="createSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+
+            <!-- Login as admin -->
+            <actionGroup ref="LoginAsAdmin" stepKey="login"/>
+        </before>
+        <after>
+            <!-- Delete product -->
+            <deleteData createDataKey="createSimpleProduct" stepKey="deleteSimpleProduct"/>
+
+            <!-- Delete category -->
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+
+            <!-- Log out -->
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!-- Open product edit -->
+        <amOnPage url="{{AdminProductEditPage.url($$createSimpleProduct.id$$)}}" stepKey="goToEditProductPage"/>
+        <waitForPageLoad stepKey="waitForProductPageLoad"/>
+
+        <!-- Create schedule new update -->
+        <click selector="{{AdminStagingSlideOutSection.scheduleNewUpdateBtn}}" stepKey="clickButtonNewUpdate"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoadingMask"/>
+        <generateDate date="+1 minute" format="m/d/Y g:i A" stepKey="generateStartDate"/>
+        <actionGroup ref="FillScheduleUpdateHeaderForProductActionGroup" stepKey="fillScheduleUpdateHeader">
+            <argument name="staging" value="S5UpdateNameStaging"/>
+            <argument name="timeStart" value="{$generateStartDate}"/>
+        </actionGroup>
+
+        <!-- Fill out the field to be changed in the staging update -->
+        <fillField selector="{{AdminStagingSlideOutSection.name}}" userInput="{{UpdateWithoutEnd.updateName}}" stepKey="fillNewName"/>
+        <fillField selector="{{AdminCatalogStagingSlideOutSection.productPrice}}" userInput="{{UpdateWithoutEnd.productPrice}}" stepKey="fillNewPrice"/>
+
+        <!-- Save update and check the update is appears in "Scheduled Changes" grid -->
+        <actionGroup ref="SaveScheduleUpdateForProductActionGroup" stepKey="saveScheduleUpdateForProduct">
+            <argument name="staging" value="S5UpdateNameStaging"/>
+        </actionGroup>
+
+        <!-- Wait 1 minute for update to be applied -->
+        <wait time="60" stepKey="wait"/>
+
+        <!-- Run cron to update to be applied -->
+        <magentoCLI command="cron:run --group=staging" stepKey="runCronFirstTime"/>
+        <magentoCLI command="cron:run --group=staging" stepKey="runCronSecondTime"/>
+
+        <!-- Open category page on storefront -->
+        <amOnPage url="{{StorefrontHomePage.url}}" stepKey="amOnStorefrontPage"/>
+        <waitForPageLoad stepKey="waitForStorefrontPageLoad"/>
+        <click selector="{{StorefrontHeaderSection.NavigationCategoryByName($$createCategory.name$$)}}" stepKey="openCategoryPage"/>
+        <waitForPageLoad stepKey="waitForCategoryPageLoad"/>
+
+        <!-- Open the product -->
+        <click selector="{{StorefrontCategoryMainSection.productLink}}" stepKey="openProduct"/>
+        <waitForPageLoad  stepKey="waitForStorefrontProductPageLoad"/>
+
+        <!-- Assert product name and price correct after update -->
+        <see selector="{{StorefrontProductInfoMainSection.productName}}" userInput="{{UpdateWithoutEnd.updateName}}" stepKey="seeProductName"/>
+        <see selector="{{StorefrontProductInfoMainSection.productPrice}}" userInput="{{UpdateWithoutEnd.productPrice}}" stepKey="seeProductPrice"/>
+
+        <!-- Information about update is not displayed in 'Scheduled Changes' block -->
+        <amOnPage url="{{AdminProductEditPage.url($$createSimpleProduct.id$$)}}" stepKey="goToProductPage"/>
+        <waitForPageLoad stepKey="waitForProductPageLoadAfterUpdate"/>
+        <dontSeeElement selector="{{AdminScheduledChangesSection.scheduleDetails(S5UpdateNameStaging.updateName)}}" stepKey="dontSeeUpdateName"/>
+        <dontSeeElement selector="{{AdminScheduledChangesSection.scheduleDetails(S5UpdateNameStaging.updateDescription)}}" stepKey="dontSeeUpdateDescription"/>
+    </test>
+</tests>

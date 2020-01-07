@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <listingToolbar name="listing_top">
+        <filters name="listing_filters">
+            <filterSelect name="shared_catalog" provider="${ $.parentName }" component="Magento_Ui/js/form/element/ui-select" template="ui/grid/filters/elements/ui-select">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="filterOptions" xsi:type="boolean">true</item>
+                    </item>
+                </argument>
+                <settings>
+                    <options class="\Magento\SharedCatalog\Model\Source\SharedCatalog"/>
+                    <label translate="true">Shared Catalog</label>
+                    <dataScope>shared_catalog</dataScope>
+                    <imports>
+                        <link name="visible">product_listing.product_listing.product_columns.${ $.index }:visible</link>
+                    </imports>
+                </settings>
+            </filterSelect>
+        </filters>
+    </listingToolbar>
+    <columns name="product_columns">
+        <column name="shared_catalog" class="Magento\SharedCatalog\Ui\Component\Product\Listing\Columns\SharedCatalog" component="Magento_Ui/js/grid/columns/expandable">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="tooltipTitle" xsi:type="string" translate="true">Shared Catalogs</item>
+                </item>
+            </argument>
+            <settings>
+                <options class="\Magento\SharedCatalog\Model\Source\SharedCatalog"/>
+                <dataType>select</dataType>
+                <label translate="true">Shared Catalog</label>
+            </settings>
+        </column>
+    </columns>
+</listing>

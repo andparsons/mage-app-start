@@ -1,0 +1,198 @@
+<!--
+-->
+<div class="admin__action-group-wrap admin__action-multiselect-wrap action-select-wrap"
+     data-role="wrap-ui-group"
+     tabindex="0"
+     data-bind="
+        attr: {
+            id: uid,
+            name: inputName
+        },
+        css: {
+            _active: listVisible,
+            _disabled: disabled,
+            _focus: hasFocus,
+            _multiple: multiple
+        },
+        event: {
+            keydown: keydownSwitcher,
+            focusin: onFocusIn,
+            focusout: onFocusOut
+        },
+        outerClick: outerClick.bind($data)
+">
+    <div class="admin__action-multiselect action-select"
+         data-action="open-search"
+         data-bind="click: toggleListVisible">
+        <!--ko ifnot: multiple-->
+            <div class="admin__action-multiselect-text"
+                 data-role="selected-option"
+                 data-bind="text: resultLabel">
+            </div>
+        <!-- /ko-->
+        <!--ko if: multiple-->
+            <div class="admin__action-multiselect-text"
+                 data-bind="
+                            visible: !hasData(),
+                            text: resultLabel
+                    "></div>
+            <!-- ko foreach: { data: getSelected(), as: 'option'}  -->
+                    <span class="admin__action-multiselect-crumb">
+                            <span data-bind="text: label">
+                            </span>
+                            <button
+                                    class="action-close crumb-action"
+                                    type="button"
+                                    data-action="remove-selected-item"
+                                    tabindex="-1"
+                                    data-bind="click: $parent.removeSelected.bind($parent, value)
+                            ">
+                                <span class="action-close-text" data-bind="i18n: 'Close'"></span>
+                            </button>
+                        </span>
+            <!-- /ko-->
+        <!-- /ko -->
+    </div>
+    <div class="admin__action-group-list action-select-list action-menu" data-bind="css: { _active: listVisible }">
+        <div class="admin__action-multiselect-search-wrap">
+            <input
+                    class="admin__control-text admin__action-multiselect-search"
+                    data-bind="
+                    hasFocus: searchFocus,
+                    event: {
+                        keyup: filterOptionsKeydown
+                    },
+                    valueUpdate: 'afterkeydown',
+                    value: filterInputValue"
+                    type="text">
+            <label
+                    class="admin__action-multiselect-search-label"
+                    data-action="advanced-select-search"
+                    data-bind="attr: {for: uid}, visible: !isSearchActive()
+            "/>
+            <label
+                    class="admin__action-multiselect-remove-label"
+                    data-action="advanced-select-search"
+                    data-bind="click: clearSearch, visible: isSearchActive
+            "/>
+            <div
+                    class="admin__action-multiselect-search-count"
+                    data-bind="visible: quantitySearchItems
+                ">
+                <!--ko ifnot: multiple-->
+                    <span data-bind="text: quantitySearchItems" />
+                    <span data-bind="i18n: 'options'" />
+                <!-- /ko-->
+                <!--ko if: multiple-->
+                    <span data-bind="text: getLabelSelectedQuantity()" />
+                    <div class="admin__action-multiselect-action-links">
+                        <button class="action action-tertiary"
+                                tabindex="-1"
+                                data-action="select-all"
+                                type="button"
+                                data-bind="click: selectAll">
+                            <span data-bind="i18n: 'Select all'"></span>
+                        </button>
+                        <button class="action action-tertiary"
+                                tabindex="-1"
+                                data-action="deselect-all"
+                                type="button"
+                                data-bind="click: deselectAll">
+                            <span data-bind="i18n: 'Deselect all'"></span>
+                        </button>
+                    </div>
+                <!-- /ko-->
+            </div>
+        </div>
+        <!--ko if: group-->
+            <ul class="admin__action-multiselect-menu-inner _root"
+                data-bind="repeat: { foreach: convertedOptions, item: 'optgroup'}">
+                <li class="admin__action-group-optgroup">
+                    <strong data-bind="text: optgroup().label"/>
+                </li>
+                <!-- ko repeat: { foreach: optgroup().value, item: 'option'}  -->
+                    <li data-role="option"  class="admin__action-group-option" tabindex="-1" data-bind="
+                        click: setSelected.bind($context.$data, option().value),
+                        event: {
+                            hover: resetHover
+                        },
+                        attr: {
+                            'data-value': option().value
+                        }">
+                        <div class="action-menu-item _with-checkbox"
+                             data-bind="
+                                        css: {
+                                            _selected: isSelected(option().value)
+                                        },
+                                        clickBubble: false
+                                ">
+                            <!--ko if: multiple-->
+                            <input
+                                    class="admin__control-checkbox"
+                                    type="checkbox"
+                                    tabindex="-1"
+                                    data-bind="attr: {
+                                        'checked': isSelected(option().value)
+                                        }">
+                            <!-- /ko-->
+                            <label class="admin__action-multiselect-label">
+                                <span data-bind="text: option().label"></span>
+                            </label>
+                        </div>
+                    </li>
+                <!-- /ko -->
+            </ul>
+        <!-- /ko-->
+        <!--ko ifnot: group-->
+            <ul class="admin__action-multiselect-menu-inner _root"
+                data-bind="repeat: { foreach: convertedOptions, item: 'option'}">
+                <li data-role="option"  class="admin__action-group-option" tabindex="-1" data-bind="
+                            click: setSelected.bind($context.$data, option().value),
+                            event: {
+                                hover: resetHover
+                            },
+                            attr: {
+                                'data-value': option().value
+                            }">
+
+                    <div class="action-menu-item _with-checkbox"
+                         data-bind="
+                                            css: {
+                                                _selected: isSelected(option().value)
+                                            },
+                                            clickBubble: false
+                                    ">
+                        <!--ko if: multiple-->
+                        <input
+                                class="admin__control-checkbox"
+                                type="checkbox"
+                                tabindex="-1"
+                                data-bind="attr: {
+                                            'checked': isSelected(option().value)
+                                            }">
+                        <!-- /ko-->
+                        <label class="admin__action-multiselect-label">
+                            <span data-bind="text: option().label, attr: {title: option().label}"></span>
+                        </label>
+                    </div>
+                </li>
+            </ul>
+        <!-- /ko-->
+        <!--ko if: multiple-->
+            <div class="admin__action-multiselect-actions-wrap">
+                <button class="action-tertiary"
+                        data-action="close-advanced-select"
+                        type="button"
+                        data-bind="click: cancelChange">
+                    <span data-bind="i18n: 'Cancel'"></span>
+                </button>
+                <button class="action-secondary"
+                        data-action="close-advanced-select"
+                        type="button"
+                        data-bind="click: applyChange">
+                    <span data-bind="i18n: 'Done'"></span>
+                </button>
+            </div>
+        <!-- /ko -->
+    </div>
+</div>

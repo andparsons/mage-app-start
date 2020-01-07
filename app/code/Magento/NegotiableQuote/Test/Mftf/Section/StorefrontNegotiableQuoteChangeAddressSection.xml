@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="StorefrontNegotiableQuoteChangeAddressSection">
+        <element name="selectShippingAddress" type="select" selector="//option[contains(text(),'{{var1}}')]" parameterized="true"/>
+        <element name="saveAddressButton" type="button" selector="//button[@data-action='get-address']" timeout="30"/>
+        <element name="selectQuoteAddress" type="button" selector="//select[@name='quote_address']" timeout="5"/>
+    </section>
+</sections>

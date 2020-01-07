@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminFilterSharedCatalogsByCreatedByFieldTest">
+        <annotations>
+            <features value="Shared Catalog"/>
+            <stories value="Filter shared catalogs"/>
+            <title value="Filter shared catalogs by 'Created By' field"/>
+            <description value="Filter shared catalogs by 'Created By' field"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MAGETWO-70723"/>
+            <group value="sharedCatalog"/>
+        </annotations>
+
+        <!-- Preconditions -->
+
+        <!--Login As Admin-->
+        <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+
+        <!--Create restricted roles for this user. Access to Shared Catalog only-->
+        <actionGroup ref="AdminCreateRoleActionGroup" stepKey="adminCreateRole">
+            <argument name="restrictedRole" value="Shared Catalog"/>
+            <argument name="User" value="adminRole"/>
+        </actionGroup>
+
+        <!--Create new admin user-->
+        <actionGroup ref="AdminCreateUserActionGroup" stepKey="adminCreateUser">
+            <argument name="role" value="adminRole"/>
+        </actionGroup>
+
+        <!--Log out-->
+        <actionGroup ref="SignOut" stepKey="SignOut"/>
+        <after>
+            <!--Delete Shared Catalog and Reset filters-->
+            <actionGroup ref="AdminDeleteSharedCatalogActionGroup" stepKey="deleteSharedCatalog">
+                <argument name="sharedCatalogName" value="sharedCatalogTest123"/>
+            </actionGroup>
+            <actionGroup ref="resetAdminDataGridToDefaultView" stepKey="resetFiltersOnSharedCatalogPage"/>
+
+            <actionGroup ref="logout" stepKey="logoutFromAdmin"/>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+
+            <!-- Delete Admin User -->
+            <actionGroup ref="AdminDeleteCustomUserActionGroup" stepKey="deleteAdminUserActionGroup">
+                <argument name="user" value="newAdmin"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logoutFromAdmin2"/>
+        </after>
+
+        <!--  Test Steps  -->
+        <!--  Step 1: Login to Admin panel and open Catalog-> Shared Catalogs -->
+        <actionGroup ref="LoginAsAnyUser" stepKey="LoginActionGroup">
+            <argument name="uname" value="{{newAdmin.username}}"/>
+            <argument name="passwd" value="{{newAdmin.password}}"/>
+        </actionGroup>
+
+        <amOnPage url="{{AdminSharedCatalogIndexPage.url}}" stepKey="amOnSharedCatalogsGridPage"/>
+        <seeElement selector="{{AdminDataGridTableSection.firstRow}}" stepKey="seeSharedCatalogGrid"/>
+
+        <!--  Step 2: Click 'Add Shared Catalog' button -->
+        <!--  Step 3: Fill in all the required fields and click 'Save' button -->
+        <actionGroup ref="AdminCreateSharedCatalogActionGroup" stepKey="createSharedCatalog">
+            <argument name="sharedCatalogName" value="sharedCatalogTest123"/>
+        </actionGroup>
+        <actionGroup ref="AdminFilterSharedCatalogByNameActionGroup" stepKey="filterSharedCatalog">
+            <argument name="sharedCatalogName" value="sharedCatalogTest123"/>
+        </actionGroup>
+        <see selector="{{AdminDataGridTableSection.gridCell('1','Name')}}" userInput="sharedCatalogTest123" stepKey="seeSharedCCatalog" />
+
+        <!--  Step 4: Open 'Filters' and enter admin's name in the 'Created By' field -> click  'Apply Filters' button -->
+        <actionGroup ref="AdminFilterSharedCatalogByCreatedByActionGroup" stepKey="fillAdminUser">
+            <argument name="sharedCatalogCreatedBy" value="{{newAdmin.firstName}} {{newAdmin.lastName}}"/>
+        </actionGroup>
+        <see selector="{{AdminDataGridTableSection.gridCell('1','Created By')}}" userInput="{{newAdmin.firstName}} {{newAdmin.lastName}}" stepKey="seeCatalogCreatedBy" />
+    </test>
+</tests>

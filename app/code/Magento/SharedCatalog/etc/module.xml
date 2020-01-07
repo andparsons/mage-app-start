@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Magento_SharedCatalog" >
+        <sequence>
+            <module name="Magento_Catalog"/>
+            <module name="Magento_Tax"/>
+            <module name="Magento_CatalogPermissions"/>
+            <module name="Magento_Company"/>
+            <module name="Magento_Config"/>
+            <module name="Magento_AdvancedCheckout"/>
+            <module name="Magento_User"/>
+        </sequence>
+    </module>
+</config>

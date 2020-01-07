@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminFilterQuoteByCompanyNameActionGroup">
+        <arguments>
+            <argument name="company" type="entity"/>
+        </arguments>
+        <amOnPage url="{{AdminNegotiableQuotesPage.url}}" stepKey="goToQuotesPage"/>
+        <waitForPageLoad stepKey="waitForQuotesPage"/>
+        <conditionalClick selector="{{AdminSearchAndFilterQuotesSection.clearAll}}" dependentSelector="{{AdminSearchAndFilterQuotesSection.clearAll}}" visible="true" stepKey="clearFilters"/>
+        <waitForPageLoad stepKey="waitForFilterButton"/>
+        <click selector="{{AdminSearchAndFilterQuotesSection.filters}}" stepKey="clickFilterButton"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForFiltersLoad"/>
+        <fillField userInput="{{DefaultNegotiableQuote.name}}" selector="{{AdminSearchAndFilterQuotesSection.filterByQuoteName}}" stepKey="fillQuoteName"/>
+        <fillField userInput="{{company.company_name}}" selector="{{AdminSearchAndFilterQuotesSection.filterByCompanyName}}" stepKey="fillCompanyName"/>
+        <click selector="{{AdminSearchAndFilterQuotesSection.applyFilters}}" stepKey="applyFilters"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForApplyFilters"/>
+    </actionGroup>
+</actionGroups>

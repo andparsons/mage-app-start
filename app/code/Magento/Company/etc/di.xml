@@ -1,0 +1,289 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Company\Api\Data\CompanyInterface" type="Magento\Company\Model\Company" />
+    <preference for="Magento\Company\Api\Data\HierarchyInterface" type="Magento\Company\Model\Hierarchy" />
+    <preference for="Magento\Company\Api\Data\CompanySearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="Magento\Company\Api\CompanyRepositoryInterface" type="Magento\Company\Model\CompanyRepository" />
+    <preference for="Magento\Company\Api\CompanyHierarchyInterface" type="Magento\Company\Model\CompanyHierarchy" />
+    <preference for="Magento\Company\Api\Data\StructureInterface" type="Magento\Company\Model\Structure" />
+    <preference for="Magento\Company\Api\Data\StructureSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="Magento\Company\Api\Data\TeamInterface" type="Magento\Company\Model\Team" />
+    <preference for="Magento\Company\Api\Data\TeamSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="Magento\Company\Api\TeamRepositoryInterface" type="Magento\Company\Model\TeamRepository" />
+    <preference for="Magento\Company\Api\StatusServiceInterface" type="Magento\Company\Model\Config" />
+    <preference for="Magento\Company\Model\Customer\PermissionInterface" type="Magento\Company\Model\Customer\Permission" />
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="company_listing_data_source" xsi:type="string">Magento\Company\Model\ResourceModel\Company\Grid\Collection</item>
+                <item name="role_listing_data_source" xsi:type="string">Magento\Company\Model\ResourceModel\Role\Grid\Collection</item>
+                <item name="company_users_listing_data_source" xsi:type="string">Magento\Company\Model\ResourceModel\Users\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\Model\SaveValidatorPool">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="companyId" xsi:type="string">\Magento\Company\Model\SaveValidator\CompanyId</item>
+                <item name="requiredFields" xsi:type="string">\Magento\Company\Model\SaveValidator\RequiredFields</item>
+                <item name="salesRepresentative" xsi:type="string">\Magento\Company\Model\SaveValidator\SalesRepresentative</item>
+                <item name="customerGroup" xsi:type="string">\Magento\Company\Model\SaveValidator\CustomerGroup</item>
+                <item name="companyStatus" xsi:type="string">\Magento\Company\Model\SaveValidator\CompanyStatus</item>
+                <item name="rejectedFields" xsi:type="string">\Magento\Company\Model\SaveValidator\RejectedFields</item>
+                <item name="companyAdmin" xsi:type="string">\Magento\Company\Model\SaveValidator\CompanyAdmin</item>
+                <item name="companyEmail" xsi:type="string">\Magento\Company\Model\SaveValidator\CompanyEmail</item>
+                <item name="companyAddress" xsi:type="string">\Magento\Company\Model\SaveValidator\CompanyAddress</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\Model\SaveHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="defaultRole" xsi:type="object">\Magento\Company\Model\SaveHandler\DefaultRole</item>
+                <item name="superUser" xsi:type="object">\Magento\Company\Model\SaveHandler\SuperUser</item>
+                <item name="salesRepresentative" xsi:type="object">\Magento\Company\Model\SaveHandler\SalesRepresentative</item>
+                <item name="companyStatus" xsi:type="object">\Magento\Company\Model\SaveHandler\CompanyStatus</item>
+                <item name="customerGroup" xsi:type="object">\Magento\Company\Model\SaveHandler\CustomerGroup</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\Model\ResourcePool">
+        <arguments>
+            <argument name="resources" xsi:type="array">
+                <item name="company_view_account" xsi:type="string">Magento_Company::view_account</item>
+                <item name="company_view_address" xsi:type="string">Magento_Company::view_address</item>
+                <item name="company_contacts" xsi:type="string">Magento_Company::contacts</item>
+                <item name="users_view" xsi:type="string">Magento_Company::users_view</item>
+                <item name="sales_payment_account" xsi:type="string">Magento_Sales::place_order</item>
+                <item name="view_orders" xsi:type="string">Magento_Sales::view_orders</item>
+                <item name="view" xsi:type="string">Magento_Company::view</item>
+                <item name="index" xsi:type="string">Magento_Company::index</item>
+                <item name="user_management" xsi:type="string">Magento_Company::user_management</item>
+                <item name="sales" xsi:type="string">Magento_Sales::all</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\Model\Customer\CompanyAttributes">
+        <arguments>
+            <argument name="userContext" xsi:type="object">\Magento\Authorization\Model\UserContextInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\Model\Company\Structure">
+        <arguments>
+            <argument name="teamRepository" xsi:type="object">\Magento\Company\Api\TeamRepositoryInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\Model\CompanyAdminPermission">
+        <arguments>
+            <argument name="customerContext" xsi:type="object">\Magento\Authorization\Model\UserContextInterface\Proxy</argument>
+            <argument name="companyRepository" xsi:type="object">\Magento\Company\Api\CompanyRepositoryInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\Model\SaveHandler\CompanyStatus">
+        <arguments>
+            <argument name="companyRepository" xsi:type="object">\Magento\Company\Api\CompanyRepositoryInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\Model\Email\Sender">
+        <arguments>
+            <argument name="companyRepository" xsi:type="object">\Magento\Company\Api\CompanyRepositoryInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\Model\Email\CustomerData">
+        <arguments>
+            <argument name="companyRepository" xsi:type="object">\Magento\Company\Api\CompanyRepositoryInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\Model\CompanyManagement">
+        <arguments>
+            <argument name="companyRepository" xsi:type="object">\Magento\Company\Api\CompanyRepositoryInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\Model\Role\Validator">
+        <arguments>
+            <argument name="companyRepository" xsi:type="object">\Magento\Company\Api\CompanyRepositoryInterface\Proxy</argument>
+            <argument name="userRoleManagement" xsi:type="object">\Magento\Company\Model\UserRoleManagement\Proxy</argument>
+            <argument name="roleRepository" xsi:type="object">\Magento\Company\Model\RoleRepository\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\Model\Role\Permission">
+        <arguments>
+            <argument name="userRoleManagement" xsi:type="object">\Magento\Company\Model\UserRoleManagement\Proxy</argument>
+        </arguments>
+    </type>
+    <virtualType name="CompanyGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="CompanyProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Magento\Company\Model\ResourceModel\Company\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">CompanyGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Magento\Company\Model\Create\Session\Storage" type="Magento\Framework\Session\Storage">
+        <arguments>
+            <argument name="namespace" xsi:type="string">company_create</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Company\Model\Create\Session">
+        <arguments>
+            <argument name="storage" xsi:type="object">Magento\Company\Model\Create\Session\Storage</argument>
+        </arguments>
+    </type>
+    <preference for="Magento\Company\Api\Data\CompanyCustomerInterface" type="Magento\Company\Model\Customer" />
+    <preference for="Magento\Company\Api\Data\CompanyOrderInterface" type="Magento\Company\Model\Order" />
+    <preference for="Magento\Company\Api\CompanyManagementInterface" type="Magento\Company\Model\CompanyManagement" />
+    <preference for="Magento\Company\Api\RoleManagementInterface" type="Magento\Company\Model\RoleManagement" />
+    <preference for="Magento\Company\Model\PermissionManagementInterface" type="Magento\Company\Model\PermissionManagement" />
+    <preference for="Magento\Sales\Model\ResourceModel\Order\CollectionFactoryInterface" type="Magento\Company\Model\ResourceModel\Order\CollectionFactory" />
+    <type name="Magento\Customer\Api\CustomerRepositoryInterface">
+        <plugin name="companyCustomerSave" type="Magento\Company\Plugin\Customer\Api\CustomerRepository\Save" />
+        <plugin name="companyCustomerDelete" type="Magento\Company\Plugin\Customer\Api\CustomerRepository\Delete" />
+        <plugin name="companyCustomerQuery" type="Magento\Company\Plugin\Customer\Api\CustomerRepository\Query" />
+    </type>
+    <type name="Magento\Framework\Model\ActionValidator\RemoveAction">
+        <plugin name="companyFrameworkModelActionValidatorRemoveAction" type="Magento\Company\Plugin\Framework\Model\ActionValidator\RemoveActionPlugin" />
+    </type>
+    <type name="Magento\Company\Model\CompanyRepository">
+        <arguments>
+            <argument name="companySaver" xsi:type="object">Magento\Company\Model\Company\Save\Proxy</argument>
+            <argument name="collectionProcessor" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\Model\Company\Delete">
+        <arguments>
+            <argument name="teamRepository" xsi:type="object">Magento\Company\Api\TeamRepositoryInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\Model\StructureRepository">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\Model\TeamRepository">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Wishlist\Block\Customer\Sidebar">
+        <plugin name="is_visible_wishlist_sidebar" type="Magento\Company\Plugin\Wishlist\Block\Customer\SidebarPlugin" />
+    </type>
+    <type name="Magento\Sales\Block\Reorder\Sidebar">
+        <plugin name="is_visible_reorder_sidebar" type="Magento\Company\Plugin\Sales\Block\Reorder\SidebarPlugin" />
+    </type>
+    <preference for="Magento\Company\Api\Data\RoleInterface" type="Magento\Company\Model\Role" />
+    <preference for="Magento\Company\Api\Data\PermissionInterface" type="Magento\Company\Model\Permission" />
+    <preference for="Magento\Company\Api\Data\RoleSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="Magento\Company\Api\RoleRepositoryInterface" type="Magento\Company\Model\RoleRepository" />
+    <preference for="Magento\Company\Api\AclInterface" type="Magento\Company\Model\UserRoleManagement" />
+
+    <virtualType name="Magento\Company\Acl\AclResource\Config\Reader\Filesystem" type="Magento\Framework\Acl\AclResource\Config\Reader\Filesystem">
+        <arguments>
+            <argument name="fileName" xsi:type="string">company_acl.xml</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Magento\Company\Acl\Cache" type="Magento\Framework\Acl\Data\Cache">
+        <arguments>
+            <argument name="cacheTag" xsi:type="string">company_acl_resources</argument>
+            <argument name="aclBuilder" xsi:type="object">Magento\Company\Authorization\Acl\Builder</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Company\Model\RoleRepository">
+        <arguments>
+            <argument name="cache" xsi:type="object">Magento\Company\Acl\Cache</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\Model\UserRoleManagement">
+        <arguments>
+            <argument name="cache" xsi:type="object">Magento\Company\Acl\Cache</argument>
+        </arguments>
+    </type>
+    <virtualType name="Magento\Company\Acl\RootResource" type="Magento\Framework\Acl\RootResource">
+        <arguments>
+            <argument name="identifier" xsi:type="string">Magento_Company::index</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Magento\Company\Acl\AclResource\Provider" type="Magento\Framework\Acl\AclResource\Provider">
+        <arguments>
+            <argument name="configReader" xsi:type="object">Magento\Company\Acl\AclResource\Config\Reader\Filesystem</argument>
+            <argument name="cacheKey" xsi:type="string">company_acl_resources_cache</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Magento\Company\Authorization\Loader\ResourceLoader" type="Magento\Framework\Acl\Loader\ResourceLoader">
+        <arguments>
+            <argument name="resourceProvider" xsi:type="object">Magento\Company\Acl\AclResource\Provider</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Company\Model\Authorization\Loader\Rule">
+        <arguments>
+            <argument name="rootResource" xsi:type="object">Magento\Company\Acl\RootResource</argument>
+            <argument name="resourceProvider" xsi:type="object">Magento\Company\Acl\AclResource\Provider</argument>
+        </arguments>
+    </type>
+    <virtualType name="Magento\Company\Authorization\Acl\Builder" type="Magento\Framework\Acl\Builder">
+        <arguments>
+            <argument name="resourceLoader" xsi:type="object">Magento\Company\Authorization\Loader\ResourceLoader</argument>
+            <argument name="ruleLoader" xsi:type="object">Magento\Company\Model\Authorization\Loader\Rule</argument>
+            <argument name="roleLoader" xsi:type="object">Magento\Company\Model\Authorization\Loader\Role</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Company\Model\Authorization\AclPolicy">
+        <arguments>
+            <argument name="aclBuilder" xsi:type="object">Magento\Company\Authorization\Acl\Builder</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\Model\Authorization">
+        <arguments>
+            <argument name="aclPolicy" xsi:type="object">Magento\Company\Model\Authorization\AclPolicy</argument>
+            <argument name="roleLocator" xsi:type="object">Magento\Company\Model\Authorization\RoleLocator</argument>
+        </arguments>
+    </type>
+    <preference for="Magento\Company\Api\AuthorizationInterface" type="Magento\Company\Model\Authorization" />
+
+    <type name="Magento\Company\Block\Company\Role\Edit">
+        <arguments>
+            <argument name="resourceProvider" xsi:type="object">Magento\Company\Acl\AclResource\Provider</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\Model\PermissionManagement">
+        <arguments>
+            <argument name="resourceProvider" xsi:type="object">Magento\Company\Acl\AclResource\Provider</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\Controller\Role\EditPost">
+        <arguments>
+            <argument name="resourceProvider" xsi:type="object">Magento\Company\Acl\AclResource\Provider</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Sales\Api\OrderManagementInterface">
+        <plugin name="orderManagementCompany" type="Magento\Company\Plugin\Sales\Api\OrderManagementInterfacePlugin" />
+    </type>
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin name="orderRepositoryCompany" type="Magento\Company\Plugin\Sales\Api\OrderRepositoryInterfacePlugin" />
+    </type>
+    <type name="Magento\ScalableOms\Console\Command\SplitSales">
+        <arguments>
+            <argument name="tables" xsi:type="array">
+                <item name="company_order_entity" xsi:type="string">company_order_entity</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\Model\ResourceModel\Order">
+        <arguments>
+            <argument name="connectionName" xsi:type="string">sales</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Webapi\Controller\Rest\ParamsOverrider">
+        <arguments>
+            <argument name="paramOverriders" xsi:type="array">
+                <item name="%company_id%" xsi:type="object">Magento\Company\Model\Webapi\ParamOverriderCompanyId</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Magento\Company\Api\CompanyUserManagerInterface" type="Magento\Company\Model\CompanyUserManager" />
+</config>

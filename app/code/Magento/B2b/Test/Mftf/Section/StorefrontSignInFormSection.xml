@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="StorefrontSignInFormSection">
+        <element name="createAccount" type="button" selector="//a[@class='action create primary']/span[text()='Create an Account']"/>
+        <element name="createCompanyAccount" type="button" selector="//a[@class='action create primary']/span[text()='Create a Company Account']"/>
+    </section>
+</sections>

@@ -1,0 +1,19 @@
+<!--
+-->
+<!--@subject Your company account is active @-->
+<!--@vars {
+"var customer.name":"Customer Name",
+"var customer.companyName": "Company Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting company-greeting"><strong>{{trans "Dear %name," name=$customer.name}}</strong></p>
+<p>{{trans "The status of your company <strong>%company_name</strong>
+    is now <strong>Active</strong>.
+    Once you login, you will be able to place orders on behalf of your company
+    and use other B2B features."
+    company_name=$escaper.escapeHtml($customer.companyName)
+    |raw}}</p>
+
+{{template config_path="design/email/footer_template"}}

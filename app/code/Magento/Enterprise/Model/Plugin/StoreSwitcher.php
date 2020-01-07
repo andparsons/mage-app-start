@@ -1,0 +1,28 @@
+<?php
+namespace Magento\Enterprise\Model\Plugin;
+
+use Magento\Backend\Block\Store\Switcher as StoreSwitcherBlock;
+
+/**
+ * Store switcher block plugin
+ */
+class StoreSwitcher
+{
+    /**
+     * URL for store switcher hint
+     */
+    const HINT_URL = 'http://docs.magento.com/m2/ee/user_guide/configuration/scope.html';
+
+    /**
+     * Return url for store switcher hint
+     *
+     * @param StoreSwitcherBlock $subject
+     * @return string
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
+    public function afterGetHintUrl(StoreSwitcherBlock $subject)
+    {
+        return self::HINT_URL;
+    }
+}

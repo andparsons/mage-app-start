@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @var $block \Magento\Company\Block\Adminhtml\Sales\Order\View\Info\OrderCompanyInfo;
+ */
+?>
+
+<?php if ($block->canShow()) : ?>
+    <tr>
+        <th><?= $block->escapeHtml(__('Company Name')) ?></th>
+        <td>
+            <a href="<?= $block->escapeUrl($block->getCompanyUrl()) ?>" target="_blank">
+                <span><?= $block->escapeHtml($block->getCompanyName()) ?></span>
+            </a>
+        </td>
+    </tr>
+<?php endif; ?>

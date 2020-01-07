@@ -1,0 +1,189 @@
+<?php
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php
+/**
+ * @var $block \Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Items\Grid
+ */
+
+$items = $block->getItems();
+$quoteHelper = $this->helper(\Magento\NegotiableQuote\Helper\Quote::class);
+$configHelper = $this->helper(\Magento\Catalog\Helper\Product\Configuration::class);
+?>
+<div class="admin__table-wrapper" id="order-items_grid">
+    <table class="data-table admin__table-primary order-tables" data-role="items-quoted-table">
+        <thead>
+        <tr class="headings">
+            <th class="col-product"><span><?= $block->escapeHtml(__('Name & SKU')) ?></span></th>
+            <th class="col-stock"><span><?= $block->escapeHtml(__('Stock')) ?></span></th>
+            <th class="col-cost"><span><?= $block->escapeHtml(__('Cost')) ?></span></th>
+            <th class="col-price"><span><?= $block->escapeHtml(__('Catalog Price')) ?></span></th>
+            <th class="col-cart-price"><span><?= $block->escapeHtml(__('Cart Price')) ?></span></th>
+            <th class="col-proposed-price"><span><?= $block->escapeHtml(__('Proposed Price')) ?></span></th>
+            <th class="col-qty"><span><?= $block->escapeHtml(__('Qty')) ?></span></th>
+            <th class="col-row-total"><span><?= $block->escapeHtml(__('Subtotal')) ?></span></th>
+            <th class="col-row-tax-amount"><span><?= $block->escapeHtml(__('Estimated Tax')) ?></span></th>
+            <th class="col-row-subtotal-tax">
+                <span><?= $block->escapeHtml($block->getSubtotalTaxLabel()) ?></span>
+            </th>
+            <th class="col-action"></th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <td colspan="11" class="quote-actions">
+                <button class="action-default update-button"
+                        type="button"
+                        data-role="update-quote"
+                        disabled
+                        data-update-qty-url="<?= $block->escapeUrl($block->getUrl('*/*/update/')) ?>"
+                        data-update-errors-url="<?= $block->escapeUrl($block->getUrl('*/*/updateErrors')) ?>"
+                        title="<?= $block->escapeHtmlAttr(__('Recalculate Quote')) ?>"
+                        data-mage-init='{ "Magento_NegotiableQuote/quote/actions/update-quote": {
+                            "disabled" : "<?= /* @noEscape */ !$block->canEdit() ? "_disabled" : "" ?>",
+                            "needUpdate": <?= /* @noEscape */ !$block->canUpdate() ? '0' : '1' ?>,
+                            "updateOnOpenUrl": "<?= $block->escapeUrl($block->getUrl('*/*/updateOnOpen')) ?>"
+                        } }'>
+                    <span><?= $block->escapeHtml(__('Recalculate Quote')) ?></span>
+                </button>
+                <button class="action-default update-order-prices-button"
+                        type="button"
+                        data-role="price-quote"
+                        <?= /* @noEscape */ !$block->canEdit() ? ' disabled' : '' ?>
+                        data-update-qty-url="<?= $block->escapeUrl($block->getUrl('*/*/update/')) ?>"
+                        data-update-errors-url="<?= $block->escapeUrl($block->getUrl('*/*/updateErrors')) ?>"
+                        title="<?= $block->escapeHtmlAttr(__('Update Prices')) ?>">
+                    <span><?= $block->escapeHtml(__('Update Prices')) ?></span>
+                </button>
+            </td>
+        </tr>
+        </tfoot>
+        <?php $i = 0 ?>
+        <?php foreach ($items as $item) :
+            $i++ ?>
+            <tbody data-role="items-quoted-body" class="_<?= /* @noEscape */ ($i % 2) ? 'even' : 'odd' ?> product-item"
+                   data-product-id="<?= (int) $item->getId() ?>">
+            <tr data-role="item-quoted" data-mage-init='{ "Magento_NegotiableQuote/quote/actions/delete-item": {} }'>
+                <td class="col-product">
+                    <span id="order_item_<?= (int) $item->getId() ?>_title">
+                        <a href="<?= $block->escapeUrl($block->getProductUrlByItem($item)) ?>"><?= $block->escapeHtml($item->getName()) ?></a>
+                    </span>
+
+                    <div class="product-sku-block">
+                        <span><?= $block->escapeHtml(__('SKU')) ?>:</span>
+                        <?= $block->escapeHtml($item->getSku()) ?>
+                        <?php $requestItem = $item->getBuyRequest(); ?>
+                        <?php if ($options = $block->getProductOptions($item)) :?>
+                            <dl class="item-options">
+                                <?php foreach ($options as $option) : ?>
+                                    <?php $formatedOptionValue = $configHelper->getFormattedOptionValue($option, $block->getParamsForCustomOptions()) ?>
+                                    <dt><?= $block->escapeHtml($option['label']) ?></dt>
+                                    <dd>
+                                        <?php if (isset($formatedOptionValue['full_view'])) : ?>
+                                            <?= /* @noEscape */ $formatedOptionValue['full_view'] ?>
+                                        <?php else : ?>
+                                            <?= /* @noEscape */ $formatedOptionValue['value'] ?>
+                                        <?php endif; ?>
+                                    </dd>
+                                <?php endforeach; ?>
+                            </dl>
+                        <?php endif;?>
+                        <input type="hidden" class="item-product-sku" name="item[<?= (int) $item->getId() ?>][productSku]"
+                               value="<?= $block->escapeHtmlAttr($item->getProduct()->getData('sku')) ?>"
+                               data-role="product-sku"/>
+                        <input type="hidden" class="item-sku" name="item[<?= (int) $item->getId() ?>][sku]"
+                               value="<?= $block->escapeHtmlAttr($item->getSku()) ?>"
+                               data-role="sku-name"/>
+                        <input type="hidden" name="item[<?= (int) $item->getId() ?>][config]"
+                               id="product-<?= $block->escapeHtmlAttr($item->getId()) ?>"
+                               value="<?= $block->escapeHtmlAttr($quoteHelper->retrieveCustomOptions($item)) ?>"
+                               data-role="config-options"/>
+                        <?php if ($item->getProduct()->canConfigure()) :?>
+                            <div class="sku-configure-button">
+                                <button title="Configure" type="button"
+                                        class="action-default action-configure<?= /* @noEscape */ !$block->canEdit() ? ' _disabled' : '';?>"
+                                        onclick="addBySku.configure(<?= (int) $item->getProduct()->getId() ?>,
+                                                '<?= $block->escapeHtml($item->getProduct()->getData('sku')) ?>',
+                                                '<?= (int) $item->getId() ?>')"
+                                        <?= /* @noEscape */ !$block->canEdit() ? '_disabled' : '' ?> >
+                                    <span><?= $block->escapeHtml(__('Configure')) ?></span>
+                                </button>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </td>
+                <td class="col-stock">
+                    <?= /* @noEscape */ number_format($quoteHelper->getStockForProduct($item)) ?>
+                </td>
+                <td class="col-cost">
+                    <?= /* @noEscape */ $block->getFormattedCost($item) ?>
+                </td>
+                <td class="col-price">
+                    <?= /* @noEscape */ $block->getFormattedCatalogPrice($item) ?>
+                </td>
+                <td class="col-cart-price">
+                    <?= /* @noEscape */ $block->getFormattedCartPrice($item) ?>
+                </td>
+                <td class="col-proposed-price">
+                    <?= /* @noEscape */ $block->getFormattedOriginalPrice($item) ?>
+                </td>
+                <td class="col-qty">
+                    <input name="item[<?= (int) $item->getId() ?>][qtyOld]"
+                           data-role="qty-amount-old" type="hidden"
+                           value="<?= (int) $item->getQty() ?>">
+                    <input name="item[<?= (int) $item->getId() ?>][qty]"
+                           class="input-text item-qty admin__control-text"
+                           type="number"
+                           data-role="qty-amount"
+                           value="<?= (int) $item->getQty() ?>"
+                           data-mage-init='{ "Magento_NegotiableQuote/quote/actions/validate-field" : {} }'
+                           <?= /* @noEscape */ !$block->canEdit() ? 'disabled' : '' ?>
+                           maxlength="12"/>
+                </td>
+                <td class="col-row-total">
+                    <?= /* @noEscape */ $block->getFormattedSubtotal($item) ?>
+                </td>
+                <td class="col-row-tax-amount">
+                    <?= /* @noEscape */ $block->getItemTaxAmount($item) ?>
+                </td>
+                <td class="col-row-subtotal-tax">
+                    <?= /* @noEscape */ $block->getItemSubtotalTaxValue($item) ?>
+                </td>
+                <td class="col-actions last">
+                    <div class="actions-toolbar">
+                        <button class="action action-delete<?= /* @noEscape */ !$block->canEdit() ? ' _disabled' : '';?>"
+                           data-role="del-button"
+                            <?= /* @noEscape */ !$block->canEdit() ? 'disabled' : ''; ?>
+                            title="<?= $block->escapeHtmlAttr(__('Delete Action')) ?>Remove"
+                            >
+                            <span><?= $block->escapeHtml(__('Delete Action')) ?></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+
+            <?php $messageErrorClass = ''; ?>
+            <?php foreach ($item->getMessage(false) as $messageError) : ?>
+                <?php if (empty($messageError)) :
+                    $messageErrorClass = ' hidden';
+                endif; ?>
+            <?php endforeach; ?>
+
+            <tr data-role="error" class="row-messages-error<?= /* @noEscape */ $messageErrorClass ?>">
+                <td colspan="100">
+                    <?php foreach ($item->getMessage(false) as $message) :
+                        if (empty($message)) {
+                            continue;
+                        }
+                        ?>
+                        <div class="message <?= /* @noEscape */ $item->getHasError()? 'message-error' : 'message-notice'; ?>">
+                            <?= $block->escapeHtml($message) ?>
+                        </div>
+                    <?php endforeach; ?>
+                </td>
+            </tr>
+            </tbody>
+        <?php endforeach; ?>
+    </table>
+</div>

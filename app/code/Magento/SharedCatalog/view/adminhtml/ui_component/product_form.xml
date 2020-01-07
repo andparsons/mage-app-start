@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="shared_catalog" sortOrder="200">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">Product In Shared Catalogs</label>
+            <dataScope>data.product</dataScope>
+        </settings>
+        <field name="shared_catalog" component="Magento_B2b/js/form/element/ui-group" sortOrder="10" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="group" xsi:type="boolean">false</item>
+                    <item name="multiple" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Shared Catalogs</label>
+                <componentType>field</componentType>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Magento\SharedCatalog\Model\Source\SharedCatalog"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+    </fieldset>
+</form>

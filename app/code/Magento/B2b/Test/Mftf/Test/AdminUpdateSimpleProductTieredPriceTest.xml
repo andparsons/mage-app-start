@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminUpdateSimpleProductTieredPriceTest">
+        <remove keyForRemoval="selectProductTierPriceCustomerGroupInput"/>
+        <remove keyForRemoval="seeProductTierPriceCustomerGroupInput"/>
+
+        <!-- First merge point -->
+        <click selector="{{AdminProductFormAdvancedPricingSection.productTierPriceCustGroupSelect('0')}}" stepKey="clickProductTierPriceCustGroupSelect" after="selectProductTierPriceWebsiteInput"/>
+        <waitForElement selector="{{AdminProductFormAdvancedPricingSection.productTierPriceGroupOrCatalogOption('ALL GROUPS')}}" time="30" stepKey="waitProductTierPriceGroupOrCatalogOption" after="clickProductTierPriceCustGroupSelect"/>
+        <click selector="{{AdminProductFormAdvancedPricingSection.productTierPriceGroupOrCatalogOption('ALL GROUPS')}}" stepKey="clickAllGroupsOption" after="waitProductTierPriceGroupOrCatalogOption"/>
+
+        <!-- Second merge point -->
+        <see selector="{{AdminProductFormAdvancedPricingSection.productTierPriceCustGroupSelect('0')}}" userInput="{{tierPriceHighCostSimpleProduct.customer_group}}" stepKey="seeCustGroup" after="seeProductTierPriceWebsiteInput"/>
+    </test>
+</tests>

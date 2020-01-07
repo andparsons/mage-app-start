@@ -1,0 +1,18 @@
+<!--
+-->
+
+<form data-role="change-status-confirm-form">
+    <p><%- message %></p>
+    <div class="admin__field _required">
+        <label for="reason-textarea" class="label admin__field-label">
+            <span><%- reason_label %></span>
+        </label>
+        <textarea
+                class="admin__control-textarea"
+                name="reason"
+                data-role="rejection-reason"
+                id="reason-textarea"
+                data-validate="{'required': true}"></textarea>
+        <p class="additional-text"><%- note %></p>
+    </div>
+</form>

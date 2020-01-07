@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="order_items">
+            <block class="Magento\GiftCard\Block\Adminhtml\Sales\Items\Column\Name\Giftcard" name="column_name_giftcard" template="Magento_Sales::items/column/name.phtml" group="column"/>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminAssignSharedCatalogToProductActionGroup">
+        <arguments>
+            <argument name="catalog"/>
+        </arguments>
+        <scrollTo selector="{{AdminProductSharedCatalogsSection.productSharedCatalogsToggle}}" stepKey="scrollToSharedCatalogsTab" />
+        <conditionalClick stepKey="clickToToggleSharedCatalogs" selector="{{AdminProductSharedCatalogsSection.productSharedCatalogsToggle}}" dependentSelector="{{AdminProductSharedCatalogsSection.checkIfSharedCatalogsIsOpened}}" visible="true" />
+        <waitForElementVisible selector="{{AdminProductSharedCatalogsSection.sharedCatalogsDropDown}}" stepKey="waitEditorVisible"/>
+        <click selector="{{AdminProductSharedCatalogsSection.sharedCatalogsDropDown}}" stepKey="clickToOpenDropDown"/>
+        <waitForElementVisible selector="{{AdminProductSharedCatalogsSection.sharedCatalogsSearch}}" stepKey="waitSearchCatalog"/>
+        <fillField selector="{{AdminProductSharedCatalogsSection.sharedCatalogsSearch}}" userInput="{{catalog}}" stepKey="searchCatalog"/>
+        <waitForPageLoad time="30" stepKey="waitForProductPageLoad"/>
+        <waitForElementVisible selector="{{AdminProductSharedCatalogsSection.checkboxForSharedCatalogByName(catalog)}}" time="30" stepKey="waitSelectSearchedCatalog"/>
+        <click selector="{{AdminProductSharedCatalogsSection.checkboxForSharedCatalogByName(catalog)}}" stepKey="selectSearchedCatalog"/>
+        <click selector="{{AdminProductSharedCatalogsSection.sharedCatalogDoneButton}}" stepKey="clickDone"/>
+    </actionGroup>
+</actionGroups>

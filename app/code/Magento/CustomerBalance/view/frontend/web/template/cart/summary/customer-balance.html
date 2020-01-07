@@ -1,0 +1,15 @@
+<!--
+-->
+<!-- ko if: isAvailable() -->
+<tr class="totals balance">
+    <th class="mark" scope="row">
+        <a data-bind="attr: { 'href': getRemoveUrl(), 'title': $t('Remove') }" class="action delete">
+            <span><!-- ko text: $t('Remove') --><!-- /ko --></span>
+        </a>
+        <!-- ko text: -getPureValue()  + ' ' + title --><!-- /ko -->
+    </th>
+    <td class="amount">
+        <span class="price" data-bind="text: getValue()"></span>
+    </td>
+</tr>
+<!-- /ko -->

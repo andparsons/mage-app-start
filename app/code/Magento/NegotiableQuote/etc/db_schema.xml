@@ -1,0 +1,218 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="negotiable_quote" resource="checkout" engine="innodb" comment="negotiable_quote">
+        <column xsi:type="int" name="quote_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Quote ID"/>
+        <column xsi:type="smallint" name="is_regular_quote" padding="5" unsigned="true" nullable="false"
+                identity="false" default="0" comment="Is regular quote"/>
+        <column xsi:type="varchar" name="status" nullable="false" length="255" comment="Negotiable quote status"/>
+        <column xsi:type="varchar" name="quote_name" nullable="true" length="255" comment="Negotiable quote name"/>
+        <column xsi:type="smallint" name="negotiated_price_type" padding="5" unsigned="true" nullable="true"
+                identity="false" comment="Negotiated price type"/>
+        <column xsi:type="float" name="negotiated_price_value" scale="0" precision="0" unsigned="false"
+                nullable="true" comment="Negotiable price value"/>
+        <column xsi:type="float" name="shipping_price" scale="0" precision="0" unsigned="false" nullable="true"
+                comment="Shipping price"/>
+        <column xsi:type="date" name="expiration_period" comment="Expiration period"/>
+        <column xsi:type="smallint" name="status_email_notification" padding="5" unsigned="true" nullable="false"
+                identity="false" default="0" comment="Status email notification"/>
+        <column xsi:type="mediumtext" name="snapshot" nullable="true" comment="Snapshot"/>
+        <column xsi:type="boolean" name="has_unconfirmed_changes" nullable="false" default="false"
+                comment="Has changes, not confirmed by merchant"/>
+        <column xsi:type="smallint" name="is_customer_price_changed" padding="6" unsigned="false" nullable="false"
+                identity="false" default="0" comment="Is Customer Price Changed"/>
+        <column xsi:type="smallint" name="is_shipping_tax_changed" padding="6" unsigned="false" nullable="false"
+                identity="false" default="0" comment="Is Shipping Tax Changed"/>
+        <column xsi:type="int" name="notifications" padding="11" unsigned="false" nullable="true" identity="false"
+                comment="Notifications"/>
+        <column xsi:type="varchar" name="applied_rule_ids" nullable="true" length="255" comment="Applied Rule Ids"/>
+        <column xsi:type="smallint" name="is_address_draft" padding="6" unsigned="false" nullable="false"
+                identity="false" default="0" comment="Is address update from checkout"/>
+        <column xsi:type="text" name="deleted_sku" nullable="true" comment="Deleted products SKU"/>
+        <column xsi:type="smallint" name="creator_type" padding="6" unsigned="false" nullable="false" identity="false"
+                default="3" comment="Quote creator type"/>
+        <column xsi:type="int" name="creator_id" padding="11" unsigned="false" nullable="true" identity="false"
+                comment="Quote creator id"/>
+        <column xsi:type="decimal" name="original_total_price" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Original Total Price"/>
+        <column xsi:type="decimal" name="base_original_total_price" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Base Original Total Price"/>
+        <column xsi:type="decimal" name="negotiated_total_price" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Negotiated Total Price"/>
+        <column xsi:type="decimal" name="base_negotiated_total_price" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Base Negotiated Total Price"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="quote_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="NEGOTIABLE_QUOTE_QUOTE_ID_QUOTE_ENTITY_ID" table="negotiable_quote"
+                    column="quote_id" referenceTable="quote" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="NEGOTIABLE_QUOTE_EXPIRATION_PERIOD" indexType="btree">
+            <column name="expiration_period"/>
+        </index>
+    </table>
+    <table name="negotiable_quote_company_config" resource="default" engine="innodb"
+           comment="negotiable_quote_company_config">
+        <column xsi:type="int" name="company_entity_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Company ID"/>
+        <column xsi:type="smallint" name="is_quote_enabled" padding="5" unsigned="true" nullable="false"
+                identity="false" default="1" comment="Is quote enabled"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="company_entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="NEGOTIABLE_QUOTE_COMPANY_CONFIG_COMPANY_ENTT_ID_COMPANY_ENTT_ID"
+                    table="negotiable_quote_company_config" column="company_entity_id" referenceTable="company"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+    </table>
+    <table name="negotiable_quote_grid" resource="checkout" engine="innodb" comment="negotiable_quote_grid">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Entity Id"/>
+        <column xsi:type="varchar" name="quote_name" nullable="true" length="255" comment="Quote Name"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="true" comment="Created At"/>
+        <column xsi:type="int" name="company_id" padding="10" unsigned="true" nullable="true" identity="false"
+                comment="Company Id"/>
+        <column xsi:type="varchar" name="company_name" nullable="true" length="255" comment="Company Name"/>
+        <column xsi:type="int" name="customer_id" padding="10" unsigned="true" nullable="true" identity="false"
+                comment="Customer Id"/>
+        <column xsi:type="varchar" name="submitted_by" nullable="true" length="255" comment="Submitted by"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="false" nullable="true" comment="Updated At"/>
+        <column xsi:type="int" name="sales_rep_id" padding="10" unsigned="true" nullable="true" identity="false"
+                comment="Sales Representative ID"/>
+        <column xsi:type="varchar" name="sales_rep" nullable="true" length="255" comment="Sales Representative Name"/>
+        <column xsi:type="decimal" name="base_grand_total" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Grand Total"/>
+        <column xsi:type="decimal" name="grand_total" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Grand Total"/>
+        <column xsi:type="decimal" name="base_negotiated_grand_total" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Negotiated Base Grand Total"/>
+        <column xsi:type="decimal" name="negotiated_grand_total" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Negotiated Grand Total"/>
+        <column xsi:type="varchar" name="status" nullable="true" length="32" comment="Status"/>
+        <column xsi:type="varchar" name="base_currency_code" nullable="true" length="255" comment="Base Currency"/>
+        <column xsi:type="varchar" name="quote_currency_code" nullable="true" length="255" comment="Currency"/>
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false"
+                default="0" comment="Store Id"/>
+        <column xsi:type="decimal" name="rate" scale="4" precision="12" unsigned="true" nullable="true" default="1"
+                comment="Currency Rate"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="NEGOTIABLE_QUOTE_GRID_COMPANY_NAME" indexType="btree">
+            <column name="company_name"/>
+        </index>
+        <index referenceId="NEGOTIABLE_QUOTE_GRID_QUOTE_NAME" indexType="btree">
+            <column name="quote_name"/>
+        </index>
+        <index referenceId="NEGOTIABLE_QUOTE_GRID_STATUS" indexType="btree">
+            <column name="status"/>
+        </index>
+        <index referenceId="NEGOTIABLE_QUOTE_GRID_UPDATED_AT" indexType="btree">
+            <column name="updated_at"/>
+        </index>
+        <index referenceId="NEGOTIABLE_QUOTE_GRID_COMPANY_NAME_QUOTE_NAME" indexType="fulltext">
+            <column name="company_name"/>
+            <column name="quote_name"/>
+        </index>
+    </table>
+    <table name="negotiable_quote_comment" resource="checkout" engine="innodb" comment="Negotiable quote comments">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Entity Id"/>
+        <column xsi:type="int" name="parent_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Parent Id"/>
+        <column xsi:type="smallint" name="creator_type" padding="5" unsigned="true" nullable="false" identity="false"
+                comment="Comment creator type"/>
+        <column xsi:type="boolean" name="is_decline" nullable="false" default="false" comment="Is quote was declined by seller"/>
+        <column xsi:type="boolean" name="is_draft" nullable="false" default="false" comment="Is draft message"/>
+        <column xsi:type="int" name="creator_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Comment author ID"/>
+        <column xsi:type="text" name="comment" nullable="true" comment="Comment"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="NEGOTIABLE_QUOTE_COMMENT_PARENT_ID_NEGOTIABLE_QUOTE_QUOTE_ID"
+                    table="negotiable_quote_comment" column="parent_id" referenceTable="negotiable_quote"
+                    referenceColumn="quote_id" onDelete="CASCADE"/>
+        <index referenceId="NEGOTIABLE_QUOTE_COMMENT_PARENT_ID" indexType="btree">
+            <column name="parent_id"/>
+        </index>
+        <index referenceId="NEGOTIABLE_QUOTE_COMMENT_CREATED_AT" indexType="btree">
+            <column name="created_at"/>
+        </index>
+    </table>
+    <table name="negotiable_quote_comment_attachment" resource="checkout" engine="innodb"
+           comment="Negotiable quote comment attachments">
+        <column xsi:type="int" name="attachment_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Attachment Id"/>
+        <column xsi:type="int" name="comment_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Comment Id"/>
+        <column xsi:type="varchar" name="file_name" nullable="true" length="255" comment="Attachment file name"/>
+        <column xsi:type="text" name="file_path" nullable="true" comment="Path to file"/>
+        <column xsi:type="varchar" name="file_type" nullable="true" length="32" comment="File type"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="attachment_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="FK_4E1BA3B744DA152FAF16DCBFF68651A2"
+                    table="negotiable_quote_comment_attachment" column="comment_id"
+                    referenceTable="negotiable_quote_comment" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="NEGOTIABLE_QUOTE_COMMENT_ATTACHMENT_COMMENT_ID" indexType="btree">
+            <column name="comment_id"/>
+        </index>
+    </table>
+    <table name="negotiable_quote_history" resource="checkout" engine="innodb" comment="Negotiable quote history log">
+        <column xsi:type="int" name="history_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="History Id"/>
+        <column xsi:type="int" name="quote_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Quote Id"/>
+        <column xsi:type="boolean" name="is_seller" nullable="false" default="false" comment="Is changes has made by seller"/>
+        <column xsi:type="int" name="author_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Log author ID"/>
+        <column xsi:type="boolean" name="is_draft" nullable="false" default="true" comment="Is draft message"/>
+        <column xsi:type="varchar" name="status" nullable="false" length="255" default="created" comment="Log status"/>
+        <column xsi:type="text" name="log_data" nullable="true" comment="Serialized log data"/>
+        <column xsi:type="text" name="snapshot_data" nullable="true" comment="Serialized quote snapshot data"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="history_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="NEGOTIABLE_QUOTE_HISTORY_QUOTE_ID_NEGOTIABLE_QUOTE_QUOTE_ID"
+                    table="negotiable_quote_history" column="quote_id" referenceTable="negotiable_quote"
+                    referenceColumn="quote_id" onDelete="CASCADE"/>
+        <index referenceId="NEGOTIABLE_QUOTE_HISTORY_QUOTE_ID" indexType="btree">
+            <column name="quote_id"/>
+        </index>
+        <index referenceId="NEGOTIABLE_QUOTE_HISTORY_CREATED_AT" indexType="btree">
+            <column name="created_at"/>
+        </index>
+    </table>
+    <table name="negotiable_quote_item" resource="checkout" engine="innodb" comment="negotiable_quote_item">
+        <column xsi:type="int" name="quote_item_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Quote Item ID"/>
+        <column xsi:type="decimal" name="original_price" scale="4" precision="12" unsigned="false" nullable="false"
+                default="0" comment="Quote item original price"/>
+        <column xsi:type="decimal" name="original_tax_amount" scale="4" precision="12" unsigned="false"
+                nullable="false" default="0" comment="Quote item original price"/>
+        <column xsi:type="decimal" name="original_discount_amount" scale="4" precision="12" unsigned="false"
+                nullable="false" default="0" comment="Quote item original discount"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="quote_item_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="NEGOTIABLE_QUOTE_ITEM_QUOTE_ITEM_ID_QUOTE_ITEM_ITEM_ID"
+                    table="negotiable_quote_item" column="quote_item_id" referenceTable="quote_item"
+                    referenceColumn="item_id" onDelete="CASCADE"/>
+    </table>
+    <table name="negotiable_quote_purged_content" resource="checkout" engine="innodb"
+           comment="Negotiable quote purchased content.">
+        <column xsi:type="int" name="quote_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Quote ID"/>
+        <column xsi:type="text" name="purged_data" nullable="true" comment="Purged customer related data"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="quote_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="FK_763F5D85518F6FB7BC0D5DEB812C314E"
+                    table="negotiable_quote_purged_content" column="quote_id" referenceTable="negotiable_quote"
+                    referenceColumn="quote_id" onDelete="CASCADE"/>
+    </table>
+</schema>

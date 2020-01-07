@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="BasicMsiStore" type="store">
+        <data key="name" unique="suffix">Basic MSI Store </data>
+        <data key="code" unique="suffix">basic_msi_store_</data>
+    </entity>
+</entities>

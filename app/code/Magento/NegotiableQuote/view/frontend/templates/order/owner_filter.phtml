@@ -1,0 +1,20 @@
+<?php
+?>
+<?php /** @var $block \Magento\NegotiableQuote\Block\Order\OwnerFilter */ ?>
+
+<?php if ($block->canShow()) : ?>
+    <div class="data item content order-links-block" id="comments">
+        <?php
+        if ($block->isViewAll()) : ?>
+            <a href="<?= $block->escapeUrl($block->getOwnerUrl()) ?>">
+                <?= $block->escapeHtml(__('Show My Orders')) ?>
+            </a>
+            <?php
+        else : ?>
+            <a href="<?= $block->escapeUrl($block->getAllUrl()) ?>">
+                <?= $block->escapeHtml(__('Show All Orders')) ?>
+            </a>
+            <?php
+        endif; ?>
+    </div>
+<?php endif; ?>

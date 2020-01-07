@@ -1,0 +1,12 @@
+<!--
+-->
+<% if (data.isObject) { %>
+<span class="price">
+    <%- data.base %><br>
+    <% if (data.quote) { %>
+        [<%- data.quote %>]
+    <% } %>
+</span>
+<% } else { %>
+<span class="price"><%- data %></span>
+<% } %>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="CheckTierPricingOfProductsTest">
+        <remove keyForRemoval="ProductSetAdvancedPricing1"/>
+        <remove keyForRemoval="ProductSetAdvancedPricing2"/>
+        <remove keyForRemoval="ProductSetAdvancedPricing3"/>
+        <remove keyForRemoval="ProductSetAdvancedPricing4"/>
+        <remove keyForRemoval="Group"/>
+        <remove keyForRemoval="selectCustomerGroup"/>
+
+        <actionGroup ref="ProductSetAdvancedPricingB2B" after="ProductSetWebsite" stepKey="ProductSetAdvancedPricingB2B1">
+            <argument name="website" value="secondWebsite"/>
+        </actionGroup>
+        <actionGroup ref="ProductSetAdvancedPricingB2B" after="ProductSetWebsite2" stepKey="ProductSetAdvancedPricingB2B2">
+            <argument name="website" value="secondWebsite"/>
+        </actionGroup>
+        <actionGroup ref="ProductSetAdvancedPricingB2B" after="ProductSetWebsite3" stepKey="ProductSetAdvancedPricingB2B3">
+            <argument name="website" value="secondWebsite"/>
+        </actionGroup>
+        <actionGroup ref="ProductSetAdvancedPricingB2B" after="ProductSetWebsite4" stepKey="ProductSetAdvancedPricingB2B4">
+            <argument name="website" value="secondWebsite"/>
+        </actionGroup>
+
+        <click selector="{{AdminCustomerAccountInformationSection.group}}" after="waitForPageOpened1" stepKey="ClickToExpandGroup"/>
+        <waitForElement selector="{{AdminProductFormAdvancedPricingSection.productTierPriceGroupOrCatalogOption('Retailer')}}" after="ClickToExpandGroup" stepKey="waitForCustomerGroupExpand"/>
+        <click selector="{{AdminCustomerAccountInformationSection.groupValue('Retailer')}}" after="waitForCustomerGroupExpand" stepKey="ClickToSelectGroup"/>
+
+        <click selector="{{AdminCartPriceRulesFormSection.customerGroups}}" after="selectWebsites" stepKey="ClickToExpandCustomerGroup"/>
+        <waitForElement selector="{{AdminProductFormAdvancedPricingSection.productTierPriceGroupOrCatalogOption('Retailer')}}" after="ClickToExpandCustomerGroup" stepKey="waitForCustomerGroupOpened"/>
+        <click selector="{{AdminCustomerAccountInformationSection.groupValue('Retailer')}}" after="waitForCustomerGroupOpened" stepKey="ClickToSelectCustomerGroup1"/>
+        <click selector="{{AdminCustomerAccountInformationSection.groupValue('Done')}}" after="ClickToSelectCustomerGroup1" stepKey="ClickToDoneButton"/>
+
+    </test>
+</tests>

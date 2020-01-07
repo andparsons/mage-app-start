@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontProductListWidgetWithSharedCatalogTest">
+        <annotations>
+            <stories value="Product list widget with Shared Catalog"/>
+            <title value="Product list widget with Shared Catalog"/>
+	        <description value="Product list widget with Shared Catalog"/>
+	        <severity value="CRITICAL"/>
+	        <testCaseId value="MAGETWO-69972"/>
+	        <group value="widget"/>
+            <!-- Skip because of MAGETWO-58329 -->
+            <group value="skip"/>
+        </annotations>
+        <before>
+            <createData entity="_defaultCategory" stepKey="createPreReqCategory"/>
+            <createData entity="SimpleProduct" stepKey="simpleProduct">
+              <requiredEntity createDataKey="createPreReqCategory"/>
+            </createData>
+         </before>
+         <after>
+            <actionGroup ref="AdminDeleteWidgetActionGroup" stepKey="deleteWidget">
+              <argument name="widget" value="ProductsListWidget"/>
+            </actionGroup>
+            <actionGroup ref="deleteProductUsingProductGrid" stepKey="deleteProduct">
+              <argument name="product" value="_defaultProduct"/>
+            </actionGroup>
+            <actionGroup ref="AdminClearFiltersActionGroup" stepKey="clearProductFilters"/>
+            <actionGroup ref="AdminDeleteCompanyActionGroup" stepKey="deleteCompany">
+              <argument name="company" value="Default_Company"/>
+            </actionGroup>
+             <actionGroup ref="DeleteCustomerFromAdminActionGroup" stepKey="deleteCustomer">
+              <argument name="customer" value="CustomerEntityOne"/>
+            </actionGroup>
+             <actionGroup ref="AdminClearCustomersFiltersActionGroup" stepKey="clearCustomersFilters"/>
+            <createData entity="B2BDefaultConfig" stepKey="defaultB2BConfig"/>
+            <deleteData createDataKey="simpleProduct" stepKey="deleteSimpleProduct"/>
+            <deleteData createDataKey="createPreReqCategory" stepKey="deletePreReqCategory"/>
+            <magentoCLI command="indexer:reindex" stepKey="reindexAfter"/>
+            <magentoCLI command="cache:flush" stepKey="cacheFlushAfter"/>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+        <!-- 1.Install b2b on top of EE -->
+        <!-- 2.Create few simple products -->
+        <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+        <actionGroup ref="FillAdminSimpleProductForm" stepKey="createSimpleProductInAdmin">
+            <argument name="category" value="$$createPreReqCategory$$"/>
+            <argument name="simpleProduct" value="_defaultProduct"/>
+        </actionGroup>
+        <!-- 3.Setup "product list" widget and add some simple products there (by SKU rule) -->
+        <actionGroup ref="AdminCreateProductsListWidgetActionGroup" stepKey="createNewWidget">
+            <argument name="widget" value="ProductsListWidget"/>
+        </actionGroup>
+        <!-- 4.Enable shared catalog feature (This is done by navigating to Stores>Configuration>B2B Features>Enable Company = Yes) Then Set Shared Catalog Option to Yes -->
+        <click selector="{{AdminMenuSection.stores}}" stepKey="clickStores"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForConfiguration" />
+        <click selector="{{AdminMenuSection.configuration}}" stepKey="clickConfiguration"/>
+        <click selector="{{AdminB2BConfigSection.b2bFeatures}}" stepKey="clickB2B"/>
+        <waitForPageLoad stepKey="waitForLoadB2B"/>
+        <selectOption selector="{{AdminB2BConfigSection.company}}" userInput="{{companyActive.value}}" stepKey="enableCompany"/>
+        <selectOption selector="{{AdminB2BConfigSection.sharedCatalog}}" userInput="{{sharedCatalogActive.value}}" stepKey="enableSharedCatalog"/>
+        <click selector="{{AdminMainActionsSection.save}}" stepKey="clickSaveConfig"/>
+        <!-- 5.Add few products to shared catalog -->
+        <click selector="{{AdminMenuSection.catalog}}" stepKey="clickCatalog2"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForSharedCatalog"/>
+        <click selector="{{AdminMenuSection.sharedCatalog}}" stepKey="clickSharedCatalog"/>
+        <waitForPageLoad stepKey="waitForLoadSharedCatalogs"/>
+        <click selector="{{AdminSharedCatalogsSection.select}}" stepKey="clickSelect"/>
+        <click selector="{{AdminSharedCatalogsSection.setPricingAndStructure}}" stepKey="clickSetPricingAndStructure"/>
+        <waitForPageLoad stepKey="waitForLoadPricingAndStructure"/>
+        <click selector="{{AdminSharedCatalogsSection.configure}}" stepKey="clickConfigure"/>
+        <waitForPageLoad stepKey="waitForLoadConfigure"/>
+        <click selector="{{AdminSharedCatalogsSection.multiCheckForProductsAndCatalog}}" stepKey="clickMulticheck"/>
+        <click selector="{{AdminSharedCatalogsSection.selectAllForProductsAndCatalog}}" stepKey="clickSelectAll"/>
+        <click selector="{{AdminSharedCatalogsSection.next}}" stepKey="clickNext"/>
+        <click selector="{{AdminSharedCatalogsSection.generateCatalog}}" stepKey="clickGenerate"/>
+        <waitForPageLoad stepKey="waitForGenerate"/>
+        <click selector="{{AdminMainActionsSection.save}}" stepKey="clickSaveCatalog"/>
+        <!-- 6.Create some company and assign it to shared catalog -->
+        <actionGroup ref="AdminCreateCompanyActionGroup" stepKey="createCompany">
+            <argument name="company" value="Default_Company"/>
+            <argument name="customer" value="CustomerEntityOne"/>
+        </actionGroup>
+        <!-- 7.Wait for indexers, queue, clear the cache -->
+        <magentoCLI command="indexer:reindex" stepKey="indexerReindex"/>
+        <magentoCLI command="cache:flush" stepKey="cacheFlush"/>
+        <!-- 8.Visit page with widget -->
+        <amOnPage url="{{StorefrontHomePage.url}}" stepKey="amOnStorefront"/>
+        <waitForPageLoad stepKey="waitForLoadHomePage"/>
+        <seeElement selector="{{StorefrontWidgetsSection.widgetProductsGrid}}" stepKey="seeWidget"/>
+        <see selector="{{StorefrontWidgetsSection.widgetProductName}}" userInput="{{_defaultProduct.name}}" stepKey="seeProductInWidget"/>
+        <see selector="{{StorefrontWidgetsSection.widgetProductName}}" userInput="{{SimpleProduct.name}}" stepKey="seeSimpleProductInWidget"/>
+        <dontSeeJsError stepKey="dontSeeJsError"/>
+     </test>
+</tests>

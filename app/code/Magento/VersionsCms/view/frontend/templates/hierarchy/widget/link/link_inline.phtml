@@ -1,0 +1,9 @@
+<?php
+
+/** @var \Magento\VersionsCms\Block\Widget\Node $block */
+?>
+<span class="widget block block-cms-hierarchy-link-inline">
+    <a <?= /* @noEscape */ $block->getLinkAttributes() ?>>
+        <span><?= $block->escapeHtml($block->getLabel()) ?></span>
+    </a>
+</span>

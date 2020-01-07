@@ -1,0 +1,28 @@
+<?php
+namespace Magento\ScalableCheckout\Model\Product;
+
+class QuoteItemsCleaner implements \Magento\Quote\Model\Product\QuoteItemsCleanerInterface
+{
+    const TOPIC_NAME = 'catalog.product.removed';
+
+    /**
+     * @var \Magento\Framework\MessageQueue\PublisherInterface
+     */
+    private $publisher;
+
+    /**
+     * @param \Magento\Framework\MessageQueue\PublisherInterface $publisher
+     */
+    public function __construct(\Magento\Framework\MessageQueue\PublisherInterface $publisher)
+    {
+        $this->publisher = $publisher;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function execute(\Magento\Catalog\Api\Data\ProductInterface $product)
+    {
+        $this->publisher->publish(self::TOPIC_NAME, $product);
+    }
+}

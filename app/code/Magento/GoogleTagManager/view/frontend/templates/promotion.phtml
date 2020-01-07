@@ -1,0 +1,33 @@
+<?php
+?>
+
+<?php
+/** @var \Magento\GoogleTagManager\Block\ListJson $block */
+$bannerCollection =  $block->getBannerCollection();
+$position = $block->getBannerPosition();
+?>
+
+<?php if ($bannerCollection != null && $bannerCollection->count()) { ?>
+    <script>
+        var <?= $block->escapeJs($block->getVariableName()) ?> =
+        <?= $block->escapeJs($block->getVariableName()) ?> ||
+        [];
+        <?= $block->escapeJs($block->getVariableName()) ?>
+        = [
+    <?php
+    foreach ($bannerCollection as $banner) {
+        ?>
+            {
+                'id': '<?= $block->escapeJs($banner->getBannerId()) ?>',
+                'name': '<?= $block->escapeJs($banner->getName()) ?>',
+                'creative': '<?= $block->escapeJs($banner->getGaCreative()) ?>',
+                'position': '<?= $block->escapeJs($position) ?>',
+                'activated': '<?= $block->escapeJs($banner->getIsGaEnabled()) ?>'
+            },
+        <?php
+    }
+    ?>
+        ];
+    </script>
+    <?php
+}

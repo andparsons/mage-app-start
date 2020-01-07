@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminShouldBeAbleToCreateSingleFutureUpdateWithNoEndDateFromPagesPage">
+        <annotations>
+            <stories value="Staging update management"/>
+            <title value="Admin should be able to create Single Future Update with no end date from Pages Page"/>
+            <description value="Admin should be able to create Single Future Update with no end date from Pages Page"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MC-3271"/>
+            <group value="cmsStaging"/>
+        </annotations>
+        <before>
+            <!-- Create Cms Page -->
+            <createData entity="_defaultCmsPage" stepKey="createCmsPage"/>
+            <!-- Login to Admin -->
+            <actionGroup ref="LoginAsAdmin" stepKey="loginToAdmin"/>
+        </before>
+        <after>
+            <!-- Delete Cms Page -->
+            <deleteData createDataKey="createCmsPage" stepKey="deleteCmsPage"/>
+            <!-- Clear filter Dashboard Staging -->
+            <actionGroup ref="StagingDashboardClearFiltersActionGroup" stepKey="clearFilterDashboardStaging"/>
+            <!-- Logout admin panel -->
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+        <!-- Open Cms Page for Edit -->
+        <amOnPage url="{{CmsPageEditPage.url($$createCmsPage.id$$)}}" stepKey="openEditCmsPage"/>
+        <!-- Create the new staging update -->
+        <generateDate date="+1 day" format="m/d/Y g:i A" stepKey="generateStartDate"/>
+        <actionGroup ref="FillScheduleUpdateRemovePriceActionGroup" stepKey="createStagingUpdate">
+            <argument name="staging" value="S18UpdateNameStaging"/>
+            <argument name="timeStart" value="{$generateStartDate}"/>
+        </actionGroup>
+        <!-- See in dashboard staging update -->
+        <actionGroup ref="StagingDashboardSearchUpdateActionGroup" stepKey="seeUpdateInStagingDashboard">
+            <argument name="staging" value="S18UpdateNameStaging"/>
+        </actionGroup>
+    </test>
+</tests>

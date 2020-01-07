@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Company\Block\Company\Register\Profile" name="company_profile"
+                   cacheable="false"
+                   ifconfig="btob/website_configuration/company_active"
+                   template="Magento_Company::company/account/index.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

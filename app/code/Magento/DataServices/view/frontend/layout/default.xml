@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="head.additional">
+            <block class="Magento\DataServices\Block\Context" name="dataservices_base" template="Magento_DataServices::ds.phtml">
+                <arguments>
+                    <argument name="page_type" xsi:type="string">Default</argument>
+                    <argument name="step_name" xsi:type="string">page-view</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

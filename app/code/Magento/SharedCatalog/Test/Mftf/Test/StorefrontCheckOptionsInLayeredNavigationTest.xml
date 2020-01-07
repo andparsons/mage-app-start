@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontCheckOptionsInLayeredNavigationTest">
+        <annotations>
+            <features value="SharedCatalog"/>
+            <stories value="Layered Navigation shows options not available in Shared Catalog"/>
+            <title value="[B2B] Checking options in Layered Navigation which added to Shared Catalog"/>
+            <description value="Only correspond colors should be displayed in layered navigation"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="MAGETWO-96008"/>
+            <useCaseId value="MAGETWO-95822"/>
+            <group value="sharedCatalog"/>
+        </annotations>
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="LoginAsAdmin"/>
+            <createData entity="B2BEnabledSharedCatalogConfig" stepKey="enableSharedCatalogConfig"/>
+            <createData entity="ApiCategory" stepKey="createCategory"/>
+            <createData entity="ApiConfigurableProduct" stepKey="createConfigProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="ApiConfigurableProduct" stepKey="createSecondConfigProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="productAttributeWithTwoOptions" stepKey="createConfigProductAttribute"/>
+            <createData entity="productAttributeOption1" stepKey="createConfigProductAttributeOption1">
+                <requiredEntity createDataKey="createConfigProductAttribute"/>
+            </createData>
+            <createData entity="productAttributeOption2" stepKey="createConfigProductAttributeOption2">
+                <requiredEntity createDataKey="createConfigProductAttribute"/>
+            </createData>
+         </before>
+
+         <after>
+            <!--Delete attribute color options-->
+            <amOnPage url="{{AdminProductAttributeGridPage.url}}" stepKey="goToProductAttributes"/>
+            <waitForPageLoad stepKey="waitForProductAttributes"/>
+            <fillField selector="{{AdminProductAttributeGridSection.FilterByAttributeCode}}" userInput="color" stepKey="fillFilter"/>
+            <click selector="{{AdminProductAttributeGridSection.Search}}" stepKey="clickSearch"/>
+            <click selector="{{AdminProductAttributeGridSection.AttributeCode('color')}}" stepKey="clickRowToEdit"/>
+            <waitForPageLoad stepKey="waitForColorAttributePageLoad"/>
+            <click stepKey="deleteOption1" selector="{{AdminNewAttributePanel.deleteOptionByName('Red')}}"/>
+            <click stepKey="deleteOption2" selector="{{AdminNewAttributePanel.deleteOptionByName('Black')}}"/>
+            <click stepKey="deleteOption3" selector="{{AdminNewAttributePanel.deleteOptionByName('Blue')}}"/>
+            <click stepKey="deleteOption4" selector="{{AdminNewAttributePanel.deleteOptionByName('Green')}}"/>
+            <click stepKey="deleteOption5" selector="{{AdminNewAttributePanel.deleteOptionByName('Orange')}}"/>
+            <!--Save attribute-->
+            <click selector="{{AdminNewAttributePanel.saveAttribute}}" stepKey="clickSaveColorAttribute" after="deleteOption5"/>
+            <waitForPageLoad stepKey="waitForSavingColorAttribute"/>
+            <see userInput="You saved the product attribute." stepKey="seeSuccessMessage"/>
+            <click selector="{{AdminProductAttributeGridSection.ResetFilter}}" stepKey="resetFilter" after="seeSuccessMessage"/>
+            <createData entity="B2BDefaultConfig" stepKey="defaultB2BConfig"/>
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <actionGroup ref="deleteProductBySku" stepKey="deleteProduct">
+                <argument name="sku" value="configurable"/>
+            </actionGroup>
+            <conditionalClick selector="{{AdminProductGridFilterSection.clearFilters}}"
+                              dependentSelector="{{AdminProductGridFilterSection.clearFilters}}" visible="true" stepKey="clickClearFiltersProduct"/>
+            <deleteData createDataKey="createConfigProductAttribute" stepKey="deleteConfigProductAttribute"/>
+            <actionGroup ref="logout" stepKey="logOut"/>
+         </after>
+
+        <!--Add 5 options to product color attribute-->
+        <amOnPage url="{{AdminProductAttributeGridPage.url}}" stepKey="goToProductAttributes"/>
+        <waitForPageLoad stepKey="waitForProductAttributes"/>
+        <fillField selector="{{AdminProductAttributeGridSection.FilterByAttributeCode}}" userInput="color" stepKey="fillFilter"/>
+        <click selector="{{AdminProductAttributeGridSection.Search}}" stepKey="clickSearch"/>
+        <click selector="{{AdminProductAttributeGridSection.AttributeCode('color')}}" stepKey="clickRowToEdit"/>
+        <waitForPageLoad stepKey="waitForColorAttributePageLoad"/>
+
+        <actionGroup ref="addOptionsToAttributeActionGroup" stepKey="addFiveOptionsToAttributeActionGroup">
+            <argument name="option2" value="colorDefaultProductAttribute2"/>
+            <argument name="option3" value="colorProductAttribute3"/>
+            <argument name="option4" value="colorDefaultProductAttribute1"/>
+            <argument name="option5" value="colorProductAttribute4"/>
+        </actionGroup>
+
+        <!--open first configurable product-->
+        <amOnPage url="{{AdminProductIndexPage.url}}" stepKey="visitAdminProductPage"/>
+        <waitForPageLoad stepKey="waitForAdminProductPageLoad"/>
+        <conditionalClick selector="{{AdminProductGridFilterSection.clearFilters}}"
+                          dependentSelector="{{AdminProductGridFilterSection.clearFilters}}" visible="true" stepKey="clickClearFiltersInitial"/>
+        <actionGroup ref="filterProductGridBySku" stepKey="findCreatedProduct">
+            <argument name="product" value="$$createConfigProduct$$"/>
+        </actionGroup>
+        <waitForPageLoad stepKey="waitForProductFilterLoad"/>
+        <click selector="{{AdminProductGridSection.firstRow}}" stepKey="clickOnProductPage"/>
+        <waitForPageLoad stepKey="waitForProductPageLoad"/>
+        <fillField selector="{{AdminProductFormSection.productSku}}" userInput="{{BaseConfigurableProduct.sku}}" stepKey="changeSkuName"/>
+        <fillField selector="{{AdminProductFormSection.productQuantity}}" userInput="100" stepKey="fillProductQty1"/>
+        <selectOption selector="{{AdminProductFormSection.productStockStatus}}" userInput="In Stock" stepKey="selectStockStatus1"/>
+        <click selector="{{AdminProductFormActionSection.saveButton}}" stepKey="clickSaveButton4"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForProductPageSave1" />
+        <seeElement selector="{{AdminMessagesSection.success}}" stepKey="seeSaveProductMessage1"/>
+
+        <!-- Create configurations based off the Text Swatch we created earlier -->
+        <conditionalClick selector="{{AdminProductFormConfigurationsSection.sectionHeader}}" dependentSelector="{{AdminProductFormConfigurationsSection.createConfigurations}}" visible="false" stepKey="openConfigurationSection"/>
+        <click selector="{{AdminProductFormConfigurationsSection.createConfigurations}}" stepKey="clickCreateConfigurations"/>
+        <waitForElementVisible selector="{{AdminConfigurableProductSelectAttributesSlideOut.grid}}" time="30" stepKey="waitForGridPresent1"/>
+        <waitForPageLoad stepKey="waitForPageLoad"/>
+
+        <!--Find attribute in grid and select attributes: color and created attribute -->
+        <conditionalClick selector="{{AdminDataGridHeaderSection.clearFilters}}" dependentSelector="{{AdminDataGridHeaderSection.clearFilters}}" visible="true" stepKey="clearExistingFilters"/>
+        <click selector="{{AdminDataGridHeaderSection.attributeName($$createConfigProductAttribute.attribute_code$$)}}" stepKey="selectColorAttribute" after="clearExistingFilters"/>
+        <click selector="{{AdminDataGridHeaderSection.attributeName('color')}}" stepKey="selectCreatedAttribute" after="selectColorAttribute"/>
+        <click selector="{{AdminCreateProductConfigurationsPanel.next}}" stepKey="clickNextStep1"/>
+
+        <!--Mark as selected from the size attribute: opt1, opt2-->
+        <waitForElementVisible stepKey="waitForNextPageOpened" selector="{{AdminCreateProductConfigurationsPanel.attributeCheckboxByName('option1')}}"/>
+        <click selector="{{AdminCreateProductConfigurationsPanel.attributeCheckboxByName('option1')}}" stepKey="selectOption1"/>
+        <click selector="{{AdminCreateProductConfigurationsPanel.attributeCheckboxByName('option2')}}" stepKey="selectOption2"/>
+
+        <!--Mark as selected from the color attribute: black, green, orange-->
+        <click selector="{{AdminCreateProductConfigurationsPanel.attributeCheckboxByName('Black')}}" stepKey="selectBlack"/>
+        <click selector="{{AdminCreateProductConfigurationsPanel.attributeCheckboxByName('Green')}}" stepKey="selectGreen"/>
+        <click selector="{{AdminCreateProductConfigurationsPanel.attributeCheckboxByName('Orange')}}" stepKey="selectOrange"/>
+
+        <!--Click Next button -->
+        <click selector="{{AdminCreateProductConfigurationsPanel.next}}" stepKey="clickNextStep2"/>
+        <waitForElementVisible selector="{{AdminCreateProductConfigurationsPanel.applySinglePriceToAllSkus}}" stepKey="waitForNextPageOpened2"/>
+        <!--Apply single price to all SKUs-->
+        <click selector="{{AdminCreateProductConfigurationsPanel.applySinglePriceToAllSkus}}" stepKey="clickOnApplySinglePriceToAllSkus"/>
+        <fillField selector="{{AdminCreateProductConfigurationsPanel.singlePrice}}" userInput="12" stepKey="enterAttributePrice"/>
+        <!--Apply single quantity to each SKUs-->
+        <click selector="{{AdminCreateProductConfigurationsPanel.applySingleQuantityToEachSkus}}" stepKey="clickOnApplySingleQuantityToEachSku"/>
+        <fillField selector="{{AdminCreateProductConfigurationsPanel.quantity}}" userInput="111" stepKey="enterAttributeQuantity"/>
+        <click selector="{{AdminCreateProductConfigurationsPanel.next}}" stepKey="clickOnNextStep3"/>
+        <waitForElementVisible selector="{{AdminCreateProductConfigurationsPanel.next}}" stepKey="waitForNextPageOpened3"/>
+        <!--Generate product-->
+        <click selector="{{AdminCreateProductConfigurationsPanel.next}}" stepKey="generateProducts"/>
+        <waitForElementVisible selector="{{AdminProductFormActionSection.saveButton}}" stepKey="waitForSaveButtonVisible"/>
+        <click selector="{{AdminProductFormActionSection.saveButton}}" stepKey="saveProduct"/>
+        <waitForElementVisible selector="{{AdminChooseAffectedAttributeSetPopup.confirm}}" stepKey="waitForPopUpVisible"/>
+        <click selector="{{AdminChooseAffectedAttributeSetPopup.confirm}}" stepKey="clickOnConfirmInPopup"/>
+        <waitForPageLoad stepKey="waitForProductSaved"/>
+        <seeElement selector="{{AdminMessagesSection.success}}" stepKey="seeSaveProductMessage"/>
+
+        <!--open Second configurable product-->
+        <amOnPage url="{{AdminProductIndexPage.url}}" stepKey="visitAdminProductPageToOpenSecondProduct"/>
+        <waitForPageLoad stepKey="waitForAdminProductPageOpened"/>
+        <conditionalClick selector="{{AdminProductGridFilterSection.clearFilters}}"
+                          dependentSelector="{{AdminProductGridFilterSection.clearFilters}}" visible="true" stepKey="clickClearFilters"/>
+        <actionGroup ref="filterProductGridBySku" stepKey="findSecondProduct">
+            <argument name="product" value="$$createSecondConfigProduct$$"/>
+        </actionGroup>
+        <waitForPageLoad stepKey="waitForProductFilterLoaded"/>
+        <click selector="{{AdminProductGridSection.firstRow}}" stepKey="clickOnProductPageToOpenSecondProduct"/>
+        <waitForPageLoad stepKey="waitForSecondProductPageLoad"/>
+        <fillField selector="{{AdminProductFormSection.productSku}}" userInput="{{BaseConfigurableProduct.sku}}-2" stepKey="changeSkuNameForSecondProduct"/>
+        <fillField selector="{{AdminProductFormSection.productQuantity}}" userInput="100" stepKey="fillProductQty2"/>
+        <selectOption selector="{{AdminProductFormSection.productStockStatus}}" userInput="In Stock" stepKey="selectStockStatus2"/>
+        <click selector="{{AdminProductFormActionSection.saveButton}}" stepKey="clickSaveButton5"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForProductPageSave5" />
+        <seeElement selector="{{AdminMessagesSection.success}}" stepKey="seeSaveProductMessage5"/>
+
+        <!-- Create configurations based off the Text Swatch we created earlier -->
+        <click selector="{{AdminProductFormConfigurationsSection.createConfigurations}}" stepKey="clickCreateSecondConfigurations"/>
+        <waitForElementVisible stepKey="waitForNewAttributePageOpen" selector="{{AdminCreateProductConfigurationsPanel.createNewAttribute}}"/>
+
+        <!--Find attribute in grid and select attributes: color and created attribute -->
+        <conditionalClick selector="{{AdminDataGridHeaderSection.clearFilters}}" dependentSelector="{{AdminDataGridHeaderSection.clearFilters}}" visible="true" stepKey="clearFilters"/>
+        <click selector="{{AdminDataGridHeaderSection.attributeName($$createConfigProductAttribute.attribute_code$$)}}" stepKey="selectColorAttributeSecond" after="clearFilters"/>
+        <click selector="{{AdminDataGridHeaderSection.attributeName('color')}}" stepKey="selectCreatedAttributeSecond" after="selectColorAttributeSecond"/>
+        <click selector="{{AdminCreateProductConfigurationsPanel.next}}" stepKey="clickNextStep4"/>
+
+        <!--Mark as selected from the size attribute: opt1, opt2-->
+        <waitForElementVisible stepKey="waitForNextPageOpenedForSecondProduct" selector="{{AdminCreateProductConfigurationsPanel.attributeCheckboxByName('option1')}}"/>
+        <click selector="{{AdminCreateProductConfigurationsPanel.attributeCheckboxByName('option1')}}" stepKey="selectSecondOption1"/>
+        <click selector="{{AdminCreateProductConfigurationsPanel.attributeCheckboxByName('option2')}}" stepKey="selectSecondOption2"/>
+
+        <!--Mark as selected from the color attribute: black, blue, red-->
+        <click selector="{{AdminCreateProductConfigurationsPanel.attributeCheckboxByName('Black')}}" stepKey="selectBlack2"/>
+        <click selector="{{AdminCreateProductConfigurationsPanel.attributeCheckboxByName('Blue')}}" stepKey="selectBlue"/>
+        <click selector="{{AdminCreateProductConfigurationsPanel.attributeCheckboxByName('Red')}}" stepKey="selectRed"/>
+
+        <!--Click Next button -->
+        <click selector="{{AdminCreateProductConfigurationsPanel.next}}" stepKey="clickNextStep5"/>
+        <waitForElementVisible selector="{{AdminCreateProductConfigurationsPanel.applySinglePriceToAllSkus}}" stepKey="waitForNextPageOpen"/>
+        <!--Apply single price to all SKUs-->
+        <click selector="{{AdminCreateProductConfigurationsPanel.applySinglePriceToAllSkus}}" stepKey="clickOnApplySinglePriceToAllSkusForSecond"/>
+        <fillField selector="{{AdminCreateProductConfigurationsPanel.singlePrice}}" userInput="12" stepKey="enterAttributePriceForSecond"/>
+        <!--Apply single quantity to each SKUs-->
+        <click selector="{{AdminCreateProductConfigurationsPanel.applySingleQuantityToEachSkus}}" stepKey="clickOnApplySingleQuantityToEachSkuForSecond"/>
+        <fillField selector="{{AdminCreateProductConfigurationsPanel.quantity}}" userInput="111" stepKey="enterAttributeQuantityForSecond"/>
+        <click selector="{{AdminCreateProductConfigurationsPanel.next}}" stepKey="clickOnNextStep6"/>
+        <waitForElementVisible selector="{{AdminCreateProductConfigurationsPanel.next}}" stepKey="waitForNextPageOpenedForSecond"/>
+        <!--Generate product-->
+        <click selector="{{AdminCreateProductConfigurationsPanel.next}}" stepKey="generateSecondProducts"/>
+        <waitForElementVisible selector="{{AdminProductFormActionSection.saveButton}}" stepKey="waitForSaveButtonVisibleForSecond"/>
+        <click selector="{{AdminProductFormActionSection.saveButton}}" stepKey="saveSecondProduct"/>
+        <waitForPageLoad stepKey="waitForSecondProductSaved"/>
+        <seeElement selector="{{AdminMessagesSection.success}}" stepKey="seeSaveSecondProductMessage"/>
+
+        <!--Open Admin > Catalog > Shared catalog > Default public catalog > Set Pricing and Structure-->
+        <amOnPage url="{{AdminSharedCatalogIndexPage.url}}" stepKey="goToAdminSharedCatalogIndexPage"/>
+        <waitForPageLoad  time="30" stepKey="waitForAdminSharedCatalogIndexPageLoaded"/>
+        <click selector="{{AdminSharedCatalogsSection.select}}" stepKey="clickSelectButton"/>
+        <click selector="{{AdminSharedCatalogsSection.setPricingAndStructure}}" stepKey="clickOnSetPricingAndStructureItem"/>
+        <!--Click on 'Configure' button-->
+        <click selector="{{AdminSharedCatalogCatalogStructureSection.configureButton}}" stepKey="clickOnConfigureButton"/>
+        <waitForElementVisible stepKey="waitForCatalogStructurePageOpen" selector="{{AdminSharedCatalogCatalogStructureSection.nextButton}}"/>
+
+        <!--Select 6 product: configurable product 'product1' and 2 its variations opt1-black and opt2-green only;
+            configurable product 'product2' and 2 its variations opt1-black and opt2-blue only-->
+        <actionGroup ref="AdminSharedCatalogFilterProductsOnGridActionGroup" stepKey="filterProductsOnGridProd1">
+            <argument name="productName" value="$$createConfigProduct.name$$"/>
+        </actionGroup>
+        <click selector="{{AdminSharedCatalogCatalogStructureProductGridSection.productSwitchLabel}}" stepKey="switchFilteredProduct"/>
+        <actionGroup ref="clearFiltersAdminDataGrid" stepKey="resetProductFilter1"/>
+
+        <actionGroup ref="AdminSharedCatalogFilterProductsOnGridActionGroup" stepKey="filterProductsOnGridProd2">
+            <argument name="productName" value="$$createSecondConfigProduct.name$$"/>
+        </actionGroup>
+        <click selector="{{AdminSharedCatalogCatalogStructureProductGridSection.productSwitchLabel}}" stepKey="switchFilteredProduct2"/>
+        <actionGroup ref="clearFiltersAdminDataGrid" stepKey="resetProductFilter2"/>
+
+        <actionGroup ref="AdminSharedCatalogFilterProductsOnGridActionGroup" stepKey="filterProductsOnGridProd1Opt1Black">
+            <argument name="productName" value="$$createConfigProduct.name$$-option1-Black"/>
+        </actionGroup>
+        <click selector="{{AdminSharedCatalogCatalogStructureProductGridSection.productSwitchLabel}}" stepKey="switchFilteredProduct3"/>
+        <actionGroup ref="clearFiltersAdminDataGrid" stepKey="resetProductFilter3"/>
+
+        <actionGroup ref="AdminSharedCatalogFilterProductsOnGridActionGroup" stepKey="filterProductsOnGridProd1Opt2Green">
+            <argument name="productName" value="$$createConfigProduct.name$$-option2-Green"/>
+        </actionGroup>
+        <click selector="{{AdminSharedCatalogCatalogStructureProductGridSection.productSwitchLabel}}" stepKey="switchFilteredProduct4"/>
+        <actionGroup ref="clearFiltersAdminDataGrid" stepKey="resetProductFilter4"/>
+
+        <actionGroup ref="AdminSharedCatalogFilterProductsOnGridActionGroup" stepKey="filterProductsOnGridProd2Opt1Black">
+            <argument name="productName" value="$$createSecondConfigProduct.name$$-option1-Black"/>
+        </actionGroup>
+        <click selector="{{AdminSharedCatalogCatalogStructureProductGridSection.productSwitchLabel}}" stepKey="switchFilteredProduct5"/>
+        <actionGroup ref="clearFiltersAdminDataGrid" stepKey="resetProductFilter5"/>
+
+        <actionGroup ref="AdminSharedCatalogFilterProductsOnGridActionGroup" stepKey="filterProductsOnGridProd2Opt2Blue">
+            <argument name="productName" value="$$createSecondConfigProduct.name$$-option2-Blue"/>
+        </actionGroup>
+        <click selector="{{AdminSharedCatalogCatalogStructureProductGridSection.productSwitchLabel}}" stepKey="switchFilteredProduct6"/>
+        <actionGroup ref="clearFiltersAdminDataGrid" stepKey="resetProductFilter6"/>
+
+        <!--Click on Next button and then Generate Catalog button > Save-->
+        <click selector="{{AdminSharedCatalogCatalogStructureSection.nextButton}}" stepKey="clickNextButtonOnProductsSection"/>
+        <waitForElementVisible stepKey="waitForGeneratePageOpened" selector="{{AdminSharedCatalogCatalogStructureSection.nextButton}}"/>
+        <click selector="{{AdminSharedCatalogCatalogStructureSection.nextButton}}" stepKey="clickGenerateCatalogOnPricingSection"/>
+        <click selector="{{AdminMainActionsSection.save}}" stepKey="clickSaveButton1"/>
+        <waitForPageLoad stepKey="waitForSaveSharedCatalog"/>
+        <see userInput="The selected items are being processed. You can continue to work in the meantime." stepKey="seeSaccessMessage"/>
+
+        <!-- Flush cache and reindex-->
+        <magentoCLI command="cache:flush" stepKey="clearCache"/>
+        <magentoCLI command="cron:run" stepKey="cronRun"/>
+        <magentoCLI command="indexer:reindex" stepKey="reindexAfter"/>
+
+        <!--Open Storefront on the myCategory page-->
+        <amOnPage url="/$$createCategory.name$$.html" stepKey="GoToStorefrontCategory"/>
+        <waitForPageLoad stepKey="waitForStorefrontCategoryPageLoad"/>
+
+        <!--Make sure that only black, blue and green colors are displayed in layered navigation-->
+        <click selector="{{StorefrontLayeredNavigationSection.shoppingOptionsByName('Color')}}" stepKey="clickColorOption"/>
+        <waitForElementVisible stepKey="waitForAttributesOpened" selector="{{StorefrontLayeredNavigationSection.shoppingOptionsByName('Black')}}"/>
+        <seeElement selector="{{StorefrontLayeredNavigationSection.shoppingOptionsByName('Black')}}" stepKey="seeBlackColor"/>
+        <seeElement selector="{{StorefrontLayeredNavigationSection.shoppingOptionsByName('Green')}}" stepKey="seeGreenColor"/>
+        <seeElement selector="{{StorefrontLayeredNavigationSection.shoppingOptionsByName('Blue')}}" stepKey="seeBlueColor"/>
+        <dontSeeElement selector="{{StorefrontLayeredNavigationSection.shoppingOptionsByName('Red')}}" stepKey="dontSeeRedColor"/>
+        <dontSeeElement selector="{{StorefrontLayeredNavigationSection.shoppingOptionsByName('Orange')}}" stepKey="dontSeeOrangeColor"/>
+     </test>
+</tests>

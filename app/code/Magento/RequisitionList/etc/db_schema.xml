@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="requisition_list" resource="default" engine="innodb" comment="RequisitionList main Table">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="RequisitionList ID"/>
+        <column xsi:type="int" name="customer_id" padding="10" unsigned="true" nullable="false" identity="false"
+                default="0" comment="Customer ID"/>
+        <column xsi:type="varchar" name="name" nullable="true" length="40" comment="RequisitionList Name"/>
+        <column xsi:type="varchar" name="description" nullable="true" length="255" comment="Description"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="false" nullable="true" comment="Last updated date"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="REQUISITION_LIST_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID"
+                    table="requisition_list" column="customer_id" referenceTable="customer_entity"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="REQUISITION_LIST_CUSTOMER_ID" indexType="btree">
+            <column name="customer_id"/>
+        </index>
+    </table>
+    <table name="requisition_list_item" resource="default" engine="innodb" comment="RequisitionList items">
+        <column xsi:type="int" name="item_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="RequisitionList item ID"/>
+        <column xsi:type="int" name="requisition_list_id" padding="10" unsigned="true" nullable="false" identity="false"
+                default="0" comment="RequisitionList ID"/>
+        <column xsi:type="varchar" name="sku" nullable="false" length="64" comment="Product SKU"/>
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="true" identity="false"
+                comment="Store ID"/>
+        <column xsi:type="timestamp" name="added_at" on_update="false" nullable="true" comment="Add date and time"/>
+        <column xsi:type="decimal" name="qty" scale="4" precision="12" unsigned="false" nullable="false"
+                comment="Qty"/>
+        <column xsi:type="text" name="options" nullable="true" comment="Options"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="item_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="FK_DCF93500568CA06DC0FEAE2422148BD2" table="requisition_list_item"
+                    column="requisition_list_id" referenceTable="requisition_list" referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="REQUISITION_LIST_ITEM_STORE_ID_STORE_STORE_ID"
+                    table="requisition_list_item" column="store_id" referenceTable="store" referenceColumn="store_id"
+                    onDelete="SET NULL"/>
+        <index referenceId="REQUISITION_LIST_ITEM_REQUISITION_LIST_ID" indexType="btree">
+            <column name="requisition_list_id"/>
+        </index>
+        <index referenceId="REQUISITION_LIST_ITEM_SKU" indexType="btree">
+            <column name="sku"/>
+        </index>
+        <index referenceId="REQUISITION_LIST_ITEM_STORE_ID" indexType="btree">
+            <column name="store_id"/>
+        </index>
+    </table>
+</schema>

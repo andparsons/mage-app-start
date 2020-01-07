@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontQuickOrderAddToListWithoutSkuTest">
+        <annotations>
+            <features value="QuickOrder"/>
+            <stories value="Create quick order"/>
+            <title value="Storefront quick order add to list without sku"/>
+            <description value="Storefront quick order add to list without sku"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="MC-17943"/>
+            <useCaseId value="MC-17642"/>
+            <group value="quickOrder"/>
+        </annotations>
+        <before>
+            <!-- Enable Quick order functionality -->
+            <createData entity="B2BEnabledQuickOrderConfig" stepKey="enabledQuickOrderConfig"/>
+        </before>
+        <after>
+            <!--Set b2b config to default-->
+            <createData entity="B2BDefaultConfig" stepKey="defaultB2BConfig"/>
+        </after>
+
+        <!--Go to Quick order and enter the product-->
+        <amOnPage url="{{StorefrontQuickOrderPage.url}}" stepKey="goQuickOrderPage"/>
+
+        <!--Click add to List with empty list-->
+        <click selector="{{StorefrontQuickOrderSection.addToList}}" stepKey="addToList"/>
+        <!--Verify assert message-->
+        <waitForElementVisible selector="{{StorefrontQuickOrderSection.errorMessage}}" stepKey="waitForErrorMessage"/>
+        <see selector="{{StorefrontQuickOrderSection.errorMessage}}" userInput="The uploaded CSV file does not contain a column labelled SKU. Make sure the first column is labelled SKU and that each line in the file contains a SKU value. Then upload the file again." stepKey="assertErrorMessage"/>
+        <dontSeeElement selector="{{StorefrontQuickOrderSection.addToCart}}" stepKey="verifyButtonAddToCartDisabled"/>
+    </test>
+</tests>

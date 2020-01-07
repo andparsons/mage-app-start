@@ -1,0 +1,13 @@
+<% if (data.tableError) { %>
+    <div class="quote-subtotal-table" data-role="error">
+        <div class="field-error">
+            <%- data.text %>
+        </div>
+    </div>
+<% } else { %>
+    <tr class="row-messages-error" data-role="error">
+        <td colspan="8">
+            <div class="message message-<%- data.type %>"><%- data.message %></div>
+        </td>
+    </tr>
+<% } %>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminCreateCustomerWithPrefixTest">
+        <!-- Two additional actions to perform before stepkey fillCustomerGroup below -->
+        <click selector="{{CustomerInformationSection.customerGroup}}" stepKey="clickToSeeGroups" before="waitForGroupsLoad"/>
+        <waitForPageLoad stepKey="waitForGroupsLoad" before="fillCustomerGroup"/>
+        <!-- Merge via stepKey -->
+        <click selector="{{CustomerInformationSection.customerGroupByName('Wholesale')}}" stepKey="fillCustomerGroup"/>
+    </test>
+</tests>

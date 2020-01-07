@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="StorefrontNegotiableQuoteSendMainSection">
+        <element name="successTitle" type="text" selector=".page-title"/>
+        <element name="quoteMessage" type="text" selector="div.negotiable-quote-success > p:nth-child(1)"/>
+        <element name="quoteNumber" type="text" selector="div.negotiable-quote-success > p > a > strong"/>
+        <element name="quoteMerchant" type="text" selector="div.negotiable-quote-success > p:nth-child(2)"/>
+    </section>
+</sections>

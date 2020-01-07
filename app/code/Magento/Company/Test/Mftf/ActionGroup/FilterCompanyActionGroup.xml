@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="FilterCompanyActionGroup">
+        <arguments>
+            <argument name="company"/>
+        </arguments>
+
+        <amOnPage url="{{AdminCompanyIndexPage.url}}" stepKey="goToCompanyIndexPage"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad"/>
+
+        <conditionalClick selector="{{AdminCompanyGridFiltersSection.clearFilters}}" dependentSelector="{{AdminCompanyGridFiltersSection.clearFilters}}" visible="true" stepKey="clickClearFilters"/>
+        <click selector="{{AdminCompanyGridFiltersSection.filtersButton}}" stepKey="openFilter"/>
+        <fillField userInput="{{company.company_name}}" selector="{{AdminCompanyGridFiltersSection.companyNameInput}}" stepKey="fillCompanyNameFilter"/>
+        <click selector="{{AdminCompanyGridFiltersSection.apply}}" stepKey="applyFilter"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoadingMaskToDisappear"/>
+    </actionGroup>
+    <actionGroup name="FilterCompanyFromGridActionGroup">
+        <arguments>
+            <argument name="companyName" type="string"/>
+        </arguments>
+        <amOnPage url="{{AdminCompanyIndexPage.url}}" stepKey="goToCompanyIndexPage"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad"/>
+        <conditionalClick selector="{{AdminCompanyGridFiltersSection.clearFilters}}" dependentSelector="{{AdminCompanyGridFiltersSection.clearFilters}}" visible="true" stepKey="clickClearFilters"/>
+        <click selector="{{AdminCompanyGridFiltersSection.filtersButton}}" stepKey="openFilter"/>
+        <fillField userInput="{{companyName}}" selector="{{AdminCompanyGridFiltersSection.companyNameInput}}" stepKey="fillCompanyNameFilter"/>
+        <click selector="{{AdminCompanyGridFiltersSection.apply}}" stepKey="applyFilter"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoadingMaskToDisappear"/>
+    </actionGroup>
+</actionGroups>

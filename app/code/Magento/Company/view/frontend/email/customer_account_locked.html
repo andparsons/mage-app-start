@@ -1,0 +1,14 @@
+<!--
+-->
+<!--@subject Your account is locked  @-->
+<!--@vars {
+"var customer.name":"Customer Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting company-greeting"><strong>{{trans "Dear %name," name=$customer.name}}</strong></p>
+<p>{{trans "Your account is no longer active. You will not be able to use it for login."}}</p>
+<p>{{trans "If this is a mistake, please contact the seller."}}</p>
+
+{{template config_path="design/email/footer_template"}}

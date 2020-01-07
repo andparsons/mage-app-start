@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/Test/etc/actionGroupSchema.xsd">
+    <!--Create New Wish List -->
+    <actionGroup name="CreateNewWishListActionGroup">
+        <arguments>
+            <argument name="name" type="string"/>
+        </arguments>
+        <waitForElementVisible selector="{{CreateNewWishListSection.wishListNameField}}" stepKey="waitForCreateNewWishListWindowAppeared"/>
+        <fillField  stepKey="fillFirstWishListName" userInput="{{name}}" selector="{{CreateNewWishListSection.wishListNameField}}"/>
+        <click selector="{{CreateNewWishListSection.saveButton}}" stepKey="clickSaveButtonForFirstWishList"/>
+        <waitForPageLoad stepKey="waitForFirstWishListCreated"/>
+    </actionGroup>
+    <actionGroup name="AddProductToWishlistActionGroup" extends="CreateNewWishListActionGroup">
+        <arguments>
+            <argument name="category" type="string" defaultValue="{{SimpleSubCategory.name}}"/>
+            <argument name="product" type="string" defaultValue="{{SimpleProduct.name}}"/>
+        </arguments>
+        <amOnPage url="{{StorefrontCategoryPage.url(category)}}" before="waitForCreateNewWishListWindowAppeared" stepKey="navigateToCategoryPage1"/>
+        <click selector="{{StorefrontCategoryMainSection.specifiedProductItemInfo(product)}}" after="navigateToCategoryPage1" stepKey="mouseHoverOnProduct"/>
+        <waitForPageLoad after="mouseHoverOnProduct" stepKey="waitForProdPageLoad"/>
+        <click selector="{{StorefrontCreateMultipleWishlistSection.wishListItem}}" after="waitForProdPageLoad"  stepKey="clickAddToWishListItem"/>
+        <click selector="{{StorefrontCreateMultipleWishlistSection.addNewWishListItem}}" after="clickAddToWishListItem"  stepKey="clickAddToWishListButton"/>
+        <waitForPageLoad stepKey="waitForPageToFullyLoad" time="30" after="clickAddToWishListButton"/>
+    </actionGroup>
+</actionGroups>

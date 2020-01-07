@@ -1,0 +1,20 @@
+<!--
+-->
+<!--@subject Your company account blocked  @-->
+<!--@vars {
+"var customer.name":"Customer Name",
+"var customer.companyName": "Company Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting company-greeting"><strong>{{trans "Dear %name," name=$customer.name}}</strong></p>
+<p>{{trans
+    "Your company account <strong>%company_name</strong> has been blocked.
+    Your company members can continue using the website,
+    but they will not be able to place orders."
+    company_name=$escaper.escapeHtml($customer.companyName)
+    |raw}}</p>
+<p>{{trans "If you have any questions, please contact the seller."}}</p>
+
+{{template config_path="design/email/footer_template"}}

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\NegotiableQuote\Model\Restriction\RestrictionInterface" type="Magento\NegotiableQuote\Model\Restriction\UserTypeRestriction" />
+    <type name="Magento\NegotiableQuote\Model\Restriction\UserTypeRestriction">
+        <arguments>
+            <argument name="restrictions" xsi:type="array">
+                <item name="1" xsi:type="object">Magento\NegotiableQuote\Model\Restriction\Admin</item>
+                <item name="2" xsi:type="object">Magento\NegotiableQuote\Model\Restriction\Admin</item>
+                <item name="3" xsi:type="object">Magento\NegotiableQuote\Model\Restriction\Customer</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Quote\Api\CartRepositoryInterface">
+        <plugin name="processNegotiableQuote" type="Magento\NegotiableQuote\Plugin\Quote\Api\ProcessNegotiableQuotePlugin"/>
+        <plugin name="quoteUpdateValidator" sortOrder="10" type="Magento\NegotiableQuote\Plugin\Quote\Model\QuoteUpdateValidator" />
+        <plugin name="negotiableQuoteRecalculate" sortOrder="20" type="Magento\NegotiableQuote\Plugin\Quote\Api\NegotiableQuoteRecalculate" />
+    </type>
+    <type name="Magento\Quote\Api\CartItemRepositoryInterface">
+        <plugin name="modifyNegotiableQuote" type="Magento\NegotiableQuote\Plugin\Quote\Api\ModifyNegotiableQuotePlugin" />
+    </type>
+</config>

@@ -1,0 +1,22 @@
+<!--
+-->
+<!--@subject Assigned to {{var customer.companyName}} as Company Admin @-->
+<!--@vars {
+"var this.getUrl($store, 'customer/account/')":"Customer Account URL",
+"var customer.email":"Customer Email",
+"var customer.companyName":"Company Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting"><strong>{{trans "Dear %name," name=$customer.name}}</strong></p>
+<p>{{trans
+    'You have been assigned to <a href="%customer_url">%company_name</a> as the Company Admin.'
+    customer_url=$this.getUrl($store,'customer/account/',[_nosid:1]) company_name=$customer.companyName
+    |raw}}</p>
+<p class="permissions">{{trans "When you sign in to your account, you can:"}}</p>
+<p>{{trans "* Create and manage company users and teams"}}</p>
+<p>{{trans "* Manage user permissions for the store"}}</p>
+<p>{{trans "* Create and manage company shipping and billing addresses"}}</p>
+
+{{template config_path="design/email/footer_template"}}

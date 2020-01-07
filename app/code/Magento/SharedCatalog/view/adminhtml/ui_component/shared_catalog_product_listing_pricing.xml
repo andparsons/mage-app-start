@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">shared_catalog_product_listing_pricing.shared_catalog_product_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <buttons/>
+        <spinner>shared_catalog_product_columns</spinner>
+        <deps>
+            <dep>shared_catalog_product_listing_pricing.shared_catalog_product_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="shared_catalog_product_listing_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_SharedCatalog/js/wizard/step/pricing/grid/provider</item>
+                <item name="priceStorage" xsi:type="string">${ $.ns}.${ $.ns}.additional.price_storage</item>
+                <item name="storageConfig" xsi:type="array">
+                    <item name="cacheRequests" xsi:type="boolean">false</item>
+                </item>
+            </item>
+        </argument>
+        <settings>
+            <filterUrlParams>
+                <param name="id">*</param>
+                <param name="configure_key">*</param>
+            </filterUrlParams>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Magento_SharedCatalog::list</aclResource>
+        <dataProvider class="Magento\SharedCatalog\Ui\DataProvider\Configure\Pricing" name="shared_catalog_product_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <container name="listing_top" template="Magento_SharedCatalog/grid/toolbar">
+        <bookmark name="bookmarks">
+            <settings>
+                <storageConfig>
+                    <param name="component" xsi:type="string">Magento_SharedCatalog/js/grid/controls/bookmarks/storage</param>
+                    <namespace>shared_catalog_product_listing_pricing</namespace>
+                </storageConfig>
+                <statefull>
+                    <property name="applied" xsi:type="boolean">false</property>
+                </statefull>
+            </settings>
+        </bookmark>
+        <container name="columns_controls" component="Magento_Ui/js/grid/controls/columns" displayArea="dataGridActions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="columnsData" xsi:type="array">
+                        <item name="provider" xsi:type="string">shared_catalog_product_listing_pricing.shared_catalog_product_listing_pricing.shared_catalog_product_columns</item>
+                    </item>
+                </item>
+            </argument>
+        </container>
+        <filters name="listing_filters" component="Magento_SharedCatalog/js/grid/filters/filters">
+            <settings>
+                <columnsProvider>shared_catalog_product_listing_pricing.shared_catalog_product_listing_pricing.shared_catalog_product_columns</columnsProvider>
+                <storageConfig>
+                    <namespace>current.filters</namespace>
+                    <provider>shared_catalog_product_listing_pricing.shared_catalog_product_listing_pricing.listing_top.bookmarks</provider>
+                </storageConfig>
+                <statefull>
+                    <property name="applied" xsi:type="boolean">false</property>
+                </statefull>
+            </settings>
+        </filters>
+        <component name="pricing_website_switcher" component="Magento_SharedCatalog/js/website/switcher">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="structureStoreSwitcher" xsi:type="string">structure_store_switcher</item>
+                    <item name="selectedWebsiteLabel" xsi:type="string" translate="true">Select</item>
+                    <item name="filterProvider" xsi:type="string">ns = shared_catalog_product_listing_pricing, index = listing_filters</item>
+                    <item name="websitesProvider" xsi:type="string">ns = shared_catalog_product_listing_pricing, index = websites</item>
+                    <item name="websitesFilterProvider" xsi:type="string">shared_catalog_product_listing_pricing.shared_catalog_product_listing_pricing.listing_top.listing_filters.websites</item>
+                </item>
+            </argument>
+        </component>
+        <massaction name="listing_massaction" component="Magento_SharedCatalog/js/grid/massactions/pricing">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="columnsProvider" xsi:type="string">shared_catalog_product_listing_pricing.shared_catalog_product_listing_pricing.shared_catalog_product_columns</item>
+                    <item name="clientConfig" xsi:type="array">
+                        <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <selectProvider>ns = shared_catalog_product_listing_pricing, index = ids</selectProvider>
+                <indexField>entity_id</indexField>
+            </settings>
+            <action name="discount">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="confirm" xsi:type="array">
+                            <item name="label" xsi:type="string" translate="true">Discount</item>
+                            <item name="promptClass" xsi:type="string" translate="true">discount-prompt</item>
+                        </item>
+                    </item>
+                </argument>
+                <settings>
+                    <confirm>
+                        <message translate="true">This discount will be applied to all selected products. The custom price type will be set to 'Discount'.</message>
+                        <title translate="true">Set Discount</title>
+                    </confirm>
+                    <url path="shared_catalog/sharedCatalog/configure_product_price_discount">
+                        <param name="_current">configure_key</param>
+                    </url>
+                    <type>discount</type>
+                    <label translate="true">Set Discount</label>
+                </settings>
+            </action>
+            <action name="adjust">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="confirm" xsi:type="array">
+                            <item name="label" xsi:type="string" translate="true">Discount</item>
+                            <item name="promptClass" xsi:type="string" translate="true">adjust-prices-prompt</item>
+                        </item>
+                    </item>
+                </argument>
+                <settings>
+                    <confirm>
+                        <message translate="true">This discount will be applied to all selected products. The custom price type will be set to 'Fixed'.</message>
+                        <title translate="true">Adjust Fixed Price</title>
+                    </confirm>
+                    <url path="shared_catalog/sharedCatalog/configure_product_price_adjust">
+                        <param name="_current">1</param>
+                    </url>
+                    <type>adjust</type>
+                    <label translate="true">Adjust Fixed Price</label>
+                </settings>
+            </action>
+        </massaction>
+        <paging name="listing_paging">
+            <settings>
+                <storageConfig>
+                    <namespace>current.paging</namespace>
+                    <provider>shared_catalog_product_listing_pricing.shared_catalog_product_listing_pricing.listing_top.bookmarks</provider>
+                </storageConfig>
+            </settings>
+        </paging>
+    </container>
+    <columns name="shared_catalog_product_columns">
+        <settings>
+            <childDefaults>
+                <param name="storageConfig" xsi:type="array">
+                    <item name="provider" xsi:type="string">shared_catalog_product_listing_pricing.shared_catalog_product_listing_pricing.listing_top.bookmarks</item>
+                    <item name="root" xsi:type="string">columns.${ $.index }</item>
+                    <item name="namespace" xsi:type="string">current.${ $.storageConfig.root}</item>
+                </param>
+            </childDefaults>
+            <storageConfig>
+                <namespace>current</namespace>
+                <provider>shared_catalog_product_listing_pricing.shared_catalog_product_listing_pricing.listing_top.bookmarks</provider>
+            </storageConfig>
+        </settings>
+        <selectionsColumn name="ids" component="Magento_SharedCatalog/js/grid/columns/multiselect" sortOrder="10">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="entity_id" sortOrder="20">
+            <settings>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="name" sortOrder="30">
+            <settings>
+                <filter>text</filter>
+                <addField>true</addField>
+                <label translate="true">Name</label>
+            </settings>
+        </column>
+        <column name="sku" sortOrder="40">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">SKU</label>
+            </settings>
+        </column>
+        <column name="type_id" component="Magento_Ui/js/grid/columns/select" sortOrder="50">
+            <settings>
+                <filter>select</filter>
+                <options class="Magento\Catalog\Model\Product\Type"/>
+                <dataType>select</dataType>
+                <label translate="true">Type</label>
+            </settings>
+        </column>
+        <column name="websites" component="Magento_Ui/js/grid/columns/select" sortOrder="55">
+            <settings>
+                <filter>select</filter>
+                <options class="Magento\SharedCatalog\Ui\DataProvider\Website"/>
+                <dataType>select</dataType>
+                <label translate="true">Websites</label>
+                <controlVisibility>false</controlVisibility>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="cost" class="Magento\Catalog\Ui\Component\Listing\Columns\Price" sortOrder="60">
+            <settings>
+                <addField>true</addField>
+                <label translate="true">Cost</label>
+                <fieldClass>
+                    <class name="configure-column-field-price">true</class>
+                </fieldClass>
+            </settings>
+        </column>
+        <column name="msrp" class="Magento\Catalog\Ui\Component\Listing\Columns\Price" sortOrder="70">
+            <settings>
+                <addField>true</addField>
+                <label translate="true">MSRP</label>
+                <fieldClass>
+                    <class name="configure-column-field-price">true</class>
+                </fieldClass>
+            </settings>
+        </column>
+        <column name="price" class="Magento\SharedCatalog\Ui\Component\Listing\Column\Configure\Price" component="Magento_SharedCatalog/js/grid/columns/price" sortOrder="80">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="specialProductTypes" xsi:type="array">
+                        <item name="simple" xsi:type="string">Magento_SharedCatalog/grid/cells/price/simple</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <filter>textRange</filter>
+                <addField>true</addField>
+                <label translate="true">Price</label>
+                <fieldClass>
+                    <class name="configure-column-field-price">true</class>
+                </fieldClass>
+            </settings>
+        </column>
+        <column name="custom_price" class="Magento\SharedCatalog\Ui\Component\Listing\Column\Configure\CustomPrice" component="Magento_SharedCatalog/js/grid/columns/custom-price" sortOrder="100">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="priceStorage" xsi:type="string">${ $.ns}.${ $.ns}.additional.price_storage</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Custom Price</label>
+                <sortable>false</sortable>
+                <controlVisibility>false</controlVisibility>
+                <fieldClass>
+                    <class name="configure-pricing-custom-price">true</class>
+                </fieldClass>
+            </settings>
+        </column>
+        <column name="new_price" class="Magento\SharedCatalog\Ui\Component\Listing\Column\Configure\Price" component="Magento_SharedCatalog/js/grid/columns/price" sortOrder="110">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="specialProductTypes" xsi:type="array">
+                        <item name="simple" xsi:type="string">Magento_SharedCatalog/grid/cells/price/simple</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">New Price</label>
+                <sortable>false</sortable>
+                <fieldClass>
+                    <class name="configure-column-field-price">true</class>
+                </fieldClass>
+            </settings>
+        </column>
+        <column name="tax_class_id" component="Magento_Ui/js/grid/columns/select" sortOrder="120">
+            <settings>
+                <filter>select</filter>
+                <addField>true</addField>
+                <options class="Magento\Tax\Model\TaxClass\Source\Product"/>
+                <dataType>select</dataType>
+                <label translate="true">Tax Class</label>
+            </settings>
+        </column>
+        <actionsColumn name="tier_price" class="Magento\SharedCatalog\Ui\Component\Listing\Column\Configure\TierPrice" sortOrder="130">
+            <settings>
+                <fieldClass>
+                    <class name="configure-column-field-tier-price">true</class>
+                </fieldClass>
+                <label>Tier Price</label>
+            </settings>
+        </actionsColumn>
+    </columns>
+    <container name="additional">
+        <component name="price_storage"
+                   class="Magento\SharedCatalog\Ui\Component\Listing\Pricing\PriceStorage"
+                   component="Magento_SharedCatalog/js/wizard/step/pricing/price/storage">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="providerName" xsi:type="string">${ $.ns}.shared_catalog_product_listing_data_source</item>
+                    <item name="columnsProvider" xsi:type="string">${ $.ns}.${ $.ns}.shared_catalog_product_columns</item>
+                    <item name="clientConfig" xsi:type="array">
+                        <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+        </component>
+        <component name="editor"
+                   component="Magento_SharedCatalog/js/wizard/step/pricing/grid/editor">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="priceStorage" xsi:type="string">${ $.ns}.${ $.ns}.additional.price_storage</item>
+                    <item name="stepWizardPricingName" xsi:type="string">catalog-steps-wizard_step_pricing</item>
+                    <item name="stepWizardName" xsi:type="string">catalog-steps-wizard</item>
+                    <item name="massactionName" xsi:type="string">${ $.ns}.${ $.ns}.listing_top.listing_massaction</item>
+                    <item name="tierPriceFormName" xsi:type="string">tier_price_modal.tier_price_form_renderer</item>
+                </item>
+            </argument>
+        </component>
+    </container>
+</listing>

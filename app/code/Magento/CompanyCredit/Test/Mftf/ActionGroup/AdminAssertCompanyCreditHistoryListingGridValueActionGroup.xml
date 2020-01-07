@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <!-- To use this action group you must be on company edit page -->
+    <actionGroup name="AdminAssertCompanyCreditHistoryListingGridValueActionGroup">
+        <arguments>
+            <argument name="columnName" type="string"/>
+            <argument name="columnValue" type="string"/>
+        </arguments>
+        <conditionalClick selector="{{AdminCompanyEditSection.customerCredit}}" dependentSelector="{{AdminCompanyEditSection.customerCredit}}" visible="true" stepKey="clickOnCustomerCreditTab"/>
+        <waitForElementVisible selector="{{AdminDataGridTableSection.column('columnName')}}" stepKey="waitForColumnVisible"/>
+        <see selector="{{AdminDataGridTableSection.column('columnName')}}" userInput="{{columnValue}}" stepKey="assertColumnValue"/>
+    </actionGroup>
+</actionGroups>

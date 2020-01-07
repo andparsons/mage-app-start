@@ -1,0 +1,24 @@
+<!--
+-->
+<div class="admin__actions-switch" data-role="switcher">
+    <input
+            class="admin__actions-switch-checkbox"
+            type="checkbox"
+            data-bind="
+                staticChecked: $row()[$col.index],
+                value: $row()[$col.indexField],
+                event: {
+                    change: function(){
+                        toggleAssign($row())
+                    }
+                },
+                attr: {
+                    id: 'assign' + $row()[$col.indexField]
+                }">
+    <label
+            class="admin__actions-switch-label"
+            data-bind="
+            attr: {
+                for: 'assign' + $row()[$col.indexField]
+            }"></label>
+</div>

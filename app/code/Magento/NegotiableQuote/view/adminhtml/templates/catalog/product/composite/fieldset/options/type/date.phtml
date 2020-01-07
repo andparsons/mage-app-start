@@ -1,0 +1,32 @@
+<?php
+?>
+<?php /* @var $block \Magento\Catalog\Block\Product\View\Options\Type\Date */ ?>
+<?php $option = $block->getOption(); ?>
+<?php $optionId = $option->getId(); ?>
+<div data-mage-init='{"Magento_NegotiableQuote/quote/create/configure-date": {
+    "id" : "<?= (int) $optionId ?>",
+    "condition" : "<?= (bool) $block->useCalendar() ?>",
+    "require" : "<?= (bool) $option->getIsRequire() ?>",
+    "monthOptions" : "#options_<?= (int) $optionId ?>_month",
+    "yearOptions" : "#options_<?= (int) $optionId ?>_year"
+}}' class="admin__field field<?= ($option->getIsRequire() ? ' _required' : '') ?>">
+    <label class="label admin__field-label">
+        <?= $block->escapeHtml($option->getTitle()) ?>
+        <?= /* @noEscape */ $block->getFormatedPrice() ?>
+    </label>
+    <div class="admin__field-control control">
+        <?php if ($option->getType() == \Magento\Catalog\Api\Data\ProductCustomOptionInterface::OPTION_TYPE_DATE_TIME
+            || $option->getType() == \Magento\Catalog\Api\Data\ProductCustomOptionInterface::OPTION_TYPE_DATE
+        ) : ?>
+            <?= $block->getDateHtml() ?>
+        <?php endif; ?>
+
+        <?php if ($option->getType() == \Magento\Catalog\Api\Data\ProductCustomOptionInterface::OPTION_TYPE_DATE_TIME
+            || $option->getType() == \Magento\Catalog\Api\Data\ProductCustomOptionInterface::OPTION_TYPE_TIME
+        ) : ?>
+            <span class="time-picker"><?= $block->getTimeHtml() ?></span>
+        <?php endif; ?>
+
+        <input type="hidden" name="validate_datetime_<?= (int) $optionId ?>" class="validate-datetime-<?= (int) $optionId ?>" value=""/>
+    </div>
+</div>

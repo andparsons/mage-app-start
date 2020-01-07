@@ -1,0 +1,88 @@
+<?php
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php /** @var $block \Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Shipping\Method */ ?>
+<?php
+$shippingRateGroups = $block->getShippingRates();
+$taxHelper = $this->helper(\Magento\Tax\Helper\Data::class);
+?>
+<div data-mage-init='{"Magento_NegotiableQuote/quote/actions/shipping-method-load":
+{"url": "<?= $block->escapeUrl($block->getShippingMethodUrl()) ?>"}}'
+     class="quote-wrap-shipping-method-summary"
+     data-role="quote-shipping-method-wrap">
+<?php if ($shippingRateGroups && ($rate = $block->getActiveMethodRate())) : ?>
+    <div data-action="shipping-method" id="quote-shipping-method-info" class="quote-shipping-method-info">
+        <dl class="admin__quote-shipment-methods">
+            <dt class="admin__quote-shipment-methods-title">
+                <?= $block->escapeHtml($block->getCarrierName($rate->getCarrier())) ?>
+            </dt>
+            <dd class="admin__quote-shipment-methods-options">
+                <?= $block->escapeHtml($rate->getMethodTitle() ?
+                    $rate->getMethodTitle() : $rate->getMethodDescription()) ?> -
+                <strong>
+                    <?php
+                    $priceWithoutTax = $block->getShippingPrice(
+                        $rate->getData('original_price'),
+                        $taxHelper->displayShippingPriceIncludingTax()
+                    );
+                    ?>
+                    <?php $priceWithTax = $block->getShippingPrice($rate->getData('original_price'), true); ?>
+
+                    <?= /* @noEscape */ $priceWithoutTax ?>
+                    <?php if ($taxHelper->displayShippingBothPrices() && $priceWithTax != $priceWithoutTax) : ?>
+                        (<?= $block->escapeHtml(__('Incl. Tax')) ?> <?= /* @noEscape */ $priceWithTax ?>)
+                    <?php endif; ?>
+                </strong>
+                <input name="quote[shipping_method]" type="radio" class="hidden"
+                    value="<?= $block->escapeHtmlAttr($rate->getCode()) ?>" checked="checked" />
+            </dd>
+        </dl>
+        <div>
+            <a data-action="get-shipping" href="#"
+               class="action-default<?= /* @noEscape */ !$block->canEdit() ? ' _disabled' : '' ?>">
+                <span><?= $block->escapeHtml(__('Click to change shipping method')) ?></span>
+            </a>
+        </div>
+        <div class="quote-shipping-proposed-price">
+            <div class="quote-shipment-proposed-price-title">
+                <?= $block->escapeHtml(__('Proposed Shipping Price')) ?>
+            </div>
+            <form class="quote-shipping-price-form"
+                  data-role="quote-shipping-price-form"
+                  data-mage-init='{"validation":{"errorClass": "admin__field-error"}}'>
+                <div class="admin__field-control">
+                    <div class="admin__control-addon addon">
+                        <input id="quote-shipping-price-input" class="admin__control-text"
+                               data-validate='{
+                                                "validate-zero-or-greater": true
+                                                }'
+                               data-role="shipping-price"
+                               type="text" name="quote[shipping_price]"
+                               value="<?= $block->escapeHtmlAttr($block->getProposedShippingPrice()) ?>"
+                            <?= /* @noEscape */ !$block->canEdit() ? ' disabled' : '' ?> />
+                        <label class="admin__addon-prefix">
+                            <?= $block->escapeHtml($block->getCurrencySymbol()); ?>
+                        </label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+<?php elseif ($block->getIsRateRequest()) : ?>
+    <div class="quote-shipping-method-summary">
+        <strong class="quote-shipping-method-not-available">
+            <?= $block->escapeHtml(__('Sorry, rates are not available for this quote..')) ?>
+        </strong>
+    </div>
+<?php else : ?>
+    <div data-action="shipping-method" id="quote-shipping-method-summary" class="quote-shipping-method-summary" >
+        <a data-action="get-shipping" href="#"
+           class="get-shipping-method-link action-default<?= /* @noEscape */ !$block->canEdit() ? ' _disabled' : '' ?>"
+            <?= /* @noEscape */ !$block->canEdit() ? ' tabindex="-1"' : ''; ?>">
+            <span><?= $block->escapeHtml(__('Get shipping methods and rates')) ?></span>
+        </a>
+        <input type="hidden" name="quote[has_shipping]" value="" class="required-entry" />
+    </div>
+<?php endif; ?>
+</div>

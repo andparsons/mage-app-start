@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="StorefrontCheckoutCartRequestQuoteSection">
+        <element name="requestQuoteForm" type="block" selector="#add-quote-form" timeout="30"/>
+        <element name="requestQuote" type="button" selector="button[data-role='create-negotiable-quote']"/>
+        <element name="requestQuoteName" type="input" selector="#quote-name"/>
+        <element name="requestQuoteMessage" type="input" selector="#quote-message"/>
+        <element name="sendRequest" type="button" selector="button[data-action='save-quote']" timeout="30"/>
+    </section>
+</sections>

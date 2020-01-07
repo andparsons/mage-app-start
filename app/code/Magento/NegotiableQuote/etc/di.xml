@@ -1,0 +1,337 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\NegotiableQuote\Api\Data\NegotiableQuoteInterface" type="Magento\NegotiableQuote\Model\NegotiableQuote" />
+    <preference for="Magento\NegotiableQuote\Api\Data\CommentInterface" type="Magento\NegotiableQuote\Model\Comment" />
+    <preference for="Magento\NegotiableQuote\Api\Data\CommentAttachmentInterface" type="Magento\NegotiableQuote\Model\CommentAttachment" />
+    <preference for="Magento\NegotiableQuote\Api\CommentLocatorInterface" type="Magento\NegotiableQuote\Model\CommentLocator" />
+    <preference for="Magento\NegotiableQuote\Model\CommentRepositoryInterface" type="Magento\NegotiableQuote\Model\CommentRepository" />
+    <preference for="Magento\NegotiableQuote\Model\CommentManagementInterface" type="Magento\NegotiableQuote\Model\CommentManagement" />
+    <preference for="Magento\NegotiableQuote\Api\NegotiableQuoteRepositoryInterface" type="Magento\NegotiableQuote\Model\NegotiableQuoteRepository" />
+    <preference for="Magento\NegotiableQuote\Api\NegotiableCartRepositoryInterface" type="Magento\NegotiableQuote\Model\NegotiableCartRepository" />
+    <preference for="Magento\NegotiableQuote\Api\NegotiableQuoteItemRepositoryInterface" type="Magento\NegotiableQuote\Model\NegotiableQuoteItemRepository" />
+    <preference for="Magento\NegotiableQuote\Api\NegotiableQuoteManagementInterface" type="Magento\NegotiableQuote\Model\NegotiableQuoteManagement" />
+    <preference for="Magento\NegotiableQuote\Api\NegotiableQuoteItemManagementInterface" type="Magento\NegotiableQuote\Model\NegotiableQuoteItemManagement" />
+    <preference for="Magento\NegotiableQuote\Api\CompanyQuoteConfigManagementInterface" type="Magento\NegotiableQuote\Model\CompanyQuoteConfigManagement" />
+    <preference for="Magento\NegotiableQuote\Api\Data\CompanyQuoteConfigInterface" type="Magento\NegotiableQuote\Model\CompanyQuoteConfig" />
+    <preference for="Magento\NegotiableQuote\Api\CompanyQuoteConfigRepositoryInterface" type="Magento\NegotiableQuote\Model\CompanyQuoteConfigRepository" />
+    <preference for="Magento\NegotiableQuote\Api\Data\HistoryInterface" type="Magento\NegotiableQuote\Model\History" />
+    <preference for="Magento\NegotiableQuote\Model\HistoryRepositoryInterface" type="Magento\NegotiableQuote\Model\HistoryRepository" />
+    <preference for="Magento\NegotiableQuote\Model\HistoryManagementInterface" type="Magento\NegotiableQuote\Model\HistoryManagement" />
+    <preference for="Magento\NegotiableQuote\Model\EmailSenderInterface" type="Magento\NegotiableQuote\Model\Email\Sender" />
+    <preference for="Magento\NegotiableQuote\Model\ResourceModel\QuoteGridInterface" type="Magento\NegotiableQuote\Model\ResourceModel\QuoteGrid" />
+    <preference for="Magento\NegotiableQuote\Model\Restriction\RestrictionInterface" type="Magento\NegotiableQuote\Model\Restriction\Customer" />
+    <preference for="Magento\NegotiableQuote\Model\Status\LabelProviderInterface" type="Magento\NegotiableQuote\Model\Status\FrontendLabelProvider" />
+    <preference for="Magento\NegotiableQuote\Api\Data\NegotiableQuoteItemInterface" type="Magento\NegotiableQuote\Model\NegotiableQuoteItem" />
+    <preference for="Magento\NegotiableQuote\Model\Attachment\DownloadPermission\AllowInterface" type="Magento\NegotiableQuote\Model\Attachment\DownloadPermission\AllowCustomer" />
+    <preference for="Magento\NegotiableQuote\Api\PaymentInformationManagementInterface" type="Magento\NegotiableQuote\Model\Webapi\Checkout\PaymentInformationManagement" />
+    <preference for="Magento\NegotiableQuote\Api\ShippingInformationManagementInterface" type="Magento\NegotiableQuote\Model\Webapi\Checkout\ShippingInformationManagement" />
+    <preference for="Magento\NegotiableQuote\Api\ShipmentEstimationInterface" type="Magento\NegotiableQuote\Model\Webapi\Quote\ShipmentEstimation" />
+    <preference for="Magento\NegotiableQuote\Api\ShippingMethodManagementInterface" type="Magento\NegotiableQuote\Model\Webapi\Quote\ShippingMethodManagement" />
+    <preference for="Magento\NegotiableQuote\Api\BillingAddressManagementInterface" type="Magento\NegotiableQuote\Model\Webapi\Quote\BillingAddressManagement" />
+    <preference for="Magento\NegotiableQuote\Api\CartTotalRepositoryInterface" type="Magento\NegotiableQuote\Model\Webapi\Quote\CartTotalRepository" />
+    <preference for="Magento\NegotiableQuote\Api\CouponManagementInterface" type="Magento\NegotiableQuote\Model\Webapi\Quote\CouponManagement" />
+    <preference for="Magento\NegotiableQuote\Api\GiftCardAccountManagementInterface" type="Magento\NegotiableQuote\Model\Webapi\GiftCardAccount\GiftCardAccountManagement" />
+    <preference for="Magento\NegotiableQuote\Api\Data\AttachmentContentInterface" type="Magento\NegotiableQuote\Model\AttachmentContent" />
+    <preference for="Magento\NegotiableQuote\Api\NegotiableQuotePriceManagementInterface" type="Magento\NegotiableQuote\Model\NegotiableQuotePriceManagement" />
+    <preference for="Magento\NegotiableQuote\Api\AttachmentContentManagementInterface" type="Magento\NegotiableQuote\Model\AttachmentContentManagement" />
+    <preference for="Magento\NegotiableQuote\Model\Validator\ValidatorInterface" type="Magento\NegotiableQuote\Model\Validator\Validator" />
+    <preference for="Magento\NegotiableQuote\Api\Data\NegotiableQuoteTotalsInterface" type="Magento\NegotiableQuote\Model\NegotiableQuoteTotals" />
+    <preference for="Magento\NegotiableQuote\Api\Data\NegotiableQuoteItemTotalsInterface" type="Magento\NegotiableQuote\Model\NegotiableQuoteItemTotals" />
+    <preference for="Magento\NegotiableQuote\Api\NegotiableQuoteShippingManagementInterface" type="Magento\NegotiableQuote\Model\NegotiableQuoteShippingManagement" />
+    <type name="Magento\Quote\Model\QuoteRepository\LoadHandler">
+        <plugin name="load_handler" type="Magento\NegotiableQuote\Model\Plugin\Quote\Model\LoadHandlerPlugin" />
+        <plugin name="shipping_method" type="Magento\NegotiableQuote\Plugin\Quote\Model\UpdateShippingMethodPlugin" />
+    </type>
+    <type name="Magento\Quote\Model\Quote\ShippingAssignment\ShippingAssignmentPersister">
+        <plugin name="shipping_assignment_persister" type="Magento\NegotiableQuote\Model\Plugin\Quote\Model\ShippingAssignmentPersisterPlugin" />
+    </type>
+    <type name="Magento\Quote\Api\CartRepositoryInterface">
+        <plugin name="quote_save" sortOrder="30"
+                type="Magento\NegotiableQuote\Model\Plugin\Quote\Model\QuoteRepositoryPlugin" />
+    </type>
+    <type name="Magento\Quote\Model\Quote">
+        <plugin name="negotiableQuoteAroundPlugin" type="Magento\NegotiableQuote\Plugin\Quote\Model\QuotePlugin" />
+    </type>
+    <type name="Magento\Checkout\Model\DefaultConfigProvider">
+        <plugin name="negotiable_quote_default_config_provider"
+                type="Magento\NegotiableQuote\Model\Plugin\Checkout\Model\DefaultConfigProviderPlugin" />
+    </type>
+    <type name="Magento\Quote\Model\Quote\Address">
+        <plugin name="after_address_collect_shipping_sates" type="Magento\NegotiableQuote\Model\Plugin\Quote\Model\Quote\AddressPlugin" />
+    </type>
+    <type name="Magento\Sales\Controller\Order\Reorder">
+        <plugin name="replaceQuoteItems" type="Magento\NegotiableQuote\Plugin\Sales\Controller\Order\ReorderPlugin" />
+    </type>
+    <type name="Magento\Checkout\Model\Cart">
+        <plugin name="cartPlugin" type="Magento\NegotiableQuote\Model\Plugin\Checkout\Model\CartPlugin" />
+    </type>
+    <type name="Magento\Checkout\Model\Session">
+        <plugin name="negotiableQuoteCheckoutSessionPlugin" type="Magento\NegotiableQuote\Model\Plugin\Checkout\Model\SessionPlugin" />
+    </type>
+    <type name="Magento\Framework\MessageQueue\MergerFactory">
+        <arguments>
+            <argument name="mergers" xsi:type="array">
+                <item name="negotiableQuotePriceUpdate" xsi:type="string">Magento\NegotiableQuote\Model\Merger</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="negotiable_quote_listing_data_source" xsi:type="string">Magento\NegotiableQuote\Model\ResourceModel\NegotiableQuote\Grid\Collection</item>
+                <item name="negotiable_quote_grid_data_source" xsi:type="string">Magento\NegotiableQuote\Model\ResourceModel\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Magento\NegotiableQuote\Model\ResourceModel\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">negotiable_quote_grid</argument>
+            <argument name="resourceModel" xsi:type="string">Magento\NegotiableQuote\Model\ResourceModel\QuoteGrid</argument>
+        </arguments>
+    </virtualType>
+    <!-- Company Quote Config plugins  -->
+    <type name="Magento\Company\Model\Company\DataProvider">
+        <plugin name="aroundGetSettingsData" type="Magento\NegotiableQuote\Model\Plugin\Company\Model\DataProvider" />
+    </type>
+    <type name="Magento\Company\Model\Company">
+        <plugin name="companyAfterLoad" type="Magento\NegotiableQuote\Model\Plugin\Company\Model\Company" />
+    </type>
+    <type name="Magento\Company\Api\CompanyRepositoryInterface">
+        <plugin name="quoteCompanyrepositoryPlugin" type="Magento\NegotiableQuote\Plugin\Company\Api\CompanyRepositoryInterfacePlugin" />
+    </type>
+    <type name="Magento\Customer\Api\CustomerRepositoryInterface">
+        <plugin name="aroundCustomerSave" type="Magento\NegotiableQuote\Model\Plugin\Customer\Model\CustomerRepository" />
+        <plugin name="aroundDeleteById" type="Magento\NegotiableQuote\Model\Plugin\Customer\Model\CustomerRepository" />
+    </type>
+    <type name="Magento\User\Model\User">
+        <plugin name="aroundAdminUserSave" type="Magento\NegotiableQuote\Model\Plugin\User\Model\User" />
+    </type>
+    <type name="Magento\Quote\Model\Cart\Totals\ItemConverter">
+        <plugin name="beforeModelToDataObject" type="Magento\NegotiableQuote\Plugin\Quote\Model\Cart\Totals\ItemConverterPlugin" />
+    </type>
+    <type name="Magento\ScalableCheckout\Console\Command\SplitQuote">
+        <arguments>
+            <argument name="tables" xsi:type="array">
+                <item name="negotiable_quote" xsi:type="string">negotiable_quote</item>
+                <item name="negotiable_quote_grid" xsi:type="string">negotiable_quote_grid</item>
+                <item name="negotiable_quote_comment" xsi:type="string">negotiable_quote_comment</item>
+                <item name="negotiable_quote_comment_attachment" xsi:type="string">negotiable_quote_comment_attachment</item>
+                <item name="negotiable_quote_item" xsi:type="string">negotiable_quote_item</item>
+                <item name="negotiable_quote_history" xsi:type="string">negotiable_quote_history</item>
+                <item name="negotiable_quote_purged_content" xsi:type="string">negotiable_quote_purged_content</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\NegotiableQuote\Model\ResourceModel\NegotiableQuote">
+        <arguments>
+            <argument name="connectionName" xsi:type="string">checkout</argument>
+        </arguments>
+    </type>
+    <type name="Magento\NegotiableQuote\Model\ResourceModel\QuoteGrid">
+        <arguments>
+            <argument name="connectionName" xsi:type="string">checkout</argument>
+        </arguments>
+    </type>
+    <type name="Magento\NegotiableQuote\Model\ResourceModel\Comment">
+        <arguments>
+            <argument name="connectionName" xsi:type="string">checkout</argument>
+        </arguments>
+    </type>
+    <type name="Magento\NegotiableQuote\Model\ResourceModel\CommentAttachment">
+        <arguments>
+            <argument name="connectionName" xsi:type="string">checkout</argument>
+        </arguments>
+    </type>
+    <type name="Magento\NegotiableQuote\Model\ResourceModel\NegotiableQuoteItem">
+        <arguments>
+            <argument name="connectionName" xsi:type="string">checkout</argument>
+        </arguments>
+    </type>
+    <type name="Magento\NegotiableQuote\Model\ResourceModel\History">
+        <arguments>
+            <argument name="connectionName" xsi:type="string">checkout</argument>
+        </arguments>
+    </type>
+    <type name="Magento\NegotiableQuote\Model\ResourceModel\PurgedContent">
+        <arguments>
+            <argument name="connectionName" xsi:type="string">checkout</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Customer\Controller\Address\FormPost">
+        <plugin name="redirectToQuote" type="Magento\NegotiableQuote\Plugin\Customer\Controller\Address\FormPostPlugin" />
+    </type>
+    <type name="Magento\Customer\Api\AddressRepositoryInterface">
+        <plugin name="saveQuoteAddress" type="Magento\NegotiableQuote\Plugin\Customer\SaveAddressPlugin" />
+    </type>
+    <type name="Magento\Customer\Block\Address\Edit">
+        <plugin name="getSaveUrl" type="Magento\NegotiableQuote\Plugin\Customer\Block\Address\EditPlugin" />
+    </type>
+    <type name="Magento\Sales\Model\Order">
+        <plugin name="forceNegotiableQuoteRules" type="Magento\NegotiableQuote\Plugin\Sales\Model\Order\ForceNegotiableQuoteRulesPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\NegotiableQuote\Helper\Quote">
+        <arguments>
+            <argument name="negotiableQuoteManagement" xsi:type="object">Magento\NegotiableQuote\Api\NegotiableQuoteManagementInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\NegotiableQuote\Model\NegotiableQuoteRepository">
+        <arguments>
+            <argument name="negotiableQuoteManagement" xsi:type="object">Magento\NegotiableQuote\Api\NegotiableQuoteManagementInterface\Proxy</argument>
+            <argument name="collectionProcessor" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface</argument>
+        </arguments>
+    </type>
+    <type name="Magento\NegotiableQuote\Model\Cart">
+        <arguments>
+            <argument name="sessionQuote" xsi:type="object">Magento\Backend\Model\Session</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Quote\Model\Product\QuoteItemsCleaner">
+        <plugin name="itemRemoveFromNegotiableQuotes" type="Magento\NegotiableQuote\Plugin\Quote\Model\QuoteItemPlugin" />
+    </type>
+    <type name="Magento\ScalableCheckout\Model\ResourceModel\Quote\Item\Consumer">
+        <plugin name="itemRemoveConsumerFromNegotiableQuotes" type="Magento\NegotiableQuote\Plugin\Quote\Model\QuoteItemConsumerPlugin" />
+    </type>
+    <type name="Magento\Company\Controller\Adminhtml\Index\Save">
+        <plugin name="negotiableQuoteSaveCompany" type="Magento\NegotiableQuote\Plugin\Company\Controller\Adminhtml\Index\SavePlugin" />
+    </type>
+    <type name="Magento\Checkout\Controller\Index\Index">
+        <plugin name="redirectNotSubmittedQuote" type="Magento\NegotiableQuote\Plugin\Checkout\Controller\Index\IndexPlugin"/>
+    </type>
+    <type name="Magento\Company\Model\Company\Structure">
+        <plugin name="companyStructurePlugin" type="Magento\NegotiableQuote\Plugin\Company\Model\StructurePlugin" />
+    </type>
+    <type name="Magento\Quote\Model\QuoteAddressValidator">
+        <plugin name="quoteAddressValidatorPlugin" type="Magento\NegotiableQuote\Plugin\Quote\Model\QuoteAddressValidatorPlugin" />
+    </type>
+    <type name="Magento\Quote\Api\CartTotalRepositoryInterface">
+        <plugin name="negotiableQuoteTotals" type="Magento\NegotiableQuote\Plugin\Quote\Api\JoinNegotiableQuoteTotalsPlugin" />
+    </type>
+    <type name="Magento\Company\Model\ResourcePool">
+        <arguments>
+            <argument name="resources" xsi:type="array">
+                <item name="negotiable_quote" xsi:type="string">Magento_NegotiableQuote::all</item>
+                <item name="negotiable_quote_view" xsi:type="string">Magento_NegotiableQuote::view_quotes</item>
+                <item name="negotiable_quote_manage" xsi:type="string">Magento_NegotiableQuote::manage</item>
+                <item name="negotiable_quote_checkout" xsi:type="string">Magento_NegotiableQuote::checkout</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\NegotiableQuote\Model\Email\LinkBuilder">
+        <arguments>
+            <argument name="frontendUrlBuilder" xsi:type="object">Magento\Framework\Url</argument>
+        </arguments>
+    </type>
+    <type name="Magento\NegotiableQuote\Model\Validator\Validator">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="new_quote" xsi:type="object">Magento\NegotiableQuote\Model\Validator\NewQuote</item>
+                <item name="customer" xsi:type="object">Magento\NegotiableQuote\Model\Validator\Customer</item>
+                <item name="files" xsi:type="object">Magento\NegotiableQuote\Model\Validator\Files</item>
+                <item name="quote_totals" xsi:type="object">Magento\NegotiableQuote\Model\Validator\QuoteTotals</item>
+                <item name="send_status" xsi:type="object">Magento\NegotiableQuote\Model\Validator\SendStatus</item>
+                <item name="edit_status" xsi:type="object">Magento\NegotiableQuote\Model\Validator\EditStatus</item>
+                <item name="checkout_status" xsi:type="object">Magento\NegotiableQuote\Model\Validator\CheckoutStatus</item>
+                <item name="close_status" xsi:type="object">Magento\NegotiableQuote\Model\Validator\CloseStatus</item>
+                <item name="decline_status" xsi:type="object">Magento\NegotiableQuote\Model\Validator\DeclineStatus</item>
+                <item name="negotiable_status_change" xsi:type="object">Magento\NegotiableQuote\Model\Validator\NegotiableStatusChange</item>
+                <item name="creator" xsi:type="object">Magento\NegotiableQuote\Model\Validator\Creator</item>
+                <item name="negotiable_price" xsi:type="object">Magento\NegotiableQuote\Model\Validator\NegotiablePrice</item>
+                <item name="expiration_date" xsi:type="object">Magento\NegotiableQuote\Model\Validator\ExpirationDate</item>
+            </argument>
+            <argument name="validateConfig" xsi:type="array">
+                <item name="create" xsi:type="array">
+                    <item name="0" xsi:type="string">new_quote</item>
+                    <item name="1" xsi:type="string">customer</item>
+                    <item name="2" xsi:type="string">files</item>
+                    <item name="3" xsi:type="string">quote_totals</item>
+                </item>
+                <item name="send" xsi:type="array">
+                    <item name="0" xsi:type="string">send_status</item>
+                    <item name="1" xsi:type="string">files</item>
+                </item>
+                <item name="edit" xsi:type="array">
+                    <item name="0" xsi:type="string">edit_status</item>
+                </item>
+                <item name="close" xsi:type="array">
+                    <item name="0" xsi:type="string">close_status</item>
+                </item>
+                <item name="decline" xsi:type="array">
+                    <item name="0" xsi:type="string">decline_status</item>
+                </item>
+                <item name="checkout" xsi:type="array">
+                    <item name="1" xsi:type="string">customer</item>
+                    <item name="0" xsi:type="string">checkout_status</item>
+                </item>
+                <item name="save" xsi:type="array">
+                    <item name="0" xsi:type="string">creator</item>
+                    <item name="1" xsi:type="string">negotiable_status_change</item>
+                    <item name="2" xsi:type="string">negotiable_price</item>
+                    <item name="3" xsi:type="string">expiration_date</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Config\Model\Config\TypePool">
+        <arguments>
+            <argument name="sensitive" xsi:type="array">
+                <item name="sales_email/quote/copy_to" xsi:type="string">1</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\NegotiableQuote\Model\History\LogProductInformation">
+        <arguments>
+            <argument name="productOptionsProviders" xsi:type="array">
+                <item name="simple" xsi:type="object">Magento\NegotiableQuote\Model\ProductOptionsProvider</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\NegotiableQuote\Model\PriceFormatter">
+        <arguments>
+            <argument name="priceCurrency" xsi:type="object">Magento\NegotiableQuote\Model\PriceCurrency</argument>
+        </arguments>
+    </type>
+    <type name="Magento\NegotiableQuote\Ui\Component\Listing\Column\PriceAdmin">
+        <arguments>
+            <argument name="priceFormatter" xsi:type="object">Magento\NegotiableQuote\Model\PriceCurrency</argument>
+        </arguments>
+    </type>
+    <type name="Magento\NegotiableQuote\Ui\Component\Listing\Column\Price">
+        <arguments>
+            <argument name="priceFormatter" xsi:type="object">Magento\NegotiableQuote\Model\PriceCurrency</argument>
+        </arguments>
+    </type>
+    <type name="Magento\NegotiableQuote\Block\Adminhtml\Order\Totals">
+        <arguments>
+            <argument name="priceCurrency" xsi:type="object">Magento\NegotiableQuote\Model\PriceCurrency</argument>
+        </arguments>
+    </type>
+    <type name="Magento\NegotiableQuote\Block\Quote\Totals">
+        <arguments>
+            <argument name="priceCurrency" xsi:type="object">Magento\NegotiableQuote\Model\PriceCurrency</argument>
+        </arguments>
+    </type>
+    <type name="Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Items\Grid">
+        <arguments>
+            <argument name="priceCurrency" xsi:type="object">Magento\NegotiableQuote\Model\PriceCurrency</argument>
+        </arguments>
+    </type>
+    <type name="Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Shipping\Method">
+        <arguments>
+            <argument name="priceCurrency" xsi:type="object">Magento\NegotiableQuote\Model\PriceCurrency</argument>
+        </arguments>
+    </type>
+    <type name="Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Totals\AbstractTotals">
+        <arguments>
+            <argument name="priceCurrency" xsi:type="object">Magento\NegotiableQuote\Model\PriceCurrency</argument>
+        </arguments>
+    </type>
+    <preference for="Magento\NegotiableQuote\Model\Quote\ViewAccessInterface"
+                type="Magento\NegotiableQuote\Model\Quote\ViewAccess" />
+    <type name="Magento\NegotiableQuote\Model\Quote\ViewAccess">
+        <arguments>
+            <argument name="restriction" xsi:type="object" shared="false">
+                Magento\NegotiableQuote\Model\Restriction\RestrictionInterface
+            </argument>
+        </arguments>
+    </type>
+</config>

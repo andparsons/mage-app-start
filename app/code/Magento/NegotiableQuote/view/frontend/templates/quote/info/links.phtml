@@ -1,0 +1,31 @@
+<?php
+
+/** @var $block \Magento\NegotiableQuote\Block\Quote\Info\Links */
+?>
+<div class="actions quote-view-links">
+    <?php if ($block->isAllowedManage()) : ?>
+        <a href="#"
+           data-post='<?= /* @noEscape */ $block->getCloseParams() ?>'
+           title="<?= $block->escapeHtmlAttr(__('Close quote')) ?>"
+           class="btn-close action close<?= /* @noEscape */ $block->isCloseAvailable()?'':' _disabled' ?>"
+           data-mobile-label="<?= $block->escapeHtmlAttr(__('Close quote')) ?>">
+            <span><?= $block->escapeHtml(__('Close quote')) ?></span>
+        </a>
+        <a class="action delete<?= /* @noEscape */ $block->isDeleteAvailable() ? '' : ' _disabled' ?>" href="#"
+           data-mage-init='{"Magento_NegotiableQuote/js/negotiable-quote": {"deleteLinkSelector": "#deleteLink"}}'
+           role="delete-quote" data-quote="1"
+            <?= /* @noEscape */ $block->isDeleteAvailable() ? '' : 'tabindex="-1"' ?>
+           data-mobile-label="<?= $block->escapeHtmlAttr(__('Delete')) ?>">
+            <span><?= $block->escapeHtml(__('Delete')) ?></span>
+        </a>
+        <a href="#" id="deleteLink"
+            <?= /* @noEscape */ $block->isDeleteAvailable() ? '' : 'tabindex="-1"' ?>
+           data-post='<?= /* @noEscape */ $block->getDeleteParams() ?>' ></a>
+    <?php endif; ?>
+    <a class="action print"
+       href="<?= $block->escapeUrl($block->getPrintUrl()) ?>"
+       data-mobile-label="<?= $block->escapeHtmlAttr(__('Print')) ?>"
+       target="_blank">
+        <span><?= $block->escapeHtml(__('Print')) ?></span>
+    </a>
+</div>

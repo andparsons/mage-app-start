@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="CheckMessageDisplayedForUsedCompanyTest">
+        <annotations>
+            <features value="B2B"/>
+            <stories value="Product availability"/>
+            <title value="Check that necessary message displayed if products not available for used company"/>
+            <description value="Check that necessary message displayed if products not available for used company"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="MC-12815"/>
+            <useCaseId value="MAGETWO-96418"/>
+            <group value="b2b"/>
+        </annotations>
+
+        <before>
+            <createData entity="B2BEnabledSharedCatalogConfig" stepKey="enableSharedCatalog"/>
+            <createData entity="B2BEnabledNegotiableQuoteConfig" stepKey="enableB2bQuote"/>
+            <createData entity="_defaultCategory" stepKey="createCategory"/>
+            <createData entity="_defaultProduct" stepKey="createProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="Simple_US_Customer_CA" stepKey="createCustomer"/>
+            <createData entity="Simple_US_Customer_CA" stepKey="createCompanyCustomer1"/>
+            <createData entity="Simple_US_Customer_CA" stepKey="createCompanyCustomer2"/>
+            <!-- Create new shared catalog 1 & 2 -->
+            <createData entity="FirstSharedCatalog" stepKey="sharedCatalogFirst"/>
+            <createData entity="SecondSharedCatalog" stepKey="sharedCatalogSecond"/>
+            <!--Create two Companies-->
+            <createData entity="Default_Company" stepKey="defaultCompany1">
+                <requiredEntity createDataKey="createCompanyCustomer1"/>
+            </createData>
+            <createData entity="AssignCompanyToSharedCatalog" stepKey="assignCompany1">
+                <requiredEntity createDataKey="sharedCatalogFirst"/>
+                <requiredEntity createDataKey="defaultCompany1"/>
+            </createData>
+
+            <createData entity="Ukraine_Company" stepKey="defaultCompany2">
+                <requiredEntity createDataKey="createCompanyCustomer2"/>
+            </createData>
+            <createData entity="AssignCompanyToSharedCatalog" stepKey="assignCompany2">
+                <requiredEntity createDataKey="sharedCatalogSecond"/>
+                <requiredEntity createDataKey="defaultCompany2"/>
+            </createData>
+
+            <!--Login As Admin-->
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+
+            <!--Assign SharedCatalog1 to Product-->
+            <amOnPage url="{{AdminProductIndexPage.url}}" stepKey="navigateToProductIndex"/>
+            <actionGroup ref="clearFiltersAdminDataGrid" stepKey="clearProductGridFilters"/>
+            <actionGroup ref="OpenEditProductOnBackendActionGroup" stepKey="openEditProduct">
+                <argument name="product" value="$$createProduct$$"/>
+            </actionGroup>
+            <actionGroup ref="AdminAssignSharedCatalogToProductActionGroup" stepKey="assignSharedCatalogToProduct">
+                <argument name="catalog" value="FirstSharedCatalog.name"/>
+            </actionGroup>
+            <actionGroup ref="saveProductForm" stepKey="saveProduct"/>
+
+            <!--Assign Company to Created Customer -->
+            <actionGroup ref="OpenEditCustomerFromAdminActionGroup" stepKey="editCustomer">
+                <argument name="customer" value="$$createCustomer$$"/>
+            </actionGroup>
+            <actionGroup ref="AdminAddAssociateCompanyToCustomerActionGroup" stepKey="assignCompanyToCustomer">
+                <argument name="company" value="Default_Company"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <!--Reset Changed Configurations-->
+            <createData entity="B2BDefaultConfig" stepKey="resetConfigurations"/>
+            <!--Delete Created Catalogs-->
+            <deleteData createDataKey="sharedCatalogFirst" stepKey="deleteSharedCatalog1"/>
+            <deleteData createDataKey="sharedCatalogSecond" stepKey="deleteSharedCatalog2"/>
+
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createProduct" stepKey="deleteProduct"/>
+            <!--Delete Companies-->
+            <deleteData createDataKey="defaultCompany1" stepKey="defaultCompany1"/>
+            <deleteData createDataKey="defaultCompany2" stepKey="defaultCompany2"/>
+            <!--Delete Customers-->
+            <deleteData createDataKey="createCustomer" stepKey="deleteCustomer"/>
+            <deleteData createDataKey="createCompanyCustomer1" stepKey="deleteCompany1"/>
+            <deleteData createDataKey="createCompanyCustomer2" stepKey="deleteCompany2"/>
+
+            <!--Clear Customer grid filters-->
+            <actionGroup ref="AdminClearCustomersFiltersActionGroup" stepKey="clearFilters"/>
+            <!--Clear products grid   -->
+            <amOnPage url="{{AdminProductIndexPage.url}}" stepKey="navigateToProductIndex"/>
+            <actionGroup ref="clearFiltersAdminDataGrid" stepKey="clearProductGridFilters"/>
+            <!-- Logout Admin -->
+            <actionGroup ref="logout" stepKey="logoutOfAdmin"/>
+            <!--Logout from customer account-->
+            <actionGroup ref="StorefrontCustomerLogoutActionGroup" stepKey="logoutCustomer"/>
+        </after>
+
+        <!--Sign in by created Customer to Storefront-->
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginCustomerOnStorefront">
+            <argument name="Customer" value="$$createCustomer$$"/>
+        </actionGroup>
+        <amOnPage url="{{StorefrontProductPage.url($$createProduct.custom_attributes[url_key]$$)}}" stepKey="goToProductPage" />
+        <waitForPageLoad stepKey="waitForProductPageLoad"/>
+        <actionGroup ref="addToCartFromStorefrontProductPage" stepKey="addToCartFromStorefrontProductPage">
+            <argument name="productName" value="$$createProduct.name$$"/>
+        </actionGroup>
+
+        <amOnPage url="{{CheckoutCartPage.url}}" stepKey="goToCart"/>
+        <click selector="{{StorefrontCheckoutCartRequestQuoteSection.requestQuote}}" stepKey="clickRequestQuote"/>
+        <waitForElementVisible selector="{{StorefrontCheckoutCartRequestQuoteSection.requestQuoteForm}}" stepKey="waitForVisibleRequestForm"/>
+
+        <!-- Fill "Quote name" and "Add your comment" sections -->
+        <fillField selector="{{StorefrontCheckoutCartRequestQuoteSection.requestQuoteName}}" userInput="test_quote"
+                   stepKey="fillFieldRequestQuoteName"/>
+        <fillField selector="{{StorefrontCheckoutCartRequestQuoteSection.requestQuoteMessage}}"
+                   userInput="test_quote comments" stepKey="fillFieldRequestQuoteMessage"/>
+
+        <!-- Click [Send Request] button -->
+        <click selector="{{StorefrontCheckoutCartRequestQuoteSection.sendRequest}}" stepKey="clickSendRequest"/>
+        <seeInCurrentUrl url="{{StorefrontNegotiableQuotePage.url}}" stepKey="seeCurrentUrl"/>
+
+        <!--Go to Admin and change Assigned Customer Company-->
+        <actionGroup ref="OpenEditCustomerFromAdminActionGroup" stepKey="editCustomer1">
+            <argument name="customer" value="$$createCustomer$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminAddAssociateCompanyToCustomerActionGroup" stepKey="assignCompanyToCustomer1">
+            <argument name="company" value="Ukraine_Company"/>
+        </actionGroup>
+
+        <!--Check Product on the Storefront for the Customer-->
+        <amOnPage url="{{StorefrontNegotiableQuotePage.url}}" stepKey="goToNegotiableQuotePage1"/>
+        <click selector="{{StorefrontMyQuoteGridSection.gridButtonAction}}" stepKey="clickViewButton2"/>
+        <dontSee userInput="{{$$createProduct.name$$}}" stepKey="dontSeeProductName1" />
+        <click selector="{{StorefrontNegotiableQuoteViewSection.historyLog}}" stepKey="clickHistoryLog"/>
+        <see userInput="$$createProduct.sku$$ - deleted from catalog" stepKey="seeThatProductWasDeleted"/>
+    </test>
+</tests>

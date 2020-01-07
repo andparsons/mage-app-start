@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../dev/tests/acceptance/vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/Page/etc/SectionObject.xsd">
+    <section name="AdminCompaniesSection">
+        <element name="selectAll" type="select" selector="th.data-grid-multicheck-cell>div>label"/>
+        <element name="delete" type="select" selector="div.admin__data-grid-header-row.row.row-gutter>div.col-xs-2>div>div>ul>li:nth-child(3)"/>
+    </section>
+</sections>

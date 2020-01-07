@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="magento_giftregistry_owner_email_template" label="New Registry" file="owner.html" type="html" module="Magento_GiftRegistry" area="frontend"/>
+    <template id="magento_giftregistry_sharing_email_template" label="Registry Sharing" file="sharing.html" type="html" module="Magento_GiftRegistry" area="frontend"/>
+    <template id="magento_giftregistry_update_email_template" label="Registry Update" file="update.html" type="html" module="Magento_GiftRegistry" area="frontend"/>
+</config>

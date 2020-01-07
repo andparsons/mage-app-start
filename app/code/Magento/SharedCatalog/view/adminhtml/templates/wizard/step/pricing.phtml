@@ -1,0 +1,57 @@
+<?php
+
+/** @var $block \Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Wizard\Step\Pricing */
+?>
+<div class="configure-pricing-block">
+    <h2 class="steps-wizard-title"><?= $block->escapeHtml(__('Step 2: Set Custom Prices')) ?></h2>
+</div>
+<?= $block->getChildHtml() ?>
+<div data-bind="scope: 'tier_price_modal'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "<?= $block->escapeJs($block->getComponentName()) ?>": {
+                        "component": "Magento_SharedCatalog/js/wizard/step/pricing",
+                        "providerName": "shared_catalog_product_listing_pricing.shared_catalog_product_listing_data_source",
+                        "treeProviderName": "shared_catalog_pricing_category_tree.provider",
+                        "massActionName": "shared_catalog_product_listing_pricing.shared_catalog_product_listing_pricing.listing_top.listing_massaction",
+                        "customPriceColumnName": "shared_catalog_product_listing_pricing.shared_catalog_product_listing_pricing.shared_catalog_product_columns.custom_price",
+                        "tierPriceFormRendererName": "tier_price_modal.tier_price_form_renderer",
+                        "appendTo": "<?= $block->escapeJs($block->getParentComponentName()) ?>"
+                    },
+                    "tier_price_modal": {
+                        "options": {
+                            "title": "Advanced Pricing",
+                            "type": "slide"
+                        },
+                        "component": "Magento_Ui/js/modal/modal-component",
+                        "children": {
+                            "tier_price_form_renderer": {
+                                "component": "Magento_SharedCatalog/js/form/insert-form",
+                                "ns": "shared_catalog_tier_price_form",
+                                "columnsProvider": "ns = shared_catalog_product_listing_pricing, index = shared_catalog_product_columns",
+                                "toolbarContainer": "${ $.parentName }",
+                                "externalProvider": "shared_catalog_tier_price_form.shared_catalog_tier_price_form_data_source",
+                                "autoRender": false,
+                                "formSubmitType": "ajax",
+                                "events": {
+                                    "afterUpdate": ["price-updated"]
+                                },
+                                "update_url": "<?= $block->escapeJs($block->getUrl('mui/index/render')) ?>",
+                                "render_url": "<?= $block->escapeJs($block->getUrl('mui/index_render/handle', [
+                                    'handle' => 'shared_catalog_tier_price',
+                                    'buttons' => 1,
+                                    '_current' => true
+                                ])); ?>"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+</script>

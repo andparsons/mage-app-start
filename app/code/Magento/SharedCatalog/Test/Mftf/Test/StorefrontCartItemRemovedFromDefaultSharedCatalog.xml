@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontCartItemRemovedFromDefaultSharedCatalog">
+        <annotations>
+            <stories value="Shared Catalog"/>
+            <features value="Managing Shared Catalog"/>
+            <title value="Product is deleted from cart if not included in shared catalog"/>
+            <description value="When a product in a customer's cart is removed from the public shared catalog, it is removed from their cart"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MC-12443"/>
+            <group value="sharedCatalog"/>
+            <skip>
+                <issueId value="MC-18607"/>
+            </skip>
+        </annotations>
+        <before>
+            <!--Create Category-->
+            <createData entity="ApiCategory" stepKey="category"/>
+
+            <!--Create Simple products-->
+            <createData entity="SimpleProduct" stepKey="simpleProduct1">
+                <field key="name">Simple Product1 forSharedCatalog</field>
+                <requiredEntity createDataKey="category"/>
+            </createData>
+            <createData entity="SimpleProduct" stepKey="simpleProduct2">
+                <field key="name">Simple Product2 forSharedCatalog</field>
+                <requiredEntity createDataKey="category"/>
+            </createData>
+            <createData entity="SimpleProduct" stepKey="simpleProduct3">
+                <field key="name">Simple Product3 forSharedCatalog</field>
+                <requiredEntity createDataKey="category"/>
+            </createData>
+
+            <!--Enable SharedCatalog-->
+            <magentoCLI command="config:set" arguments="btob/website_configuration/company_active 1" stepKey="enableCompany"/>
+            <magentoCLI command="config:set" arguments="btob/website_configuration/sharedcatalog_active 1" stepKey="enableSharedCatalog"/>
+        </before>
+        <after>
+            <deleteData createDataKey="category" stepKey="deleteCategory"/>
+            <deleteData createDataKey="simpleProduct1" stepKey="deleteSimpleProduct1"/>
+            <deleteData createDataKey="simpleProduct2" stepKey="deleteSimpleProduct2"/>
+            <deleteData createDataKey="simpleProduct3" stepKey="deleteSimpleProduct3"/>
+
+            <actionGroup ref="logout" stepKey="logoutFromAdmin"/>
+
+            <!--Disable SharedCatalog-->
+            <magentoCLI command="config:set" arguments="btob/website_configuration/company_active 0" stepKey="disableCompany"/>
+            <magentoCLI command="config:set" arguments="btob/website_configuration/sharedcatalog_active 0" stepKey="disableSharedCatalog"/>
+
+            <magentoCLI command="indexer:reindex" stepKey="reindexAfter"/>
+            <magentoCLI command="cache:flush" stepKey="cacheFlushAfter"/>
+        </after>
+
+        <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+
+        <!--Add products from precondition to default shared catalog-->
+        <comment userInput="Configure default shared catalog" stepKey="setupSharedCatalogComment"/>
+        <amOnPage url="{{AdminSharedCatalogIndexPage.url}}" stepKey="goToAdminSharedCatalogIndexPage"/>
+        <actionGroup ref="AdminFilterSharedCatalogByNameActionGroup" stepKey="filterSharedCatalog">
+            <argument name="sharedCatalogName" value="Default"/>
+        </actionGroup>
+        <click selector="{{AdminSharedCatalogsSection.select}}" stepKey="clickSelectButton"/>
+        <click selector="{{AdminSharedCatalogsSection.setPricingAndStructure}}" stepKey="clickOnSetPricingAndStructureItem"/>
+        <click selector="{{AdminSharedCatalogCatalogStructureSection.configureButton}}" stepKey="clickOnConfigureButton"/>
+        <!--Assign created products to Shared Catalog-->
+        <actionGroup ref="AdminSharedCatalogFilterProductsOnGridActionGroup" stepKey="filterProductsOnGrid">
+            <argument name="productName" value="forSharedCatalog"/>
+        </actionGroup>
+        <click selector="{{AdminSharedCatalogsSection.multiCheckForProductsAndCatalog}}" stepKey="clickMultiCheck"/>
+        <click selector="{{AdminSharedCatalogsSection.selectAllForProductsAndCatalog}}" stepKey="clickSelectAll"/>
+        <actionGroup ref="resetAdminDataGridToDefaultView" stepKey="resetProductFilter"/>
+
+        <click selector="{{AdminSharedCatalogCatalogStructureSection.nextButton}}" stepKey="clickNextButton"/>
+
+        <click selector="{{AdminSharedCatalogsSection.generateCatalog}}" stepKey="clickGenerateCatalog"/>
+        <click selector="{{AdminMainActionsSection.save}}" stepKey="clickSaveSharedCatalog"/>
+        <seeElement selector="{{AdminMessagesSection.success}}" stepKey="seeSuccessMessage"/>
+
+        <!--Run cron and reindex-->
+        <magentoCLI command="cron:run" stepKey="runCronToUpdateSharedCatalog"/>
+        <magentoCLI command="indexer:reindex" stepKey="runIndexerToUpdateSharedCatalog"/>
+        <magentoCLI command="cache:flush" stepKey="flushCacheToUpdateSharedCatalog"/>
+        <wait time="10" stepKey="waitForCatalogUpdate"/>
+
+        <!--Clear filters shared catalog grid-->
+        <actionGroup ref="clearFiltersAdminDataGrid" stepKey="clearFiltersSharedCatalogGrid"/>
+
+        <!--Go to storefront and add product to cart-->
+        <comment userInput="Storefront, view category and add product to cart" stepKey="storefrontAddProductComment"/>
+        <amOnPage url="/$$category.custom_attributes[url_key]$$.html" stepKey="goToCategoryPage"/>
+        <waitForPageLoad stepKey="waitForCategoryPageLoad"/>
+        <actionGroup ref="StorefrontCheckCategoryActionGroup" stepKey="seeProductsOnStorefront">
+            <argument name="category" value="$$category$$"/>
+            <argument name="productCount" value="3"/>
+        </actionGroup>
+        <click selector="{{StorefrontCategoryProductSection.ProductTitleByName($$simpleProduct1.name$$)}}" stepKey="goToProductPage"/>
+        <waitForPageLoad stepKey="waitForProductPageLoad"/>
+
+        <actionGroup ref="StorefrontAddProductToCartActionGroup" stepKey="addProduct1ToCart">
+            <argument name="product" value="$$simpleProduct1$$"/>
+            <argument name="productCount" value="1"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenCartFromMinicartActionGroup" stepKey="goToCart"/>
+        <actionGroup ref="StorefrontCheckCartSimpleProductActionGroup" stepKey="checkProductInCart">
+            <argument name="product" value="$$simpleProduct1$$"/>
+            <argument name="productQuantity" value="CONST.one"/>
+        </actionGroup>
+
+        <!--Remove product in cart from default shared catalog-->
+        <comment userInput="Remove product from shared catalog" stepKey="removeProductFromSharedCatalogComment"/>
+        <amOnPage url="{{AdminSharedCatalogIndexPage.url}}" stepKey="goToAdminSharedCatalogIndexPageRemoveProduct"/>
+        <actionGroup ref="AdminFilterSharedCatalogByNameActionGroup" stepKey="filterSharedCatalogRemoveProduct">
+            <argument name="sharedCatalogName" value="Default"/>
+        </actionGroup>
+        <click selector="{{AdminSharedCatalogsSection.select}}" stepKey="clickSelectButtonRemoveProduct"/>
+        <click selector="{{AdminSharedCatalogsSection.setPricingAndStructure}}" stepKey="clickOnSetPricingAndStructureItemRemoveProduct"/>
+        <click selector="{{AdminSharedCatalogCatalogStructureSection.configureButton}}" stepKey="clickOnConfigureButtonRemoveProduct"/>
+        <!--Assign created products to Shared Catalog-->
+        <actionGroup ref="AdminSharedCatalogFilterProductsOnGridActionGroup" stepKey="filterProductsOnGridSimpleProduct1">
+            <argument name="productName" value="$$simpleProduct1.name$$"/>
+        </actionGroup>
+        <click selector="{{AdminSharedCatalogsSection.multiCheckForProductsAndCatalog}}" stepKey="clickMultiCheckRemoveProduct"/>
+        <click selector="{{AdminSharedCatalogsSection.deselectAllForProductsAndCatalog}}" stepKey="clickDeselectAll"/>
+        <actionGroup ref="resetAdminDataGridToDefaultView" stepKey="resetProductFilterRemoveProduct"/>
+
+        <click selector="{{AdminSharedCatalogCatalogStructureSection.nextButton}}" stepKey="clickNextButtonRemoveProduct"/>
+
+        <click selector="{{AdminSharedCatalogsSection.generateCatalog}}" stepKey="clickGenerateCatalogRemoveProduct"/>
+        <click selector="{{AdminMainActionsSection.save}}" stepKey="clickSaveSharedCatalogRemoveProduct"/>
+        <seeElement selector="{{AdminMessagesSection.success}}" stepKey="seeSuccessMessageRemoveProduct"/>
+
+        <!--Run cron and reindex-->
+        <magentoCLI command="cron:run" stepKey="runCronToUpdateSharedCatalogRemoveProduct"/>
+        <magentoCLI command="indexer:reindex" stepKey="runIndexerToUpdateSharedCatalogRemoveProduct"/>
+        <magentoCLI command="cache:flush" stepKey="flushCacheToUpdateSharedCatalogRemoveProduct"/>
+        <wait time="10" stepKey="waitForCatalogUpdateAfterRemoveProduct"/>
+
+        <!--Go to storefront and see simpleProduct1 is not available and not in cart-->
+        <comment userInput="Check product removed from storefront and cart" stepKey="checkStorefrontComment"/>
+        <amOnPage url="/$$category.custom_attributes[url_key]$$.html" stepKey="goToCategoryPageAfterRemoveProduct"/>
+        <waitForPageLoad stepKey="waitForCategoryPageLoadAfterRemoveProduct"/>
+        <actionGroup ref="StorefrontCheckCategoryActionGroup" stepKey="seeProductsOnStorefrontAfterRemoveProduct">
+            <argument name="category" value="$$category$$"/>
+            <argument name="productCount" value="2"/>
+        </actionGroup>
+        <dontSeeElement selector="{{StorefrontCategoryProductSection.ProductTitleByName($$simpleProduct1.name$$)}}" stepKey="dontSeeRemovedProduct"/>
+        <actionGroup ref="assertMiniCartEmpty" stepKey="seeMinicartEmpty"/>
+    </test>
+</tests>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceBlock name="page.main.title">
+            <block class="Magento\Company\Block\Company\CompanyProfile" name="company_profile_edit_link"
+                   template="Magento_Company::company/management/profile/edit-link.phtml" before="-"/>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Magento\Company\Block\Company\CompanyProfile" name="company_profile"
+                   cacheable="false"
+                   ifconfig="btob/website_configuration/company_active"
+                   template="Magento_Company::company/management/profile/index.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="catalog">
+            <group id="search">
+                <field id="solr_server_hostname" translate="label" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Solr Server Hostname</label>
+                    <depends>
+                        <field id="engine">solr</field>
+                    </depends>
+                </field>
+                <field id="solr_server_port" translate="label" type="text" sortOrder="52" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Solr Server Port</label>
+                    <depends>
+                        <field id="engine">solr</field>
+                    </depends>
+                </field>
+                <field id="solr_server_username" translate="label" type="text" sortOrder="53" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Solr Server Username</label>
+                    <depends>
+                        <field id="engine">solr</field>
+                    </depends>
+                </field>
+                <field id="solr_server_password" translate="label" type="text" sortOrder="54" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Solr Server Password</label>
+                    <depends>
+                        <field id="engine">solr</field>
+                    </depends>
+                </field>
+                <field id="solr_server_timeout" translate="label" type="text" sortOrder="55" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Solr Server Timeout</label>
+                    <depends>
+                        <field id="engine">solr</field>
+                    </depends>
+                </field>
+                <field id="solr_server_path" translate="label comment" type="text" sortOrder="56" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Solr Server Path</label>
+                    <comment>Without starting and trailing slashes.</comment>
+                    <depends>
+                        <field id="engine">solr</field>
+                    </depends>
+                </field>
+                <field id="engine_commit_mode" translate="label comment" type="select" sortOrder="57" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Indexation Mode</label>
+                    <source_model>Magento\Solr\Model\Adminhtml\Source\IndexationMode</source_model>
+                    <comment>Partial commit mode affects time of indexation, but allows indexed products to be visible on Storefront before indexation is completed.</comment>
+                    <depends>
+                        <field id="engine">solr</field>
+                    </depends>
+                </field>
+                <field id="solr_test_connect_wizard" translate="button_label" sortOrder="58" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label></label>
+                    <button_label>Test Connection</button_label>
+                    <frontend_model>Magento\Solr\Block\Adminhtml\System\Config\TestConnection</frontend_model>
+                    <depends>
+                        <field id="engine">solr</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

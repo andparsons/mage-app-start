@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="AdminSearchAndFilterQuotesSection">
+        <element name="filters" type="button" selector="button[data-action='grid-filter-expand']" timeout="10"/>
+        <element name="filterByQuoteName" type="input" selector="input[name='quote_name']"/>
+        <element name="filterByCompanyName" type="input" selector="input[name='company_name']"/>
+        <element name="applyFilters" type="button" selector="div.admin__footer-main-actions > button.action-secondary"/>
+        <element name="clearAll" type="button" selector="button[data-action='grid-filter-reset']"/>
+    </section>
+</sections>

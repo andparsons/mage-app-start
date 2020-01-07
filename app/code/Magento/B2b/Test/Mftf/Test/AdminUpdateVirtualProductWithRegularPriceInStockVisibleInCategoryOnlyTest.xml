@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminUpdateVirtualProductWithRegularPriceInStockVisibleInCategoryOnlyTest">
+        <remove keyForRemoval="selectProductTierPriceCustomerGroupInput"/>
+        <remove keyForRemoval="seeProductTierPriceCustomerGroupInput"/>
+
+        <!-- Merge point 1: B2B has a different way of selecting the customer group -->
+        <click selector="{{AdminProductFormAdvancedPricingSection.productTierPriceCustGroupSelect('0')}}" stepKey="clickProductTierPriceCustGroupSelect1" after="selectProductTierPriceWebsiteInput"/>
+        <waitForElement selector="{{AdminProductFormAdvancedPricingSection.productTierPriceGroupOrCatalogOptionByIndex('0', tierPriceOnVirtualProduct.customer_group)}}" time="30" stepKey="waitProductTierPriceGroupOrCatalogOption1" after="clickProductTierPriceCustGroupSelect1"/>
+        <click selector="{{AdminProductFormAdvancedPricingSection.productTierPriceGroupOrCatalogOptionByIndex('0', tierPriceOnVirtualProduct.customer_group)}}" stepKey="clickProductTierPriceGroupOrCatalogOption1" after="waitProductTierPriceGroupOrCatalogOption1"/>
+
+        <!-- Merge point 2: We should see this in a div, not in a input field. So we cannot use seeInField as the original test does -->
+        <see selector="{{AdminProductFormAdvancedPricingSection.productTierPriceCustGroupSelect('0')}}" userInput="{{tierPriceOnVirtualProduct.customer_group}}" stepKey="seeCustGroup" after="seeProductTierPriceWebsiteInput"/>
+    </test>
+</tests>

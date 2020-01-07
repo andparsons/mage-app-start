@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="CreateCompanyWithOptionalRegionTest">
+        <annotations>
+            <features value="B2B"/>
+            <stories value="Creating a company with optional region setting"/>
+            <title value="Creating a company with optional region setting"/>
+            <description value="Admin should be to create a company with optional region setting"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MAGETWO-94110"/>
+            <group value="b2b"/>
+        </annotations>
+
+        <before>
+            <!--Login As Admin-->
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+
+            <!--Disallow State For Country-->
+            <actionGroup ref="DisallowChoosingStateActionGroup" stepKey="disallowStateForCountry"/>
+        </before>
+
+        <!--Create Company Without State-->
+        <actionGroup ref="CreateCompanyWithoutStateActionGroup" stepKey="CreateCompany"/>
+
+        <after>
+            <!--Cleanup Changed Configurations-->
+            <actionGroup ref="CleanupConfigurationsForDisallowChoosingStateActionGroup" stepKey="CleanupConfigurations"/>
+            <!--Delete Company-->
+            <actionGroup ref="DeleteCompanyActionGroup" stepKey="DeleteCompany"/>
+        </after>
+
+
+    </test>
+</tests>

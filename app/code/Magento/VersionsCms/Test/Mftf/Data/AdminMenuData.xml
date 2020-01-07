@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="AdminMenuContentElementsPages">
+        <data key="dataUiId">magento-versionscms-versionscms-page-page</data>
+    </entity>
+    <entity name="AdminMenuContentElementsHierarchy">
+        <data key="pageTitle">Hierarchy</data>
+        <data key="title">Hierarchy</data>
+        <data key="dataUiId">magento-versionscms-versionscms-page-hierarchy</data>
+    </entity>
+</entities>

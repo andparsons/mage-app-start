@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../dev/tests/acceptance/vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/Page/etc/SectionObject.xsd">
+    <section name="AdminB2BConfigSection">
+        <element name="b2bFeatures" type="select" selector="#system_config_tabs a.item-nav[href*='section/btob/']>span"/>
+        <element name="company" type="select" selector="#btob_website_configuration_company_active"/>
+        <element name="sharedCatalog" type="select" selector="#btob_website_configuration_sharedcatalog_active"/>
+    </section>
+</sections>

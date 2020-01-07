@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="SetTierPricePercentDiscountViaSharedCatalogActionGroup">
+        <arguments>
+            <argument name="websiteName" type="string" defaultValue="All Websites [USD]"/>
+            <argument name="quantity" type="string" defaultValue="1"/>
+            <argument name="amount" type="string" defaultValue="45"/>
+            <argument name="index" type="string" defaultValue="0"/>
+        </arguments>
+        <click selector="{{AdminProductFormAdvancedPricingSection.customerGroupPriceAddButton}}" stepKey="addCustomerGroupAllGroupsQty1PriceDiscountAnd10percent"/>
+        <waitForElement selector="{{AdminSharedCatalogAdvancedPricingSection.website('index')}}" stepKey="waitForSelectWebsiteDisplay"/>
+        <selectOption selector="{{AdminSharedCatalogAdvancedPricingSection.website('index')}}" userInput="{{websiteName}}" stepKey="selectWebsiteValue"/>
+        <fillField selector="{{AdminSharedCatalogAdvancedPricingSection.quantity('index')}}" userInput="{{quantity}}" stepKey="fillTierPriceQtyInput"/>
+        <selectOption selector="{{AdminSharedCatalogAdvancedPricingSection.discountType('index')}}" userInput="Discount" stepKey="selectDiscountPrice"/>
+        <fillField selector="{{AdminSharedCatalogAdvancedPricingSection.percentDiscountInput('index')}}" userInput="{{amount}}" stepKey="selectProductTierPricePriceInput"/>
+        <click selector="{{AdminSharedCatalogAdvancedPricingSection.done}}" stepKey="clickDoneButton"/>
+    </actionGroup>
+</actionGroups>

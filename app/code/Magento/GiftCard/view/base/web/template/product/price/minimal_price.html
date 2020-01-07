@@ -1,0 +1,13 @@
+<!--
+-->
+<span class="price-container">
+    <span if="label && !isMinEqualToMax($row())"
+          class="price-label"
+          text="label"/>
+
+    <span if="hasMinValue($row()) || isMinEqualToMax($row())"
+          class="price-wrapper"
+          css="priceWrapperCssClasses"
+          attr="priceWrapperAttr"
+          html="getMinValue($row())"/>
+</span>

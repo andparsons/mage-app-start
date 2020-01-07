@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<operations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataOperation.xsd">
+    <operation name="CategoryToAssign" dataType="category_to_assign" type="create">
+        <field key="id">integer</field>
+    </operation>
+    <operation name="ProductToAssign" dataType="product_to_assign" type="create">
+        <field key="sku">string</field>
+    </operation>
+    <operation name="CompanyToAssign" dataType="company_to_assign" type="create">
+        <field key="id">string</field>
+    </operation>
+</operations>

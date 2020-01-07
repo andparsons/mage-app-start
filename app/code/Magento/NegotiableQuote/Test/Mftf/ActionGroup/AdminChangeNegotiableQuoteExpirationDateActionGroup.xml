@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminChangeNegotiableQuoteExpirationDateActionGroup">
+        <arguments>
+            <argument name="expirationDate" type="string"/>
+        </arguments>
+        <fillField selector="{{AdminNegotiableQuoteViewSection.expirationDate}}" userInput="{{expirationDate}}" stepKey="fillExpirationDate"/>
+        <click selector="{{AdminNegotiableQuoteViewSection.sendQuote}}" stepKey="clickSend"/>
+        <see selector="{{AdminMessagesSection.warningMessage}}" userInput="This quote is currently locked for editing. It will become available once released by the buyer." stepKey="seeWarningMessage"/>
+    </actionGroup>
+</actionGroups>

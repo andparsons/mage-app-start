@@ -1,0 +1,23 @@
+<!--
+-->
+<!--@subject {{trans "%company_name credit limit updated" company_name=$companyCredit.companyName}} @-->
+<!--@vars {
+"var companyCredit.customerName":"Customer Name",
+"var companyCredit.availableCredit":"Company Credit Amount",
+"var companyCredit.outStandingBalance":"Company Outstanding Balance Amount",
+"var companyCredit.exceedLimit":"Allow to exceed credit limit",
+"var companyCredit.companyName":"Company Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting company-greeting"><strong>{{trans "Dear %name," name=$companyCredit.customerName}}</strong></p>
+<p>{{trans "Your credit limit has been updated and is now %available_credit.
+    Your outstanding balance currently totals %outstanding_balance. You are %exceed_limit to exceed the credit limit."
+    available_credit=$companyCredit.availableCredit
+    outstanding_balance=$companyCredit.outStandingBalance
+    exceed_limit=$companyCredit.exceedLimit
+    }}</p>
+<p>{{trans "The history of your credit operations is available on the Company Credit page."}}</p>
+
+{{template config_path="design/email/footer_template"}}

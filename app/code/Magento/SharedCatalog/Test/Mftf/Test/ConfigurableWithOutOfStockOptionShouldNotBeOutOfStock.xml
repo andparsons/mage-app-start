@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="ConfigurableWithOutOfStockOptionShouldNotBeOutOfStock">
+        <annotations>
+            <title value="Configurable product should be out of stock in shared catalog if all children in current shared catalog are out of stock"/>
+            <description value="If all configurable product children in shared catalog is out of stock, configurable product should be out of stock"/>
+            <stories value="Shared Catalog"/>
+            <features value="Shared Catalog"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="MAGETWO-99147"/>
+            <useCaseId value="MAGETWO-99123"/>
+            <group value="sharedCatalog"/>
+        </annotations>
+        <before>
+            <createData entity="B2BEnabledSharedCatalogConfig" stepKey="enableSharedCatalog"/>
+            <magentoCLI command="config:set {{StockOptionsDisplayOutOfStockProductsEnable.path}} {{StockOptionsDisplayOutOfStockProductsEnable.value}}" stepKey="setDisplayOutOfStockProduct" />
+            <createData entity="ApiCategory" stepKey="createCategory"/>
+            <!--Create Configurable product-->
+            <actionGroup ref="AdminCreateApiConfigurableProductActionGroup" stepKey="createConfigurableProduct"/>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+        </before>
+        <after>
+            <!--Delete configurable product-->
+            <deleteData createDataKey="createConfigProductCreateConfigurableProduct" stepKey="deleteConfigProduct"/>
+            <deleteData createDataKey="createConfigChildProduct1CreateConfigurableProduct" stepKey="deleteConfigChildProduct"/>
+            <deleteData createDataKey="createConfigChildProduct2CreateConfigurableProduct" stepKey="deleteConfigChildProduct1"/>
+            <deleteData createDataKey="createConfigProductAttributeCreateConfigurableProduct" stepKey="deleteConfigProductAttribute"/>
+            <createData entity="B2BDefaultConfig" stepKey="disableSharedCatalog"/>
+            <magentoCLI command="config:set {{StockOptionsDisplayOutOfStockProductsDisable.path}} {{StockOptionsDisplayOutOfStockProductsDisable.value}}" stepKey="setDoNotDisplayOutOfStockProduct" />
+            <deleteData createDataKey="createCategory" stepKey="deleteApiCategory"/>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+        <!--Assign configurable product to shared catalog and category-->
+        <amOnPage url="{{AdminProductEditPage.url($$createConfigProductCreateConfigurableProduct.id$$)}}" stepKey="goToConfigurableProductEditPage"/>
+        <actionGroup ref="SetCategoryByName" stepKey="assignCategory">
+            <argument name="categoryName" value="$$createCategory.name$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminAssignSharedCatalogToProductActionGroup" stepKey="assignSharedCatalogToConfigurableProduct">
+            <argument name="catalog" value="DefaultSharedCatalog.name"/>
+        </actionGroup>
+        <actionGroup ref="saveProductForm" stepKey="saveConfigurableProduct"/>
+        <!--Assign child product to shared catalog and it to set out of stock-->
+        <amOnPage url="{{AdminProductEditPage.url($$createConfigChildProduct1CreateConfigurableProduct.id$$)}}" stepKey="goToChildProductEditPage"/>
+        <selectOption selector="{{AdminProductFormSection.productStockStatus}}" userInput="Out of Stock" stepKey="selectOutOfStockStatusToChildProduct"/>
+        <actionGroup ref="AdminAssignSharedCatalogToProductActionGroup" stepKey="assignSharedCatalogToProduct">
+            <argument name="catalog" value="DefaultSharedCatalog.name"/>
+        </actionGroup>
+        <actionGroup ref="saveProductForm" stepKey="saveChildProduct"/>
+        <!-- Check that configurable product has out of stock status on frontend-->
+        <amOnPage url="{{StorefrontCategoryPage.url($$createCategory.custom_attributes[url_key]$$)}}" stepKey="onCategoryPage"/>
+        <moveMouseOver selector="{{StorefrontCategoryProductSection.ProductInfoByName($$createConfigProductCreateConfigurableProduct.name$$)}}" stepKey="moveMouseOverProduct" />
+        <seeElement selector="{{StorefrontCategoryProductSection.ProductStockUnavailable}}" stepKey="seeProductOutOfStockOnCategoryPage" />
+        <amOnPage url="{{StorefrontProductPage.url($$createConfigProductCreateConfigurableProduct.custom_attributes[url_key]$$)}}" stepKey="amOnProductPage"/>
+        <see selector="{{StorefrontProductInfoMainSection.productName}}" userInput="$$createConfigProductCreateConfigurableProduct.name$$" stepKey="seeProductNameInStoreFront"/>
+        <see selector="{{StorefrontProductInfoMainSection.productStockStatus}}" userInput="Out of stock" stepKey="seeProductStatusIsOutOfStock"/>
+        <dontSee selector="{{StorefrontProductInfoMainSection.productAttributeOptionsSelectButton}}" stepKey="dontSeeOptionsSelect"/>
+    </test>
+</tests>

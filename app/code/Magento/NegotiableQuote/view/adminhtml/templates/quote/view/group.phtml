@@ -1,0 +1,10 @@
+<?php
+?>
+<?php /** @var $block \Magento\NegotiableQuote\Block\Adminhtml\Quote\View\CustomerGroup */ ?>
+<tr>
+    <th>
+        <?= $block->escapeHtml(__('Customer Group')) ?></th>
+    <td>
+        <a href="<?= $block->escapeUrl($block->getGroupUrl()) ?>"><?= $block->escapeHtml($block->getGroupName()) ?></a>
+    </td>
+</tr>

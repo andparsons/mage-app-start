@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="EnableCompanyCreditData">
+        <data key="path">payment/companycredit/active</data>
+        <data key="scope_id">0</data>
+        <data key="label">Yes</data>
+        <data key="value">1</data>
+    </entity>
+    <entity name="DisableCompanyCreditData">
+        <!-- Magento default value -->
+        <data key="path">payment/companycredit/active</data>
+        <data key="scope_id">0</data>
+        <data key="label">No</data>
+        <data key="value">0</data>
+    </entity>
+    <entity name="EnableCompanyCreditOrderStatusProcessing">
+        <data key="path">payment/companycredit/order_status</data>
+        <data key="scope_id">0</data>
+        <data key="label">Processing</data>
+        <data key="value">processing</data>
+    </entity>
+    <entity name="EnableCompanyCreditOrderStatusPending">
+        <!-- Magento default value -->
+        <data key="path">payment/companycredit/order_status</data>
+        <data key="scope_id">0</data>
+        <data key="label">Pending</data>
+        <data key="value">pending</data>
+    </entity>
+    <entity name="EnableSpecificPaymentMethod">
+        <data key="path">btob/default_b2b_payment_methods/applicable_payment_methods</data>
+        <data key="scope_id">0</data>
+        <data key="label">Specific Payment Methods</data>
+        <data key="value">1</data>
+    </entity>
+    <entity name="DisableSpecificPaymentMethod">
+        <!-- Magento default value -->
+        <data key="path">btob/default_b2b_payment_methods/applicable_payment_methods</data>
+        <data key="scope_id">0</data>
+        <data key="label">All Enabled Payment Methods</data>
+        <data key="value">0</data>
+    </entity>
+    <entity name="SelectSpecificPaymentMethodPaymentOnAccount">
+        <data key="path">btob/default_b2b_payment_methods/available_payment_methods</data>
+        <data key="scope_id">0</data>
+        <data key="label">Payment on Account</data>
+        <data key="value">companycredit</data>
+    </entity>
+</entities>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="AdminCartPriceRulesFormSection">
+        <element name="customerGroups" type="text" selector="div.admin__action-multiselect-text"/>
+        <element name="customerGroupsInput" type="input" selector="input.admin__control-text.admin__action-multiselect-search"/>
+        <element name="customerGroupsFirstResult" type="text" selector="label.admin__action-multiselect-label"/>
+        <element name="customerGroupsSelectAll" type="button" selector="button[data-action='select-all']"/>
+        <element name="customerGroupsDoneBtn" type="button" selector="button.action-secondary"/>
+    </section>
+</sections>
+

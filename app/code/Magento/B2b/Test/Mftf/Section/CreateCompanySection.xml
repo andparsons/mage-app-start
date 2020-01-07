@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="CreateCompanySection">
+        <element name="customers" type="button" selector="#menu-magento-customer-customer"/>
+        <element name="companies" type="button" selector="//li[@data-ui-id='menu-magento-company-company-index']"/>
+        <element name="addNewCompany" type="button" selector="#add"/>
+        <element name="companyName" type="input" selector="//input[@name='general[company_name]']"/>
+        <element name="status" type="select" selector="//select[@name='general[status]']"/>
+        <element name="active" type="button" selector="//option[@data-title='Active']"/>
+        <element name="companyEmail" type="input" selector="//input[@name='general[company_email]']"/>
+        <element name="salesRepresentative" type="select" selector="//select[@name='general[sales_representative_id]']"/>
+        <element name="selectAdmin" type="select" selector="//option[@data-title='admin']"/>
+        <element name="legalAddress" type="button" selector="//span[text()='Legal Address']"/>
+        <element name="streetAddress" type="input" selector="//input[@name='address[street][0]']"/>
+        <element name="city" type="input" selector="//input[@name='address[city]']"/>
+        <element name="country" type="select" selector="//select[@name='address[country_id]']"/>
+        <element name="exactCountry" type="button" selector="//select[@name='address[country_id]']//option[@data-title='Armenia']"/>
+        <element name="zip" type="input" selector="//input[@name='address[postcode]']"/>
+        <element name="phone" type="input" selector="//input[@name='address[telephone]']"/>
+        <element name="companyAdmin" type="button" selector="//span[text()='Company Admin']"/>
+        <element name="companyAdminEmail" type="input" selector="//input[@name='company_admin[email]']"/>
+        <element name="firstName" type="input" selector="//input[@name='company_admin[firstname]']"/>
+        <element name="lastName" type="input" selector="//input[@name='company_admin[lastname]']"/>
+        <element name="save" type="button" selector="#save-button" timeout="30"/>
+        <element name="successMessage" type="text" selector="//*[@data-ui-id='messages-message-success']"/>
+    </section>
+</sections>

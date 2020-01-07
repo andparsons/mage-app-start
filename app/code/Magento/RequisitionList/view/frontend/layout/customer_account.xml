@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="customer_account_navigation">
+            <block class="Magento\RequisitionList\Block\Link\RequisitionListLink"
+                   name="customer-account-navigation-requisition-list-link"
+                   ifconfig="btob/website_configuration/requisition_list_active">
+                <arguments>
+                    <argument name="path" xsi:type="string">requisition_list/requisition/index</argument>
+                    <argument name="label" xsi:type="string" translate="true">My Requisition Lists</argument>
+                    <argument name="sortOrder" xsi:type="number">215</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

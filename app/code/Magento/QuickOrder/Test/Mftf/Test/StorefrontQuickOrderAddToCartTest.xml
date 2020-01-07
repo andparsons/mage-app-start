@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontQuickOrderAddToCartTest">
+        <annotations>
+            <features value="QuickOrder"/>
+            <stories value="Create quick order"/>
+            <title value="Storefront quick order add to cart"/>
+            <description value="Storefront quick order add to cart"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="MC-17944"/>
+            <useCaseId value="MC-17642"/>
+            <group value="quickOrder"/>
+        </annotations>
+        <before>
+            <!-- Enable Quick order functionality -->
+            <createData entity="B2BEnabledQuickOrderConfig" stepKey="enabledQuickOrderConfig"/>
+            <!-- Create a product -->
+            <createData entity="SimpleProduct2" stepKey="createProduct"/>
+        </before>
+        <after>
+            <!--Set b2b config to default-->
+            <createData entity="B2BDefaultConfig" stepKey="defaultB2BConfig"/>
+            <!--Delete created data-->
+            <deleteData createDataKey="createProduct" stepKey="deleteProduct"/>
+        </after>
+
+        <!--Go to Quick order and enter the product-->
+        <amOnPage url="{{StorefrontQuickOrderPage.url}}" stepKey="goQuickOrderPage"/>
+
+        <actionGroup ref="StorefrontQuickOrderAddProductToCart" stepKey="quickOrderAddProductToCart">
+            <argument name="productSku" value="$$createProduct.sku$$"/>
+        </actionGroup>
+    </test>
+</tests>

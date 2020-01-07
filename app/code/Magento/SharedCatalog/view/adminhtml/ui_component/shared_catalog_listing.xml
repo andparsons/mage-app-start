@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">shared_catalog_listing.shared_catalog_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="add">
+                <url path="*/*/create"/>
+                <class>primary</class>
+                <label translate="true">Add Shared Catalog</label>
+            </button>
+        </buttons>
+        <spinner>shared_catalog_columns</spinner>
+        <deps>
+            <dep>shared_catalog_listing.shared_catalog_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="shared_catalog_listing_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Magento_SharedCatalog::list</aclResource>
+        <dataProvider class="SharedCatalogDataProvider" name="shared_catalog_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <container name="listing_top" template="ui/grid/toolbar">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="stickyTmpl" xsi:type="string">ui/grid/sticky/toolbar</item>
+            </item>
+        </argument>
+        <bookmark name="bookmarks">
+            <settings>
+                <storageConfig>
+                    <namespace>shared_catalog_listing</namespace>
+                </storageConfig>
+            </settings>
+        </bookmark>
+        <component name="columns_controls" component="Magento_Ui/js/grid/controls/columns" displayArea="dataGridActions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="columnsData" xsi:type="array">
+                        <item name="provider" xsi:type="string">shared_catalog_listing.shared_catalog_listing.shared_catalog_columns</item>
+                    </item>
+                </item>
+            </argument>
+        </component>
+        <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+                <item name="observers" xsi:type="array">
+                    <item name="column" xsi:type="string">column</item>
+                </item>
+            </argument>
+            <settings>
+                <columnsProvider>shared_catalog_listing.shared_catalog_listing.shared_catalog_columns</columnsProvider>
+                <templates>
+                    <filters>
+                        <select>
+                            <param name="template" xsi:type="string">ui/grid/filters/elements/ui-select</param>
+                            <param name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</param>
+                        </select>
+                    </filters>
+                </templates>
+                <childDefaults>
+                    <param name="imports" xsi:type="array">
+                        <item name="visible" xsi:type="string">shared_catalog_listing.shared_catalog_listing.shared_catalog_columns.${ $.index }:visible</item>
+                    </param>
+                    <param name="provider" xsi:type="string">shared_catalog_listing.shared_catalog_listing.listing_top.listing_filters</param>
+                </childDefaults>
+                <storageConfig>
+                    <namespace>current.filters</namespace>
+                    <provider>shared_catalog_listing.shared_catalog_listing.listing_top.bookmarks</provider>
+                </storageConfig>
+            </settings>
+        </filters>
+        <massaction name="listing_massaction" component="Magento_Ui/js/grid/tree-massactions">
+            <settings>
+                <indexField>entity_id</indexField>
+                <selectProvider>shared_catalog_listing.shared_catalog_listing.shared_catalog_columns.ids</selectProvider>
+            </settings>
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">This action cannot be undone. Are you sure you want to delete this catalog(s)?</message>
+                        <title translate="true">Delete items</title>
+                    </confirm>
+                    <url path="shared_catalog/sharedCatalog/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+        </massaction>
+        <paging name="listing_paging">
+            <settings>
+                <selectProvider>shared_catalog_listing.shared_catalog_listing.shared_catalog_columns.ids</selectProvider>
+                <storageConfig>
+                    <namespace>current.paging</namespace>
+                    <provider>shared_catalog_listing.shared_catalog_listing.listing_top.bookmarks</provider>
+                </storageConfig>
+            </settings>
+        </paging>
+    </container>
+    <columns name="shared_catalog_columns">
+        <settings>
+            <childDefaults>
+                <param name="storageConfig" xsi:type="array">
+                    <item name="provider" xsi:type="string">shared_catalog_listing.shared_catalog_listing.listing_top.bookmarks</item>
+                    <item name="root" xsi:type="string">columns.${ $.index }</item>
+                    <item name="namespace" xsi:type="string">current.${ $.storageConfig.root}</item>
+                </param>
+            </childDefaults>
+            <storageConfig>
+                <namespace>current</namespace>
+                <provider>shared_catalog_listing.shared_catalog_listing.listing_top.bookmarks</provider>
+            </storageConfig>
+        </settings>
+        <selectionsColumn name="ids" sortOrder="5">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="entity_id" sortOrder="10">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="name" sortOrder="30">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Name</label>
+            </settings>
+        </column>
+        <column name="type" component="Magento_Ui/js/grid/columns/select">
+            <argument name="data" xsi:type="array">
+                <item name="sortOrder" xsi:type="number">40</item>
+            </argument>
+            <settings>
+                <filter>select</filter>
+                <options class="Magento\SharedCatalog\Model\Source\SharedCatalogType"/>
+                <dataType>select</dataType>
+                <label translate="true">Type</label>
+            </settings>
+        </column>
+        <column name="tax_class_id" component="Magento_Ui/js/grid/columns/select">
+            <argument name="data" xsi:type="array">
+                <item name="sortOrder" xsi:type="number">41</item>
+            </argument>
+            <settings>
+                <filter>select</filter>
+                <options class="Magento\Tax\Model\TaxClass\Source\Customer"/>
+                <dataType>select</dataType>
+                <label>Customer Tax Class</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+            <argument name="data" xsi:type="array">
+                <item name="sortOrder" xsi:type="number">50</item>
+            </argument>
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Created At</label>
+            </settings>
+        </column>
+        <column name="admin_user" sortOrder="60">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Created By</label>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="Magento\SharedCatalog\Ui\Component\Listing\Column\Actions">
+            <settings>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
+                <indexField>entity_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="company_email_credit_allocated_email_template" label="Credit Limit Allocated" file="company_credit_allocated.html" type="html" module="Magento_CompanyCredit" area="frontend"/>
+    <template id="company_email_credit_updated_email_template" label="Credit Limit Updated" file="company_credit_updated.html" type="html" module="Magento_CompanyCredit" area="frontend"/>
+    <template id="company_email_credit_reimbursed_email_template" label="Credit Reimbursed" file="company_credit_reimbursed.html" type="html" module="Magento_CompanyCredit" area="frontend"/>
+    <template id="company_email_credit_refunded_email_template" label="Order Refunded to Company Credit" file="order_refunded_to_company_credit.html" type="html" module="Magento_CompanyCredit" area="frontend"/>
+    <template id="company_email_credit_reverted_email_template" label="Order Reverted to Company Credit" file="order_reverted_to_company_credit.html" type="html" module="Magento_CompanyCredit" area="frontend"/>
+</config>

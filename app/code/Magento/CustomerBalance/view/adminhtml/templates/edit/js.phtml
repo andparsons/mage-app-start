@@ -1,0 +1,44 @@
+<?php
+
+?>
+<script>
+require(['prototype'], function(){
+window.updateEmailWebsites = function () {
+    <?php $_prefix = $block->escapeJs($block->escapeHtml($block->getPrefix())); ?>
+    var emailWebsites = $('<?= /* @noEscape */ $_prefix ?>store_id');
+    var balanceWebsites = $('<?= /* @noEscape */ $_prefix ?>website_id');
+    var selectedWebsite = $('<?= /* @noEscape */ $_prefix ?>website_id') ? $('<?= /* @noEscape */ $_prefix ?>website_id').value : '<?= /* @noEscape */ (int)$block->getCustomerWebsite() ?>';
+    var allowedWebsites = eval(<?= /* @noEscape */ $block->getWebsitesJson() ?>);
+
+    emailWebsites.innerHTML = '';
+    for(var websiteKey in allowedWebsites) {
+        var website = allowedWebsites[websiteKey];
+        if( website.website_id && website.website_id == selectedWebsite ) {
+            var groups = website["groups"];
+            for (var groupKey in groups) {
+                var group = groups[groupKey];
+                if (undefined !== group["stores"]) {
+                    var optionGroup = document.createElement("OPTGROUP");
+                    optionGroup.label = group["name"];
+                    emailWebsites.appendChild(optionGroup);
+                    var stores = group["stores"];
+                    for (var i=0; i < stores.length; i++) {
+                        var option = document.createElement("option");
+                        option.appendChild(document.createTextNode(stores[i]["name"]));
+                        option.setAttribute("value", stores[i]["store_id"]);
+                        optionGroup.appendChild(option);
+                    }
+                }
+            }
+        }
+    }
+
+    var container = $$('#note_amount_delta small');
+    if (container[0]) {
+        container[0].innerHTML = '<strong>[' + allowedWebsites[selectedWebsite].currency_code + ']</strong>';
+    }
+};
+
+updateEmailWebsites();
+});
+</script>

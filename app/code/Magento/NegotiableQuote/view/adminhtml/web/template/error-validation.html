@@ -1,0 +1,12 @@
+<tr class="error-message">
+    <% if (data.oneRow) { %>
+    <td colspan="2">
+        <div class="field-error"><%- data.text %></div>
+    </td>
+    <% } %>
+    <% if (data.twoRow) { %>
+    <td>
+        <div class="field-error"><%- data.text %></div>
+    </td>
+    <% } %>
+</tr>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="../../../../../../../dev/tests/acceptance/vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminCreateCartPriceRuleActionGroup">
+        <remove keyForRemoval="selectCustomerGroup"/>
+        <click selector="{{AdminCartPriceRulesFormSection.customerGroups}}" stepKey="expandCustomerGroups" after="selectWebsites"/>
+        <click selector="{{AdminCartPriceRulesFormSection.customerGroupsSelectAll}}" stepKey="clickSelectAll" after="expandCustomerGroups"/>
+        <click selector="{{AdminCartPriceRulesFormSection.customerGroupsDoneBtn}}" stepKey="clickDone" after="clickSelectAll"/>
+    </actionGroup>
+</actionGroups>

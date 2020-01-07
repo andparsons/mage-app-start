@@ -1,0 +1,11 @@
+<!--
+-->
+<div class="default-shipping-address address-sender">
+    <input type="radio"
+           click="selectShippingAddress"
+           ko-checked="isChecked"
+           value="customer-address"
+           disable="isDefaultAddressDisabled()"
+           class="radio"/>
+    <render args="defaultAddressTemplate"/>
+</div>

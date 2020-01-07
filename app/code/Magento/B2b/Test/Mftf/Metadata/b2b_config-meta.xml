@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataOperation.xsd">
+    <operation name="CreateB2BConfigState" dataType="b2b_config_state" type="create" auth="adminFormKey" url="/admin/system_config/save/section/btob/" method="POST">
+        <object key="groups" dataType="b2b_config_state">
+            <object key="website_configuration" dataType="b2b_config_state">
+                <object key="fields" dataType="b2b_config_state">
+                    <object key="company_active" dataType="company_active">
+                        <field key="value">string</field>
+                    </object>
+                    <object key="sharedcatalog_active" dataType="sharedcatalog_active">
+                        <field key="value">string</field>
+                    </object>
+                    <object key="negotiablequote_active" dataType="negotiablequote_active">
+                        <field key="value">string</field>
+                    </object>
+                    <object key="quickorder_active" dataType="quickorder_active">
+                        <field key="value">string</field>
+                    </object>
+                    <object key="requisition_list_active" dataType="requisition_list_active">
+                        <field key="value">string</field>
+                    </object>
+                </object>
+            </object>
+        </object>
+    </operation>
+</operations>

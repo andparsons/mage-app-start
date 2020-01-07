@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Customer:etc/sections.xsd">
+    <action name="rest/V1/requisition_lists">
+        <section name="requisition"/>
+    </action>
+    <action name="requisition_list/requisition/delete">
+        <section name="requisition"/>
+    </action>
+    <action name="requisition_list/item/addToCart">
+        <section name="cart"/>
+    </action>
+</config>

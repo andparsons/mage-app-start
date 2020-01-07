@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/PageObject.xsd">
+    <page name="StorefrontNegotiableQuoteViewPage" url="negotiable_quote/quote/view/quote_id/{{id}}" area="storefront" module="Magento_NegotiableQuote" parameterized="true">
+        <section name="StorefrontNegotiableQuoteViewSection"/>
+        <section name="StorefrontNegotiableQuoteChangeAddressSection"/>
+    </page>
+</pages>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminReorderWithCatalogPriceTest">
+        <before>
+            <!-- Login and activate the catalog price rule -->
+            <actionGroup ref="LoginAsAdmin" after="createCatalogRule" stepKey="loginAsAdmin"/>
+            <actionGroup ref="OpenCatalogPriceRule" after="loginAsAdmin" stepKey="openRule">
+                <argument name="ruleName" value="{{CatalogRuleToPercent.name}}"/>
+            </actionGroup>
+            <actionGroup ref="createCatalogRuleStagingUpdateWithItsStart" after="openRule" stepKey="activateRule"/>
+            <actionGroup ref="logout" after="activateRule" stepKey="logout"/>
+        </before>
+    </test>
+</tests>

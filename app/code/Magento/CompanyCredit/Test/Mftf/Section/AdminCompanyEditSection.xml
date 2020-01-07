@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="AdminCompanyEditSection">
+        <element name="customerCredit" type="button" selector="div[data-index='company_credit']" timeout="30"/>
+        <element name="creditLimit" type="input" selector="input[name='company_credit[credit_limit]']"/>
+        <element name="creditCurrency" type="select" selector="select[name='company_credit[currency_code]']"/>
+    </section>
+</sections>

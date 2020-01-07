@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminAddAssociateCompanyToCustomerActionGroup" >
+        <arguments>
+            <argument name="company"/>
+        </arguments>
+        <click selector="{{AdminCustomerAccountInformationSection.accountInformationButton}}" stepKey="clickOnAccountInformationSection"/>
+        <waitForPageLoad stepKey="waitForPageOpened1"/>
+        <click selector="{{CustomerInformationSection.associateCompanyDropDown}}" stepKey="clickToExpandDropDown"/>
+        <fillField selector="{{CustomerInformationSection.associateCompanySearchInput}}" userInput="{{company.company_name}}" stepKey="inputCompanyName"/>
+        <click selector="{{CustomerInformationSection.associateCompanySearchButton}}" stepKey="clickSearch"/>
+        <waitForElementVisible selector="{{CustomerInformationSection.doneButton}}" stepKey="waitForDoneButton"/>
+        <click selector="{{CustomerInformationSection.selectCompany(company.company_name)}}" stepKey="selectCompany"/>
+        <click selector="{{CustomerInformationSection.doneButton}}" stepKey="clickDone"/>
+        <waitForPageLoad stepKey="waitForConfirmationOfDone"/>
+        <conditionalClick stepKey="clickConfirm" selector="{{CustomerInformationSection.confirmButton}}" dependentSelector="{{CustomerInformationSection.confirmButton}}" visible="true" />
+        <waitForPageLoad stepKey="waitForConfirmation"/>
+        <click selector="{{CustomerAccountSection.save}}" stepKey="saveCustomer"/>
+        <waitForPageLoad stepKey="waitForCustomerSaved"/>
+        <see stepKey="seeSaveMessage" userInput="You saved the customer."/>
+    </actionGroup>
+    <actionGroup name="AdminAddACompanyToCustomerActionGroup" >
+        <arguments>
+            <argument name="companyName" type="string"/>
+        </arguments>
+        <click selector="{{AdminCustomerAccountInformationSection.accountInformationButton}}" stepKey="clickOnAccountInformationSection"/>
+        <waitForPageLoad stepKey="waitForPageOpened1"/>
+        <click selector="{{CustomerInformationSection.associateCompanyDropDown}}" stepKey="clickToExpandDropDown"/>
+        <fillField selector="{{CustomerInformationSection.associateCompanySearchInput}}" userInput="{{companyName}}" stepKey="inputCompanyName"/>
+        <click selector="{{CustomerInformationSection.associateCompanySearchButton}}" stepKey="clickSearch"/>
+        <waitForElementVisible selector="{{CustomerInformationSection.doneButton}}" stepKey="waitForDoneButton"/>
+        <click selector="{{CustomerInformationSection.selectCompany(companyName)}}" stepKey="selectCompany"/>
+        <click selector="{{CustomerInformationSection.doneButton}}" stepKey="clickDone"/>
+        <conditionalClick stepKey="clickConfirm" selector="{{CustomerInformationSection.confirmButton}}" dependentSelector="{{CustomerInformationSection.confirmButton}}" visible="true" />
+        <waitForPageLoad stepKey="waitForConfirmation"/>
+        <click selector="{{CustomerAccountSection.save}}" stepKey="saveCustomer"/>
+        <waitForPageLoad stepKey="waitForCustomerSaved"/>
+        <see stepKey="seeSaveMessage" userInput="You saved the customer."/>
+    </actionGroup>
+</actionGroups>

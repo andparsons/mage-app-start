@@ -1,0 +1,27 @@
+<?php
+
+/* @var $block \Magento\NegotiableQuote\Block\Link\Quote */
+?>
+<!-- ko scope: 'negotiable_quote' -->
+<!-- ko if: config().is_enabled && isNegotiableQuoteAllAllowed()-->
+<li class="link">
+    <a <?= /* @noEscape */ $block->getLinkAttributes() ?>>
+        <?= $block->escapeHtml($block->getLabel()) ?>
+    </a>
+</li>
+<!-- /ko -->
+<!-- /ko -->
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "negotiable_quote": {
+                        "component": "Magento_NegotiableQuote/js/view/negotiable-quote"
+                    }
+                }
+            }
+        }
+    }
+</script>
+

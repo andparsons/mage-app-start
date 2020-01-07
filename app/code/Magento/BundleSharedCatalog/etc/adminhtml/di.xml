@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\SharedCatalog\Ui\DataProvider\Modifier\PriceByType">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="bundle" xsi:type="object">Magento\BundleSharedCatalog\Ui\DataProvider\Modifier\Bundle</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Magento\SharedCatalog\Ui\DataProvider\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="bundle" xsi:type="array">
+                    <item name="class" xsi:type="string">Magento\BundleSharedCatalog\Ui\DataProvider\Modifier\TierPriceBundle</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\SharedCatalog\Controller\Adminhtml\SharedCatalog\Configure\Product\Price\Adjust">
+        <arguments>
+            <argument name="ignoreProductTypes" xsi:type="array">
+                <item name="bundle" xsi:type="string">bundle</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Bundle\Model\ResourceModel\Selection\Collection">
+        <plugin name="productCollectionPlugin" type="Magento\BundleSharedCatalog\Plugin\Bundle\Model\ResourceModel\Selection\CollectionPlugin" />
+    </type>
+</config>

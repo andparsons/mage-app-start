@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminCreateCustomerTest">
+        <actionGroup ref="searchAndMultiSelectActionGroup" stepKey="searchAndSelectGroup" before="fillFirstName">
+            <argument name="dropDownSelector" value="AdminCustomerAccountInformationSection.group"/>
+            <argument name="options" value="[{{DefaultCustomerGroup.group_names[0]}}]"/>
+        </actionGroup>
+    </test>
+</tests>

@@ -1,0 +1,81 @@
+<?php
+?>
+<?php
+/**
+ * @var $block \Magento\NegotiableQuote\Block\Adminhtml\AdvancedCheckout\Sales\Order\Create\Sku\Add
+ */
+?>
+<div class="block-addbysku" data-mage-init='{"Magento_NegotiableQuote/quote/actions/item-table":{}}'>
+    <form action="<?= $block->escapeUrl(__($block->getUrl('*/*/addSku', ['quote_id' => $block->getRequest()->getParam('quote_id')]))); ?>"
+          method="post"
+          data-mage-init='{"validation":{}}'
+          id="sku-form"
+          data-role="add-quote"
+    >
+        <input name="form_key" type="hidden" value="<?= $block->escapeHtmlAttr(__($block->getFormKey())) ?>" />
+        <div class="add-by-sku-wrapper">
+            <div class="add-by-sku">
+                <div class="admin__field">
+                    <div class="admin__field-control">
+                        <table id="sku_table" class="admin__control-table">
+                            <thead>
+                                <tr class="headings">
+                                    <th class="col-sku"><?= $block->escapeHtml(__('Enter SKU')) ?></th>
+                                    <th class="col-qty"><?= $block->escapeHtml(__('Qty')) ?></th>
+                                    <th class="col-actions last">&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody id="sku_container" data-container="items">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script data-template="add-block" type="text/x-magento-template">
+        <tr data-role="wrap" class="sku-row" data-id="<%- data.rowIndex %>">
+            <td class="col-sku">
+                <div class="input-box">
+                    <input type="text"
+                           class="admin__control-text required-input"
+                           name="add_by_sku[<%- data.rowIndex %>][sku]"
+                           data-validate="{required:true}"
+                           id="sku_qty_<%- data.rowIndex %>"
+                           data-id="<%- data.rowIndex %>sku"
+                           data-sku="true"
+                           aria-required="true"
+                           data-role="product-sku"/>
+                </div>
+            </td>
+            <td class="col-qty">
+                <input type="number"
+                       name="add_by_sku[<%- data.rowIndex %>][qty]"
+                       id="qty_<%- data.rowIndex %>"
+                       class="admin__control-text required-input"
+                       maxlength="13"
+                       aria-required="true"
+                       data-validate='{
+                                "required-number-if-specified": "[data-id=<%- data.widgetId %><%- data.rowIndex %>sku]",
+                                "validate-number": true,
+                                "validate-greater-than-zero": true,
+                                "validate-number-range": "0.0001-99999999.9999"
+                                }'
+                       data-role="product-qty"/>
+            </td>
+            <td class="col-actions last" data-delete="<%- data.rowIndex %>">
+                <button type="button" class="action action-delete" data-role="delete">
+                    <span><?= $block->escapeHtml(__('Remove')) ?></span>
+                </button>
+            </td>
+        </tr>
+    </script>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_NegotiableQuote/quote/create/initBySku": <?= /* @noEscape */ $block->getJsInitParams() ?>
+        }
+    }
+</script>

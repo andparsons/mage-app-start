@@ -1,0 +1,29 @@
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="catalog_data_submitted_hash" resource="default" engine="innodb" comment="Product Feed Storage">
+        <column xsi:type="varchar"
+            name="identifier"
+            nullable="false"
+            length="64"
+            comment="Product identifier"
+        />
+        <column
+            xsi:type="varchar"
+            name="feed_hash"
+            nullable="false"
+            length="64"
+            comment="feed_hash"
+        />
+        <column
+            xsi:type="timestamp"
+            name="submitted_at"
+            on_update="true"
+            nullable="false"
+            default="CURRENT_TIMESTAMP"
+            comment="Submitted At"
+        />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="identifier"/>
+        </constraint>
+    </table>
+</schema>

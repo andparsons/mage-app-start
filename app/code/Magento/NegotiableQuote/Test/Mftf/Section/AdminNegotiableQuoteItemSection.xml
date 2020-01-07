@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="AdminNegotiableQuoteItemSection">
+        <element name="blockItemsQuoted" type="block" selector="#order-items" />
+        <element name="buttonAddProductBySKU" type="button" selector="#show-sku-form"/>
+        <element name="fieldQuoteSKU" type="input" selector="#sku_qty_{{num}}" parameterized="true"/>
+        <element name="fieldQuoteQty" type="input" selector="#qty_{{num1}}" parameterized="true"/>
+        <element name="buttonAddToQuote" type="button" selector="button[data-role='add-to-quote']"/>
+        <element name="cellQuoteGrid" type="text" selector="tbody.product-item"/>
+        <element name="buttonUpdate" type="button" selector="button[data-role='update-quote']"/>
+        <element name="statusQuote" type="text" selector="#quote_status"/>
+        <!-- Products Not Added to the Quote -->
+        <element name="addProductToQuote" type="button" selector="//*[@id='itemsErrors']//button[@title='Add Products to Quote']"/>
+        <element name="errorItem" type="block" selector="#itemsErrors"/>
+        <element name="buttonRemove" type="button" selector="//*[@id='sku_errors_table']//button[@title='Remove']"/>
+        <element name="buttonConfigureProduct" type="button" selector="button[title='Configure']"/>
+        <!-- Configure grouped product -->
+        <element name="blockConfigProduct" type="block" selector=".modal-inner-wrap #product_composite_configure_form_fields"/>
+        <element name="fieldQty" type="input" selector="//*[@class='modal-content']//td[text()='{{sku1}}' and @class='col-name']/following-sibling::td[@class='col-qty']/input[@title='Qty']" parameterized="true"/>
+        <element name="buttonOk" type="button" selector="//*[contains(@class, 'configurable-negotiable-modal _show')]//*[@class='action-primary']"/>
+        <!-- Configure Bundle Product -->
+        <element name="blockConfigBundle" type="block" selector=".modal-inner-wrap #catalog_product_composite_configure_fields_bundle"/>
+        <element name="selectBundleOption" type="select" selector="//*[@class='modal-content']//span[text()='{{bundleOption}}']/../following-sibling::div/select[contains(@name,'bundle_option')]" parameterized="true"/>
+        <element name="optionQty" type="input" selector=".nested input.input-text.admin__control-text.qty"/>
+        <element name="bundleProductQty" type="input" selector="#product_composite_configure_input_qty"/>
+        <!--Grid Items Quoted -->
+        <element name="productNameRow" type="text" selector="td.col-product > span > a"/>
+        <element name="productSKURow" type="text" selector="td.col-product > .product-sku-block"/>
+        <element name="productQty" type="input" selector="//a[text()='{{productName}}']/../../following-sibling::td/input[@data-role='qty-amount']" parameterized="true"/>
+        <element name="productPrice" type="text" selector="//a[text()='{{productName1}}']/../../following-sibling::td[@class='col-row-subtotal-tax']/span" parameterized="true"/>
+        <element name="bundleOptionRow" type="text" selector="//dl/dt" />
+        <element name="detailedProductInBundle" type="text" selector="//dl/dd"/>
+    </section>
+</sections>

@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Quote\Api\CartItemRepositoryInterface">
+        <plugin name="CartItemRepositoryPlugin" type="Magento\SharedCatalog\Plugin\Quote\Api\CartItemRepositoryInterfacePlugin" />
+    </type>
+    <type name="Magento\Catalog\Api\ProductRepositoryInterface">
+        <plugin name="AdminProductRepositoryPlugin" type="Magento\SharedCatalog\Plugin\Catalog\Api\AdminProductRepositoryInterfacePlugin" />
+    </type>
+    <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="advanced-pricing-tier-price" xsi:type="array">
+                    <item name="class" xsi:type="string">Magento\SharedCatalog\Ui\DataProvider\Product\Form\Modifier\TierPrice</item>
+                    <item name="sortOrder" xsi:type="number">160</item>
+                </item>
+                <item name="shared-catallog" xsi:type="array">
+                    <item name="class" xsi:type="string">Magento\SharedCatalog\Ui\DataProvider\Product\Form\Modifier\SharedCatalog</item>
+                    <item name="sortOrder" xsi:type="number">200</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Catalog\Ui\DataProvider\Product\ProductDataProvider">
+        <arguments>
+            <argument name="addFilterStrategies" xsi:type="array">
+                <item name="shared_catalog" xsi:type="object">\Magento\SharedCatalog\Ui\DataProvider\Product\AddSharedCatalogFilterToCollection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Magento\SharedCatalog\Ui\DataProvider\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="tier_prices" xsi:type="array">
+                    <item name="class" xsi:type="string">Magento\SharedCatalog\Ui\DataProvider\Modifier\TierPrice</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Magento\SharedCatalog\Ui\DataProvider\Modifier\GridPool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="complex" xsi:type="array">
+                    <item name="class" xsi:type="string">Magento\SharedCatalog\Ui\DataProvider\Modifier\PriceByType</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\SharedCatalog\Ui\DataProvider\Configure\StepDataProcessor">
+        <arguments>
+            <argument name="modifiers" xsi:type="object">Magento\SharedCatalog\Ui\DataProvider\Modifier\GridPool</argument>
+        </arguments>
+    </type>
+    <type name="Magento\SharedCatalog\Ui\DataProvider\Configure\TierPrice">
+        <arguments>
+            <argument name="modifiers" xsi:type="object">Magento\SharedCatalog\Ui\DataProvider\Modifier\Pool</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Customer\Api\GroupRepositoryInterface">
+        <plugin name="updateCompanyCustomerGroupPlugin" type="Magento\SharedCatalog\Plugin\Customer\Api\UpdateCompanyCustomerGroupPlugin" />
+        <plugin name="validateCustomerGroupDeletePlugin" type="Magento\SharedCatalog\Plugin\Customer\Api\ValidateCustomerGroupDeletePlugin" />
+        <plugin name="updateSharedCatalogNamePlugin" type="Magento\SharedCatalog\Plugin\Customer\Api\UpdateSharedCatalogNamePlugin" />
+    </type>
+    <type name="Magento\Catalog\Api\Data\CategoryInterface">
+        <plugin name="categoryPlugin" type="Magento\SharedCatalog\Plugin\Catalog\Api\Data\CategoryInterfacePlugin" sortOrder="10" />
+    </type>
+    <type name="Magento\SalesRule\Model\Rule\Metadata\ValueProvider">
+        <plugin name="valueProviderPlugin" type="Magento\SharedCatalog\Plugin\SalesRule\Model\Rule\Metadata\ValueProviderPlugin" />
+    </type>
+    <type name="Magento\SharedCatalog\Ui\DataProvider\Modifier\PriceByType">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="simple" xsi:type="object">Magento\SharedCatalog\Ui\DataProvider\Modifier\PriceByType\Simple</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\SharedCatalog\Model\SharedCatalogValidator">
+        <arguments>
+            <argument name="validateStore" xsi:type="boolean">false</argument>
+        </arguments>
+    </type>
+    <virtualType name="Magento\SharedCatalog\Ui\DataProvider\Modifier\SharedCatalogPool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="duplicate" xsi:type="array">
+                    <item name="class" xsi:type="string">Magento\SharedCatalog\Ui\DataProvider\Modifier\Duplicate</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\SharedCatalog\Ui\DataProvider\SharedCatalog">
+        <arguments>
+            <argument name="modifiers" xsi:type="object">Magento\SharedCatalog\Ui\DataProvider\Modifier\SharedCatalogPool</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\Model\ResourceModel\Company\Grid\Collection">
+        <plugin name="customerGroup" type="Magento\SharedCatalog\Plugin\Company\Model\ResourceModel\Company\Grid\CollectionPlugin" />
+    </type>
+    <type name="Magento\AdvancedCheckout\Model\Cart">
+        <plugin name="shared_catalog_product_disable" type="Magento\SharedCatalog\Plugin\AdvancedCheckout\Model\BackendHideProductsAbsentInSharedCatalogPlugin" />
+    </type>
+    <type name="Magento\Backend\Block\Widget\Grid\Column\Multistore">
+        <arguments>
+            <argument name="additionalRendererTypes" xsi:type="array">
+                <item name="options" xsi:type="string">Magento\SharedCatalog\Block\Widget\Grid\Column\Renderer\CustomerGroup</item>
+            </argument>
+        </arguments>
+        <plugin name="AddCustomRendererTypes" type="Magento\SharedCatalog\Plugin\Backend\Block\Widget\Grid\Column\Multistore\AddCustomRendererTypes" />
+    </type>
+    <type name="Magento\Sales\Block\Adminhtml\Order\Create\Search\Grid\DataProvider\ProductCollection">
+        <plugin name="productCollectionProviderPlugin" type="Magento\SharedCatalog\Plugin\Sales\Block\Adminhtml\Order\Create\Search\Grid\DataProvider\ProductCollection\HideProductsAbsentInSharedCatalogPlugin" />
+    </type>
+    <type name="Magento\SharedCatalog\Controller\Adminhtml\SharedCatalog\Configure\Tree\Structure\Get">
+        <arguments>
+            <argument name="treeRenderer" xsi:type="object" shared="false">Magento\SharedCatalog\Model\Configure\Category\Tree\Renderer</argument>
+        </arguments>
+    </type>
+    <type name="Magento\SharedCatalog\Controller\Adminhtml\SharedCatalog\Configure\Tree\Pricing\Get">
+        <arguments>
+            <argument name="treeRenderer" xsi:type="object" shared="false">Magento\SharedCatalog\Model\Configure\Category\Tree\AssignedRenderer</argument>
+        </arguments>
+    </type>
+</config>

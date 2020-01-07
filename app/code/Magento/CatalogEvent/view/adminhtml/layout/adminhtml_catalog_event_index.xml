@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="formkey"/>
+    <update handle="adminhtml_catalog_event_block"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\CatalogEvent\Block\Adminhtml\Event" name="adminhtml.catalog.event.grid.container"/>
+        </referenceContainer>
+    </body>
+</page>

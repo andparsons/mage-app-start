@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="NegotiableQuoteSystemConfig" type="b2b_config_state">
+        <requiredEntity type="company_active">companyActive</requiredEntity>
+        <requiredEntity type="negotiablequote_active">negotiableQuoteActive</requiredEntity>
+    </entity>
+
+    <entity name="companyActive" type="company_active">
+        <data key="value">1</data>
+    </entity>
+    <entity name="negotiableQuoteActive" type="negotiablequote_active">
+        <data key="value">1</data>
+    </entity>
+    <entity name="NeqotiableQuote" type="NegotiableQuote">
+        <data key="name" unique="suffix">QuoteName</data>
+        <data key="message" unique="suffix">QuoteMessage</data>
+    </entity>
+    <entity name="NeqotiableQuote" type="NegotiableQuote">
+        <data key="name" unique="suffix">QuoteName</data>
+        <data key="message" unique="suffix">QuoteMessage</data>
+    </entity>
+    <entity name="NeqotiableQuoteTwo" type="NegotiableQuote">
+        <data key="name" unique="suffix">QuoteTwo</data>
+        <data key="message" unique="suffix">QuoteMessage</data>
+    </entity>
+    <entity name="NeqotiableQuoteThree" type="NegotiableQuote">
+        <data key="name" unique="suffix">QuoteThree</data>
+        <data key="message" unique="suffix">QuoteMessage</data>
+    </entity>
+    <entity name="NeqotiableQuoteFour" type="NegotiableQuote">
+        <data key="name" unique="suffix">QuoteFour</data>
+        <data key="message" unique="suffix">QuoteMessage</data>
+    </entity>
+    <entity name="DefaultNegotiableQuote" type="NegotiableQuote">
+        <data key="name" unique="suffix">Name</data>
+        <data key="message" unique="suffix">Message</data>
+    </entity>
+</entities>

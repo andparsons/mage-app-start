@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AddProductToCartBySkuFromMyAccountActionGroup">
+        <click selector="{{StorefrontCustomerOrderBySkuSection.addToCart}}" stepKey="clickAddToCart"/>
+        <waitForPageLoad stepKey="waitForProductAdded"/>
+        <seeElement selector="{{AdminCategoryMessagesSection.SuccessMessage}}" stepKey="seeSuccessMessage"/>
+    </actionGroup>
+
+    <actionGroup name="UpdateCartBySkuFromMyAccountActionGroup" extends="AddProductToCartBySkuFromMyAccountActionGroup">
+        <remove keyForRemoval="clickAddToCart"/>
+        <click selector="{{StorefrontCustomerOrderBySkuSection.updateCart}}" stepKey="clickUpdateCart" before="waitForProductAdded"/>
+    </actionGroup>
+</actionGroups>

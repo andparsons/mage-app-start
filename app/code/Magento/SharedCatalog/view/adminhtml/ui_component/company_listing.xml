@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <settings>
+        <buttons>
+            <button name="add">
+                <param name="class_name" xsi:type="string">Magento\SharedCatalog\Ui\Component\Control\Button\Company\Add</param>
+            </button>
+        </buttons>
+    </settings>
+    <columns name="company_columns">
+        <column name="customer_group_id" class="Magento\SharedCatalog\Ui\Component\Company\Listing\Columns\CustomerGroupId">
+            <settings>
+                <label translate="true">Group/Shared Catalog</label>
+            </settings>
+        </column>
+    </columns>
+</listing>

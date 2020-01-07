@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="CreateCompanyWithoutStateActionGroup">
+
+        <click stepKey="openCustomers" selector="{{CreateCompanySection.customers}}"/>
+        <waitForPageLoad stepKey="waitForCustomersSubMenu" time="1"/>
+        <click stepKey="openCompanies" selector="{{CreateCompanySection.companies}}"/>
+        <waitForPageLoad stepKey="waitForCompanies" time="5"/>
+        <click stepKey="addNewCompany" selector="{{CreateCompanySection.addNewCompany}}"/>
+        <waitForPageLoad stepKey="waitForNewCompanyPage" time="5"/>
+        <fillField stepKey="fillCompanyName" selector="{{CreateCompanySection.companyName}}" userInput="{{CompanyData.companyName}}"/>
+        <click stepKey="openStatus" selector="{{CreateCompanySection.status}}"/>
+        <click stepKey="chooseActive" selector="{{CreateCompanySection.active}}"/>
+        <fillField stepKey="fillCompanyEmail" selector="{{CreateCompanySection.companyEmail}}" userInput="{{CompanyData.companyEmail}}"/>
+        <click stepKey="openSalesRepresentative" selector="{{CreateCompanySection.salesRepresentative}}"/>
+        <click stepKey="selectAdmin" selector="{{CreateCompanySection.selectAdmin}}"/>
+        <click stepKey="openLegalAddress" selector="{{CreateCompanySection.legalAddress}}"/>
+        <fillField stepKey="fillStreetAddress" selector="{{CreateCompanySection.streetAddress}}" userInput="{{CompanyData.streetAddress}}"/>
+        <fillField stepKey="fillCity" selector="{{CreateCompanySection.city}}" userInput="{{CompanyData.city}}"/>
+        <click stepKey="openCountry" selector="{{CreateCompanySection.country}}"/>
+        <waitForPageLoad stepKey="waitForCountries" time="3"/>
+        <click stepKey="chooseCountry" selector="{{CreateCompanySection.exactCountry}}"/>
+        <fillField stepKey="fillZip" selector="{{CreateCompanySection.zip}}" userInput="{{CompanyData.zip}}"/>
+        <fillField stepKey="fillPhoneNumber" selector="{{CreateCompanySection.phone}}" userInput="{{CompanyData.phone}}"/>
+        <click stepKey="openCompanyAdmin" selector="{{CreateCompanySection.companyAdmin}}"/>
+        <waitForPageLoad stepKey="waitForCompanyAdmin" time="3"/>
+        <fillField stepKey="fillCompanyAdminEmail" selector="{{CreateCompanySection.companyAdminEmail}}" userInput="{{CompanyData.companyAdminEmail}}"/>
+        <fillField stepKey="fillCompanyAdminFirstName" selector="{{CreateCompanySection.firstName}}" userInput="{{CompanyData.firstName}}"/>
+        <fillField stepKey="fillCompanyAdminLastName" selector="{{CreateCompanySection.lastName}}" userInput="{{CompanyData.lastName}}"/>
+        <click stepKey="save" selector="{{CreateCompanySection.save}}"/>
+        <see stepKey="seeSuccessMessage" userInput="You have created company"/>
+
+
+    </actionGroup>
+</actionGroups>

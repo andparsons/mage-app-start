@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="company_credit" resource="default" engine="innodb" comment="Company Credit Table">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Credit ID"/>
+        <column xsi:type="int" name="company_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Company ID"/>
+        <column xsi:type="decimal" name="credit_limit" scale="4" precision="20" unsigned="true" nullable="true"
+                comment="Credit Limit"/>
+        <column xsi:type="decimal" name="balance" scale="4" precision="20" unsigned="false" nullable="false"
+                default="0" comment="Outstanding balance"/>
+        <column xsi:type="varchar" name="currency_code" nullable="false" length="3" default="" comment="Currency Code"/>
+        <column xsi:type="smallint" name="exceed_limit" padding="6" unsigned="false" nullable="false" identity="false"
+                default="0" comment="Exceed Limit"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="COMPANY_CREDIT_COMPANY_ID_COMPANY_ENTITY_ID"
+                    table="company_credit" column="company_id" referenceTable="company" referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+        <index referenceId="COMPANY_CREDIT_COMPANY_ID" indexType="btree">
+            <column name="company_id"/>
+        </index>
+    </table>
+    <table name="company_credit_history" resource="default" engine="innodb" comment="Company Credit History Table">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Credit ID"/>
+        <column xsi:type="int" name="company_credit_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Company Credit ID"/>
+        <column xsi:type="int" name="user_id" padding="10" unsigned="true" nullable="true" identity="false"
+                comment="User Id"/>
+        <column xsi:type="int" name="user_type" padding="11" unsigned="false" nullable="false" identity="false"
+                default="0" comment="User Type"/>
+        <column xsi:type="varchar" name="currency_credit" nullable="false" length="3" comment="Currency Code Credit"/>
+        <column xsi:type="varchar" name="currency_operation" nullable="false" length="3"
+                comment="Currency Code Operation"/>
+        <column xsi:type="decimal" name="rate" scale="12" precision="24" unsigned="false" nullable="false" default="0"
+                comment="Currency Rate"/>
+        <column xsi:type="decimal" name="rate_credit" scale="12" precision="24" unsigned="false" nullable="true"
+                default="0" comment="Credit Currency Rate"/>
+        <column xsi:type="decimal" name="amount" scale="4" precision="20" unsigned="false" nullable="false" default="0"
+                comment="Amount"/>
+        <column xsi:type="decimal" name="balance" scale="4" precision="20" unsigned="false" nullable="false"
+                default="0" comment="Balance"/>
+        <column xsi:type="decimal" name="credit_limit" scale="4" precision="20" unsigned="false" nullable="false"
+                default="0" comment="Credit Limit"/>
+        <column xsi:type="decimal" name="available_credit" scale="4" precision="20" unsigned="false" nullable="false"
+                default="0" comment="Available Credit"/>
+        <column xsi:type="int" name="type" padding="11" unsigned="false" nullable="false" identity="false" default="0"
+                comment="Type"/>
+        <column xsi:type="timestamp" name="datetime" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Datetime"/>
+        <column xsi:type="varchar" name="purchase_order" nullable="true" length="60" comment="Purchase order number"/>
+        <column xsi:type="text" name="comment" nullable="false" comment="Comment"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="COMPANY_CREDIT_HISTORY_COMPANY_CREDIT_ID_COMPANY_CREDIT_ENTT_ID"
+                    table="company_credit_history" column="company_credit_id" referenceTable="company_credit"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="COMPANY_CREDIT_HISTORY_COMPANY_CREDIT_ID" indexType="btree">
+            <column name="company_credit_id"/>
+        </index>
+    </table>
+</schema>

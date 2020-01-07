@@ -1,0 +1,10 @@
+<?php
+?>
+<?php /** @var $block \Magento\Customer\Block\Account\RegisterLink */ ?>
+<?php if (!$block->getLayout()->isBlock('register.customer.link')) : ?>
+    <li>
+        <a <?= /* @noEscape */ $block->getLinkAttributes() ?> >
+            <?= $block->escapeHtml($block->getLabel()) ?>
+        </a>
+    </li>
+<?php endif; ?>

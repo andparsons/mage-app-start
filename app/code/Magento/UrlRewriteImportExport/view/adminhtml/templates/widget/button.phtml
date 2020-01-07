@@ -1,0 +1,19 @@
+<?php
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * @var $block \Magento\Backend\Block\Widget\Button
+ */
+
+if ($block->getData('url')) {
+    $block->setData('onclick', 'setLocation(\'' . $block->getData('url') . '\')');
+}
+?>
+<?= $block->getBeforeHtml() ?>
+    <button <?= /* @escapeNotVerified */ $block->getAttributesHtml(), $block->getUiId() ?>>
+        <span><?= /* @escapeNotVerified */ $block->getLabel() ?></span>
+    </button>
+<?= $block->getAfterHtml() ?>

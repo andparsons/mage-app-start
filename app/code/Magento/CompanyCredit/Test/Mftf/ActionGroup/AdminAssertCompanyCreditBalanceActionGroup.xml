@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminAssertCompanyCreditBalanceActionGroup">
+        <arguments>
+            <argument name="outstandingBalance" type="string"/>
+            <argument name="availableBalance" type="string"/>
+            <argument name="creditLimit" type="string"/>
+        </arguments>
+        <conditionalClick selector="{{AdminCompanyEditSection.customerCredit}}" dependentSelector="{{AdminCompanyEditSection.customerCredit}}" visible="true" stepKey="clickOnCustomerCredit"/>
+        <waitForPageLoad stepKey="waitForCustomerCreditSectionToOpen"/>
+        <see selector="{{AdminCompanyEditSection.outstandingBalance}}" userInput="{{outstandingBalance}}" stepKey="seeOutstandingBalance"/>
+        <see selector="{{AdminCompanyEditSection.availableCredit}}" userInput="{{availableBalance}}" stepKey="seeAvailableCredit"/>
+        <see selector="{{AdminCompanyEditSection.creditLimitAmount}}" userInput="{{creditLimit}}" stepKey="seeCreditLimit"/>
+    </actionGroup>
+</actionGroups>

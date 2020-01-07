@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminCreateCustomerWithCustomGroupTest">
+        <!-- Two additional actions to perform before the merge below -->
+        <click selector="{{CustomerInformationSection.customerGroup}}" stepKey="clickToSeeGroups" before="waitForGroupsLoad"/>
+        <waitForPageLoad stepKey="waitForGroupsLoad" before="fillCustomerGroup"/>
+        <!-- Merge via stepKey -->
+        <click selector="{{CustomerInformationSection.customerGroupByName($$customerGroup.code$$)}}" stepKey="fillCustomerGroup"/>
+        <see selector="{{AdminCustomerAccountInformationSection.group}}" userInput="$$customerGroup.code$$" stepKey="seeCustomerGroup1"/>
+    </test>
+</tests>

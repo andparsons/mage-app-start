@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <columns name="company_columns">
+        <column name="currency_code" sortOrder="150">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Credit Currency</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="balance" class="Magento\CompanyCredit\Ui\Component\Company\Listing\Column\AmountCurrency" sortOrder="160">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Outstanding Balance</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        <column name="credit_limit" class="Magento\CompanyCredit\Ui\Component\Company\Listing\Column\AmountCurrency" sortOrder="170">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Credit Limit</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+    </columns>
+    <container name="listing_top">
+        <massaction name="listing_massaction">
+            <action name="convert">
+                <settings>
+                    <callback>
+                        <target>openModal</target>
+                        <provider>ns = company_listing, index = convert_credit_form_modal</provider>
+                    </callback>
+                    <type>convert</type>
+                    <label translate="true">Convert Credit</label>
+                </settings>
+            </action>
+        </massaction>
+    </container>
+    <container name="modalContainer">
+        <modal name="convert_credit_form_modal" component="Magento_CompanyCredit/js/convert-credit/modal">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="currencyCode" xsi:type="string">${ $.name }.convert_credit.currency</item>
+                    <item name="ratesFields" xsi:type="string">${ $.name }.convert_credit.rates</item>
+                    <item name="massConvertUrl" xsi:type="url" path="credit/index/massConvert"/>
+                </item>
+            </argument>
+            <settings>
+                <options>
+                    <option name="buttons" xsi:type="array">
+                        <item name="0" xsi:type="array">
+                            <item name="text" xsi:type="string">Cancel</item>
+                            <item name="class" xsi:type="string">action-secondary</item>
+                            <item name="actions" xsi:type="array">
+                                <item name="0" xsi:type="string">actionCancel</item>
+                            </item>
+                        </item>
+                        <item name="1" xsi:type="array">
+                            <item name="text" xsi:type="string">Proceed</item>
+                            <item name="class" xsi:type="string">action-primary</item>
+                            <item name="actions" xsi:type="array">
+                                <item name="0" xsi:type="string">convertCredit</item>
+                            </item>
+                        </item>
+                    </option>
+                    <option name="modalClass" xsi:type="string">company-credit-form-modal</option>
+                    <option name="title" xsi:type="string">Convert Credit to a New Currency</option>
+                    <option name="type" xsi:type="string">popup</option>
+                </options>
+            </settings>
+            <container name="warning_message" template="Magento_CompanyCredit/convert-credit/warning-message"/>
+            <fieldset name="convert_credit">
+                <settings>
+                    <additionalClasses>
+                        <class name="convert-credit">true</class>
+                    </additionalClasses>
+                    <label/>
+                    <dataScope>convert_credit</dataScope>
+                </settings>
+                <field name="currency" formElement="select">
+                    <settings>
+                        <validation>
+                            <rule name="required-entry" xsi:type="boolean">true</rule>
+                        </validation>
+                        <dataType>text</dataType>
+                        <label translate="true">Credit Currency</label>
+                        <dataScope>currency</dataScope>
+                        <exports>
+                            <link name="value">${ $.parentName }.rates:getConversionRates</link>
+                        </exports>
+                    </settings>
+                    <formElements>
+                        <select>
+                            <settings>
+                                <caption>-- Please Select --</caption>
+                                <options class="Magento\CompanyCredit\Model\Config\Source\Locale\Currency"/>
+                            </settings>
+                        </select>
+                    </formElements>
+                </field>
+                <field name="rates" component="Magento_CompanyCredit/js/convert-credit/rates-fields" template="Magento_CompanyCredit/convert-credit/rates-fields" formElement="input">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="modalProvider" xsi:type="string">ns = company_listing, index = convert_credit_form_modal</item>
+                            <item name="getConversionRatesUrl" xsi:type="url" path="credit/index/getConversionRates"/>
+                        </item>
+                    </argument>
+                    <settings>
+                        <dataScope>rates</dataScope>
+                        <imports>
+                            <link name="actionSelections">${ $.modalProvider }:actionSelections</link>
+                        </imports>
+                    </settings>
+                </field>
+            </fieldset>
+        </modal>
+    </container>
+</listing>

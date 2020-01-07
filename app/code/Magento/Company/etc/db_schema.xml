@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="company" resource="default" engine="innodb" comment="Company Table">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Company ID"/>
+        <column xsi:type="smallint" name="status" padding="5" unsigned="true" nullable="false" identity="false"
+                default="0" comment="Status"/>
+        <column xsi:type="varchar" name="company_name" nullable="true" length="40" comment="Company Name"/>
+        <column xsi:type="varchar" name="legal_name" nullable="true" length="80" comment="Legal Name"/>
+        <column xsi:type="varchar" name="company_email" nullable="true" length="255" comment="Company Email"/>
+        <column xsi:type="varchar" name="vat_tax_id" nullable="true" length="40" comment="VAT Tax ID"/>
+        <column xsi:type="varchar" name="reseller_id" nullable="true" length="40" comment="Reseller ID"/>
+        <column xsi:type="text" name="comment" nullable="true" comment="Comment"/>
+        <column xsi:type="varchar" name="street" nullable="true" length="40" comment="Street"/>
+        <column xsi:type="varchar" name="city" nullable="true" length="40" comment="City"/>
+        <column xsi:type="varchar" name="country_id" nullable="true" length="2" comment="Country ID"/>
+        <column xsi:type="varchar" name="region" nullable="true" length="40" comment="Region"/>
+        <column xsi:type="int" name="region_id" padding="10" unsigned="true" nullable="true" identity="false"
+                comment="Region Id"/>
+        <column xsi:type="varchar" name="postcode" nullable="true" length="30" comment="Postcode"/>
+        <column xsi:type="varchar" name="telephone" nullable="true" length="20" comment="Telephone"/>
+        <column xsi:type="int" name="customer_group_id" padding="10" unsigned="true" nullable="true" identity="false"
+                comment="Customer Group ID"/>
+        <column xsi:type="int" name="sales_representative_id" padding="10" unsigned="true" nullable="true"
+                identity="false" comment="Sales Representative ID"/>
+        <column xsi:type="int" name="super_user_id" padding="10" unsigned="true" nullable="true" identity="false"
+                comment="Super User ID"/>
+        <column xsi:type="text" name="reject_reason" nullable="true" comment="Reject Reason"/>
+        <column xsi:type="timestamp" name="rejected_at" on_update="false" nullable="true" comment="Rejected At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="COMPANY_COUNTRY_ID_DIRECTORY_COUNTRY_COUNTRY_ID" table="company"
+                    column="country_id" referenceTable="directory_country" referenceColumn="country_id"
+                    onDelete="SET NULL"/>
+        <constraint xsi:type="foreign" referenceId="COMPANY_REGION_ID_DIRECTORY_COUNTRY_REGION_REGION_ID" table="company"
+                    column="region_id" referenceTable="directory_country_region" referenceColumn="region_id"
+                    onDelete="SET NULL"/>
+        <constraint xsi:type="foreign" referenceId="COMPANY_CUSTOMER_GROUP_ID_CUSTOMER_GROUP_CUSTOMER_GROUP_ID" table="company"
+                    column="customer_group_id" referenceTable="customer_group" referenceColumn="customer_group_id"
+                    onDelete="SET NULL"/>
+        <constraint xsi:type="foreign" referenceId="COMPANY_SALES_REPRESENTATIVE_ID_ADMIN_USER_USER_ID" table="company"
+                    column="sales_representative_id" referenceTable="admin_user" referenceColumn="user_id"
+                    onDelete="SET NULL"/>
+        <index referenceId="COMPANY_COMPANY_NAME_LEGAL_NAME" indexType="fulltext">
+            <column name="company_name"/>
+            <column name="legal_name"/>
+        </index>
+        <index referenceId="COMPANY_COUNTRY_ID" indexType="btree">
+            <column name="country_id"/>
+        </index>
+        <index referenceId="COMPANY_REGION_ID" indexType="btree">
+            <column name="region_id"/>
+        </index>
+    </table>
+    <table name="company_team" resource="default" engine="innodb" comment="Team Table">
+        <column xsi:type="int" name="team_id" padding="11" unsigned="false" nullable="false" identity="true"
+                comment="Company ID"/>
+        <column xsi:type="varchar" name="name" nullable="true" length="40" comment="Name"/>
+        <column xsi:type="text" name="description" nullable="true" comment="Description"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="team_id"/>
+        </constraint>
+    </table>
+    <table name="company_structure" resource="default" engine="innodb" comment="Structure Table">
+        <column xsi:type="int" name="structure_id" padding="11" unsigned="false" nullable="false" identity="true"
+                comment="Structure ID"/>
+        <column xsi:type="int" name="parent_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Parent Structure ID"/>
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="false"
+                default="0" comment="Entity ID"/>
+        <column xsi:type="smallint" name="entity_type" padding="5" unsigned="true" nullable="false" identity="false"
+                default="0" comment="Entity type"/>
+        <column xsi:type="varchar" name="path" nullable="false" length="255" comment="Tree Path"/>
+        <column xsi:type="int" name="position" padding="11" unsigned="false" nullable="false" identity="false"
+                comment="Position"/>
+        <column xsi:type="int" name="level" padding="11" unsigned="false" nullable="false" identity="false" default="0"
+                comment="Tree Level"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="structure_id"/>
+        </constraint>
+        <index referenceId="COMPANY_STRUCTURE_PARENT_ID" indexType="btree">
+            <column name="parent_id"/>
+        </index>
+        <index referenceId="COMPANY_STRUCTURE_ENTITY_ID" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+        <index referenceId="COMPANY_STRUCTURE_ENTITY_TYPE" indexType="btree">
+            <column name="entity_type"/>
+        </index>
+    </table>
+    <table name="company_advanced_customer_entity" resource="default" engine="innodb"
+           comment="company_advanced_customer_entity">
+        <column xsi:type="int" name="customer_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Customer ID"/>
+        <column xsi:type="int" name="company_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Company ID"/>
+        <column xsi:type="text" name="job_title" nullable="true" comment="Job Title"/>
+        <column xsi:type="smallint" name="status" padding="5" unsigned="true" nullable="false" identity="false"
+                default="1" comment="Status"/>
+        <column xsi:type="varchar" name="telephone" nullable="true" length="255" comment="Phone Number"/>
+        <constraint xsi:type="foreign" referenceId="COMPANY_ADVANCED_CSTR_ENTT_CSTR_ID_CSTR_ENTT_ENTT_ID"
+                    table="company_advanced_customer_entity" column="customer_id" referenceTable="customer_entity"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="unique" referenceId="COMPANY_ADVANCED_CUSTOMER_ENTITY_CUSTOMER_ID">
+            <column name="customer_id"/>
+        </constraint>
+        <index referenceId="COMPANY_ADVANCED_CUSTOMER_ENTITY_STATUS" indexType="btree">
+            <column name="status"/>
+        </index>
+    </table>
+    <table name="company_roles" resource="default" engine="innodb" comment="Roles Table">
+        <column xsi:type="int" name="role_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Primary Role ID"/>
+        <column xsi:type="int" name="sort_order" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Sorting order"/>
+        <column xsi:type="varchar" name="role_name" nullable="true" length="40" comment="Company role name"/>
+        <column xsi:type="int" name="company_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Company ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="role_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="COMPANY_ROLES_COMPANY_ID_COMPANY_ENTITY_ID" table="company_roles"
+                    column="company_id" referenceTable="company" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="COMPANY_ROLES_COMPANY_ID" indexType="btree">
+            <column name="company_id"/>
+        </index>
+    </table>
+    <table name="company_user_roles" resource="default" engine="innodb" comment="User Roles Table">
+        <column xsi:type="int" name="user_role_id" padding="11" unsigned="false" nullable="false" identity="true"
+                comment="Primary User Role ID"/>
+        <column xsi:type="int" name="role_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Role ID"/>
+        <column xsi:type="int" name="user_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="User ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="user_role_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="COMPANY_USER_ROLES_ROLE_ID_COMPANY_ROLES_ROLE_ID"
+                    table="company_user_roles" column="role_id" referenceTable="company_roles" referenceColumn="role_id"
+                    onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="COMPANY_USER_ROLES_USER_ID_CUSTOMER_ENTITY_ENTITY_ID"
+                    table="company_user_roles" column="user_id" referenceTable="customer_entity"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="COMPANY_USER_ROLES_ROLE_ID" indexType="btree">
+            <column name="role_id"/>
+        </index>
+        <index referenceId="COMPANY_USER_ROLES_USER_ID" indexType="btree">
+            <column name="user_id"/>
+        </index>
+    </table>
+    <table name="company_permissions" resource="default" engine="innodb" comment="Permissions Table">
+        <column xsi:type="int" name="permission_id" padding="11" unsigned="false" nullable="false" identity="true"
+                comment="Primary Permission ID"/>
+        <column xsi:type="int" name="role_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Role ID"/>
+        <column xsi:type="varchar" name="resource_id" nullable="true" length="80" comment="Resource ID"/>
+        <column xsi:type="varchar" name="permission" nullable="true" length="80" comment="Permission"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="permission_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="COMPANY_PERMISSIONS_ROLE_ID_COMPANY_ROLES_ROLE_ID"
+                    table="company_permissions" column="role_id" referenceTable="company_roles"
+                    referenceColumn="role_id" onDelete="CASCADE"/>
+        <index referenceId="COMPANY_PERMISSIONS_ROLE_ID" indexType="btree">
+            <column name="role_id"/>
+        </index>
+    </table>
+    <table name="company_order_entity" resource="sales" engine="innodb" comment="company_order_entity">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="int" name="order_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Order ID"/>
+        <column xsi:type="int" name="company_id" padding="10" unsigned="true" nullable="true" identity="false"
+                comment="Company ID"/>
+        <column xsi:type="varchar" name="company_name" nullable="true" length="40" comment="Company Name"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="COMPANY_ORDER_ENTITY_ORDER_ID_SALES_ORDER_ENTITY_ID"
+                    table="company_order_entity" column="order_id" referenceTable="sales_order"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="unique" referenceId="COMPANY_ORDER_ENTITY_ENTITY_ID">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="COMPANY_ORDER_ENTITY_ORDER_ID">
+            <column name="order_id"/>
+        </constraint>
+    </table>
+</schema>

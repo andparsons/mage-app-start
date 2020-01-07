@@ -1,0 +1,28 @@
+<?php
+?>
+<?php
+/** @var \Magento\GoogleTagManager\Block\ListJson $block */
+$item = $block->getFpcBlock()->getItem();
+?>
+
+<?php if (is_object($item)) { ?>
+    <script>
+        updatedImpressions = updatedImpressions || [];
+        updatedImpressions['<?= $block->escapeJs($block->getBlockName()) ?>'] = updatedImpressions[
+            '<?= $block->escapeJs($block->getBlockName()) ?>'
+            ] || [];
+        updatedImpressions['<?= $block->escapeJs($block->getBlockName()) ?>'] =
+            updatedImpressions['<?= $block->escapeJs($block->getBlockName()) ?>'].concat([
+                {
+                    "id": "<?= $block->escapeJs($item->getSku()) ?>",
+                    "type": "<?= $block->escapeJs($item->getTypeId()) ?>",
+                    "name": "<?= $block->escapeJs($item->getName()) ?>",
+                    "category": "<?= $block->escapeJs($block->getCurrentCategoryName()) ?>",
+                    "list": "<?= $block->escapeJs($block->getCurrentListName()) ?>",
+                    "position": updatedImpressions['<?= $block->escapeJs($block->getBlockName()) ?>'].length + 1,
+                    "listPosition": updatedImpressions['<?= $block->escapeJs($block->getBlockName()) ?>'].length
+                }
+            ]);
+    </script>
+    <?php
+}

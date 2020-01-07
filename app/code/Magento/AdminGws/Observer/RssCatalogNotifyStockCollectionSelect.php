@@ -1,0 +1,27 @@
+<?php
+namespace Magento\AdminGws\Observer;
+
+use Magento\Framework\Event\ObserverInterface;
+
+class RssCatalogNotifyStockCollectionSelect implements ObserverInterface
+{
+    /**
+     * @param \Magento\AdminGws\Model\Collections $collections
+     */
+    public function __construct(
+        \Magento\AdminGws\Model\Collections $collections
+    ) {
+        $this->collections = $collections;
+    }
+
+    /**
+     * Apply websites filter on collection used in notify stock rss
+     *
+     * @param \Magento\Framework\Event\Observer $observer
+     * @return void
+     */
+    public function execute(\Magento\Framework\Event\Observer $observer)
+    {
+        $this->collections->rssCatalogNotifyStockCollectionSelect($observer);
+    }
+}

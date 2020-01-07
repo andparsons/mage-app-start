@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="sales_order_create_item_price"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\AdvancedCheckout\Block\Adminhtml\Manage\Items" name="items" template="Magento_AdvancedCheckout::manage/items.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

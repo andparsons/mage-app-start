@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="CreateScheduleUpdateSection">
+        <element name="customerGroup" type="button" selector=".admin__action-multiselect.action-select"/>
+        <element name="done" type="button" selector="//span[text()='Done']"/>
+        <element name="startDate" type="button" selector="//span[text()='Start Date']/ancestor::div[@class='admin__field _required']//button[@class='ui-datepicker-trigger v-middle']"/>
+    </section>
+</sections>

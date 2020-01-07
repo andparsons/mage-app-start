@@ -1,0 +1,36 @@
+<?php
+
+/** @var \Magento\NegotiableQuote\Block\Order\Info\Quote $block */
+?>
+<?php if ($block->isNegotiableQuote()) : ?>
+    <div data-bind="scope: 'negotiable_quote_link'" class="actions negotiable-quote-link">
+        <strong><?= $block->escapeHtml(__('Order Placed From Quote:')) ?></strong>
+        <?php if ($block->isQuoteStoreEnabled()) : ?>
+            <a class="action quote"
+               data-bind="click: click"
+               href="<?= $block->escapeUrl($block->getViewQuoteUrl()) ?>">
+                <span><?= $block->escapeHtml($block->getQuoteName()) ?></span>
+            </a>
+        <?php else : ?>
+            <span><?= $block->escapeHtml($block->getQuoteName()) ?></span>
+        <?php endif; ?>
+    </div>
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "negotiable_quote_link": {
+                            "component": "Magento_NegotiableQuote/js/link_confirmation",
+                            "isEnable": <?= (int) !$block->isCurrentStoreQuote() ?>,
+                            "modalConfig": {
+                                "title": "<?= $block->escapeJs(__('Cannot Open the Quote')) ?>",
+                                "content": "<?= $block->escapeJs(__('This quote cannot be viewed at the current website. Would you like to navigate to the website where you created this quote?')) ?>"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        </script>
+<?php endif; ?>

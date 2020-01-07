@@ -1,0 +1,16 @@
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="action-select-wrap" collapsible>
+    <span class="store-switcher-label"><!-- ko i18n: 'Website:' --><!-- /ko --></span>
+    <button class="switcher-dropdown" toggleCollapsible type="button"
+            data-bind="i18n: selectedWebsiteLabel" />
+    <ul class="action-menu" css="_active: $collapsible.opened">
+        <li repeat="foreach: websites, item: '$website'">
+            <span class="action-menu-item" click="$data.setSelectedWebsite.bind($data, $website())" text="$website().label" closeCollapsible/>
+        </li>
+    </ul>
+</div>

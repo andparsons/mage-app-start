@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="CreateNegotiableQuoteWithNegotiatedShippingPrice">
+        <annotations>
+            <stories value="Negotiable Quotes"/>
+            <title value="All shipping methods must be available after enabling Negotiable Quotes."/>
+            <description value="All shipping methods must be available after enabling Negotiable Quotes."/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MAGETWO-90537"/>
+            <group value="negotiable_quotes"/>
+        </annotations>
+        <before>
+            <createData entity="SimpleSubCategory" stepKey="createSubCategory"/>
+            <createData entity="_defaultProduct" stepKey="createSimpleProduct">
+                <requiredEntity createDataKey="createSubCategory"/>
+            </createData>
+            <createData entity="Simple_US_Customer" stepKey="createCompanyAdmin"/>
+            <createData entity="Default_Company" stepKey="createDefaultCompany">
+                <requiredEntity createDataKey="createCompanyAdmin"/>
+            </createData>
+            <createData entity="NegotiableQuoteSystemConfig" stepKey="enableB2BQuotesConfig"/>
+            <createData entity="FlatRateShippingMethodConfig" stepKey="enableFlatRateShippingMethod"/>
+            <createData entity="FreeShippinMethodConfig" stepKey="enableFreeShippinMethod"/>
+        </before>
+        <after>
+            <deleteData createDataKey="createSimpleProduct" stepKey="deleteProduct1"/>
+            <deleteData createDataKey="createSubCategory" stepKey="deleteCategory"/>
+            <!-- At the moment MFTF tries remove company by id of customer, so uncomment line below after fix -->
+            <!--<deleteData createDataKey="createDefaultCompany" stepKey="deleteCompany" />-->
+            <!--<deleteData createDataKey="createCompanyAdmin" stepKey="deleteCustomer"/>-->
+            <createData entity="FreeShippingMethodDisableConfig" stepKey="disableFreeShippingMethod"/>
+            <createData entity="B2BDefaultConfig" stepKey="enableB2BDefaultConfig"/>
+            <amOnPage url="admin/admin/auth/logout/" stepKey="amOnLogoutPage"/>
+        </after>
+
+        <!--Login as company admin-->
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="customerLogin">
+            <argument name="Customer" value="$$createCompanyAdmin$$"/>
+        </actionGroup>
+
+        <!-- Add simple product to cart -->
+        <actionGroup ref="AddSimpleProductToCart" stepKey="addProductToCart1">
+            <argument name="product" value="$$createSimpleProduct$$"/>
+        </actionGroup>
+
+        <!-- Navigate to checkout page -->
+        <click selector="{{StorefrontMinicartSection.showCart}}" stepKey="s11"/>
+        <click selector="{{StorefrontMinicartSection.goToCheckout}}" stepKey="s12"/>
+        <waitForPageLoad time="10" stepKey="s13"/>
+        <waitForLoadingMaskToDisappear stepKey="s14"/>
+
+        <!-- Select shipping method -->
+        <click selector="{{CheckoutShippingMethodsSection.firstShippingMethod}}" stepKey="s21"/>
+        <waitForElement selector="{{CheckoutShippingMethodsSection.next}}" time="30" stepKey="s22"/>
+        <click selector="{{CheckoutShippingMethodsSection.next}}" stepKey="s23"/>
+        <waitForLoadingMaskToDisappear stepKey="s24"/>
+
+        <!-- Go back to shipping method selection -->
+        <click selector="{{CheckoutHeaderSection.shippingMethodStep}}" stepKey="s31"/>
+        <amOnPage url="/checkout/#shipping" stepKey="s32"/>
+        <waitForPageLoad stepKey="s33"/>
+        <waitForLoadingMaskToDisappear stepKey="s34"/>
+
+        <!-- Check that available shipping methods are visible -->
+        <see userInput="Flat Rate" selector="{{CheckoutShippingMethodsSection.shippingMethodRow}}" stepKey="assertShippingMethodsFlatRate1"/>
+        <see userInput="Free Shipping" selector="{{CheckoutShippingMethodsSection.shippingMethodRow}}"  stepKey="assertShippingMethodsFree1"/>
+
+        <waitForElement selector="{{CheckoutShippingMethodsSection.next}}" time="30" stepKey="s41"/>
+        <click selector="{{CheckoutShippingMethodsSection.next}}" stepKey="s42"/>
+        <waitForLoadingMaskToDisappear stepKey="s43"/>
+        <conditionalClick selector="{{CheckoutPaymentSection.checkMoneyOrderPayment}}" dependentSelector="{{CheckoutPaymentSection.placeOrder}}" visible="false" stepKey="s44"/>
+        <click selector="{{CheckoutPaymentSection.placeOrder}}" stepKey="s45"/>
+        <waitForPageLoad stepKey="s46"/>
+        <grabTextFrom selector="{{CheckoutSuccessMainSection.orderNumber22}}" stepKey="grabOrderNumber"/>
+
+
+        <!-- Make Reorder  -->
+        <click selector="{{CheckoutSuccessMainSection.orderLink}}" stepKey="s51"/>
+        <waitForPageLoad stepKey="s52"/>
+        <see userInput="Order # {$grabOrderNumber}" selector="{{StorefrontCustomerOrderViewSection.orderTitle}}" stepKey="s53"/>
+        <click selector="{{StorefrontCustomerOrderViewSection.reorder}}" stepKey="s54"/>
+        <waitForPageLoad stepKey="s55"/>
+
+        <!-- Navigate to checkout page -->
+        <click selector="{{CheckoutCartSummarySection.proceedToCheckout}}" stepKey="s61"/>
+        <waitForLoadingMaskToDisappear stepKey="s62"/>
+
+        <!-- Go back to shipping method selection -->
+        <click selector="{{CheckoutHeaderSection.shippingMethodStep}}" stepKey="s71"/>
+        <amOnPage url="/checkout/#shipping" stepKey="s72"/>
+        <waitForPageLoad stepKey="s73"/>
+        <waitForLoadingMaskToDisappear stepKey="s74"/>
+
+        <!-- Check that available payment methods are visible -->
+        <see userInput="Flat Rate" selector="{{CheckoutShippingMethodsSection.shippingMethodRow}}" stepKey="assertShippingMethodsFlatRate2"/>
+        <see userInput="Free Shipping" selector="{{CheckoutShippingMethodsSection.shippingMethodRow}}" stepKey="assertShippingMethodsFree2"/>
+    </test>
+</tests>

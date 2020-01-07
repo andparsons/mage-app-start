@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="AdminProductSharedCatalogsSection">
+        <element name="productSharedCatalogsToggle" type="button" selector="div[data-index=shared_catalog] .admin__collapsible-title"/>
+        <element name="checkIfSharedCatalogsIsOpened" type="button" selector="div[data-index=shared_catalog] div[data-state-collapsible=closed]"/>
+        <element name="sharedCatalogsDropDown" type="button" selector="div[data-index=shared_catalog] .admin__action-multiselect-text"/>
+        <element name="sharedCatalogsSearch" type="input" selector="div[data-index=shared_catalog] .admin__action-multiselect-search"/>
+        <element name="checkboxForSharedCatalogByName" type="checkbox" selector="//div[@data-index='shared_catalog']//label[@class='admin__action-multiselect-label']/span[contains(text(),'{{var}}')]" parameterized="true"/>
+        <element name="sharedCatalogDoneButton" type="button" selector="//button[@class='action-secondary']/span[text()='Done']"/>
+    </section>
+</sections>

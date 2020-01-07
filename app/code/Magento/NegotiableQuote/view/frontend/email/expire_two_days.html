@@ -1,0 +1,15 @@
+<!--
+-->
+<!--@subject Quote {{var data.getQuoteName()}} expires soon @-->
+<!--@vars {
+"var data.getQuoteName()":"Quote name",
+"var data.getExpirationPeriod()":"Expiration period",
+"var quote_url":"Quote URL",
+"var merchantName":"Merchant Name",
+} @-->
+
+<p class="greeting">{{trans "Dear %merchantName," merchantName=$merchantName}}</p>
+<p>{{trans "The quote "}}<a href="{{var quote_url}}">{{var data.getQuoteName()}}</a>{{trans " expires on "}}
+    <b>{{var data.getExpirationPeriod()}}</b>,{{trans " after which time it will be reset to its default expiration period. To extend the
+    lifetime of the quote, update its expiration date."}}</p>
+<br /><p>{{trans "Thank you,"}}</p><p>{{trans "%store_name" store_name=$store.getFrontendName() |raw}}</p>

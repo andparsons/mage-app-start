@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="btob" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>B2B Features</label>
+            <tab>general</tab>
+            <resource>Magento_B2b::config_btob</resource>
+            <group id="website_configuration" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1">
+                <label>B2B Features</label>
+                <comment>Enabling or disabling the features listed below affects their visibility and/or behavior in the storefront only. In Admin, they are always available for management and configuration.</comment>
+                <!-- B2B Features config fields -->
+            </group>
+        </section>
+    </system>
+</config>

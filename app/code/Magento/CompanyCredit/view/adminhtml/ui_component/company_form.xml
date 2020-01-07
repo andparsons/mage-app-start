@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd" component="Magento_CompanyCredit/js/form/form">
+    <settings>
+        <buttons>
+            <button name="reimburse" class="Magento\CompanyCredit\Block\Adminhtml\Company\Edit\ReimburseButton"/>
+        </buttons>
+    </settings>
+    <fieldset name="company_credit" sortOrder="60">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">Company Credit</label>
+            <dataScope>company_credit</dataScope>
+        </settings>
+        <container name="credit_block">
+            <htmlContent name="html_content">
+                <block name="creditBalance" class="Magento\CompanyCredit\Block\Adminhtml\Company\Edit\CreditBalance"/>
+            </htmlContent>
+        </container>
+        <insertListing name="history_listing">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="externalTransfer" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+            <settings>
+                <dataLinks>
+                    <exports>false</exports>
+                    <imports>true</imports>
+                </dataLinks>
+                <externalProvider>history_listing.history_listing_data_source</externalProvider>
+                <autoRender>true</autoRender>
+                <dataScope>history</dataScope>
+                <ns>history_listing</ns>
+                <exports>
+                    <link name="creditId">${ $.externalProvider }:params.id</link>
+                </exports>
+                <imports>
+                    <link name="creditId">${ $.provider }:data.id</link>
+                </imports>
+            </settings>
+        </insertListing>
+        <field name="currency_code" class="Magento\CompanyCredit\Ui\Component\Form\Currency" formElement="select">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Credit Currency</label>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Magento\CompanyCredit\Model\Config\Source\Locale\Currency"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="currency_rate" formElement="hidden"/>
+        <field name="credit_limit" class="Magento\CompanyCredit\Ui\Component\Form\AmountField" component="Magento_CompanyCredit/js/fields-with-currency" formElement="input">
+            <settings>
+                <validation>
+                    <rule name="validate-zero-or-greater" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>price</dataType>
+                <label translate="true">Credit Limit</label>
+            </settings>
+        </field>
+        <field name="exceed_limit" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="default" xsi:type="boolean">0</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Allow To Exceed Credit Limit</label>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <options class="Magento\CompanyCredit\Model\Config\Source\Yesno"/>
+                        <valueMap>
+                            <map name="false" xsi:type="boolean">0</map>
+                            <map name="true" xsi:type="boolean">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="credit_comment" component="Magento_CompanyCredit/js/reason-change" formElement="textarea">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="creditLimitName" xsi:type="string">company_form.company_form.company_credit.credit_limit</item>
+                    <item name="currencyCodeName" xsi:type="string">company_form.company_form.company_credit.currency_code</item>
+                    <item name="exceedLimitName" xsi:type="string">company_form.company_form.company_credit.exceed_limit</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="max_text_length" xsi:type="number">255</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Reason For Change</label>
+                <disabled>1</disabled>
+            </settings>
+        </field>
+    </fieldset>
+    <container name="modalContainer">
+        <modal name="company_credit_form_modal" component="Magento_CompanyCredit/js/reimburse-form-modal">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="htmlContent" xsi:type="string">company_form.company_form.company_credit.credit_block.html_content</item>
+                    <item name="historyTable" xsi:type="string">history_listing.history_listing_data_source</item>
+                    <item name="reimburseBalance" xsi:type="string">company_form.company_form.modalContainer.company_credit_form_modal.reimburse_balance</item>
+                    <item name="translate" xsi:type="array">
+                        <item name="outstandingBalance" xsi:type="string" translate="true">Outstanding Balance</item>
+                        <item name="availableCredit" xsi:type="string" translate="true">Available Credit</item>
+                        <item name="creditLimit" xsi:type="string" translate="true">Credit Limit</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <options>
+                    <option name="buttons" xsi:type="array">
+                        <item name="0" xsi:type="array">
+                            <item name="text" xsi:type="string">Cancel</item>
+                            <item name="class" xsi:type="string">action-secondary</item>
+                            <item name="actions" xsi:type="array">
+                                <item name="0" xsi:type="string">actionCancel</item>
+                            </item>
+                        </item>
+                        <item name="1" xsi:type="array">
+                            <item name="text" xsi:type="string">Save</item>
+                            <item name="class" xsi:type="string">action-primary reimburse-button</item>
+                            <item name="actions" xsi:type="array">
+                                <item name="0" xsi:type="string">sendAjax</item>
+                            </item>
+                        </item>
+                    </option>
+                    <option name="modalClass" xsi:type="string">company-credit-form-modal</option>
+                    <option name="title" xsi:type="string">Change Reimburse Data</option>
+                    <option name="type" xsi:type="string">popup</option>
+                </options>
+            </settings>
+            <fieldset name="reimburse_balance">
+                <settings>
+                    <label/>
+                    <dataScope>reimburse_balance</dataScope>
+                </settings>
+                <field name="amount" class="Magento\CompanyCredit\Ui\Component\Form\AmountField" formElement="input">
+                    <settings>
+                        <additionalClasses>
+                            <class name="admin__field-small">true</class>
+                        </additionalClasses>
+                        <validation>
+                            <rule name="required-entry" xsi:type="boolean">true</rule>
+                            <rule name="validate-number" xsi:type="boolean">true</rule>
+                        </validation>
+                        <label translate="true">Amount</label>
+                        <disabled>1</disabled>
+                        <visible>true</visible>
+                    </settings>
+                </field>
+                <field name="purchase_order" formElement="input">
+                    <settings>
+                        <notice translate="true">
+                            Limit one PO number per reimburse transaction
+                        </notice>
+                        <validation>
+                            <rule name="validate-purchase-order-number" xsi:type="boolean">true</rule>
+                        </validation>
+                        <label translate="true">Purchase Order Number</label>
+                        <visible>true</visible>
+                    </settings>
+                </field>
+                <field name="credit_comment" formElement="textarea">
+                    <settings>
+                        <notice translate="true">
+                                Maximum 255 characters are allowed.
+                        </notice>
+                        <validation>
+                            <rule name="max_text_length" xsi:type="number">255</rule>
+                        </validation>
+                        <label translate="true">Comment</label>
+                        <visible>true</visible>
+                    </settings>
+                </field>
+            </fieldset>
+        </modal>
+        <modal name="change_credit_limit_modal" component="Magento_CompanyCredit/js/credit-limit-modal">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="modalHtmlContent" xsi:type="string">${ $.name }.change_credit_currency.currency_warning.html_content</item>
+                    <item name="currencyCode" xsi:type="string">company_form.company_form.company_credit.currency_code</item>
+                    <item name="creditLimit" xsi:type="string">company_form.company_form.company_credit.credit_limit</item>
+                    <item name="currencyRate" xsi:type="string">${ $.name }.change_credit_currency.currency_rate</item>
+                    <item name="url" xsi:type="url" path="credit/currency/getRate"/>
+                </item>
+            </argument>
+            <settings>
+                <options>
+                    <option name="buttons" xsi:type="array">
+                        <item name="0" xsi:type="array">
+                            <item name="text" xsi:type="string">Cancel</item>
+                            <item name="class" xsi:type="string">action-secondary</item>
+                            <item name="actions" xsi:type="array">
+                                <item name="0" xsi:type="string">resetCurrencyCode</item>
+                            </item>
+                        </item>
+                        <item name="1" xsi:type="array">
+                            <item name="text" xsi:type="string">Proceed</item>
+                            <item name="class" xsi:type="string">action-primary</item>
+                            <item name="actions" xsi:type="array">
+                                <item name="0" xsi:type="string">setCreditLimit</item>
+                            </item>
+                        </item>
+                    </option>
+                    <option name="modalClass" xsi:type="string">company-credit-form-modal</option>
+                    <option name="title" xsi:type="string">Convert Credit to a New Currency</option>
+                    <option name="type" xsi:type="string">popup</option>
+                </options>
+            </settings>
+            <fieldset name="change_credit_currency">
+                <settings>
+                    <label/>
+                    <dataScope>credit_limit_change</dataScope>
+                </settings>
+                <container name="currency_warning">
+                    <htmlContent name="html_content">
+                        <settings>
+                            <additionalClasses>
+                                <class name="warning-message">true</class>
+                            </additionalClasses>
+                        </settings>
+                        <block name="elementTemplate" class="Magento\Framework\View\Element\Template"/>
+                    </htmlContent>
+                </container>
+                <field name="currency_rate" component="Magento_CompanyCredit/js/fields-with-currency" template="Magento_CompanyCredit/field" formElement="input">
+                    <settings>
+                        <additionalClasses>
+                            <class name="admin__field-small">true</class>
+                        </additionalClasses>
+                        <validation>
+                            <rule name="validate-currency-rate" xsi:type="boolean">true</rule>
+                        </validation>
+                        <label translate="true">Rate</label>
+                        <disabled>1</disabled>
+                        <visible>true</visible>
+                    </settings>
+                </field>
+            </fieldset>
+        </modal>
+    </container>
+</form>

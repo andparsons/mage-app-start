@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontQuoteDisplayingInMultisiteEnvironmentTest">
+        <annotations>
+            <stories value="Negotiable Quotes"/>
+            <title value="Quotes displaying in multi-siting environment"/>
+            <description value="The grid of quotes in storefront displays only the quotes created on that website."/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MAGETWO-68209"/>
+            <group value="negotiable_quotes"/>
+        </annotations>
+        <before>
+            <createData entity="Simple_US_Customer" stepKey="createCompanyAdmin"/>
+            <createData entity="Default_Company" stepKey="createDefaultCompany">
+                <requiredEntity createDataKey="createCompanyAdmin"/>
+            </createData>
+            <createData entity="SimpleSubCategory" stepKey="createSubCategory"/>
+            <createData entity="_defaultProduct" stepKey="createSimpleProduct">
+                <requiredEntity createDataKey="createSubCategory"/>
+            </createData>
+            <magentoCLI command="config:set {{EnableCompanyConfigData.path}} {{EnableCompanyConfigData.value}}" stepKey="enableCompany"/>
+            <magentoCLI command="config:set {{EnableB2BQuoteConfigData.path}} {{EnableB2BQuoteConfigData.value}}" stepKey="enableB2BQuote"/>
+            <createData entity="customWebsite" stepKey="createCustomWebsite"/>
+
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminGetWebsiteIdActionGroup" stepKey="getCustomWebsiteId">
+                <argument name="website" value="customWebsite"/>
+            </actionGroup>
+            <createData entity="customStoreGroup" stepKey="createStoreGroup">
+                <field key="website_id">$grabFromCurrentUrlGetCustomWebsiteId</field>
+            </createData>
+            <actionGroup ref="AdminCreateStoreViewActionGroup" stepKey="createCustomStoreView">
+                <argument name="StoreGroup" value="customStoreGroup"/>
+                <argument name="customStore" value="customStoreEN"/>
+            </actionGroup>
+
+            <createData entity="ProductAssignToWebsite" stepKey="assignToCustomWebsite">
+                <requiredEntity createDataKey="createSimpleProduct"/>
+                <field key="websiteid">$grabFromCurrentUrlGetCustomWebsiteId</field>
+            </createData>
+            <createData entity="EnableWebUrlOptionsConfig" stepKey="addStoreCodeToUrls"/>
+            <createData entity="CustomerAccountSharingGlobal" stepKey="setConfigCustomerAccountToGlobal"/>
+        </before>
+        <after>
+            <!--Clear filter negotiable quotes grid-->
+            <amOnPage url="{{AdminNegotiableQuotesPage.url}}" stepKey="navigateToNegotiableQuotesGridPage4"/>
+            <actionGroup ref="clearFiltersAdminDataGrid" stepKey="clearFiltersNegotiableQuotesGrid4"/>
+
+            <deleteData createDataKey="createSimpleProduct" stepKey="deleteProduct1"/>
+            <deleteData createDataKey="createSubCategory" stepKey="deleteCategory"/>
+            <actionGroup ref="AdminDeleteCompanyActionGroup" stepKey="AdminDeleteCompanyActionGroup">
+                <argument name="company" value="$$createDefaultCompany$$"/>
+            </actionGroup>
+            <deleteData createDataKey="createCompanyAdmin" stepKey="deleteCustomer"/>
+            <magentoCLI command="config:set {{DisableCompanyConfigData.path}} {{DisableCompanyConfigData.value}}" stepKey="disableCompany"/>
+            <magentoCLI command="config:set {{DisableB2BQuoteConfigData.path}} {{DisableB2BQuoteConfigData.value}}" stepKey="disableB2BQuote"/>
+
+            <actionGroup ref="DeleteCustomWebsiteActionGroup" stepKey="deleteWebsite">
+                <argument name="websiteName" value="$createCustomWebsite.website[name]$"/>
+            </actionGroup>
+            <actionGroup ref="clearFiltersAdminDataGrid" stepKey="clearFiltersNegotiableQuotesGrid5"/>
+            <createData entity="DefaultWebUrlOptionsConfig" stepKey="ResetWebUrlOptions"/>
+            <createData entity="CustomerAccountSharingDefault" stepKey="setConfigCustomerAccountDefault"/>
+
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+        <!--Open Website 1 and Login as company admin-->
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="customerLogin">
+            <argument name="Customer" value="$$createCompanyAdmin$$"/>
+        </actionGroup>
+        <!-- Add simple product to cart and go to shopping cart-->
+        <amOnPage url="{{StorefrontStoreHomePage.url(_defaultStore.code)}}$$createSimpleProduct.name$$.html" stepKey="goToProductPage"/>
+        <actionGroup ref="StorefrontAddToCartCustomOptionsProductPageActionGroup" stepKey="addProductToCart1">
+            <argument name="productName" value="$$createSimpleProduct.name$$"/>
+        </actionGroup>
+        <actionGroup ref="clickViewAndEditCartFromMiniCart" stepKey="goToShoppingCartFromMinicart"/>
+        <!--request a quote1.1-->
+        <actionGroup ref="StorefrontRequestQuoteActionGroup" stepKey="requestQuote">
+            <argument name="quote" value="NeqotiableQuote"/>
+        </actionGroup>
+        <!-- Add simple product to cart and go to shopping cart-->
+        <amOnPage url="{{StorefrontStoreHomePage.url(_defaultStore.code)}}$$createSimpleProduct.name$$.html" stepKey="goToProductPage2"/>
+        <actionGroup ref="StorefrontAddToCartCustomOptionsProductPageActionGroup" stepKey="addProductToCart2">
+            <argument name="productName" value="$$createSimpleProduct.name$$"/>
+        </actionGroup>
+        <actionGroup ref="clickViewAndEditCartFromMiniCart" stepKey="goToShoppingCartFromMinicart2"/>
+        <!--request a quote1.2-->
+        <actionGroup ref="StorefrontRequestQuoteActionGroup" stepKey="requestQuote2">
+            <argument name="quote" value="NeqotiableQuoteTwo"/>
+        </actionGroup>
+        <!-- Add simple product to cart and go to shopping cart-->
+        <amOnPage url="{{StorefrontStoreHomePage.url(customStoreEN.code)}}$$createSubCategory.name$$.html" stepKey="goToCategoryPageOnCustomWebsite"/>
+        <click selector="{{StorefrontCategoryProductSection.ProductTitleByName($$createSimpleProduct.name$$)}}" stepKey="openProductOnCustomWebsite"/>
+        <waitForPageLoad stepKey="waitForProductPageLoad"/>
+        <actionGroup ref="StorefrontAddToCartCustomOptionsProductPageActionGroup" stepKey="addProductToCart3">
+            <argument name="productName" value="$$createSimpleProduct.name$$"/>
+        </actionGroup>
+        <actionGroup ref="clickViewAndEditCartFromMiniCart" stepKey="goToShoppingCartFromMinicart3"/>
+        <!--request a quote2.1-->
+        <actionGroup ref="StorefrontRequestQuoteActionGroup" stepKey="requestQuote3">
+            <argument name="quote" value="NeqotiableQuoteThree"/>
+        </actionGroup>
+        <!-- Add simple product to cart and go to shopping cart-->
+        <amOnPage url="{{StorefrontStoreHomePage.url(customStoreEN.code)}}$$createSubCategory.name$$.html" stepKey="goToCategoryPageOnCustomWebsite2"/>
+        <click selector="{{StorefrontCategoryProductSection.ProductTitleByName($$createSimpleProduct.name$$)}}" stepKey="openProductOnCustomWebsite2"/>
+        <waitForPageLoad stepKey="waitForProductPageLoad1"/>
+        <actionGroup ref="StorefrontAddToCartCustomOptionsProductPageActionGroup" stepKey="addProductToCart4">
+            <argument name="productName" value="$$createSimpleProduct.name$$"/>
+        </actionGroup>
+        <actionGroup ref="clickViewAndEditCartFromMiniCart" stepKey="goToShoppingCartFromMinicart4"/>
+        <!--request a quote2.2-->
+        <actionGroup ref="StorefrontRequestQuoteActionGroup" stepKey="requestQuote4">
+            <argument name="quote" value="NeqotiableQuoteFour"/>
+        </actionGroup>
+        <amOnPage url="{{StorefrontStoreHomePage.url(customStoreEN.code)}}{{StorefrontNegotiableQuotePage.url}}" stepKey="goToNegotiableQuotePageOnMainWebsite"/>
+        <see selector="{{StorefrontMyQuoteGridSection.gridMyQuote('Quote Name', 'QuoteThree')}}" userInput="QuoteThree" stepKey="seeQuotePresentInGrid21"/>
+        <see selector="{{StorefrontMyQuoteGridSection.gridMyQuote('Quote Name', 'QuoteFour')}}" userInput="QuoteFour" stepKey="seeQuotePresentInGrid22"/>
+        <dontSee selector="{{StorefrontMyQuoteGridSection.gridMyQuote('Quote Name', 'QuoteName')}}" userInput="QuoteName" stepKey="dontSeequote11"/>
+        <dontSee selector="{{StorefrontMyQuoteGridSection.gridMyQuote('Quote Name', 'QuoteTwo')}}" userInput="QuoteTwo" stepKey="dontSeequote12"/>
+        <!--Open quotes grid on the Main web-site, there are only quotes displayed: - quote1.1 - quote1.2-->
+        <amOnPage url="{{StorefrontStoreHomePage.url(_defaultStore.code)}}{{StorefrontNegotiableQuotePage.url}}" stepKey="goToNegotiableQuotePageOnMainWebsite2"/>
+        <see selector="{{StorefrontMyQuoteGridSection.gridMyQuote('Quote Name', 'QuoteName')}}" userInput="QuoteName" stepKey="seeQuotePresentInGrid2"/>
+        <see selector="{{StorefrontMyQuoteGridSection.gridMyQuote('Quote Name', 'QuoteTwo')}}" userInput="QuoteTwo" stepKey="seeQuotePresentInGrid3"/>
+        <dontSee selector="{{StorefrontMyQuoteGridSection.gridMyQuote('Quote Name', 'QuoteThree')}}" userInput="QuoteThree" stepKey="dontSeequote21"/>
+        <dontSee selector="{{StorefrontMyQuoteGridSection.gridMyQuote('Quote Name', 'QuoteFour')}}" userInput="QuoteFour" stepKey="dontSeequote22"/>
+        <!--Logout customer-->
+        <actionGroup ref="StorefrontCustomerLogoutActionGroup" stepKey="customerLogout"/>
+
+        <!--Go to Admin panel and open quotes grid:  Sales -> Quotes-->
+        <amOnPage url="{{AdminNegotiableQuotesPage.url}}" stepKey="navigateToNegotiableQuotesGridPage1"/>
+        <actionGroup ref="AdminGridFilterSearchResultsByInput" stepKey="searchQuote12">
+            <argument name="selector" value="AdminDataGridHeaderSection.filterFieldInput('quote_name')"/>
+            <argument name="value" value="{{NeqotiableQuoteTwo.name}}"/>
+        </actionGroup>
+        <see selector="{{AdminDataGridTableSection.gridCell('1', 'Name')}}" userInput="{{NeqotiableQuoteTwo.name}}"  stepKey="seeQuoteNameInGrid"/>
+        <actionGroup ref="clearFiltersAdminDataGrid" stepKey="clearFiltersNegotiableQuotesGrid"/>
+        <actionGroup ref="AdminGridFilterSearchResultsByInput" stepKey="searchQuote21">
+            <argument name="selector" value="AdminDataGridHeaderSection.filterFieldInput('quote_name')"/>
+            <argument name="value" value="{{NeqotiableQuoteThree.name}}"/>
+        </actionGroup>
+        <see selector="{{AdminDataGridTableSection.gridCell('1', 'Name')}}" userInput="{{NeqotiableQuoteThree.name}}"  stepKey="seeQuoteNameInGrid2"/>
+        <actionGroup ref="clearFiltersAdminDataGrid" stepKey="clearFiltersNegotiableQuotesGrid2"/>
+
+        <!--Quote 1.1 details page is opened-->
+        <actionGroup ref="AdminGridFilterSearchResultsByInput" stepKey="searchQuote11">
+            <argument name="selector" value="AdminDataGridHeaderSection.filterFieldInput('quote_name')"/>
+            <argument name="value" value="{{NeqotiableQuote.name}}"/>
+        </actionGroup>
+        <see selector="{{AdminDataGridTableSection.gridCell('1', 'Name')}}" userInput="{{NeqotiableQuote.name}}"  stepKey="seeQuoteNameInGrid3"/>
+        <click selector="{{AdminDataGridTableSection.firstRow}}" stepKey="clickQuoteRow11"/>
+        <see selector="{{AdminNegotiableQuoteViewSection.quoteName}}" userInput="{{NeqotiableQuote.name}}" stepKey="seeQuoteNameOnQuoteViewPage"/>
+        <see selector="{{AdminNegotiableQuoteViewSection.quoteCreatedBy}}" userInput="$createCompanyAdmin.firstname$ $createCompanyAdmin.lastname$" stepKey="seeQuoteCreatedByOnQuoteViewPage"/>
+        <!--Quote 2.2 details page is opened-->
+        <amOnPage url="{{AdminNegotiableQuotesPage.url}}" stepKey="navigateToNegotiableQuotesGridPage2"/>
+        <actionGroup ref="clearFiltersAdminDataGrid" stepKey="clearFiltersNegotiableQuotesGrid3"/>
+        <actionGroup ref="AdminGridFilterSearchResultsByInput" stepKey="searchQuote22">
+            <argument name="selector" value="AdminDataGridHeaderSection.filterFieldInput('quote_name')"/>
+            <argument name="value" value="{{NeqotiableQuoteFour.name}}"/>
+        </actionGroup>
+        <see selector="{{AdminDataGridTableSection.gridCell('1', 'Name')}}" userInput="{{NeqotiableQuoteFour.name}}"  stepKey="seeQuoteNameInGrid4"/>
+        <click selector="{{AdminDataGridTableSection.firstRow}}" stepKey="clickQuoteRow22"/>
+        <see selector="{{AdminNegotiableQuoteViewSection.quoteName}}" userInput="{{NeqotiableQuoteFour.name}}" stepKey="seeQuoteNameOnQuoteViewPage2"/>
+        <see selector="{{AdminNegotiableQuoteViewSection.quoteCreatedBy}}" userInput="$createCompanyAdmin.firstname$ $createCompanyAdmin.lastname$" stepKey="seeQuoteCreatedByOnQuoteViewPage2"/>
+    </test>
+</tests>

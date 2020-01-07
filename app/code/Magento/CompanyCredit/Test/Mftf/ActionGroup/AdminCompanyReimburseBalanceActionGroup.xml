@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminCompanyReimburseBalanceActionGroup">
+        <arguments>
+            <argument name="amount" type="string"/>
+            <argument name="purchaseOrderNumber" type="string" defaultValue="{{PurchaseOrderNumber.number}}"/>
+        </arguments>
+        <click selector="{{AdminCompanyEditSection.reimburseBalance}}" stepKey="clickOnReimburseBalance"/>
+        <waitForElementVisible selector="{{AdminCompanyEditSection.reimburseAmount}}" stepKey="waitForReimburseForm"/>
+        <fillField selector="{{AdminCompanyEditSection.reimburseAmount}}" userInput="{{amount}}" stepKey="enterAmount"/>
+        <fillField selector="{{AdminCompanyEditSection.purchaseOrderNumber}}" userInput="{{purchaseOrderNumber}}" stepKey="enterPurchaseOrderNumber"/>
+        <click selector="{{AdminCompanyEditSection.reimburseButton}}" stepKey="clickOnReimburseButton"/>
+        <click selector="{{AdminCompanyEditSection.saveButton}}" stepKey="clickOnSaveButton"/>
+        <waitForPageLoad stepKey="waitToSaveTheCompany"/>
+    </actionGroup>
+</actionGroups>

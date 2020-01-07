@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="services_connector" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Magento Services</label>
+            <tab>service</tab>
+            <resource>Magento_ServicesId::config_settings</resource>
+            <group id="services_id" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Services ID</label>
+                <field id="environment" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Environment</label>
+                    <source_model>Magento\ServicesId\Model\Config\Source\Environment</source_model>
+                </field>
+                <field id="instance_id" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Instance ID</label>
+                    <comment>Instance ID identifies this Magento instance for use with Magento cloud services</comment>
+                    <backend_model>Magento\ServicesId\Model\Config\Backend\ServicesId</backend_model>
+                    <validate>required-entry validate-uuid</validate>
+                </field>
+                <field id="environment_id" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>SaaS Environment ID</label>
+                    <comment>Provided by Magento</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

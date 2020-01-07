@@ -1,0 +1,12 @@
+<?php
+
+/**
+ * @var \Magento\Sales\Block\Adminhtml\Order\Totals\Item $block
+ */
+?>
+<?php if ((float) $block->getSource()->getRewardPointsBalanceRefund()) : ?>
+    <tr>
+        <td class="label"><strong><?= $block->escapeHtml(__('Reward Points refunded to customer')) ?></strong></td>
+        <td><strong><?= $block->escapeHtml($block->getSource()->getRewardPointsBalanceRefund()) ?></strong></td>
+    </tr>
+<?php endif; ?>

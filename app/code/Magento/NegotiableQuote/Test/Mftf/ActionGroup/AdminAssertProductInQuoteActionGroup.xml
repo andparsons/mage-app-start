@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminAssertProductInQuoteActionGroup">
+        <arguments>
+            <argument name="product" type="entity"/>
+            <argument name="qty" type="string"/>
+            <argument name="price" type="string"/>
+        </arguments>
+        <see userInput="{{product.name}}" selector="{{AdminNegotiableQuoteItemSection.productNameRow}}" stepKey="seeNameProduct"/>
+        <see userInput="{{product.sku}}" selector="{{AdminNegotiableQuoteItemSection.productSKURow}}" stepKey="seeSKU"/>
+        <grabValueFrom selector="{{AdminNegotiableQuoteItemSection.productQty(product.name)}}" stepKey="grabQty"/>
+        <assertEquals expected="{{qty}}" actual="$grabQty" stepKey="assertProductQty"/>
+        <see userInput="{{price}}" selector="{{AdminNegotiableQuoteItemSection.productPrice(product.name)}}" stepKey="seePrice"/>
+    </actionGroup>
+    <actionGroup name="AdminAssertBundleProductInQuoteActionGroup" extends="AdminAssertProductInQuoteActionGroup">
+        <arguments>
+            <argument name="bundleOption" type="string"/>
+            <argument name="dependedProductName" type="string"/>
+            <argument name="qtyDependedProduct" type="string"/>
+        </arguments>
+        <see userInput="{{bundleOption}}" selector="{{AdminNegotiableQuoteItemSection.bundleOptionRow}}" stepKey="seeBundleOption" after="seeNameProduct"/>
+        <see userInput="{{qtyDependedProduct}} x {{dependedProductName}}" selector="{{AdminNegotiableQuoteItemSection.detailedProductInBundle}}" stepKey="seeProductInBundle" after="seeBundleOption"/>
+    </actionGroup>
+</actionGroups>
+

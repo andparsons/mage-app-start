@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="before.body.end">
+            <block class="Magento\DataServices\Block\Context" name="dataservices_cart" template="Magento_DataServices::cart.phtml">
+                <arguments>
+                    <argument name="step_name" xsi:type="string">cart-view</argument>
+                    <argument name="page_type" xsi:type="string">Cart</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="StorefrontQuickOrderAddProductToCart">
+        <arguments>
+            <argument name="productSku" type="string" />
+        </arguments>
+
+        <!--Enter the product name-->
+        <fillField selector="{{StorefrontQuickOrderSection.enterSkuOrProductName}}" userInput="{{productSku}}" stepKey="setProductSku"/>
+        <click selector="{{StorefrontQuickOrderSection.Qty}}" stepKey="clickToQty"/>
+        <waitForElementVisible selector="{{StorefrontQuickOrderSection.addToCart}}" stepKey="waitAddToCartBecomeEnabled"/>
+        <click selector="{{StorefrontQuickOrderSection.addToCart}}" stepKey="clickAddToCartCorrectItem"/>
+        <seeInCurrentUrl url="{{CheckoutCartPage.url}}" stepKey="assertCheckoutCartUrl"/>
+        <waitForElementVisible selector="{{StorefrontMessagesSection.success}}" stepKey="waitForSuccessMessage"/>
+        <see selector="{{StorefrontMessagesSection.success}}" userInput="You added 1 product to your shopping cart." stepKey="seeSuccessMessage"/>
+    </actionGroup>
+</actionGroups>

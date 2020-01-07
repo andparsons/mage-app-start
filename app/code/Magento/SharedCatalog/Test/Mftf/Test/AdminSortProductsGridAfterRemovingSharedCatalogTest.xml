@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminSortProductsGridAfterRemovingSharedCatalogTest">
+        <annotations>
+            <features value="sharedCatalog"/>
+            <stories value="[Shared Catalog] Sort products grid after removing shared catalog"/>
+            <features value="Shared Catalog"/>
+            <title value="Admin should be able to sort products grid after removing shared catalog"/>
+            <description value="Admin should be able to sort products grid after removing shared catalog"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MAGETWO-71457"/>
+            <group value="sharedCatalog"/>
+        </annotations>
+
+        <before>
+            <createData entity="_defaultCategory" stepKey="createCategory"/>
+            <actionGroup ref="AdminCreateApiConfigurableProductActionGroup" stepKey="createConfigurableProduct"/>
+            <actionGroup ref="AdminCreateApiFixedBundleProductActionGroup" stepKey="createFixedBundleProduct"/>
+            <createData entity="SimpleProduct" stepKey="createSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+        </before>
+
+        <after>
+            <!-- Reset filters and delete customer group created during shared catalog creation -->
+            <amOnPage url="{{AdminSharedCatalogIndexPage.url}}" stepKey="goToAdminSharedCatalogIndexPage2"/>
+            <waitForPageLoad  time="30" stepKey="waitForAdminSharedCatalogIndexPageLoaded3"/>
+            <actionGroup ref="resetAdminDataGridToDefaultView" stepKey="sharedCatalogResetFilter"/>
+            <!--Delete simple product and category-->
+            <deleteData createDataKey="createSimpleProduct" stepKey="deleteSimpleProduct1"/>
+            <deleteData createDataKey="createCategory" stepKey="deletePreReqCategory"/>
+            <!--Delete configurable product-->
+            <deleteData createDataKey="createConfigProductCreateConfigurableProduct" stepKey="deleteConfigurableProduct"/>
+            <deleteData createDataKey="createConfigChildProduct1CreateConfigurableProduct" stepKey="deleteConfigurableChildProduct1"/>
+            <deleteData createDataKey="createConfigChildProduct2CreateConfigurableProduct" stepKey="deleteConfigurableChildProduct2"/>
+            <deleteData createDataKey="createConfigProductAttributeCreateConfigurableProduct" stepKey="deleteConfigurableProductAttribute"/>
+            <!--Delete Fixed Bundle Product-->
+            <deleteData createDataKey="simpleProduct1CreateFixedBundleProduct" stepKey="deleteSimpleProduct2"/>
+            <deleteData createDataKey="simpleProduct2CreateFixedBundleProduct" stepKey="deleteSimpleProduct3"/>
+            <deleteData createDataKey="simpleProduct3CreateFixedBundleProduct" stepKey="deleteSimpleProduct4"/>
+            <deleteData createDataKey="simpleProduct4CreateFixedBundleProduct" stepKey="deleteSimpleProduct5"/>
+            <deleteData createDataKey="createBundleProductCreateFixedBundleProduct" stepKey="deleteFixedBundleProduct"/>
+            <actionGroup ref="logout" stepKey="logoutFromAdmin"/>
+        </after>
+
+        <!-- 1. Login to Admin panel and create Shared Catalog -->
+        <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+        <actionGroup ref="AdminCreateSharedCatalogActionGroup" stepKey="createSharedCatalog">
+            <argument name="sharedCatalogName" value="sharedCatalogTest123"/>
+        </actionGroup>
+
+        <!-- 2. Select 'Set Pricing And Structure' form Actions menu for created catalog-> Configure-> toggle simple products in the grid-> Next-> Generate-> Save -->
+        <actionGroup ref="AdminFilterSharedCatalogByNameActionGroup" stepKey="filterSharedCatalog">
+            <argument name="sharedCatalogName" value="sharedCatalogTest123"/>
+        </actionGroup>
+        <click selector="{{AdminSharedCatalogsSection.select}}" stepKey="clickSelectButton"/>
+        <click selector="{{AdminSharedCatalogsSection.setPricingAndStructure}}" stepKey="clickOnSetPricingAndStructureItem"/>
+        <click selector="{{AdminSharedCatalogCatalogStructureSection.configureButton}}" stepKey="clickOnConfigureButton"/>
+
+        <actionGroup ref="AdminSharedCatalogFilterProductsOnGridActionGroup" stepKey="filterProductsOnGrid">
+            <argument name="productName" value="$$createSimpleProduct.name$$"/>
+        </actionGroup>
+        <click selector="{{AdminSharedCatalogCatalogStructureProductGridSection.productSwitchLabel}}" stepKey="switchFilteredProduct"/>
+        <actionGroup ref="clearFiltersAdminDataGrid" stepKey="resetProductFilter"/>
+
+        <actionGroup ref="AdminSharedCatalogFilterProductsOnGridActionGroup" stepKey="filterProductsOnGrid1">
+            <argument name="productName" value="$$createConfigProductCreateConfigurableProduct.name$$"/>
+        </actionGroup>
+        <click selector="{{AdminSharedCatalogCatalogStructureProductGridSection.productSwitchLabel}}" stepKey="switchFilteredProduct1"/>
+        <actionGroup ref="clearFiltersAdminDataGrid" stepKey="resetProductFilter1"/>
+
+        <actionGroup ref="AdminSharedCatalogFilterProductsOnGridActionGroup" stepKey="filterBundleProductsOnGrid">
+            <argument name="productName" value="$$createBundleProductCreateFixedBundleProduct.name$$"/>
+        </actionGroup>
+        <click selector="{{AdminSharedCatalogCatalogStructureProductGridSection.productSwitchLabel}}" stepKey="switchFilteredProduct2"/>
+        <actionGroup ref="clearFiltersAdminDataGrid" stepKey="resetProductFilter2"/>
+
+        <click selector="{{AdminSharedCatalogCatalogStructureSection.nextButton}}" stepKey="clickNextButtonOnProductsSection"/>
+        <click selector="{{AdminSharedCatalogCatalogStructureSection.nextButton}}" stepKey="clickGenerateCatalogOnPricingSection"/>
+        <click selector="{{AdminMainActionsSection.save}}" stepKey="clickSaveButton1"/>
+
+        <!-- 3. Check created catalog and select Delete from Actions drop-down-> click OK -->
+        <amOnPage url="{{AdminSharedCatalogIndexPage.url}}" stepKey="goToAdminSharedCatalogIndexPage1"/>
+        <waitForPageLoad  time="30" stepKey="waitForAdminSharedCatalogIndexPageLoaded2"/>
+        <actionGroup ref="AdminDeleteSharedCatalogActionGroup" stepKey="deleteSharedCatalog">
+            <argument name="sharedCatalogName" value="sharedCatalogTest123"/>
+        </actionGroup>
+
+        <!-- 4. Go to Catalog-> Products-> filter  grid by 'simple' product name -->
+        <actionGroup ref="SearchForProductOnBackendActionGroup" stepKey="searchForSimpleProduct">
+            <argument name="product" value="$$createSimpleProduct$$"/>
+        </actionGroup>
+        <seeElement selector="{{AdminProductGridSection.productGridNameProduct('$$createSimpleProduct.name$$')}}" stepKey="assertProductInGrid"/>
+
+        <!-- 5. Sort products out by ID -->
+        <actionGroup ref="resetProductGridToDefaultView" stepKey="resetGridToDefaultKeywordSearch"/>
+        <actionGroup ref="sortProductsByIdDescending" stepKey="sortProductsByIdInDescendingOrder"/>
+        <see selector="{{AdminProductGridSection.productGridCell('1', 'Name')}}" userInput="$$createSimpleProduct.name$$" stepKey="seeProductNameInGrid"/>
+    </test>
+</tests>

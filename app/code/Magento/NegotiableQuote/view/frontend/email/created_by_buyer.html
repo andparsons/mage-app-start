@@ -1,0 +1,15 @@
+<!--
+-->
+<!--@subject New quote {{var data.getQuoteName()}} :: {{var data.getCustomerCompany()}} @-->
+<!--@vars {
+"var data.getCustomerName()":"Customer name",
+"var data.getQuoteName()":"Quote name",
+"var data.getCustomerCompany()":"Company Name",
+"var merchantName":"Merchant Name",
+"var quote_url":"Quote URL"
+} @-->
+
+<p class="greeting">{{trans "Dear %merchant_name," merchant_name=$merchantName}}</p>
+<p>{{trans "New quote "}}<a href="{{var quote_url}}">{{var data.getQuoteName()}}</a>{{trans " submitted by buyer"}}
+    <b>{{var data.getCustomerCompany()}}</b>.</p>
+<br /><p>{{trans "Thank you,"}}</p><p>{{trans "%store_name" store_name=$store.getFrontendName() |raw}}</p>

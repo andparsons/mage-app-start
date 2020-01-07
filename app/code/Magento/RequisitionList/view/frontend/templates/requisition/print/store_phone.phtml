@@ -1,0 +1,7 @@
+<?php
+?>
+<?php if ($block->getStorePhone()) : ?>
+    <span class="phone">
+        <?= $block->escapeHtml(__('Contact Us')) ?> <?= $block->escapeHtml($block->getStorePhone()) ?>
+    </span>
+<?php endif ?>

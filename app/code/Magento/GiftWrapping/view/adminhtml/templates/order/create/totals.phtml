@@ -1,0 +1,28 @@
+<?php
+
+/** @var $block Magento\GiftWrapping\Block\Adminhtml\Order\Create\Totals */
+?>
+<?php foreach ($block->getValues() as $label => $value) : ?>
+<tr class="<?= $block->escapeHtmlAttr($block->getTotal()->getCode()) ?>">
+    <td style="<?= $block->escapeHtmlAttr($block->getTotal()->getStyle()) ?>"
+        class="admin__total-mark"
+        colspan="<?= $block->escapeHtmlAttr($block->getColspan()) ?>">
+        <?php if ($block->getRenderingArea() == $block->getTotal()->getArea()) : ?>
+        <strong>
+        <?php endif; ?>
+        <?= $block->escapeHtml(__($label)) ?>
+        <?php if ($block->getRenderingArea() == $block->getTotal()->getArea()) : ?>
+        </strong>
+        <?php endif; ?>
+    </td>
+    <td style="<?= $block->escapeHtmlAttr($block->getTotal()->getStyle()) ?>" class="admin__total-amount">
+        <?php if ($block->getRenderingArea() == $block->getTotal()->getArea()) : ?>
+        <strong>
+        <?php endif; ?>
+        <?= $block->escapeHtml($block->formatPrice($value), ['span']) ?>
+        <?php if ($block->getRenderingArea() == $block->getTotal()->getArea()) : ?>
+       </strong>
+        <?php endif; ?>
+    </td>
+</tr>
+<?php endforeach; ?>

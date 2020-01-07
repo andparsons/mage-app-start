@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\NegotiableQuote\Block\Order\Reorder"
+                   name="sales_order_history_reorder"
+                   ifconfig="btob/website_configuration/negotiablequote_active"
+                   after="sales.order.history"
+                   template="Magento_NegotiableQuote::order/reorder.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="sales.order.history.info">
+            <block class="Magento\NegotiableQuote\Block\Order\OwnerFilter" name="show.all.orders.link"
+                   ifconfig="btob/website_configuration/negotiablequote_active"
+                   template="Magento_NegotiableQuote::order/owner_filter.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="sales.order.history.extra.column.header">
+            <block class="Magento\NegotiableQuote\Block\Order\CreatedBy"
+                   name="sales_order_createdby_header"
+                   ifconfig="btob/website_configuration/negotiablequote_active"
+                   template="Magento_NegotiableQuote::order/createdby/header.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="sales.order.history.extra.container">
+            <block class="Magento\NegotiableQuote\Block\Order\CreatedBy"
+                   name="sales_order_createdby_data"
+                   ifconfig="btob/website_configuration/negotiablequote_active"
+                   template="Magento_NegotiableQuote::order/createdby/data.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

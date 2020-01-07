@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AssertCustomerGroupOnCustomerFormActionGroup">
+        <remove keyForRemoval="verifyNeededCustomerGroupSelected" />
+        <waitForElementVisible selector="{{AdminCustomerAccountInformationSection.group}}" stepKey="waitForCustomerGroupVisible" after="waitForPageLoad" />
+        <see userInput="{{customerGroup.code}}" selector="{{AdminCustomerAccountInformationSection.groupSelectedOptions}}" stepKey="verifyNeededCustomerGroupSelected" after="waitForCustomerGroupVisible" />
+    </actionGroup>
+</actionGroups>

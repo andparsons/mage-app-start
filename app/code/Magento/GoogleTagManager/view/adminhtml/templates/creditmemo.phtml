@@ -1,0 +1,10 @@
+<?php
+?>
+<?php
+$refundJson = $block->getRefundJson();
+if ($refundJson !== null) : ?>
+    <script>
+        dataLayer.push(<?= /* @noEscape */ $refundJson ?>);
+    </script>
+    <?php
+endif;

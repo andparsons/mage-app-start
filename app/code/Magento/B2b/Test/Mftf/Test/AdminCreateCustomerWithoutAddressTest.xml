@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminCreateCustomerWithoutAddressTest" insertAfter="waitToCustomerPageLoad">
+        <!-- The steps below are merged by insertAfter -->
+        <click selector="{{CustomerInformationSection.customerGroup}}" stepKey="clickToSeeGroups"/>
+        <waitForPageLoad stepKey="waitForGroupsLoad"/>
+        <click selector="{{CustomerInformationSection.customerGroupByName('Default (General)')}}" stepKey="clickDefaultGroup"/>
+    </test>
+</tests>

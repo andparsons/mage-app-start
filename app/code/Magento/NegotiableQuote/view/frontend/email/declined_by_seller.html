@@ -1,0 +1,20 @@
+<!--
+-->
+<!--@subject Declined quote {{var data.getQuoteName()}} @-->
+<!--@vars {
+"var data.getCustomerName()":"Customer name",
+"var data.getQuoteName()":"Quote name",
+"var data.getCustomerCompany()":"Company Name",
+"var merchantName":"Merchant Name",
+"var frontend_quote_url":"Quote URL",
+"var reason":"Decline reason"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting">{{trans "Dear %customer_name," customer_name=$data.getCustomerName()}}</p>
+<p>{{trans "Your quote "}}<a href="{{var frontend_quote_url}}">{{var data.getQuoteName()}}</a>
+    {{trans " has been declined by the seller."}}</p>
+<p>{{trans "Reason: %reason." reason=$reason}}</p>
+
+{{template config_path="design/email/footer_template"}}

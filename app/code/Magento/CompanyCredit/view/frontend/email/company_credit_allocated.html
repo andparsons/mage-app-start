@@ -1,0 +1,19 @@
+<!--
+-->
+<!--@subject {{trans "Credit allocated to %company_name" company_name=$companyCredit.companyName}} @-->
+<!--@vars {
+"var companyCredit.customerName":"Customer Name",
+"var companyCredit.availableCredit":"Company Credit Amount",
+"var companyCredit.companyName":"Company Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting company-greeting"><strong>{{trans "Dear %name," name=$companyCredit.customerName}}</strong></p>
+<p>{{trans "Your company has been allocated a credit of %available_credit.
+    You can now use the Payment On Account method to place you orders."
+    available_credit=$companyCredit.availableCredit
+    }}</p>
+<p>{{trans "The history of your credit operations is available on the Company Credit page."}}</p>
+
+{{template config_path="design/email/footer_template"}}

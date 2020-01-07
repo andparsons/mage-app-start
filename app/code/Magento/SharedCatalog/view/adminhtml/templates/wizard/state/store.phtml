@@ -1,0 +1,10 @@
+<?php
+
+/** @var $block \Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Wizard\Store\Switcher */
+?>
+<?php if ($block->isOptionSelected()) : ?>
+    <div class="shared-catalog-config-store-switcher">
+        <span class="store-switcher-label"><?= $block->escapeHtml(__('Store:')) ?></span>
+        <span><?= $block->escapeHtml($block->getSelectedOptionLabel()) ?></span>
+    </div>
+<?php endif; ?>

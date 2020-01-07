@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminCreateCartPriceRuleRuleInfoSectionCustomerGroupSelectActionGroup">
+        <arguments>
+            <argument name="ruleName" type="entity"/>
+            <argument name="custGrp" type="string"/>
+        </arguments>
+        <amOnPage url="{{AdminCartPriceRulesPage.url}}" stepKey="amOnCartPriceList"/>
+        <waitForPageLoad stepKey="waitForPriceList"/>
+        <click selector="{{AdminCartPriceRulesSection.addNewRuleButton}}" stepKey="clickAddNewRule"/>
+        <fillField selector="{{AdminCartPriceRulesFormSection.ruleName}}" userInput="{{ruleName.name}}" stepKey="fillRuleName"/>
+        <fillField selector="{{AdminCartPriceRulesFormSection.description}}" userInput="{{ruleName.description}}" stepKey="fillDescription"/>
+        <selectOption selector="{{AdminCartPriceRulesFormSection.websites}}" userInput="{{ruleName.websites}}" stepKey="selectWebsites"/>
+        <click selector="{{CartPriceRuleSection.customerGroupsToggle}}" stepKey="clickCustomerGroupsToggle"/>
+        <waitForPageLoad stepKey="waitForCustGrpPanelLoad"/>
+        <click selector="{{CartPriceRuleSection.customerGroupsOptions('custGrp')}}" stepKey="clickCustomerGroups"/>
+        <click selector="{{CartPriceRuleSection.doneButton}}" stepKey="clickDoneButton"/>
+        <selectOption selector="{{AdminCartPriceRulesFormSection.coupon}}" userInput="{{ruleName.coupon_type}}" stepKey="selectCouponType"/>
+        <click selector="{{AdminCartPriceRulesFormSection.actionsHeader}}" stepKey="clickToExpandActions"/>
+        <selectOption selector="{{AdminCartPriceRulesFormSection.apply}}" userInput="{{ruleName.apply}}" stepKey="selectActionType"/>
+        <fillField selector="{{AdminCartPriceRulesFormSection.discountAmount}}" userInput="{{ruleName.discountAmount}}" stepKey="fillDiscountAmount"/>
+    </actionGroup>
+
+    <actionGroup name="AdminCreateCartPriceRuleRuleInfoSectionSpecificCouponActionGroup" extends="AdminCreateCartPriceRuleRuleInfoSectionCustomerGroupSelectActionGroup" insertAfter="selectCouponType">
+        <waitForElementVisible selector="{{AdminCartPriceRulesFormSection.couponCode}}" stepKey="waitForElementVisible"/>
+        <fillField selector="{{AdminCartPriceRulesFormSection.couponCode}}" userInput="{{ruleName.coupon_code}}" stepKey="fillCouponCode"/>
+    </actionGroup>
+
+    <actionGroup name="AdminInactiveCartPriceRuleActionGroup" extends="AdminCreateCartPriceRuleRuleInfoSectionCustomerGroupSelectActionGroup">
+        <click selector="{{AdminCartPriceRulesFormSection.active}}" stepKey="clickActiveToDisable" after="fillRuleName"/>
+    </actionGroup>
+
+    <actionGroup name="CreateCatalogPriceRuleViaTheUi">
+        <arguments>
+            <argument name="customerGroup" type="string" defaultValue="General"/>
+        </arguments>
+        <remove keyForRemoval="selectCustomerGroup1"/>
+
+        <click selector="{{CartPriceRuleSection.customerGroupsToggle}}" stepKey="clickOnCustomerGroupToggle1" after="selectWebSite1"/>
+        <fillField selector="{{AdminCartPriceRulesFormSection.customerGroupsInput}}" userInput="{{customerGroup}}" stepKey="fillCustomerGroupsFiled1" after="clickOnCustomerGroupToggle1"/>
+        <click selector="{{AdminCartPriceRulesFormSection.customerGroupsFirstResult}}" stepKey="clickOnCustomerGroupsFirstRow1" after="fillCustomerGroupsFiled1"/>
+        <click selector="{{AdminCartPriceRulesFormSection.customerGroupsDoneBtn}}" stepKey="clickOnCustomerGroupsDoneButton1" after="clickOnCustomerGroupsFirstRow1"/>
+    </actionGroup>
+</actionGroups>

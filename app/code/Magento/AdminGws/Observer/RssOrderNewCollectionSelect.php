@@ -1,0 +1,26 @@
+<?php
+namespace Magento\AdminGws\Observer;
+
+use Magento\Framework\Event\ObserverInterface;
+
+class RssOrderNewCollectionSelect implements ObserverInterface
+{
+    /**
+     * @param \Magento\AdminGws\Model\Collections $collections
+     */
+    public function __construct(\Magento\AdminGws\Model\Collections $collections)
+    {
+        $this->collections = $collections;
+    }
+
+    /**
+     * Apply store filter on collection used in new order's rss
+     *
+     * @param \Magento\Framework\Event\Observer $observer
+     * @return void
+     */
+    public function execute(\Magento\Framework\Event\Observer $observer)
+    {
+        $this->collections->rssOrderNewCollectionSelect($observer);
+    }
+}

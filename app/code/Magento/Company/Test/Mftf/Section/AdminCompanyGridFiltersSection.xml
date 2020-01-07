@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xsi:noNamespaceSchemaLocation="../../../../../../../dev/tests/acceptance/vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/Page/etc/SectionObject.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <section name="AdminCompanyGridFiltersSection">
+        <element name="filtersButton" type="button" selector="button[data-action='grid-filter-expand']" timeout="30"/>
+        <element name="companyNameInput" type="input" selector="input[name=company_name]"/>
+        <element name="companyEmailInput" type="input" selector="input[name=company_email]" timeout="30"/>
+        <element name="apply" type="button" selector="button[data-action=grid-filter-apply]" timeout="30"/>
+        <element name="clearFilters" type="button" selector=".admin__data-grid-header button[data-action='grid-filter-reset']" timeout="30"/>
+    </section>
+</sections>

@@ -1,0 +1,18 @@
+<!--
+-->
+<ul class="credit-balance-list" data-role="credit-balance">
+    <li class="credit-balance-item">
+        <p class="credit-balance-label"><%- data.outstandingBalance %></p>
+        <span class="credit-balance-price<% if (data.is_negative) { %> _negative<% } %>">
+            <%- data.outstanding_balance %>
+        </span>
+    </li>
+    <li class="credit-balance-item">
+        <p class="credit-balance-label"><%- data.availableCredit %></p>
+        <span class="credit-balance-price"><%- data.available_credit %></span>
+    </li>
+    <li class="credit-balance-item">
+        <p class="credit-balance-label"><%- data.creditLimit %></p>
+        <span class="credit-balance-price"><%- data.credit_limit %></span>
+    </li>
+</ul>

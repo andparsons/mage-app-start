@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/PageObject.xsd">
+    <page name="AdminConfigCustomerStoreCreditTabPage" url="admin/system_config/edit/section/customer#customer_magento_customerbalance-link" area="admin" module="Magento_Customer">
+        <section name="AdminConfigCustomerStoreCreditSection"/>
+    </page>
+</pages>

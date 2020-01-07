@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <companycredit>
+                <active>0</active>
+                <model>CompanyCreditFacade</model>
+                <payment_action>authorize_capture</payment_action>
+                <order_status>pending</order_status>
+                <active>0</active>
+                <can_initialize>0</can_initialize>
+                <can_order>1</can_order>
+                <can_refund>1</can_refund>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_capture>1</can_capture>
+                <can_cancel>1</can_cancel>
+                <can_use_checkout>1</can_use_checkout>
+                <is_offline>1</is_offline>
+                <allowspecific>0</allowspecific>
+                <title>Payment on Account</title>
+                <allowspecific>0</allowspecific>
+                <group>b2b</group>
+            </companycredit>
+        </payment>
+        <company>
+            <email>
+                <company_credit_change>sales</company_credit_change>
+                <credit_allocated_email_template>company_email_credit_allocated_email_template</credit_allocated_email_template>
+                <credit_updated_email_template>company_email_credit_updated_email_template</credit_updated_email_template>
+                <credit_reimbursed_email_template>company_email_credit_reimbursed_email_template</credit_reimbursed_email_template>
+                <credit_refunded_email_template>company_email_credit_refunded_email_template</credit_refunded_email_template>
+                <credit_reverted_email_template>company_email_credit_reverted_email_template</credit_reverted_email_template>
+            </email>
+        </company>
+    </default>
+</config>

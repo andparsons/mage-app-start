@@ -1,0 +1,47 @@
+{
+    "company_credit": {
+        "column": {
+            "entity_id": true,
+            "company_id": true,
+            "credit_limit": true,
+            "balance": true,
+            "currency_code": true,
+            "exceed_limit": true
+        },
+        "index": {
+            "COMPANY_CREDIT_COMPANY_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "COMPANY_CREDIT_COMPANY_ID_COMPANY_ENTITY_ID": true,
+            "COMPANY_CREDIT_COMPANY_ID_DIRECTORY_COUNTRY_COUNTRY_ID": true
+        }
+    },
+    "company_credit_history": {
+        "column": {
+            "entity_id": true,
+            "company_credit_id": true,
+            "user_id": true,
+            "user_type": true,
+            "currency_credit": true,
+            "currency_operation": true,
+            "rate": true,
+            "rate_credit": true,
+            "amount": true,
+            "balance": true,
+            "credit_limit": true,
+            "available_credit": true,
+            "type": true,
+            "datetime": true,
+            "purchase_order": true,
+            "comment": true
+        },
+        "index": {
+            "COMPANY_CREDIT_HISTORY_COMPANY_CREDIT_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "COMPANY_CREDIT_HISTORY_COMPANY_CREDIT_ID_COMPANY_CREDIT_ENTT_ID": true
+        }
+    }
+}

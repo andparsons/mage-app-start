@@ -1,0 +1,18 @@
+<?php
+?>
+
+<?php
+/** @var \Magento\DataServices\Block\Context $block */
+$viewModel = $block->getViewModel();
+?>
+
+<script>
+    window.dsDataLayer.page = {
+        pageType: "<?= /* @noEscape */ $block->getData('page_type'); ?>",
+        action: "<?= /* @noEscape */ $viewModel->getUserAction(); ?>"
+    };
+    window.dsDataLayer.cart = {
+        cartId: <?= /* @noEscape */ $block->getCartId(); ?>
+    };
+    window.dsDataLayer.wishlist = <?= /* @noEscape */ $block->getEventContext(); ?>;
+</script>

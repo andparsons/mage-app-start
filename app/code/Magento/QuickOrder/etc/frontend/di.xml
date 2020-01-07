@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Block plugins -->
+    <type name="Magento\AdvancedCheckout\Block\Customer\Link">
+        <plugin name="config_active" type="Magento\QuickOrder\Plugin\AdvancedCheckout\Block\Customer\LinkPlugin" />
+    </type>
+    <type name="Magento\CatalogPermissions\Observer\CheckQuotePermissionsObserver">
+        <plugin name="QuickOrderQuotePermissionsPlugin" type="Magento\QuickOrder\Plugin\CatalogPermissions\Observer\CheckQuotePermissionsObserverPlugin" />
+    </type>
+</config>

@@ -1,0 +1,27 @@
+{
+    "name": "magento/module-saas-catalog",
+    "description": "Magento 2 SaaS Catalog module exports necessary catalog data to Magento cloud services that rely on it",
+    "config": {
+        "sort-packages": true
+    },
+    "type": "magento2-module",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Magento\\SaaSCatalog\\": ""
+        }
+    },
+    "require": {
+        "php": "~7.1.3||~7.2.0||~7.3.0",
+        "magento/framework": "*",
+        "magento/module-data-exporter": ">=42.0.5",
+        "magento/module-catalog-data-exporter": ">=42.0.5"
+    },
+    "version": "42.0.5"
+}

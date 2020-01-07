@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminCreateCartPriceRuleRuleInfoSectionActionGroup">
+        <remove keyForRemoval="selectCustomerGroup"/>
+        <click selector="{{CartPriceRuleSection.customerGroupsToggle}}" stepKey="clickCustomerGroupsToggle" after="selectWebsites"/>
+        <click selector="{{CartPriceRuleSection.selectAll}}" stepKey="clickSelectAll" after="clickCustomerGroupsToggle"/>
+        <click selector="{{CartPriceRuleSection.doneButton}}" stepKey="clickDoneButton" after="clickSelectAll"/>
+        <remove keyForRemoval="startDateTime"/>
+        <remove keyForRemoval="fillStartDate"/>
+    </actionGroup>
+</actionGroups>

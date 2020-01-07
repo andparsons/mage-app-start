@@ -1,0 +1,20 @@
+<?php
+?>
+<?php
+/**
+ * Invitaion view block template
+ *
+ * @see \Magento\Invitation\Block\Adminhtml\Invitation\View
+ */
+?>
+<form id="invitation-elements" action="<?= $block->escapeHtmlAttr($block->getSaveMessageUrl()) ?>" method="POST">
+<?= $block->getBlockHtml('formkey') ?>
+</form>
+
+<script>
+require(['jquery', 'mage/mage'], function(jQuery){
+
+    jQuery('#invitation-elements').mage('form').mage('validation');
+
+});
+</script>

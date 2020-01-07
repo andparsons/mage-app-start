@@ -1,0 +1,9 @@
+<?php
+
+/** @var \Magento\NegotiableQuote\Block\Quote\PrintQuote\StoreInformation $block */
+?>
+<?php if ($block->getStorePhone()) : ?>
+    <span class="phone">
+        <?= $block->escapeHtml(__('Contact Us')) ?> <?= $block->escapeHtml($block->getStorePhone()) ?>
+    </span>
+<?php endif ?>

@@ -1,0 +1,16 @@
+<?php
+?>
+<?php
+/**
+ * @see \Magento\Reward\Block\Customer\Reward
+ * @var \Magento\Reward\Block\Customer\Reward $block
+ */
+?>
+<?= $block->getChildHtml('', true) ?>
+<div class="actions-toolbar">
+    <div class="secondary">
+        <a class="action back" href="<?= $block->escapeUrl($block->getBackUrl()) ?>">
+            <span><?= $block->escapeHtml(__('Back')) ?></span>
+        </a>
+    </div>
+</div>

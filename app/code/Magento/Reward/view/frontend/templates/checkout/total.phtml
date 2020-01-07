@@ -1,0 +1,34 @@
+<?php
+
+// phpcs:disable Magento2.Files.LineLength
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/**
+ * @var \Magento\Reward\Block\Checkout\Total $block
+ */
+
+?>
+<?php if ($block->getTotal()->getValue()) : ?>
+    <tr class="rewardpoints">
+        <th colspan="<?= $block->escapeHtmlAttr($block->getColspan()) ?>" style="<?= $block->escapeHtmlAttr($block->getTotal()->getStyle()) ?>" class="mark" scope="row">
+            <?php if ($block->getRenderingArea() == $block->getTotal()->getArea()) : ?>
+                <strong>
+            <?php endif; ?>
+            <?php $_title = __('Remove'); ?>
+            <a href="<?= $block->escapeUrl($block->getRemoveRewardTotalUrl()) ?>" title="<?= $block->escapeHtmlAttr($_title) ?>" class="action delete"><span><?= $block->escapeHtml($_title) ?></span></a>
+            <?= $block->escapeHtml($block->getTotal()->getTitle()) ?>
+            <?php if ($block->getRenderingArea() == $block->getTotal()->getArea()) : ?>
+                </strong>
+            <?php endif; ?>
+        </th>
+        <td style="<?= $block->escapeHtmlAttr($block->getTotal()->getStyle()) ?>" class="amount" data-th="<?= $block->escapeHtml($block->getTotal()->getTitle()) ?>">
+            <?php if ($block->getRenderingArea() == $block->getTotal()->getArea()) : ?>
+                <strong>
+            <?php endif; ?>
+            <?= /* @noEscape */ $this->helper(\Magento\Checkout\Helper\Data::class)->formatPrice($block->getTotal()->getValue()) ?>
+            <?php if ($block->getRenderingArea() == $block->getTotal()->getArea()) : ?>
+                </strong>
+            <?php endif; ?>
+        </td>
+    </tr>
+<?php endif; ?>

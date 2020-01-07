@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="top.links">
+            <block class="Magento\RequisitionList\Block\Link\Lists" name="requisition.list.link" after="order.list.link"
+                   template="Magento_RequisitionList::link.phtml" ifconfig="btob/website_configuration/requisition_list_active">
+                <arguments>
+                    <argument name="sortOrder" xsi:type="number">70</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

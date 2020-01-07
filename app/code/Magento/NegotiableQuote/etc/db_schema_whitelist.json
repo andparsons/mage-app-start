@@ -1,0 +1,158 @@
+{
+    "negotiable_quote": {
+        "column": {
+            "quote_id": true,
+            "is_regular_quote": true,
+            "status": true,
+            "quote_name": true,
+            "negotiated_price_type": true,
+            "negotiated_price_value": true,
+            "shipping_price": true,
+            "expiration_period": true,
+            "status_email_notification": true,
+            "snapshot": true,
+            "has_unconfirmed_changes": true,
+            "is_customer_price_changed": true,
+            "is_shipping_tax_changed": true,
+            "notifications": true,
+            "applied_rule_ids": true,
+            "is_address_draft": true,
+            "deleted_sku": true,
+            "creator_type": true,
+            "creator_id": true,
+            "original_total_price": true,
+            "base_original_total_price": true,
+            "negotiated_total_price": true,
+            "base_negotiated_total_price": true
+        },
+        "index": {
+            "NEGOTIABLE_QUOTE_EXPIRATION_PERIOD": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "NEGOTIABLE_QUOTE_QUOTE_ID_QUOTE_ENTITY_ID": true
+        }
+    },
+    "negotiable_quote_company_config": {
+        "column": {
+            "company_entity_id": true,
+            "is_quote_enabled": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "NEGOTIABLE_QUOTE_COMPANY_CONFIG_COMPANY_ENTT_ID_COMPANY_ENTT_ID": true
+        }
+    },
+    "negotiable_quote_grid": {
+        "column": {
+            "entity_id": true,
+            "quote_name": true,
+            "created_at": true,
+            "company_id": true,
+            "company_name": true,
+            "customer_id": true,
+            "submitted_by": true,
+            "updated_at": true,
+            "sales_rep_id": true,
+            "sales_rep": true,
+            "base_grand_total": true,
+            "grand_total": true,
+            "base_negotiated_grand_total": true,
+            "negotiated_grand_total": true,
+            "status": true,
+            "base_currency_code": true,
+            "quote_currency_code": true,
+            "store_id": true,
+            "rate": true
+        },
+        "index": {
+            "NEGOTIABLE_QUOTE_GRID_COMPANY_NAME": true,
+            "NEGOTIABLE_QUOTE_GRID_QUOTE_NAME": true,
+            "NEGOTIABLE_QUOTE_GRID_STATUS": true,
+            "NEGOTIABLE_QUOTE_GRID_UPDATED_AT": true,
+            "NEGOTIABLE_QUOTE_GRID_COMPANY_NAME_QUOTE_NAME": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "negotiable_quote_comment": {
+        "column": {
+            "entity_id": true,
+            "parent_id": true,
+            "creator_type": true,
+            "is_decline": true,
+            "is_draft": true,
+            "creator_id": true,
+            "comment": true,
+            "created_at": true
+        },
+        "index": {
+            "NEGOTIABLE_QUOTE_COMMENT_PARENT_ID": true,
+            "NEGOTIABLE_QUOTE_COMMENT_CREATED_AT": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "NEGOTIABLE_QUOTE_COMMENT_PARENT_ID_NEGOTIABLE_QUOTE_QUOTE_ID": true
+        }
+    },
+    "negotiable_quote_comment_attachment": {
+        "column": {
+            "attachment_id": true,
+            "comment_id": true,
+            "file_name": true,
+            "file_path": true,
+            "file_type": true
+        },
+        "index": {
+            "NEGOTIABLE_QUOTE_COMMENT_ATTACHMENT_COMMENT_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_4E1BA3B744DA152FAF16DCBFF68651A2": true
+        }
+    },
+    "negotiable_quote_history": {
+        "column": {
+            "history_id": true,
+            "quote_id": true,
+            "is_seller": true,
+            "author_id": true,
+            "is_draft": true,
+            "status": true,
+            "log_data": true,
+            "snapshot_data": true,
+            "created_at": true
+        },
+        "index": {
+            "NEGOTIABLE_QUOTE_HISTORY_QUOTE_ID": true,
+            "NEGOTIABLE_QUOTE_HISTORY_CREATED_AT": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "NEGOTIABLE_QUOTE_HISTORY_QUOTE_ID_NEGOTIABLE_QUOTE_QUOTE_ID": true
+        }
+    },
+    "negotiable_quote_item": {
+        "column": {
+            "quote_item_id": true,
+            "original_price": true,
+            "original_tax_amount": true,
+            "original_discount_amount": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "NEGOTIABLE_QUOTE_ITEM_QUOTE_ITEM_ID_QUOTE_ITEM_ITEM_ID": true
+        }
+    },
+    "negotiable_quote_purged_content": {
+        "column": {
+            "quote_id": true,
+            "purged_data": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_763F5D85518F6FB7BC0D5DEB812C314E": true
+        }
+    }
+}

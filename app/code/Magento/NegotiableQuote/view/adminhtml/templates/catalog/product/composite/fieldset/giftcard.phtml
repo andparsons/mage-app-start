@@ -1,0 +1,196 @@
+<?php
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+use Magento\GiftCard\Block\Adminhtml\Catalog\Product\Composite\Fieldset\Giftcard;
+?>
+<?php /* @var $block Giftcard */?>
+<?php $product = $block->getProduct(); ?>
+<?php $id = (int) $product->getId(); ?>
+<?php $storeId = (int) $product->getStoreId(); ?>
+<?php $skipSaleableCheck = $this->helper(\Magento\Catalog\Helper\Product::class)->getSkipSaleableCheck(); ?>
+<div data-mage-init='{"Magento_NegotiableQuote/quote/create/giftcard/init":{}}' id="catalog_product_composite_configure_fields_downloadable"
+     class="giftcard <?= $block->getIsLastFieldset() ? 'last-fieldset' : '' ?>">
+
+<?php if (!$product->isAvailable() && !$skipSaleableCheck) : ?>
+    <p class="stock unavailable">
+        <?= $block->escapeHtml(__('Availability:')) ?> <span><?= $block->escapeHtml(__('Out of stock')) ?></span>
+    </p>
+<?php endif; ?>
+    <div class="product options">
+    <fieldset class="admin__fieldset">
+<?php if (($product->isSaleable() || $skipSaleableCheck) && $block->isConfigured($product)) : ?>
+    <?php if (!$block->isOpenAmountAvailable($product) && (count($block->getAmounts($product)) == 1)) : ?>
+        <?php
+        $amount = $block->getAmounts($product);
+        $amount = array_shift($amount);
+        ?>
+        <div class="field fixed amount admin__field">
+            <label class="label admin__field-label">
+                <span><?= $block->escapeHtml(__('Amount')) ?></span>
+            </label>
+            <div class="control admin__field-control">
+                <div class="admin__field-value">
+                    <span class="control-value price"
+                          id="product-price-<?= /* @noEscape */ $id . $block->getIdSuffix() ?>">
+                    <input type="hidden" value="<?= $block->escapeHtmlAttr($amount) ?>"
+                           price="<?= $block->escapeHtmlAttr($amount) ?>" name="giftcard_amount" />
+                    <?= /* @noEscape */ $this->helper(\Magento\Framework\Pricing\Helper\Data::class)->currencyByStore($amount, $storeId, true, false); ?>
+                </span>
+                </div>
+            </div>
+        </div>
+    <?php else : ?>
+        <div data-mage-init='{"Magento_NegotiableQuote/quote/create/giftcard/switch-inputs":{}}' class="giftcard-amount admin__fieldset">
+            <div class="field amount _required admin__field">
+                <?php if ($block->isAmountAvailable($product)) : ?>
+                    <label for="giftcard_amount" id="amount_label_select" class="label admin__field-label">
+                        <span><?= $block->escapeHtml(__('Amount')) ?></span>
+                    </label>
+                    <?php
+                        $configValue = $block->getDefaultValue('giftcard_amount');
+                    ?>
+                    <div class="control admin__field-control">
+                        <select name="giftcard_amount" id="giftcard_amount"
+                                class="required-entry select admin__control-select"
+                                onchange="productConfigure.giftcardConfig.switchGiftCardInputs.call(this,event||window.event)">
+                            <option value=""><?= $block->escapeHtml(__('Choose an Amount...')) ?></option>
+                            <?php foreach ($block->getAmounts($product) as $value) : ?>
+                                <option value="<?= $block->escapeHtmlAttr($value) ?>"
+                                        price="<?= /* @noEscape */
+                                        $this->helper(\Magento\Framework\Pricing\Helper\Data::class)
+                                            ->currencyByStore($value, $storeId, false) ?>"
+                                        <?= (($configValue == $value) ? 'selected' : '')?>>
+                                    <?= /* @noEscape */ $this->helper(\Magento\Framework\Pricing\Helper\Data::class)
+                                        ->currencyByStore($value, $storeId, true, false); ?>
+                                </option>
+                            <?php endforeach; ?>
+
+                            <?php if ($block->isOpenAmountAvailable($product)) : ?>
+                                <option value="custom" <?= (($configValue == 'custom') ? 'selected' : '')?>>
+                                    <?= $block->escapeHtml(__('Other Amount...')) ?>
+                                </option>
+                            <?php endif; ?>
+                        </select>
+                    </div>
+                <?php endif; ?>
+            </div>
+
+            <?php if ($block->isOpenAmountAvailable($product)) : ?>
+            <div class="field amount _required admin__field" id="giftcard_amount_input_fields">
+                <label for="giftcard_amount_input" id="amount_label_input" class="label admin__field-label">
+                    <span>
+                        <?= $block->escapeHtml(__('Amount in %1', $block->getCurrentCurrencyCode($storeId))) ?>
+                    </span>
+                </label>
+                <div id="giftcard_amount_box" class="control admin__field-control">
+                    <?php if (count($block->getAmounts($product)) === 0) : ?>
+                        <input  type="hidden" name="giftcard_amount" value="custom">
+                    <?php endif; ?>
+                    <input type="text" id="giftcard_amount_input" name="custom_giftcard_amount"
+                           class="validate-number required-entry input-text admin__control-text giftcard-min-amount giftcard-max-amount"
+                           value="<?= $block->escapeHtmlAttr($block->getDefaultValue('custom_giftcard_amount')) ?>"
+                           price="<?= $block->escapeHtmlAttr($block->getDefaultValue('custom_giftcard_amount')) ?>"
+                           onblur="this.setAttribute('price', this.value);"/>
+
+                    <?php if ($product->getOpenAmountMin() || $product->getOpenAmountMax()) : ?>
+                        <?php $min = $this->helper(\Magento\Framework\Pricing\Helper\Data::class)
+                            ->currencyByStore($product->getOpenAmountMin(), $storeId, true, false); ?>
+                        <?php $max = $this->helper(\Magento\Framework\Pricing\Helper\Data::class)
+                            ->currencyByStore($product->getOpenAmountMax(), $storeId, true, false); ?>
+                        <?php $minAmount = $this->helper(\Magento\Framework\Pricing\Helper\Data::class)
+                            ->currencyByStore($product->getOpenAmountMin(), $storeId, false, false); ?>
+                        <?php $maxAmount = $this->helper(\Magento\Framework\Pricing\Helper\Data::class)
+                            ->currencyByStore($product->getOpenAmountMax(), $storeId, false, false); ?>
+                        <div class="admin__field-note" data-mage-init='{"Magento_NegotiableQuote/quote/create/giftcard/parse-price" : {
+                            "config": {
+                                "min" : <?= /* @noEscape */ $minAmount ?>,
+                                "max" : <?= /* @noEscape */ $maxAmount ?>
+                            }
+                        }}'>
+                            <?php if ($product->getOpenAmountMax() && $product->getOpenAmountMin()) : ?>
+                                <span><?= $block->escapeHtml(__('Minimum')) ?>
+                                    <span><?= $block->escapeHtml(__($min)) ?></span>
+                                </span>
+                                <span><?= $block->escapeHtml(__('Maximum')) ?>
+                                    <span><?= $block->escapeHtml(__($max)) ?></span>
+                                </span>
+                            <?php elseif ($product->getOpenAmountMin()) : ?>
+                                <span><?= $block->escapeHtml(__('Minimum')) ?>
+                                    <span><?= $block->escapeHtml(__($min)) ?></span>
+                                </span>
+                            <?php elseif ($product->getOpenAmountMax()) : ?>
+                                <span><?= $block->escapeHtml(__('Maximum')) ?>
+                                    <span><?= $block->escapeHtml(__($max)) ?></span>
+                                </span>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+        <?= $block->getChildHtml('product.composite.giftcard.qty') ?>
+            <div class="field admin__field sender name _required">
+                <label for="giftcard_sender_name" class="label admin__field-label">
+                    <span><?= $block->escapeHtml(__('Sender Name')) ?></span>
+                </label>
+                <div class="control admin__field-control">
+                    <input type="text" id="giftcard_sender_name" name="giftcard_sender_name"
+                           class="required-entry input-text admin__control-text"
+                           value="<?= $block->escapeHtmlAttr($block->getDefaultValue('giftcard_sender_name')) ?>"/>
+                </div>
+            </div>
+            <?php if ($block->isEmailAvailable($product)) : ?>
+            <div class="field admin__field sender email _required">
+                <label for="giftcard_sender_email" class="label admin__field-label">
+                    <span><?= $block->escapeHtml(__('Sender Email')) ?></span>
+                </label>
+                <div class="control admin__field-control">
+                    <input type="text" id="giftcard_sender_email" name="giftcard_sender_email"
+                           class="validate-email required-entry input-text admin__control-text"
+                           value="<?= $block->escapeHtmlAttr($block->getDefaultValue('giftcard_sender_email')) ?>"/>
+                </div>
+            </div>
+            <?php endif; ?>
+            <div class="field admin__field recipient name _required">
+                <label for="giftcard_recipient_name" class="label admin__field-label">
+                    <span><?= $block->escapeHtml(__('Recipient Name')) ?></span>
+                </label>
+                <div class="control admin__field-control">
+                    <input type="text" id="giftcard_recipient_name" name="giftcard_recipient_name"
+                           class="required-entry input-text admin__control-text"
+                           value="<?= $block->escapeHtmlAttr($block->getDefaultValue('giftcard_recipient_name')) ?>"/>
+                </div>
+            </div>
+            <?php if ($block->isEmailAvailable($product)) : ?>
+            <div class="field admin__field recipient email _required">
+                <label for="giftcard_recipient_email" class="label admin__field-label">
+                    <span><?= $block->escapeHtml(__('Recipient Email')) ?></span>
+                </label>
+                <div class="control admin__field-control">
+                    <input type="text" id="giftcard_recipient_email" name="giftcard_recipient_email"
+                           class="validate-email required-entry input-text admin__control-text"
+                           value="<?= $block->escapeHtmlAttr($block->getDefaultValue('giftcard_recipient_email')) ?>"/>
+                </div>
+            </div>
+            <?php endif; ?>
+        <?php if ($block->isMessageAvailable($product)) : ?>
+            <div class="field admin__field text">
+                <label for="giftcard_message" class="label admin__field-label">
+                    <span><?= $block->escapeHtml(__('Message')) ?></span>
+                </label>
+                <div class="control admin__field-control">
+                    <textarea data-mage-init='{"Magento_NegotiableQuote/quote/create/giftcard/validate":{
+                        "maxLength": <?= (int) $block->getMessageMaxLength() ?>
+                    }}' name="giftcard_message" id="giftcard_message"
+                              class="input-text giftcard-message-max-length admin__control-textarea" cols="5"
+                              rows="3"><?= $block->escapeHtml($block->getDefaultValue('giftcard_message')) ?></textarea>
+                </div>
+            </div>
+        <?php endif; ?>
+    <?php endif; ?>
+    </fieldset>
+    </div>
+</div>

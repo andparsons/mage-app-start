@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="rule_information">
+        <field name="name"/>
+        <field name="description"/>
+        <field name="is_active"/>
+        <field name="website_ids"/>
+        <field name="customer_group_ids" component="Magento_B2b/js/form/element/ui-group">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="multiple" xsi:type="string">true</item>
+                </item>
+            </argument>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Magento\SharedCatalog\Model\Customer\Source\GroupIncludeNotLogged"/>
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+    </fieldset>
+</form>

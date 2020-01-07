@@ -1,0 +1,13 @@
+<?php
+
+/* @var $block \Magento\NegotiableQuote\Block\Link\Order */
+?>
+<!-- ko scope: 'negotiable_quote' -->
+<!-- ko if: config().is_enabled  && isSalesAllAllowed()-->
+<li class="link order-list">
+    <a href="<?= $block->escapeUrl($block->getHref()) ?>">
+        <?= $block->escapeHtml($block->getLabel()) ?>
+    </a>
+</li>
+<!-- /ko -->
+<!-- /ko -->

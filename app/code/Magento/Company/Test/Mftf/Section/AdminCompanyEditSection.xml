@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="AdminCompanyEditSection">
+        <element name="advancedSettings" type="button" selector="div[data-index='settings']" timeout="30"/>
+        <element name="customerGroups" type="button" selector="div[name='settings[customer_group_id]']" timeout="30"/>
+        <element name="allowExceedCreditLimit" type="checkbox" selector="//div[@class='admin__actions-switch']"/>
+        <element name="saveButton" type="button" selector="#save-button" timeout="30"/>
+        <element name="successMessage" type="text" selector="div[class='message message-success success']"/>
+        <element name="outstandingBalance" type="text" selector="//li[contains(.,'Outstanding Balance')]/span"/>
+        <element name="availableCredit" type="text" selector="//li[contains(.,'Available Credit')]/span"/>
+        <element name="creditLimitAmount" type="text" selector="//li[contains(.,'Credit Limit')]/span"/>
+        <element name="reimburseBalance" type="button" selector="#company-edit-reimburse-button" timeout="30"/>
+        <element name="reimburseAmount" type="input" selector="input[name='reimburse_balance[amount]']"/>
+        <element name="purchaseOrderNumber" type="input" selector="input[name='reimburse_balance[purchase_order]']"/>
+        <element name="reimburseButton" type="button" selector="//button[text()='Reimburse']" timeout="30"/>
+        <element name="companyCreditGrid" type="text" selector="//td/div[contains(.,'{{operation}}')]/ancestor::tr" parameterized="true"/>
+    </section>
+</sections>

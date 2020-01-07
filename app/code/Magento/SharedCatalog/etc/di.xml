@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Catalog\Model\Indexer\Product\Price\UpdateIndexInterface" type="Magento\SharedCatalog\Model\Indexer\CopyPriceIndex" />
+    <preference for="Magento\CatalogPermissions\Model\Indexer\UpdateIndexInterface" type="Magento\SharedCatalog\Model\Indexer\CopyCatalogPermissionsIndex" />
+    <!-- Configure structure catalog temp session storage -->
+    <virtualType name="sharedCatalogWizardSession" type="Magento\SharedCatalog\Model\Form\Storage\Session\Generic">
+        <arguments>
+            <argument name="namespace" xsi:type="string">shared_catalog_wizard</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\SharedCatalog\Model\Form\Storage\Wizard">
+        <arguments>
+            <argument name="session" xsi:type="object">sharedCatalogWizardSession</argument>
+        </arguments>
+    </type>
+
+    <!-- Shared catalog Companies temp session storage -->
+    <virtualType name="sharedCatalogCompaniesSession" type="Magento\SharedCatalog\Model\Form\Storage\Session\Generic">
+        <arguments>
+            <argument name="namespace" xsi:type="string">shared_catalog_companies</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\SharedCatalog\Model\Form\Storage\Company">
+        <arguments>
+            <argument name="session" xsi:type="object">sharedCatalogCompaniesSession</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\SharedCatalog\Model\ProductItemTierPriceValidator">
+        <arguments>
+            <argument name="allowedProductTypes" xsi:type="array">
+                <item name="simple" xsi:type="string">simple</item>
+                <item name="virtual" xsi:type="string">virtual</item>
+                <item name="downloadable" xsi:type="string">downloadable</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\SharedCatalog\Ui\DataProvider\Collection\SharedCatalog">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">shared_catalog</argument>
+            <argument name="resourceModel" xsi:type="string">Magento\SharedCatalog\Model\ResourceModel\SharedCatalog</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="shared_catalog_listing_data_source" xsi:type="string">Magento\SharedCatalog\Ui\DataProvider\Collection\SharedCatalog</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="SharedCatalogGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SharedCatalogDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Magento\SharedCatalog\Model\ResourceModel\SharedCatalog\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">SharedCatalogGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <preference for="Magento\SharedCatalog\Api\SharedCatalogRepositoryInterface" type="Magento\SharedCatalog\Model\Repository" />
+    <preference for="Magento\SharedCatalog\Api\Data\SearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <preference for="Magento\SharedCatalog\Api\StatusInfoInterface" type="Magento\SharedCatalog\Model\Config" />
+    <preference for="Magento\SharedCatalog\Api\ProductItemRepositoryInterface" type="Magento\SharedCatalog\Model\ProductItemRepository" />
+    <preference for="Magento\SharedCatalog\Api\SharedCatalogManagementInterface" type="Magento\SharedCatalog\Model\Management" />
+    <preference for="Magento\SharedCatalog\Api\CompanyManagementInterface" type="Magento\SharedCatalog\Model\CompanyManagement" />
+    <preference for="Magento\SharedCatalog\Api\PriceManagementInterface" type="Magento\SharedCatalog\Model\PriceManagement" />
+    <preference for="Magento\SharedCatalog\Api\ProductItemManagementInterface" type="Magento\SharedCatalog\Model\ProductItemManagement" />
+    <preference for="Magento\SharedCatalog\Api\Data\ProductItemSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="Magento\SharedCatalog\Api\ProductManagementInterface" type="Magento\SharedCatalog\Model\ProductManagement" />
+    <preference for="Magento\SharedCatalog\Api\Data\SharedCatalogInterface" type="Magento\SharedCatalog\Model\SharedCatalog" />
+    <preference for="Magento\SharedCatalog\Api\CategoryManagementInterface" type="Magento\SharedCatalog\Model\CategoryManagement" />
+    <preference for="\Magento\SharedCatalog\Api\SharedCatalogDuplicationInterface" type="Magento\SharedCatalog\Model\SharedCatalogDuplication" />
+    <type name="Magento\SharedCatalog\Model\CompanyManagement">
+        <arguments>
+            <argument name="resource" xsi:type="object" shared="false">Magento\SharedCatalog\Model\ResourceModel\SharedCatalog\Proxy</argument>
+            <argument name="sharedCatalogRepository" xsi:type="object" shared="false">\Magento\SharedCatalog\Api\SharedCatalogRepositoryInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <!-- Company list controller -->
+    <type name="Magento\Company\Controller\Adminhtml\Index\Index">
+        <plugin name="shared_catalog_validate" type="Magento\SharedCatalog\Plugin\Company\Controller\Adminhtml\Index\IndexPlugin" />
+    </type>
+    <type name="Magento\Framework\MessageQueue\MergerFactory">
+        <arguments>
+            <argument name="mergers" xsi:type="array">
+                <item name="sharedCatalogUpdatePrice" xsi:type="string">Magento\SharedCatalog\Model\Merger</item>
+                <item name="sharedCatalogUpdateCategoryPermissions" xsi:type="string">Magento\SharedCatalog\Model\Merger</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\SharedCatalog\Model\ProductItemRepository">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface</argument>
+        </arguments>
+    </type>
+    <type name="Magento\SharedCatalog\Model\Repository">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface</argument>
+        </arguments>
+    </type>
+    <type name="Magento\SharedCatalog\Model\Management">
+        <arguments>
+            <argument name="sharedCatalogRepository" xsi:type="object">Magento\SharedCatalog\Model\Repository\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\SharedCatalog\Model\CategoryManagement">
+        <arguments>
+            <argument name="sharedCatalogInvalidation" xsi:type="object">\Magento\SharedCatalog\Model\SharedCatalogInvalidation\Proxy</argument>
+            <argument name="sharedCatalogAssignment" xsi:type="object">\Magento\SharedCatalog\Model\SharedCatalogAssignment\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\SharedCatalog\Model\ResourceModel\SharedCatalog">
+        <arguments>
+            <argument name="categorySharedCatalogManagement" xsi:type="object">\Magento\SharedCatalog\Model\CategoryManagement\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\SharedCatalog\Model\SharedCatalogInvalidation">
+        <arguments>
+            <argument name="sharedCatalogRepository" xsi:type="object" shared="false">\Magento\SharedCatalog\Model\Repository\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Customer\Model\Customer\Source\GroupSourceInterface">
+        <plugin name="shared_catalogs_group" type="Magento\SharedCatalog\Plugin\Source\CustomerGroupPlugin" />
+    </type>
+    <type name="Magento\Customer\Model\Customer\Attribute\Source\GroupSourceLoggedInOnlyInterface">
+        <plugin name="shared_catalogs_group" type="Magento\SharedCatalog\Plugin\Source\CustomerGroupPlugin" />
+    </type>
+    <type name="Magento\Customer\Ui\Component\Listing\Column\Group\Options">
+        <plugin name="shared_catalogs_group" type="Magento\SharedCatalog\Plugin\Source\CustomerGroupPlugin" />
+    </type>
+    <type name="Magento\CustomerSegment\Model\ResourceModel\Segment\Report\Detail\Group\Option">
+        <plugin name="shared_catalogs_group" type="Magento\SharedCatalog\Plugin\Source\CustomerGroupReportPlugin" />
+    </type>
+    <type name="Magento\Catalog\Model\Product">
+        <plugin name="shared_catalogs_model_product" type="Magento\SharedCatalog\Plugin\UpdateItemsSku" />
+    </type>
+    <type name="Magento\AdvancedCheckout\Model\Cart">
+        <plugin name="shared_catalog_product_disable" type="Magento\SharedCatalog\Plugin\AdvancedCheckout\Model\HideProductsAbsentInSharedCatalogPlugin" />
+    </type>
+    <type name="Magento\CatalogPermissions\Model\Permission">
+        <plugin name="shared_catalog_update_category_permissions" type="Magento\SharedCatalog\Plugin\CatalogPermissions\Model\UpdateSharedCatalogCategoryPermissionsPlugin" />
+    </type>
+    <type name="Magento\CatalogPermissions\Model\Indexer\Product\Action\ProductSelectDataProvider">
+        <plugin name="shared_catalog_update_category_permissions" type="Magento\SharedCatalog\Plugin\CatalogPermissions\Model\Indexer\Product\Action\UpdateProductSelectPermissionsPlugin" />
+    </type>
+    <type name="Magento\Catalog\Api\CategoryRepositoryInterface">
+        <plugin name="shared_catalog_delete_category_permissions" type="Magento\SharedCatalog\Plugin\Catalog\Api\DeleteSharedCatalogCategoryPermissionsPlugin" />
+    </type>
+    <type name="Magento\SharedCatalog\Ui\DataProvider\Modifier\TierPrice">
+        <arguments>
+            <argument name="productPriceOptions" xsi:type="object">Magento\Catalog\Model\Config\Source\Product\Options\TierPrice</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Catalog\Model\Product\Copier">
+        <plugin name="AssignSharedCatalogOnDuplicateProductPlugin" type="Magento\SharedCatalog\Plugin\Catalog\Model\Product\AssignSharedCatalogOnDuplicateProductPlugin" />
+    </type>
+    <type name="Magento\AdvancedCheckout\Block\Adminhtml\Sku\Errors\Grid\Description">
+        <plugin name="shared_catalog_configure_button" type="Magento\SharedCatalog\Plugin\AdvancedCheckout\Block\RenderConfigureButton" />
+    </type>
+    <type name="Magento\Catalog\Model\ResourceModel\Category">
+        <plugin name="deny_permission_category" type="Magento\SharedCatalog\Plugin\Catalog\Model\ResourceModel\DenyPermissionsForNewCategory" />
+    </type>
+</config>

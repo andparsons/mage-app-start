@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontLoggedInCustomerTest">
+        <annotations>
+            <features value="DataServices"/>
+            <stories value="Data Services events appear correctly for logged in customer"/>
+            <title value="Data Services events appear correctly for logged in customer"/>
+            <description value="Data Services events appear correctly for logged in customer"/>
+            <severity value="MAJOR"/>
+            <group value="dataservices"/>
+        </annotations>
+
+        <before>
+            <createData entity="dsSimpleCategory" stepKey="createPreReqCategory"/>
+            <createData entity="dsSimpleProduct" stepKey="createPreReqProduct">
+                <requiredEntity createDataKey="createPreReqCategory"/>
+            </createData>
+        </before>
+
+        <actionGroup ref="SignUpNewUserFromStorefrontActionGroup" stepKey="signUpNewUser">
+            <argument name="Customer" value="Simple_US_Customer"/>
+        </actionGroup>
+
+        <amOnPage url="/customer/account" stepKey="amOnMyAccountPage"/>
+        <waitForPageLoad stepKey="waitForPageLoad"/>
+        <actionGroup ref="VerifyMyAccountDsDataLayerActionGroup" stepKey="verifyMyAccountDsDataLayer"/>
+        <seeCookie userInput="dataservices_customer_id" stepKey="seeCookieCustomerId"/>
+        <dontSee selector="{{StorefrontMessagesSection.error}}" userInput='No such entity with customerId' stepKey="dontSeeErrorMessages"/>
+
+        <amOnPage url="/customer/account/logout" stepKey="amOnLogoutPage"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <actionGroup ref="VerifyLogoutDsDataLayerActionGroup" stepKey="verifyLogoutDsDataLayer"/>
+        <wait time="10" stepKey="wait10Seconds"/>
+        <dontSeeCookie userInput="dataservices_customer_id" stepKey="dontSeeCookieCustomerIdLogout"/>
+        <dontSeeCookie userInput="dataservices_cart_id" stepKey="dontSeeCookieCartIdLogout"/>
+
+        <amOnPage url="/customer/account/login" stepKey="amOnLoginPage"/>
+        <waitForPageLoad stepKey="waitForPageLoad3"/>
+        <actionGroup ref="VerifyLoginDsDataLayerActionGroup" stepKey="verifyLoginDsDataLayer"/>
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginAsCustomer">
+            <argument name="Customer" value="Simple_US_Customer" />
+        </actionGroup>
+        <wait time="5" stepKey="wait5Seconds"/>
+        <actionGroup ref="VerifyMyAccountDsDataLayerActionGroup" stepKey="verifyMyAccountDsDataLayerAgain"/>
+        <seeCookie userInput="dataservices_customer_id" stepKey="seeCookieCustomerIdAgain"/>
+
+        <amOnPage url="{{dsSimpleProduct.urlKey}}.html" stepKey="amOnProductPage"/>
+        <click selector="{{StorefrontCategoryMainSection.AddToCartBtn}}" stepKey="addToCart"/>
+        <waitForElementVisible selector="{{StorefrontCategoryMainSection.SuccessMsg}}" time="30" stepKey="waitForProductAdded"/>
+        <seeCookie userInput="dataservices_product_context" stepKey="seeCookieProductContext"/>
+        <seeCookie userInput="dataservices_cart_id" stepKey="seeCookieCartId"/>
+
+        <after>
+            <deleteData createDataKey="createPreReqCategory" stepKey="deletePreReqCategory"/>
+            <deleteData createDataKey="createPreReqProduct" stepKey="deletePreReqProduct"/>
+        </after>
+    </test>
+</tests>

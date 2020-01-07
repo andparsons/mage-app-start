@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Quick Order</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content.top">
+            <block class="Magento\AdvancedCheckout\Block\Customer\Sku" name="checkout.customer.sku"
+                   template="Magento_QuickOrder::widget/sku.phtml">
+                <action method="setIsTitleHidden">
+                    <argument name="value" xsi:type="string">true</argument>
+                </action>
+                <block class="Magento\Framework\View\Element\Template" name="checkout.customer.sku.quick_order_multipleskus" template="Magento_QuickOrder::multipleskus.phtml"/>
+                <block class="Magento\Framework\View\Element\Template" name="checkout.customer.sku.quick_order_advancedcheckout_file" template="Magento_QuickOrder::advancedcheckout/customer/file.phtml">
+                    <block class="Magento\QuickOrder\Block\Sample" name="quick_order_download_template_link">
+                        <arguments>
+                            <argument name="path" xsi:type="string">Magento_QuickOrder::download_template.csv</argument>
+                            <argument name="label" xsi:type="string" translate="true">Download Sample</argument>
+                        </arguments>
+                    </block>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

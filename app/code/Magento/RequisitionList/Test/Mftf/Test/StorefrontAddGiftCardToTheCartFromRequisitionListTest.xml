@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontAddGiftCardToTheCartFromRequisitionListTest">
+        <annotations>
+            <features value="Requisition List"/>
+            <stories value="Add Gift card to the cart from Requisition List"/>
+            <title value="Add Gift card to the cart from Requisition List"/>
+            <description value="Add Gift card to the cart from Requisition List"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MAGETWO-70012"/>
+            <group value="requisitionList"/>
+        </annotations>
+        <before>
+            <!-- Create customer and product -->
+            <createData entity="Simple_US_Customer" stepKey="createSimpleUSCustomer">
+                <field key="group_id">1</field>
+            </createData>
+            <createData entity="_defaultCategory" stepKey="createPreReqCategory"/>
+            <createData entity="VirtualGiftCardOpenAmount10_20" stepKey="createGiftCardWithOpenAmount">
+                <requiredEntity createDataKey="createPreReqCategory"/>
+            </createData>
+            <!-- Enable Requisition List functionality -->
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <amOnPage url="{{AdminB2BConfigPage.url}}" stepKey="goToB2BConfigurationPage"/>
+            <selectOption selector="{{AdminB2BConfigSection.requisitionList}}" userInput="Yes" stepKey="enableRequisitionListFunctionality"/>
+            <click selector="{{AdminMainActionsSection.save}}" stepKey="clickSaveConfig"/>
+            <waitForPageLoad time="30" stepKey="waitForB2BConfigurationPageLoad"/>
+            <magentoCLI command="cache:flush" stepKey="cacheFlush"/>
+        </before>
+        <after>
+            <deleteData createDataKey="createGiftCardWithOpenAmount" stepKey="deleteCreatedGiftCard"/>
+            <deleteData createDataKey="createPreReqCategory" stepKey="deletePreReqCategory"/>
+            <deleteData createDataKey="createSimpleUSCustomer" stepKey="deleteCreatedSimpleUSCustomer"/>
+            <amOnPage url="{{AdminB2BConfigPage.url}}" stepKey="goToB2BConfigurationPage1"/>
+            <selectOption selector="{{AdminB2BConfigSection.requisitionList}}" userInput="No" stepKey="disableRequisitionListFunctionality"/>
+            <click selector="{{AdminMainActionsSection.save}}" stepKey="clickSaveConfig1"/>
+            <waitForPageLoad time="30" stepKey="waitForB2BConfigurationPageLoad1"/>
+            <see selector="{{AdminMessagesSection.success}}" userInput="You saved the configuration." stepKey="seeConfigSuccessMessage"/>
+            <magentoCLI command="cache:flush" stepKey="cacheFlush1"/>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!-- 1. Login to SF - >  open created gift card and configure it -->
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="customerLogin1">
+            <argument name="Customer" value="$$createSimpleUSCustomer$$" />
+        </actionGroup>
+        <amOnPage url="{{StorefrontProductPage.url($$createGiftCardWithOpenAmount.name$$)}}" stepKey="goToGiftCardDetailProductPageOnStorefront" />
+        <waitForPageLoad time="30" stepKey="waitForGiftCardPageLoad"/>
+        <fillField selector="{{StorefrontProductInfoMainSection.customGiftcardAmount}}" userInput="15" stepKey="fillAmountField"/>
+        <fillField selector="{{StorefrontProductInfoMainSection.giftCardSenderName}}" userInput="John Doe" stepKey="fillSenderNameField"/>
+        <fillField selector="{{StorefrontProductInfoMainSection.giftCardSenderEmail}}" userInput="john.doe@example.com" stepKey="fillSenderEmailField"/>
+        <fillField selector="{{StorefrontProductInfoMainSection.giftCardRecipientName}}" userInput="Jan Jansen" stepKey="fillRecipientNameField"/>
+        <fillField selector="{{StorefrontProductInfoMainSection.giftCardRecipientEmail}}" userInput="jan.jansen@example.com" stepKey="fillRecipientEmailField"/>
+
+        <!-- 2. Add configured card to requisition list -->
+        <click selector="{{StorefrontProductPageSection.addToRequisitionListButton}}" stepKey="clickAddToRequisitionListButton"/>
+        <click selector="{{StorefrontProductPageSection.createNewRequisitionListButton}}" stepKey="clickCreateNewRequisitionListButton"/>
+        <waitForElementVisible selector="{{StorefrontProductPageSection.requisitionListName}}" stepKey="waitForNameInputElementVisible"/>
+        <fillField selector="{{StorefrontProductPageSection.requisitionListName}}" userInput="RL1" stepKey="fillRequisitionListNameField"/>
+        <click selector="{{StorefrontCreateRequisitionListSection.saveButton}}" stepKey="clickSaveButton"/>
+        <see selector="{{StorefrontProductPageSection.successMsg}}" userInput="Product $$createGiftCardWithOpenAmount.name$$ has been added to the requisition list RL1." stepKey="seeSuccessMessage"/>
+
+        <!-- 3. Open RL - >  check gift card - > click 'Add to Card' btn -->
+        <amOnPage url="{{StorefrontRequisitionListIndexPage.url}}" stepKey="goToRequisitionListsPage"/>
+        <waitForPageLoad stepKey="waitForRequisitionListsIndexPageLoad"/>
+        <click selector="{{StorefrontRequisitionListGridSection.requesitionListViewLink('RL1')}}" stepKey="clickViewButton" />
+        <checkOption selector="{{StorefrontRequisitionListViewSection.itemCheckbox($$createGiftCardWithOpenAmount.name$$)}}" stepKey="checkProductItem"/>
+        <click selector="{{StorefrontRequisitionListViewSection.addToCartButton}}" stepKey="clickAddToCartButton"/>
+        <see selector="{{StorefrontMessagesSection.success}}" userInput="You added 1 item(s) to your shopping cart." stepKey="seeAddToCartSuccessMessage"/>
+    </test>
+</tests>

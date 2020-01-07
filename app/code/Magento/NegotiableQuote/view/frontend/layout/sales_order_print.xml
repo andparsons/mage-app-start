@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.main.title">
+            <block class="Magento\NegotiableQuote\Block\Order\Info\CreationInfo"
+                   name="sales.order.view.creation_info"
+                   after="order.status"
+                   template="Magento_NegotiableQuote::order/info/creation_info.phtml" />
+        </referenceContainer>
+        <referenceBlock name="order.date" remove="true"/>
+    </body>
+</page>

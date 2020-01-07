@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="checkout">
+            <module name="Magento_AdvancedCheckout" before="Magento_Checkout" />
+        </route>
+        <route id="magento_advancedcheckout" frontName="customer_order">
+            <module name="Magento_AdvancedCheckout" />
+        </route>
+    </router>
+</config>

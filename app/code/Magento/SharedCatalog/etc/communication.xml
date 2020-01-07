@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Communication/etc/communication.xsd">
+    <topic name="shared.catalog.product.price.updated" request="Magento\AsynchronousOperations\Api\Data\OperationInterface">
+        <handler name="shared.catalog.product.price.updated.handler" type="Magento\SharedCatalog\Model\ResourceModel\ProductItem\Price\Consumer" method="processOperations" />
+    </topic>
+    <topic name="shared.catalog.category.permissions.updated" request="Magento\AsynchronousOperations\Api\Data\OperationInterface">
+        <handler name="shared.catalog.category.permissions.updated.handler" type="Magento\SharedCatalog\Model\ResourceModel\Permission\CategoryPermissions\Consumer" method="processOperations" />
+    </topic>
+</config>

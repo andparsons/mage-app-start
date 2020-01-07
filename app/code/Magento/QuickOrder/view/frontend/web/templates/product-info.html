@@ -1,0 +1,20 @@
+<% if (data.name) { %>
+<div class="product-info">
+    <div class="product-image">
+        <img src="<%- data.thumbnailUrl %>">
+    </div>
+    <div class="product-name">
+        <p class="name">
+            <a href="<%- data.url %>"><%- data.name %></a>
+        </p>
+        <p class="price"><%- data.price %></p>
+    </div>
+</div>
+<% } %>
+<% if (data.result) { %>
+<div class="product-error">
+    <div <% if (data.isError) { %>data-role="error-message"<% } %> class="message<% if (data.isError) { %> error<% } else { %> notice<% } %>">
+        <div><%- data.result %></div>
+    </div>
+</div>
+<% } %>

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Magento_NegotiableQuote::quote_index" title="Quotes" module="Magento_NegotiableQuote" sortOrder="5"
+             parent="Magento_Sales::sales_operation" action="quotes/quote" resource="Magento_NegotiableQuote::view_quotes" />
+    </menu>
+</config>

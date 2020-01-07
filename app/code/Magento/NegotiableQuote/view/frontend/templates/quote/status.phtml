@@ -1,0 +1,8 @@
+<?php
+?>
+<?php /** @var \Magento\NegotiableQuote\Block\Quote\Info $block */ ?>
+
+<span id="quote-status-field" class="quote-status"><?= $block->escapeHtml($block->getQuoteStatusLabel()) ?></span>
+<?php if ($block->getQuoteName()) : ?>
+    <div class="quote-name"><?= $block->escapeHtml($block->getQuoteName()) ?></div>
+<?php endif; ?>

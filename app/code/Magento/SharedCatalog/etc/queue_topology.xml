@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/topology.xsd">
+    <exchange name="magento-db" type="topic" connection="db">
+        <binding id="defaultBinding" topic="shared.catalog.product.price.updated" destinationType="queue" destination="shared_catalog_product_price_update"/>
+        <binding id="defaultBindingNew" topic="shared.catalog.category.permissions.updated" destinationType="queue" destination="shared_catalog_category_permissions_update"/>
+    </exchange>
+</config>

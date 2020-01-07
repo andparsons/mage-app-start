@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontCreateInvoiceForPendingOrderTest">
+        <annotations>
+            <stories value="Company Credit"/>
+            <title value= "Create invoice for pending order with payment method 'Payment on Account'"/>
+            <description value="Create company with 'Payment on Account' method, add company credit and create invoice for pending order "/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MC-14598"/>
+            <group value="mtf_migrated"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginToAdminPanel"/>
+            <magentoCLI command="config:set {{EnableCompanyCreditData.path}} {{EnableCompanyCreditData.value}}" stepKey="enableCompanyCredit"/>
+            <magentoCLI command="config:set {{EnableCompanyConfigData.path}} {{EnableCompanyConfigData.value}}" stepKey="enableCompany"/>
+            <magentoCLI command="config:set {{EnableCompanyCreditOrderStatusPending.path}} {{EnableCompanyCreditOrderStatusPending.value}}" stepKey="enableCompanyCreditOrderStatusPending"/>
+            <magentoCLI command="config:set {{EnableSpecificPaymentMethod.path}} {{EnableSpecificPaymentMethod.value}}" stepKey="enableSpecificPaymentMethod"/>
+            <magentoCLI command="config:set {{SelectSpecificPaymentMethodPaymentOnAccount.path}} {{SelectSpecificPaymentMethodPaymentOnAccount.value}}" stepKey="selectPaymentOnAccountMethod"/>
+            <createData entity="Simple_US_Customer" stepKey="createCustomer"/>
+            <createData entity="Default_Company" stepKey="createCompany">
+                <requiredEntity createDataKey="createCustomer"/>
+            </createData>
+            <createData entity="defaultSimpleProduct" stepKey="simpleProduct">
+                <field key="price">70</field>
+            </createData>
+        </before>
+        <after>
+            <!--Set Data to Default Value -->
+            <magentoCLI command="config:set {{DisableCompanyCreditData.path}} {{DisableCompanyCreditData.value}}" stepKey="disableCompanyCredit"/>
+            <magentoCLI command="config:set {{EnableCompanyCreditOrderStatusPending.path}} {{EnableCompanyCreditOrderStatusPending.value}}" stepKey="enableCompanyCreditOrderStatusPending"/>
+            <magentoCLI command="config:set {{DisableSpecificPaymentMethod.path}} {{DisableSpecificPaymentMethod.value}}" stepKey="disableSpecificPaymentMethod"/>
+            <magentoCLI command="config:set {{DisableCompanyConfigData.path}} {{DisableCompanyConfigData.value}}" stepKey="disableCompany"/>
+            <actionGroup ref="StorefrontOpenHomePageActionGroup" stepKey="openHomePage"/>
+            <actionGroup ref="StorefrontSignOutActionGroup" stepKey="customerLogout"/>
+            <deleteData createDataKey="createCompany" stepKey="createCompany"/>
+            <deleteData createDataKey="createCustomer" stepKey="deleteCustomer"/>
+            <deleteData createDataKey="simpleProduct" stepKey="deleteProduct"/>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!-- Filter Company from the Grid and add Credit Limit-->
+        <actionGroup ref="FilterCompanyFromGridActionGroup" stepKey="filterCompany">
+            <argument name="companyName" value="$$createCompany.company_name$$"/>
+        </actionGroup>
+        <click selector="{{AdminCompanyGridSection.editFirstCompany}}" stepKey="editCompany"/>
+        <waitForPageLoad stepKey="waitForCompanyEditPageToLoad"/>
+
+        <!--Add company credit limit -->
+        <actionGroup ref="AdminAddCompanyCreditLimitActionGroup" stepKey="addCompanyCredit"/>
+
+        <!-- Open Product in storefront -->
+        <actionGroup ref="AssertProductNameAndSkuInStorefrontProductPageByCustomAttributeUrlKey" stepKey="openProductPageAndVerifyProduct">
+            <argument name="product" value="$$simpleProduct$$"/>
+        </actionGroup>
+
+        <!-- Add Product To the cart -->
+        <actionGroup ref="StorefrontAddProductToCartWithQtyActionGroup" stepKey="addProductToTheCart">
+            <argument name="productQty" value="1"/>
+        </actionGroup>
+
+        <!-- Expand Mini Cart and Click on View and edit -->
+        <actionGroup ref="clickViewAndEditCartFromMiniCart" stepKey="clickMiniCart"/>
+        <click selector="{{CheckoutCartSummarySection.proceedToCheckout}}" stepKey="goToCheckout"/>
+        <waitForPageLoad stepKey="waitForCustomerInformationPageToLoad"/>
+
+        <!-- Customer sign in and Proceed To Place order -->
+        <actionGroup ref="LoginAsCustomerOnCheckoutPageActionGroup" stepKey="customerLogin">
+            <argument name="customer" value="$$createCustomer$$"/>
+        </actionGroup>
+        <waitForElementVisible selector="{{CheckoutShippingMethodsSection.next}}" stepKey="waitForNextButton"/>
+        <click selector="{{CheckoutShippingMethodsSection.next}}" stepKey="clickOnNextButton"/>
+
+        <!-- Place Order -->
+        <actionGroup ref="ClickPlaceOrderActionGroup" stepKey="clickOnPlaceOrder"/>
+        <seeElement selector="{{CheckoutSuccessMainSection.orderLink}}"  stepKey="assertOrderLink"/>
+        <grabTextFrom selector="{{CheckoutSuccessMainSection.orderLink}}" stepKey="orderId"/>
+
+        <!-- Open Orders Index Page -->
+        <amOnPage url="{{AdminOrdersPage.url}}" stepKey="goToOrders"/>
+        <waitForPageLoad stepKey="waitForPageLoad"/>
+
+        <!--Filter the created order using Order ID -->
+        <actionGroup ref="filterOrderGridById" stepKey="filterOrderGridById">
+            <argument name="orderId" value="$orderId"/>
+        </actionGroup>
+        <click selector="{{AdminOrdersGridSection.viewLink('$orderId')}}" stepKey="clickOnViewLink"/>
+        <waitForPageLoad stepKey="waitForOrderPageToLoad"/>
+
+        <!-- Assert Company Message, Status and Payment method -->
+        <see selector="{{NewOrderSection.successMessage}}" userInput="The credit limit for $$createCompany.company_name$$ is $100.00. Its outstanding balance, including this order, currently totals -$75.00" stepKey="seeMessage"/>
+        <see selector="{{AdminOrderDetailsInformationSection.orderStatus}}" userInput="Pending" stepKey="seeOrderStatus"/>
+        <see selector="{{AdminOrderDetailsInformationSection.paymentInformation}}" userInput="Payment on Account" stepKey="seePaymentMethod"/>
+
+        <!-- Create Invoice -->
+        <click selector="{{AdminOrderDetailsMainActionsSection.invoice}}" stepKey="clickOnInvoice"/>
+        <waitForPageLoad stepKey="wsitForInvoicePageToLoad"/>
+        <click selector="{{AdminInvoiceMainActionsSection.submitInvoice}}" stepKey="clickOnSubmitInvoice"/>
+        <seeElement selector="{{AdminCompanyEditSection.successMessage}}" stepKey="seeSuccessMessage1"/>
+        <see selector="{{AdminInvoiceOrderInformationSection.invoiceNoteComment}}" userInput="Invoice created for $75.00" stepKey="seeInvoiceNoteComment"/>
+        <see selector="{{AdminOrderDetailsInformationSection.orderStatus}}" userInput="Processing" stepKey="seeOrderStatus1"/>
+
+        <!--Assert Comment history -->
+        <click selector="{{AdminOrderDetailsOrderViewSection.commentsHistory}}" stepKey="clickOnCommentsHistory"/>
+        <waitForPageLoad stepKey="waitForCommentHistoryToLoad"/>
+        <see selector="{{AdminOrderCommentsTabSection.orderComments}}" userInput="Invoice created for $75.00" stepKey="seeOrderHistoryNotes"/>
+
+        <!-- Filter, Select and Open Company in company index page -->
+        <actionGroup ref="FilterCompanyFromGridActionGroup" stepKey="filterCompany2">
+            <argument name="companyName" value="$$createCompany.company_name$$" />
+        </actionGroup>
+        <click selector="{{AdminCompanyGridSection.editFirstCompany}}" stepKey="editCompany2"/>
+        <waitForPageLoad stepKey="waitForCompanyEditPageToLoad1"/>
+
+        <!--Assert Outstanding Balance, Available Balance, Credit Limit and Credit history  -->
+        <actionGroup ref="AdminAssertCompanyCreditBalanceActionGroup" stepKey="assertCompanyCreditBalance">
+            <argument name="outstandingBalance" value="-$75.00"/>
+            <argument name="availableBalance" value="$25.00"/>
+            <argument name="creditLimit" value="$100.00"/>
+        </actionGroup>
+        <seeElement selector="{{AdminCompanyEditSection.companyCreditGrid('Purchased')}}" stepKey="assertPurchasedOperation"/>
+        <seeElement selector="{{AdminCompanyEditSection.companyCreditGrid('Allocated')}}" stepKey="assertAllocatedOperation"/>
+    </test>
+</tests>

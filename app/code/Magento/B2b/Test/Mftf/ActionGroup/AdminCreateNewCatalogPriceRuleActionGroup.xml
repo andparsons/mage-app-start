@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminCreateNewCatalogPriceRuleActionGroup" insertAfter="selectWebSite">
+        <remove keyForRemoval="selectStatus"/>
+        <remove keyForRemoval="selectCustomerGroup"/>
+        <click selector="{{CustomerInformationSection.customerGroupTab}}" stepKey="clickToSeeGroups"/>
+        <waitForPageLoad stepKey="waitForGroupsToLoad"/>
+        <click selector="{{CustomerInformationSection.customerGroupByName('Default (General)')}}" stepKey="selectGeneralCustomerGroup"/>
+        <click selector="{{CustomerInformationSection.customerGroupDoneButton}}" stepKey="clickOnDoneButton"/>
+    </actionGroup>
+</actionGroups>
+

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="CartPriceRuleSection">
+        <element name="customerGroupsToggle" type="multiselect" selector="//div[@class='admin__action-multiselect action-select']"/>
+        <element name="selectAll" type="button" selector="//button[@class='action action-tertiary']/span[contains(.,'Select all')]" timeout="30"/>
+        <element name="doneButton" type="button" selector="//button[@class='action-secondary']/span" timeout="30"/>
+        <element name="customerGroupsOptions" type="button" selector="//span[text()='{{customerGroupName}}']" parameterized="true"/>
+    </section>
+</sections>

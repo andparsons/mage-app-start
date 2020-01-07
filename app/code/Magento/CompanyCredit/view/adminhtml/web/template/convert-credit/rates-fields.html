@@ -1,0 +1,12 @@
+<!--
+-->
+
+<div class="admin__field admin__field-small _required" repeat="foreach: $data.rates" data-bind="css: { _error: $item().error }">
+    <label class="admin__field-label">
+        <span data-bind="text: $data.makeLabel($item())"></span>
+    </label>
+    <div class="admin__field-control">
+        <input class="admin__control-text" type="text" data-bind="value: $item().rate, attr: { id: 'new-rate-' + $item().oldCur }, event: { change: $data.validate.bind($data) }">
+        <label class="admin__field-error" if="$item().error" data-bind="text: $item().error"></label>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<?php
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php /** @var $block \Magento\NegotiableQuote\Block\Adminhtml\Quote\View\Totals\Negotiation */ ?>
+<?php $total = $block->getTotal() ?>
+<tr class="<?= $block->escapeHtmlAttr($total->getCode()) ?>">
+    <th <?= /* @noEscape */ $block->getLabelProperties() ?> scope="row">
+        <?php if ($total->getStrong()) : ?>
+            <strong><?= $block->escapeHtml($total->getLabel()) ?></strong>
+        <?php else : ?>
+            <?= $block->escapeHtml($total->getLabel()) ?>
+        <?php endif ?>
+    </th>
+    <td <?= /* @noEscape */ $block->getValueProperties() ?>
+        data-th="<?= $block->escapeHtmlAttr($total->getLabel()) ?>">
+        <table class="data-table" data-mage-init='{
+                "Magento_NegotiableQuote/quote/create/negotiated-price": {
+                    "errorMessage": {
+                        "higher": "<?= $block->escapeHtml(__('The negotiated price cannot be higher than the catalog total price.')) ?>",
+                        "less": "<?= $block->escapeHtml(__('Negotiated Price cannot be less than 0')) ?>"
+                    },
+                    "priceFormat": <?= /* @noEscape */ $this->helper(\Magento\Tax\Helper\Data::class)->getPriceFormat($block->getStore()) ?>,
+                    "catalogPriceValue": <?= /* @noEscape */ $block->getCatalogPrice() ?>
+                }
+            }'>
+            <?php foreach ($block->getTotalOptions() as $key => $option) : ?>
+                <tr class="<?= $block->escapeHtmlAttr($key) ?>">
+                    <th scope="row">
+                        <input type="radio"
+                               name="quote[<?= $block->escapeHtmlAttr($total->getCode()) ?>]"
+                                <?= /* @noEscape */ !$block->canEdit() ? 'disabled' : '' ?>
+                               value="<?= $block->escapeHtmlAttr($option->getCode()) ?>"
+                                <?= /* @noEscape */($option->getCode() == $total->getType()) ? 'checked' : ''; ?> />
+                        <?= $block->escapeHtml($option->getLabel()) ?>
+                    </th>
+                    <td data-th="<?= $block->escapeHtmlAttr($option->getLabel()) ?>">
+                        <div class="admin__control-addon">
+                            <input class="admin__control-text" type="number" name="quote[<?= $block->escapeHtmlAttr($total->getCodeValue()) ?>][<?= $block->escapeHtmlAttr($option->getCode()) ?>]"
+                                   data-key="<?= $block->escapeHtmlAttr($key) ?>"
+                                   value="<?= /* @noEscape */ $block->displayPrices($option->getValue()); ?>"/>
+                            <?php if ($option->getCode() != 1) : ?>
+                                <label class="admin__addon-prefix"><?= $block->escapeHtml($block->getCurrencySymbol()) ?></label>
+                            <?php else : ?>
+                                <label class="admin__addon-suffix">%</label>
+                            <?php endif; ?>
+                        </div>
+                    </td>
+                </tr>
+            <?php endforeach ?>
+        </table>
+    </td>
+</tr>

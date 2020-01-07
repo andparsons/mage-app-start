@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">shared_catalog_tier_price_form.shared_catalog_tier_price_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">tier_price_form</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="done" class="Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Configure\TierPrice\Done"/>
+            <button name="cancel" class="Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Configure\TierPrice\Cancel"/>
+        </buttons>
+        <namespace>tier_price_form</namespace>
+        <ajaxSave>true</ajaxSave>
+        <ajaxSaveType>simple</ajaxSaveType>
+        <dataScope/>
+        <deps>
+            <dep>shared_catalog_tier_price_form.shared_catalog_tier_price_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="shared_catalog_tier_price_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="validateBeforeSave" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="shared_catalog/sharedCatalog/configure_product_tierPrice_save"/>
+        </settings>
+        <dataProvider class="Magento\SharedCatalog\Ui\DataProvider\Configure\TierPrice" name="shared_catalog_tier_price_form_data_source">
+            <settings>
+                <requestFieldName>product_id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <container name="shared_catalog_notification">
+        <htmlContent name="shared_catalog_notification_content">
+            <block name="SharedCatalogNotifications" class="Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Messages\Notification"/>
+        </htmlContent>
+    </container>
+    <fieldset name="tier_price_fs" sortOrder="10">
+        <settings>
+            <collapsible>false</collapsible>
+            <label translate="false"/>
+        </settings>
+        <dynamicRows name="tier_price">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="renderDefaultRecord" xsi:type="string">false</item>
+                </item>
+            </argument>
+            <settings>
+                <dndConfig>
+                    <param name="enabled" xsi:type="string">false</param>
+                </dndConfig>
+                <addButtonLabel translate="true">Add Price</addButtonLabel>
+                <label>Catalog and Tier Price</label>
+                <dataScope>data</dataScope>
+                <componentType>dynamicRows</componentType>
+                <recordTemplate>record</recordTemplate>
+            </settings>
+            <container name="record" component="Magento_Ui/js/dynamic-rows/record">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="isTemplate" xsi:type="boolean">true</item>
+                        <item name="is_collection" xsi:type="boolean">true</item>
+                        <item name="componentType" xsi:type="string">container</item>
+                        <item name="dataScope" xsi:type="string"/>
+                    </item>
+                </argument>
+                <field name="website_id" sortOrder="10" formElement="select">
+                    <settings>
+                        <dataType>text</dataType>
+                        <label translate="true">Website</label>
+                        <dataScope>website_id</dataScope>
+                    </settings>
+                </field>
+                <field name="qty" component="Magento_SharedCatalog/js/form/element/input" sortOrder="20" formElement="input">
+                    <settings>
+                        <validation>
+                            <rule name="validate-duplicate-values" xsi:type="boolean">true</rule>
+                            <rule name="validate-greater-than-zero" xsi:type="boolean">true</rule>
+                            <rule name="required-entry" xsi:type="boolean">true</rule>
+                            <rule name="validate-number" xsi:type="boolean">true</rule>
+                        </validation>
+                        <dataType>number</dataType>
+                        <label translate="true">Quantity</label>
+                        <dataScope>qty</dataScope>
+                    </settings>
+                </field>
+                <container name="price_value" component="Magento_Ui/js/form/components/group" sortOrder="30">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="formElement" xsi:type="string">container</item>
+                            <item name="label" xsi:type="string" translate="true">Price</item>
+                            <item name="additionalClasses" xsi:type="string">control-grouped</item>
+                        </item>
+                    </argument>
+                    <field name="value_type" component="Magento_Catalog/js/tier-price/value-type-select" sortOrder="10" formElement="select">
+                        <argument name="data" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="prices" xsi:type="array">
+                                    <item name="fixed" xsi:type="string">${ $.parentName }.price</item>
+                                    <item name="percent" xsi:type="string">${ $.parentName }.percentage_value</item>
+                                </item>
+                            </item>
+                        </argument>
+                        <settings>
+                            <dataType>text</dataType>
+                            <dataScope>value_type</dataScope>
+                        </settings>
+                    </field>
+                    <field name="price" component="Magento_SharedCatalog/js/tier-price/fields-with-currency" sortOrder="20" formElement="input">
+                        <settings>
+                            <validation>
+                                <rule name="validate-greater-than-zero" xsi:type="boolean">true</rule>
+                                <rule name="validate-number" xsi:type="boolean">true</rule>
+                            </validation>
+                            <dataType>price</dataType>
+                            <dataScope>price</dataScope>
+                            <imports>
+                                <link name="priceValue">${ $.provider }:data.base_price</link>
+                            </imports>
+                        </settings>
+                    </field>
+                    <field name="percentage_value" sortOrder="20" formElement="input">
+                        <settings>
+                            <validation>
+                                <rule name="validate-greater-than-zero" xsi:type="boolean">true</rule>
+                                <rule name="less-than-equals-to" xsi:type="number">100</rule>
+                                <rule name="validate-number" xsi:type="boolean">true</rule>
+                            </validation>
+                            <dataType>price</dataType>
+                            <addBefore>%</addBefore>
+                            <dataScope>percentage_value</dataScope>
+                        </settings>
+                    </field>
+                    <container name="price_calc" component="Magento_Catalog/js/tier-price/percentage-processor">
+                        <argument name="data" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="visible" xsi:type="boolean">false</item>
+                            </item>
+                        </argument>
+                    </container>
+                </container>
+                <actionDelete name="actionDelete" sortOrder="40">
+                    <settings>
+                        <label translate="false"/>
+                    </settings>
+                </actionDelete>
+            </container>
+        </dynamicRows>
+    </fieldset>
+</form>

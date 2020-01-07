@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_DataExporter:etc/et_schema.xsd">
+    <record name="Export">
+        <field name="products" type="Product" repeated="true"
+               provider="Magento\CatalogDataExporter\Model\Provider\Products">
+            <using field="product_id" />
+        </field>
+    </record>
+    <record name="Image">
+        <field name="url" type="String"/>
+        <field name="label" type="String"/>
+    </record>
+    <record name="Product">
+        <field name="sku" type="ID"/>
+        <field name="parents" type="ParentProduct" repeated="true"
+               provider="Magento\CatalogDataExporter\Model\Provider\Product\Parents"
+        >
+            <using field="productId" />
+        </field>
+        <field name="storeViewCode" type="String"/>
+        <field name="storeCode" type="String"/>
+        <field name="websiteCode" type="String"/>
+        <field name="name" type="String"/>
+        <field name="productId" type="Int"/>
+        <field name="type" type="String"/>
+        <field name="productType" type="String"/> <!-- -->
+        <field name="shortDescription" type="String"/>
+        <field name="description" type="String"/>
+        <field name="image" type="Image"/>
+        <field name="linksExist" type="Boolean"/>
+        <field name="linksPurchasedSeparately" type="Boolean"/>
+        <field name="linksTitle" type="String"/>
+        <field name="metaDescription" type="String"/>
+        <field name="metaKeyword" type="String"/>
+        <field name="metaTitle" type="String"/>
+        <field name="samplesTitle" type="String"/>
+        <field name="smallImage" type="Image"/>
+        <field name="status" type="String"/>
+        <field name="swatchImage" type="Image"/>
+        <field name="taxClassId" type="String"/>
+        <field name="thumbnail" type="Image"/>
+        <field name="createdAt" type="String"/>
+        <field name="updatedAt" type="String"/>
+        <field name="modifiedAt" type="String"/>
+        <field name="urlKey" type="String"/>
+        <field name="visibility" type="String"/>
+        <field name="weight" type="Float"/>
+        <field name="weightUnit" type="String" provider="Magento\CatalogDataExporter\Model\Provider\Product\WeightUnit">
+            <using field="productId" />
+            <using field="storeViewCode" />
+        </field>
+        <field name="weightType" type="String"/>
+        <field name="currency" type="String" provider="Magento\CatalogDataExporter\Model\Provider\Product\Currency">
+            <using field="productId" />
+            <using field="storeViewCode" />
+        </field>
+        <field name="tierPrice" type="TierPrice" repeated="true"/>
+        <field name="deletedAt" type="String"/>
+        <field name="displayable" type="Boolean"
+               provider="Magento\CatalogDataExporter\Model\Provider\Product\Displayable"
+        >
+            <using field="productId" />
+            <using field="storeViewCode" />
+        </field>
+        <field name="buyable" type="Boolean"
+               provider="Magento\CatalogDataExporter\Model\Provider\Product\Buyable"
+        >
+            <using field="productId" />
+            <using field="storeViewCode" />
+        </field>
+        <field name="attributes"
+               type="Attribute"
+               repeated="true"
+               provider="Magento\CatalogDataExporter\Model\Provider\Product\Attributes"
+        >
+            <using field="productId" />
+            <using field="storeViewCode" />
+        </field>
+        <field name="categories" type="String" repeated="true"
+               provider="Magento\CatalogDataExporter\Model\Provider\Product\Categories"
+        >
+            <using field="productId" />
+            <using field="storeViewCode" />
+        </field>
+        <field name="prices" type="PriceRange" provider="Magento\CatalogDataExporter\Model\Provider\Product\Prices">
+            <using field="productId" />
+            <using field="storeViewCode" />
+        </field>
+        <field name="inventory" type="Inventory" />
+        <field name="options" type="Option" repeated="true"
+               provider="Magento\CatalogDataExporter\Model\Provider\Product\Options">
+            <using field="productId" />
+            <using field="storeViewCode" />
+        </field>
+    </record>
+    <record name="Attribute">
+        <field name="attributeCode" type="String"/>
+        <field name="value" type="String" repeated="true"/>
+    </record>
+    <record name="PriceRange">
+        <field name="minimumPrice" type="ProductPrice"/>
+        <field name="maximumPrice" type="ProductPrice"/>
+    </record>
+    <record name="ProductPrice">
+        <field name="regularPrice" type="Float"/>
+        <field name="finalPrice" type="Float"/>
+    </record>
+    <record name="InventorySettings">
+        <field name="status" type="Boolean"/>
+        <field name="manageStock" type="Boolean"/>
+        <field name="threshold" type="Float"/>
+        <field name="productAvailable" type="Boolean"/>
+    </record>
+    <record name="Inventory">
+        <field name="qty" type="Int"/>
+        <field name="configuration" type="InventorySettings" />
+    </record>
+    <record name="ParentProduct">
+        <field name="sku" type="String"/>
+        <field name="productType" type="String"/>
+    </record>
+    <record name="TierPrice">
+        <field name="qty" type="Float"/>
+        <field name="price" type="Float"/>
+    </record>
+    <record name="Option">
+        <field name="id" type="ID" />
+        <field name="type" type="String" />
+        <field name="required" type="Boolean" />
+        <field name="multi" type="Boolean" />
+        <field name="title" type="String" />
+        <field name="values" type="OptionValue" repeated="true" />
+    </record>
+    <record name="OptionValue">
+        <field name="id" type="ID" />
+        <field name="value" type="String" />
+        <field name="price" type="ProductPrice" />
+    </record>
+</config>

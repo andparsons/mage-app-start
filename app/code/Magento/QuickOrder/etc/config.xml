@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <btob>
+            <website_configuration>
+                <quickorder_active>0</quickorder_active>
+            </website_configuration>
+        </btob>
+    </default>
+</config>

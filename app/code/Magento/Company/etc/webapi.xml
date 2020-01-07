@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/company/" method="GET">
+        <service class="Magento\Company\Api\CompanyRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Magento_Company::company"/>
+        </resources>
+    </route>
+    <route url="/V1/company/:companyId" method="GET">
+        <service class="Magento\Company\Api\CompanyRepositoryInterface" method="get"/>
+        <resources>
+            <resource ref="Magento_Company::company"/>
+        </resources>
+    </route>
+    <route url="/V1/company/:companyId" method="DELETE">
+        <service class="Magento\Company\Api\CompanyRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Magento_Company::company"/>
+        </resources>
+    </route>
+    <route url="/V1/company/:companyId" method="PUT">
+        <service class="Magento\Company\Api\CompanyRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Magento_Company::company"/>
+        </resources>
+    </route>
+    <route url="/V1/company/" method="POST">
+        <service class="Magento\Company\Api\CompanyRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Magento_Company::company"/>
+        </resources>
+    </route>
+    <route url="/V1/team/" method="GET">
+        <service class="Magento\Company\Api\TeamRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Magento_Company::company"/>
+        </resources>
+    </route>
+    <route url="/V1/team/:teamId" method="GET">
+        <service class="Magento\Company\Api\TeamRepositoryInterface" method="get"/>
+        <resources>
+            <resource ref="Magento_Company::company"/>
+        </resources>
+    </route>
+    <route url="/V1/team/:teamId" method="DELETE">
+        <service class="Magento\Company\Api\TeamRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Magento_Company::company"/>
+        </resources>
+    </route>
+    <route url="/V1/team/:teamId" method="PUT">
+        <service class="Magento\Company\Api\TeamRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Magento_Company::company"/>
+        </resources>
+    </route>
+    <route url="/V1/team/:companyId" method="POST">
+        <service class="Magento\Company\Api\TeamRepositoryInterface" method="create"/>
+        <resources>
+            <resource ref="Magento_Company::company"/>
+        </resources>
+    </route>
+    <route url="/V1/hierarchy/:id" method="GET">
+        <service class="Magento\Company\Api\CompanyHierarchyInterface" method="getCompanyHierarchy"/>
+        <resources>
+            <resource ref="Magento_Company::company"/>
+        </resources>
+    </route>
+    <route url="/V1/hierarchy/move/:id" method="PUT">
+        <service class="Magento\Company\Api\CompanyHierarchyInterface" method="moveNode"/>
+        <resources>
+            <resource ref="Magento_Company::company"/>
+        </resources>
+    </route>
+    <route url="/V1/company/role/" method="GET">
+        <service class="Magento\Company\Api\RoleRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Magento_Company::company"/>
+        </resources>
+    </route>
+    <route url="/V1/company/role/:roleId" method="GET">
+        <service class="Magento\Company\Api\RoleRepositoryInterface" method="get"/>
+        <resources>
+            <resource ref="Magento_Company::company"/>
+        </resources>
+    </route>
+    <route url="/V1/company/role/" method="POST">
+        <service class="Magento\Company\Api\RoleRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Magento_Company::company"/>
+        </resources>
+    </route>
+    <route url="/V1/company/role/:roleId" method="DELETE">
+        <service class="Magento\Company\Api\RoleRepositoryInterface" method="delete"/>
+        <resources>
+            <resource ref="Magento_Company::company"/>
+        </resources>
+    </route>
+    <route url="/V1/company/role/:id" method="PUT">
+        <service class="Magento\Company\Api\RoleRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Magento_Company::company"/>
+        </resources>
+    </route>
+    <route url="/V1/company/assignRoles" method="PUT">
+        <service class="Magento\Company\Api\AclInterface" method="assignRoles"/>
+        <resources>
+            <resource ref="Magento_Company::company"/>
+        </resources>
+    </route>
+    <route url="/V1/company/role/:roleId/users" method="GET">
+        <service class="Magento\Company\Api\AclInterface" method="getUsersByRoleId"/>
+        <resources>
+            <resource ref="Magento_Company::company"/>
+        </resources>
+    </route>
+    <route url="/V1/customers" method="POST">
+        <data>
+            <parameter name="customer.extension_attributes.company_attributes.company_id" force="true">%company_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/customers/me" method="PUT">
+        <data>
+            <parameter name="customer.extension_attributes.company_attributes.company_id" force="true">%company_id%</parameter>
+        </data>
+    </route>
+</routes>

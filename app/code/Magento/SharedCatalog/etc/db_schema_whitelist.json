@@ -1,0 +1,62 @@
+{
+    "shared_catalog": {
+        "column": {
+            "entity_id": true,
+            "name": true,
+            "description": true,
+            "customer_group_id": true,
+            "type": true,
+            "created_at": true,
+            "created_by": true,
+            "store_id": true
+        },
+        "index": {
+            "SHARED_CATALOG_STORE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "SHARED_CATALOG_CREATED_BY_ADMIN_USER_USER_ID": true,
+            "SHARED_CAT_CSTR_GROUP_ID_CSTR_GROUP_CSTR_GROUP_ID": true,
+            "SHARED_CATALOG_STORE_ID_STORE_STORE_ID": true,
+            "SHARED_CATALOG_NAME": true
+        }
+    },
+    "shared_catalog_product_item": {
+        "column": {
+            "entity_id": true,
+            "customer_group_id": true,
+            "sku": true
+        },
+        "index": {
+            "SHARED_CATALOG_PRODUCT_ITEM_SKU_CUSTOMER_GROUP_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "SHARED_CAT_PRD_ITEM_CSTR_GROUP_ID_CSTR_GROUP_CSTR_GROUP_ID": true
+        }
+    },
+    "sharedcatalog_category_permissions": {
+        "column": {
+            "permission_id": true,
+            "category_id": true,
+            "website_id": true,
+            "customer_group_id": true,
+            "permission": true
+        },
+        "index": {
+            "SHAREDCATALOG_CATEGORY_PERMISSIONS_WEBSITE_ID": true,
+            "MAGENTO_SHAREDCATALOGPERMISSIONS_WEBSITE_ID": true,
+            "SHAREDCATALOG_CATEGORY_PERMISSIONS_CUSTOMER_GROUP_ID": true,
+            "MAGENTO_SHAREDCATALOGPERMISSIONS_CUSTOMER_GROUP_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_9BF8BC2D7B7DB821AF98309272379955": true,
+            "FK_DCF7E70B2D9A995FB6A8E63791844A22": true,
+            "SHAREDCAT_CTGR_PERMISSIONS_WS_ID_STORE_WS_WS_ID": true,
+            "MAGENTO_SHAREDCATPERMISSIONS_WS_ID_STORE_WS_WS_ID": true,
+            "SHAREDCAT_CTGR_PERMISSIONS_CTGR_ID_WS_ID_CSTR_GROUP_ID": true,
+            "MAGENTO_SHAREDCATPERMISSIONS_CTGR_ID_WS_ID_CSTR_GROUP_ID": true
+        }
+    }
+}

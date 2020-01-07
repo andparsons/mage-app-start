@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <!-- To use this action group you must be on company edit page -->
+    <actionGroup name="AdminChangeCreditCurrencyActionGroup">
+        <arguments>
+            <argument name="creditCurrency" type="string"/>
+            <argument name="currencyRate" type="string"/>
+        </arguments>
+        <selectOption selector="{{AdminCompanyEditSection.creditCurrency}}" userInput="{{creditCurrency}}" stepKey="changeCreditCurrency"/>
+        <waitForElementVisible selector="{{AdminConvertCreditToNewCurrencyPopupSection.title}}" stepKey="waitForNewCurrencyPopupTitle"/>
+        <see selector="{{AdminConvertCreditToNewCurrencyPopupSection.title}}" userInput="Convert Credit to a New Currency" stepKey="assertModalPopupAppeared"/>
+        <fillField selector="{{AdminConvertCreditToNewCurrencyPopupSection.currencyRate}}" userInput="{{currencyRate}}" stepKey="fillConvertCreditCurrencyRateField"/>
+        <click selector="{{AdminConvertCreditToNewCurrencyPopupSection.proceed}}" stepKey="clickProceedButton"/>
+    </actionGroup>
+</actionGroups>

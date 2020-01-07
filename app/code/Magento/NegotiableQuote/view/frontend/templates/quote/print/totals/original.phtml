@@ -1,0 +1,22 @@
+<?php
+?>
+<?php /** @var $block \Magento\NegotiableQuote\Block\Quote\Totals\Original */ ?>
+<?php $total = $block->getTotal() ?>
+<?php foreach ($total->getSubtotals() as $key => $option) : ?>
+    <tr class="<?= $block->escapeHtmlAttr($key . ' ' . $option['class']) ?>">
+        <th scope="row">
+            <?= $block->escapeHtml($option['label']) ?>
+        </th>
+        <td data-th="<?= $block->escapeHtmlAttr($option['label']) ?>">
+            <?= /* @noEscape */ $block->displayPrices($option['value'], $total->getCurrency()) ?>
+        </td>
+    </tr>
+<?php endforeach; ?>
+<tr class="<?= $block->escapeHtmlAttr($total->getCode()) ?>">
+    <th scope="row">
+        <?= $block->escapeHtml($total->getLabel()) ?>
+    </th>
+    <td data-th="<?= $block->escapeHtmlAttr($total->getLabel()) ?>">
+        <?= /* @noEscape */ $block->displayPrices($total->getValue(), $total->getCurrency()) ?>
+    </td>
+</tr>

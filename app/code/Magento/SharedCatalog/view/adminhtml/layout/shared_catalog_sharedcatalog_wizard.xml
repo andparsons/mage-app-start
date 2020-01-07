@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Magento_SharedCatalog::css/source/shared-catalog-jstree.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Backend\Block\Template" name="shared.configure" template="Magento_SharedCatalog::configure/form.phtml">
+
+                <!-- Save form -->
+                <block class="Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Configure\Edit" name="form" />
+
+                <!-- Wizard container -->
+                <block class="Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Wizard\Container" name="wizard-container" template="Magento_SharedCatalog::wizard/container.phtml">
+                    <!-- Configure State -->
+                    <block class="Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Wizard\State"
+                           name="catalog.configure.state" as="state"
+                           template="Magento_SharedCatalog::wizard/state.phtml">
+                        <block class="Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Wizard\Store\Switcher"
+                               name="catalog.configure.state.store"
+                               template="Magento_SharedCatalog::wizard/state/store.phtml" />
+                        <block class="Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Wizard\State\Category\Tree"
+                               name="catalog.configure.state.category.tree"
+                               template="Magento_SharedCatalog::wizard/state/category.phtml" />
+                    </block>
+
+                    <!-- Configure Wizard -->
+                    <block class="Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Wizard\StepsWizard" template="Magento_SharedCatalog::stepswizard.phtml" name="catalog-steps-wizard">
+                        <!-- Structure step -->
+                        <block class="Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Messages\Notification"
+                               name="sharedCatalog.messages.notification.wizard"
+                               template="Magento_SharedCatalog::messages/notification.phtml" />
+                        <block class="Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Wizard\Step\Structure" name="step_structure" template="Magento_SharedCatalog::wizard/step/structure.phtml">
+                            <container name="step.structure.sidebar.left" htmlTag="div" htmlClass="configure-step-left">
+                                <block class="Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Wizard\Store\Switcher"
+                                       name="step.structure.store.switcher"
+                                       template="Magento_SharedCatalog::wizard/step/structure/store/switcher.phtml" />
+                                <block class="Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Wizard\Step\Structure\Category\Tree"
+                                       name="category.tree"
+                                       template="Magento_SharedCatalog::wizard/step/structure/category.phtml" />
+                            </container>
+                            <container name="step.structure.sidebar.listing" htmlTag="div" htmlClass="configure-step-right">
+                                <uiComponent name="shared_catalog_product_listing_structure"/>
+                            </container>
+                        </block>
+                        <!-- Pricing step -->
+                        <block class="Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Wizard\Step\Pricing" name="step_pricing" template="Magento_SharedCatalog::wizard/step/pricing.phtml">
+                            <container name="step.pricing.sidebar.left" htmlTag="div" htmlClass="configure-step-left">
+                                <block class="Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Wizard\Store\Switcher"
+                                       name="step.pricing.store.switcher"
+                                       template="Magento_SharedCatalog::wizard/step/pricing/store/switcher.phtml" />
+                                <block class="Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Wizard\Step\Pricing\Category\Tree"
+                                       name="step.pricing.category.tree"
+                                       template="Magento_SharedCatalog::wizard/step/pricing/category.phtml" />
+                            </container>
+                            <container name="step.pricing.sidebar.listing" htmlTag="div" htmlClass="configure-step-right">
+                                <uiComponent name="shared_catalog_product_listing_pricing"/>
+                            </container>
+                        </block>
+                    </block>
+                </block>
+
+            </block>
+        </referenceContainer>
+
+        <referenceContainer name="page.messages">
+            <block class="Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Messages\Notification"
+                   name="sharedCatalog.messages.notification"
+                   template="Magento_SharedCatalog::messages/notification.phtml" />
+        </referenceContainer>
+    </body>
+</page>

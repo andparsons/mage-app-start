@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="company_email_customer_assign_super_user_template" label="Assign Company Admin" file="assign_superuser.html" type="html" module="Magento_Company" area="frontend"/>
+    <template id="company_email_customer_inactivate_super_user_template" label="Company Admin Set Inactive" file="inactivate_superuser.html" type="html" module="Magento_Company" area="frontend"/>
+    <template id="company_email_customer_remove_super_user_template" label="Company Admin Changed to Member" file="remove_superuser.html" type="html" module="Magento_Company" area="frontend"/>
+    <template id="company_email_customer_sales_representative_template" label="Sales Representative Assigned to Company" file="sales_representative.html" type="html" module="Magento_Company" area="frontend"/>
+    <template id="company_email_customer_company_customer_assign_template" label="Assign Company to Customer" file="company_customer_assign.html" type="html" module="Magento_Company" area="frontend"/>
+    <template id="company_email_company_notify_admin_template" label="Company Registration Request" file="notify_admin.html" type="html" module="Magento_Company" area="frontend"/>
+    <template id="company_email_customer_account_activated_template" label="Customer Status Active" file="customer_account_activated.html" type="html" module="Magento_Company" area="frontend"/>
+    <template id="company_email_customer_account_locked_template" label="Customer Status Inactive" file="customer_account_locked.html" type="html" module="Magento_Company" area="frontend"/>
+    <template id="company_email_company_status_pending_approval_to_active_template" label="Company Status Active 1" file="pending_approval_to_active.html" type="html" module="Magento_Company" area="frontend"/>
+    <template id="company_email_company_status_rejected_blocked_to_active_template" label="Company Status Active 2" file="rejected_blocked_to_active.html" type="html" module="Magento_Company" area="frontend"/>
+    <template id="company_email_company_status_blocked_template" label="Company Status Blocked" file="status_blocked.html" type="html" module="Magento_Company" area="frontend"/>
+    <template id="company_email_company_status_pending_approval_template" label="Company Status Pending Approval" file="status_pending_approval.html" type="html" module="Magento_Company" area="frontend"/>
+    <template id="company_email_company_status_rejected_template" label="Company Status Rejected" file="status_rejected.html" type="html" module="Magento_Company" area="frontend"/>
+    <template id="company_invite_existing_customer_template" label="Company Invite" file="company_invite.html" type="html" module="Magento_Company" area="frontend"/>
+</config>

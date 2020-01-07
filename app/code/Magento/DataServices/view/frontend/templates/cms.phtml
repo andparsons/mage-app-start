@@ -1,0 +1,13 @@
+<?php
+?>
+
+<?php
+/** @var \Magento\DataServices\Block\Context $block */
+?>
+
+<script>
+    window.dsDataLayer.page = {
+        pageType: "<?= /* @noEscape */ $block->getData('page_type'); ?>",
+        action: "<?= /* @noEscape */ $block->getData('step_name'); ?>"
+    };
+</script>

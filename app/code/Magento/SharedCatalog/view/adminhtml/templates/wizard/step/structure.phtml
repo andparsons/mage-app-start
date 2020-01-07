@@ -1,0 +1,27 @@
+<?php
+
+/** @var $block \Magento\SharedCatalog\Block\Adminhtml\SharedCatalog\Wizard\Step\Structure */
+?>
+<div class="configure-structure-block">
+    <h2 class="steps-wizard-title"><?= $block->escapeHtml(__('Step 1: Select Products for Catalog')) ?></h2>
+</div>
+<?= $block->getChildHtml() ?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "<?= $block->escapeJs($block->getComponentName()) ?>": {
+                        "component": "Magento_SharedCatalog/js/wizard/step/structure",
+                        "providerName": "shared_catalog_product_listing_structure.shared_catalog_product_listing_structure_data_source",
+                        "treeProviderName": "shared_catalog_structure_category_tree.provider",
+                        "appendTo": "<?= $block->escapeJs($block->getParentComponentName()) ?>",
+                        "treeSelector": "[data-role='jstree-shared-catalog-container']",
+                        "assignColumnName": "shared_catalog_product_listing_structure.shared_catalog_product_listing_structure.shared_catalog_product_columns.is_assign",
+                        "categoryTreeName": "shared_catalog_structure_category_tree"
+                    }
+                }
+            }
+        }
+    }
+</script>

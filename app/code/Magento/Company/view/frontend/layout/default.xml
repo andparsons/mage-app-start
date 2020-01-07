@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="after.body.start">
+            <block class="Magento\Framework\View\Element\Template" name="company_notice_blocked" template="Magento_Company::company/notice/blocked.phtml" />
+        </referenceContainer>
+        <referenceBlock name="register-link">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Magento_Company::customer/register/link.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="header.links">
+            <block class="Magento\Framework\View\Element\Html\Link"
+                   name="register.link.container"
+                   ifconfig="btob/website_configuration/company_active"
+                   after="-"
+                   template="Magento_Company::customer/register/link/container.phtml">
+                <block class="Magento\Customer\Block\Account\RegisterLink"
+                       name="register.customer.link"
+                       ifconfig="company/general/allow_company_registration">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Create New Customer</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Company\Block\Company\Register\Link"
+                       name="register.company.link"
+                       ifconfig="company/general/allow_company_registration">
+                    <arguments>
+                        <argument name="title" xsi:type="string" translate="true">Create New Company Account</argument>
+                        <argument name="label" xsi:type="string" translate="true">Create New Company Account</argument>
+                        <argument name="path" xsi:type="string">company/account/create</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceBlock>
+        <referenceBlock name="top.links">
+            <block class="Magento\Company\Block\Link\Company" name="company.link" after="my-account-link"
+                   ifconfig="btob/website_configuration/company_active"
+                   template="Magento_Company::company/link.phtml" >
+                <arguments>
+                    <argument name="sortOrder" xsi:type="number">100</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

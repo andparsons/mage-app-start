@@ -1,0 +1,18 @@
+<!--
+-->
+<!--@subject {{trans "%company_name account reimbursed" company_name=$companyCredit.companyName}} @-->
+<!--@vars {
+"var companyCredit.customerName":"Customer Name",
+"var companyCredit.operationAmount":"Company Credit Reimbursed Amount",
+"var companyCredit.companyName":"Company Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting company-greeting"><strong>{{trans "Dear %name," name=$companyCredit.customerName}}</strong></p>
+<p>{{trans "Your company credit account has been reimbursed by %reimbursed_amount."
+    reimbursed_amount=$companyCredit.operationAmount
+    }}</p>
+<p>{{trans "If you have any questions, please contact the seller."}}</p>
+
+{{template config_path="design/email/footer_template"}}

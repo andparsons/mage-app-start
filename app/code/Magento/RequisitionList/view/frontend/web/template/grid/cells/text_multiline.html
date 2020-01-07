@@ -1,0 +1,7 @@
+<!--
+-->
+<div class="data-grid-cell-content">
+    <!-- ko foreach: $col.getLabels($row())  -->
+    <div data-bind="attr: {'class': $col.getLineClass(index)}" text="label" />
+    <!-- /ko -->
+</div>

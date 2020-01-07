@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontCheckQTYForQuickOrderMultipleSkuTest">
+        <annotations>
+            <features value="Quick Order"/>
+            <stories value="Quick Order"/>
+            <title value="Checking QTY values for Quick Order Multiple Sku"/>
+            <description value="Checking QTY values for Quick Order Multiple Sku"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="MAGETWO-96728"/>
+            <useCaseId value="MAGETWO-96398"/>
+            <group value="quickOrder"/>
+        </annotations>
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+
+            <!-- Enable Quick order functionality -->
+            <createData entity="B2BEnabledQuickOrderConfig" stepKey="enabledQuickOrderConfig"/>
+
+            <!-- Create a product -->
+            <createData entity="SimpleProduct2" stepKey="createProduct"/>
+
+        </before>
+        <after>
+            <!--Set b2b config to default-->
+            <createData entity="B2BDefaultConfig" stepKey="defaultB2BConfig"/>
+
+            <!--Delete created data-->
+            <deleteData createDataKey="createProduct" stepKey="deleteProduct"/>
+
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Go to Quick order and enter the product-->
+        <amOnPage url="{{StorefrontQuickOrderPage.url}}" stepKey="goQuickOrderPage"/>
+        <waitForPageLoad stepKey="waitForPageLoad"/>
+        <fillField selector="{{StorefrontQuickOrderSection.enterSkuOrProductName}}" userInput="$$createProduct.name$$" stepKey="fillProductName"/>
+        <click selector="{{StorefrontQuickOrderSection.Qty}}" stepKey="clickQty"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad" time="5"/>
+
+        <!--Check that QTY is 1-->
+        <grabValueFrom selector="{{StorefrontQuickOrderSection.Qty}}" stepKey="grabValueFromQty"/>
+        <assertEquals expected="1" actual="$grabValueFromQty" stepKey="assertProductQty"/>
+
+        <!--Enter the product in multiple SKUs and add to list-->
+        <fillField selector="{{StorefrontQuickOrderSection.enterMultipleSKUs}}" userInput="$$createProduct.name$$,$$createProduct.name$$" stepKey="enterProductName"/>
+        <click selector="{{StorefrontQuickOrderSection.addToList}}" stepKey="addToList"/>
+        <waitForAjaxLoad stepKey="waitForLoad" time="5"/>
+
+        <!--Check product QTY-->
+        <grabValueFrom selector="{{StorefrontQuickOrderSection.Qty}}" stepKey="grabValueFromQty1"/>
+        <assertEquals expected="3" actual="$grabValueFromQty1" stepKey="assertProductQty1"/>
+    </test>
+</tests>

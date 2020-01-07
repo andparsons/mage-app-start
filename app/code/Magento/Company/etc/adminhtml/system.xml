@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="btob">
+            <group id="website_configuration">
+                <field id="company_active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1">
+                    <label>Enable Company</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+        <section id="company" translate="label" type="text" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Company Configuration</label>
+            <tab>customer</tab>
+            <resource>Magento_Company::config_company</resource>
+            <group id="general" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="allow_company_registration" translate="label" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" canRestore="1">
+                    <label>Allow Company Registration from the Storefront</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="email" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Email Options - Company Registration</label>
+                <field id="company_registration" translate="label" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Company Registration Email Recipient</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="company_registration_copy" translate="label comment" type="text" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Company Registration Email Copy To</label>
+                    <comment>Comma-separated</comment>
+                </field>
+                <field id="company_copy_method" translate="label" type="select" sortOrder="30"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Send Email Copy Method</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Method</source_model>
+                </field>
+                <field id="company_notify_admin_template" translate="label" type="select" sortOrder="40"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Default Company Registration Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="heading_customer" translate="label" showInDefault="1" showInWebsite="1" sortOrder="50">
+                    <label>Customer-Related Emails</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                    <attribute type="shared">1</attribute>
+                </field>
+                <field id="customer_sales_representative_template" translate="label comment" type="select" sortOrder="60"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Default 'Sales Rep Assigned' Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>This email is sent to the company's Sales Rep and the Company Admin.</comment>
+                </field>
+                <field id="customer_company_customer_assign_template" translate="label comment" type="select" sortOrder="70"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Default 'Assign Company to Customer' Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>This email is sent to the customer only.</comment>
+                </field>
+                <field id="customer_assign_super_user_template" translate="label comment" type="select" sortOrder="80"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Default 'Assign Company Admin' Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>This email is sent to the company's Sales Rep and the Company Admin.</comment>
+                </field>
+                <field id="customer_inactivate_super_user_template" translate="label comment" type="select" sortOrder="90"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Default 'Company Admin Inactive' Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>This email is sent to the company's Sales Rep and the Company Admin.</comment>
+                </field>
+                <field id="customer_remove_super_user_template" translate="label comment" type="select" sortOrder="100"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Default 'Company Admin Changed To Member' Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>This email is sent to the customer only.</comment>
+                </field>
+                <field id="customer_account_activated_template" translate="label comment" type="select" sortOrder="110"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Default 'Customer Status Active' Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>This email is sent to the customer only.</comment>
+                </field>
+                <field id="customer_account_locked_template" translate="label comment" type="select" sortOrder="120"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Default 'Customer Status Inactive' Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>This email is sent to the customer only.</comment>
+                </field>
+                <field id="heading_company_status" translate="label" showInDefault="1" showInWebsite="1" sortOrder="130">
+                    <label>Company Status Change</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                    <attribute type="shared">1</attribute>
+                </field>
+                <field id="company_status_change_copy" translate="label comment" type="text" sortOrder="150"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Company Status Change Email Copy To</label>
+                    <comment>Comma-separated. The recipient(s) will get a copy of an email which is by default sent to the Company Admin only.</comment>
+                </field>
+                <field id="company_status_copy_method" translate="label" type="select" sortOrder="160"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Send Email Copy Method</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Method</source_model>
+                </field>
+                <field id="company_status_pending_approval_to_active_template" translate="label comment" type="select" sortOrder="170"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Default 'Company Status Change To Active 1" Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>This email is sent when company status changes from Pending Approval to Active.</comment>
+                </field>
+                <field id="company_status_rejected_blocked_to_active_template" translate="label comment" type="select" sortOrder="180"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Default 'Company Status Change To Active 2" Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>This email is sent when company status changes from Rejected or Blocked to Active.</comment>
+                </field>
+                <field id="company_status_rejected_template" translate="label comment" type="select" sortOrder="190"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Default 'Company Status Change To Rejected" Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>This email is sent when company status changes to Rejected.</comment>
+                </field>
+                <field id="company_status_blocked_template" translate="label comment" type="select" sortOrder="200"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Default 'Company Status Change To Blocked" Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>This email is sent when company status changes Blocked.</comment>
+                </field>
+                <field id="company_status_pending_approval_template" translate="label comment" type="select" sortOrder="210"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Default 'Company Status Change To Pending Approval" Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>This email is sent when company status changes to Pending Approval.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

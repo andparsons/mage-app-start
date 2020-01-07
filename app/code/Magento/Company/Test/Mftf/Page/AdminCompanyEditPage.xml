@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/PageObject.xsd">
+    <page name="AdminCompanyEditPage" url="company/index/edit/id/{{id}}" area="admin" module="Magento_Company" parameterized="true">
+        <section name="AdminCompanyEditSection"/>
+    </page>
+</pages>
+

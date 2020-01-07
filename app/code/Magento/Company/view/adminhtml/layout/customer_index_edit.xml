@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="styles"/>
+    <body>
+        <referenceContainer name="content">
+            <referenceBlock name="personal_info">
+                <block class="Magento\Company\Block\Adminhtml\Customer\Edit\Tab\View\PersonalInfo"
+                       name="extended_personal_info"
+                       template="Magento_Company::tab/view/extended_personal_info.phtml"/>
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</page>

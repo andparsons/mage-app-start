@@ -1,0 +1,16 @@
+<?php
+?>
+<?php /* @var $block \Magento\Bundle\Block\Adminhtml\Catalog\Product\Composite\Fieldset\Bundle */ ?>
+<?php $options = $block->decorateArray($block->getOptions(true)); ?>
+<?php if (!empty($options)) : ?>
+<fieldset data-mage-init='{"Magento_NegotiableQuote/quote/create/bundle-configure":{"config" : <?= /* @noEscape */ $block->getJsonConfig() ?>}}'
+          id="catalog_product_composite_configure_fields_bundle"
+          class="fieldset admin__fieldset composite-bundle<?= ($block->getIsLastFieldset() ? ' last-fieldset' : '') ?>">
+    <legend class="legend admin__legend"><span><?= $block->escapeHtml(__('Bundle Items')) ?></span></legend><br />
+    <?php foreach ($options as $option) : ?>
+        <?php if ($option->getSelections()) : ?>
+            <?= $block->getOptionHtml($option) ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</fieldset>
+<?php endif; ?>

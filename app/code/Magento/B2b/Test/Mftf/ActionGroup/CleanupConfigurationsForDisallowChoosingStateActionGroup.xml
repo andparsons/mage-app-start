@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="CleanupConfigurationsForDisallowChoosingStateActionGroup">
+        <click stepKey="clickOnStores" selector="{{ConfigureOptionalStateSection.store}}"/>
+        <waitForPageLoad stepKey="waitForStores" time="2"/>
+        <click stepKey="clickOnConfiguration" selector="{{ConfigureOptionalStateSection.configuration}}"/>
+        <waitForElementVisible selector="{{ConfigureOptionalStateSection.configurationPageTitle}}" stepKey="waitForConfigElement" time="3"/>
+        <conditionalClick selector="{{ConfigureOptionalStateSection.stateOptions}}" dependentSelector="{{ConfigureOptionalStateSection.stateSelect}}" visible="false" stepKey="ClickToExpandPrice"/>
+        <waitForPageLoad stepKey="waitForStateOptionsOpen" time="2"/>
+        <click stepKey="clickOnStateSelect" selector="{{ConfigureOptionalStateSection.stateSelect}}"/>
+        <waitForPageLoad stepKey="waitForOptions" time="2"/>
+        <click stepKey="chooseYes" selector="{{ConfigureOptionalStateSection.stateYes}}"/>
+        <click stepKey="closeStatOptions" selector="{{ConfigureOptionalStateSection.stateOptions}}"/>
+        <click stepKey="save" selector="{{ConfigureOptionalStateSection.save}}"/>
+        <waitForPageLoad stepKey="waitForSave" time="5"/>
+        <see stepKey="SeeSuccessMessage" userInput="You saved the configuration."/>
+
+    </actionGroup>
+</actionGroups>

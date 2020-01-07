@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="StorefrontCreateRequisitionListSection">
+        <element name="saveButton" type="button" selector="footer.modal-footer button.action.primary.confirm" timeout="30"/>
+        <element name="requisitionListName" type="input" selector="#requisition-list-name" />
+    </section>
+</sections>

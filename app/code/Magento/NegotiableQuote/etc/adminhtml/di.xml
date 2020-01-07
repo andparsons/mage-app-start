@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\NegotiableQuote\Model\Restriction\RestrictionInterface" type="Magento\NegotiableQuote\Model\Restriction\Admin" />
+    <preference for="Magento\NegotiableQuote\Model\Status\LabelProviderInterface" type="Magento\NegotiableQuote\Model\Status\BackendLabelProvider" />
+    <preference for="Magento\NegotiableQuote\Model\Attachment\DownloadPermission\AllowInterface" type="Magento\NegotiableQuote\Model\Attachment\DownloadPermission\AllowAdmin" />
+    <type name="Magento\NegotiableQuote\Model\Email\Sender">
+        <arguments>
+            <argument name="frontendUrlBuilder" xsi:type="object">Magento\Framework\Url</argument>
+        </arguments>
+    </type>
+    <type name="Magento\NegotiableQuote\Controller\Adminhtml\Quote\ConfigureProductToAdd">
+        <arguments>
+            <argument name="sessionQuote" xsi:type="object">\Magento\Backend\Model\Session\Quote</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Quote\Model\Quote">
+        <plugin name="currencyNegotiableQuoteAdminhtmlPlugin" type="Magento\NegotiableQuote\Plugin\Quote\Model\QuoteAdminhtmlPlugin" />
+    </type>
+    <type name="Magento\Catalog\Pricing\Price\TierPrice">
+        <arguments>
+            <argument name="customerGroupRetriever" xsi:type="object">\Magento\NegotiableQuote\Model\CustomerGroupRetriever</argument>
+        </arguments>
+    </type>
+</config>

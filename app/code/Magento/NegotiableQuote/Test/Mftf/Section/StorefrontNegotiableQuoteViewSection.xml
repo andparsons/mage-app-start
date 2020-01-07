@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="StorefrontNegotiableQuoteViewSection">
+        <element name="quoteName" type="text" selector="div.quote-name"/>
+        <element name="quoteSubtotal" type="text" selector="#shopping-cart-table-totals tr.proposed_quote_price span.price"/>
+        <element name="sendForReview" type="button" selector="button[title='Send for Review']" timeout="30"/>
+        <element name="historyLog" type="button" selector="#tab-label-history-log-title"/>
+        <element name="selectExistingAddressButton" type="button" selector="//a[@data-role='edit-address']" timeout="5"/>
+        <element name="noticeMessage" type="button" selector="//div[@data-ui-id='messages-message-notice']" timeout="5"/>
+        <element name="proceedToCheckout" type="button" selector="//button[@title='Proceed to Checkout']" timeout="30"/>
+        <element name="getShippingMethodsAndRates" type="button" selector="//a[@data-action='get-shipping']" timeout="30"/>
+        <element name="flatRateShippingMethod" type="radio" selector="//input[@value='flatrate_flatrate']" timeout="30"/>
+        <element name="inputQtyDisabled" type="input" selector="div.control.qty > input[disabled]"/>
+        <element name="buttonRemoveDisabled" type="button" selector=".actions-toolbar ._disabled"/>
+        <element name="fieldComments" type="input" selector="#negotiation_comment"/>
+        <element name="statusQuote" type="text" selector="#quote-status-field"/>
+        <element name="quoteExpirationDate" type="text" selector=".quote-date-expired"/>
+        <!--Items Quoted Grid -->
+        <element name="sectionItemsQuoted" type="block" selector="#items-quoted"/>
+        <element name="productNameRow" type="text" selector=".product-item-name > a"/>
+        <element name="productQty" type="input" selector="//input[@data-cart-item-id='{{productSKU}}']" parameterized="true"/>
+        <element name="productPrice" type="text" selector="//a[@title='{{productName}}']/../following-sibling::td[@class='col subtotal']/span" parameterized="true"/>
+        <element name="detailsBundleProduct" type="text" selector="//dl/dd"/>
+        <element name="bundleOption" type="text" selector="//dl/dt"/>
+        <element name="createdFrom" type="input" selector="input[name='created_at[from]']"/>
+        <element name="createdTo" type="input" selector="input[name='created_at[to]']"/>
+        <element name="lastUpdatedFrom" type="input" selector="input[name='updated_at[from]']"/>
+        <element name="lastUpdatedTo" type="input" selector="input[name='updated_at[to]']"/>
+        <element name="tableHeadItem" type="text" selector="//table[contains(@class, 'data-grid')]/thead//th[contains(@class, 'data-grid-th')]/span[contains(text(), '{{itemName}}')]" parameterized="true"/>
+    </section>
+</sections>

@@ -1,0 +1,42 @@
+<!--
+-->
+<div class="split button requisition-list-action">
+    <button class="action requisition-list-button toggle change"
+            type="button"
+            data-bind="
+                mageInit: {'dropdown':{}},
+                attr: {
+                    title: getTitle(),
+                    'data-mobile-label': getMobileLabel(),
+                }"
+            data-toggle="dropdown"
+            aria-haspopup="true">
+        <span data-bind="i18n: getTitle()"></span>
+    </button>
+    <div class="items" data-target="dropdown">
+        <ul class="list-items">
+            <!-- ko foreach: {data: requisition().items, as: 'item'} -->
+                <!-- ko if: $parent.isListVisible(item) -->
+                <li class="item" data-bind="click: $parent.performListAction.bind($parent, item)">
+                    <span class="item-name" data-action="add-to-requisition-list"
+                          data-bind="
+                          attr: {
+                            title: item.name,
+                          },
+                          text: item.name">
+                    </span>
+                </li>
+                <!-- /ko -->
+            <!-- /ko -->
+            <!-- ko if: isCanCreateList() -->
+            <li class="item">
+                <span class="action new"
+                      data-action="add-to-requisition-list"
+                      data-bind="click: performNewListAction, attr: { title: $t('Create New Requisition List')}">
+                    <span data-bind="i18n: 'Create New Requisition List'"></span>
+                </span>
+            </li>
+            <!-- /ko -->
+        </ul>
+    </div>
+</div>

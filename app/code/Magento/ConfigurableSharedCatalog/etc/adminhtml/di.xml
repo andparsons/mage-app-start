@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\SharedCatalog\Ui\DataProvider\Modifier\PriceByType">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="configurable" xsi:type="object">Magento\ConfigurableSharedCatalog\Ui\DataProvider\Modifier\Configurable</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\ConfigurableProduct\Model\Product\Type\Configurable">
+        <plugin name="productCollectionPlugin" type="Magento\ConfigurableSharedCatalog\Plugin\ConfigurableProduct\Model\Product\Type\ConfigurablePlugin" />
+    </type>
+</config>

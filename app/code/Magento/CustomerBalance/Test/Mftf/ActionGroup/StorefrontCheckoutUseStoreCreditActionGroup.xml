@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="StorefrontCheckoutUseStoreCreditActionGroup">
+        <arguments>
+            <argument name="storeCredit" type="string"/>
+        </arguments>
+        <click selector="{{CheckoutStoreCreditSection.useStoreCredit}}" stepKey="clickUseStoreCredit"/>
+        <waitForElement selector="#checkout div[data-ui-id='checkout-cart-validationmessages-message-success']" time="30" stepKey="waitForUpdateStoreCredit"/>
+        <see userInput="Your store credit was successfully applied" selector="#checkout div[data-ui-id='checkout-cart-validationmessages-message-success']" stepKey="seeStoreCreditLabel"/>
+        <waitForElement selector="{{CheckoutOrderBalanceTotalSection.totalBalance}}" time="30" stepKey="waitForLoadTotalBalance"/>
+        <see userInput="{{storeCredit}} Store Credit	-${{storeCredit}}.00" selector="{{CheckoutOrderBalanceTotalSection.totalBalance}}" stepKey="seeTotalBalanceCredit"/>
+    </actionGroup>
+</actionGroups>

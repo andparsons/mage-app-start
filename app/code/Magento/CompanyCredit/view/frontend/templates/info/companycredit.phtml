@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @var $block \Magento\CompanyCredit\Block\Info\CompanyCredit
+ */
+?>
+<dl class="payment-method purchase order" id="order-payment-information">
+    <dt class="title"><?= $block->escapeHtml($block->getMethod()->getTitle()) ?></dt>
+    <dd class="content">
+        <?php if ($block->getInfo()->getPoNumber()) : ?>
+        <strong><?= $block->escapeHtml(__('Purchase Order Number')) ?></strong>
+        <span class="number"><?= $block->escapeHtml($block->getInfo()->getPoNumber()) ?></span>
+        <?php endif; ?>
+    </dd>
+    <dd class="content">
+        <?php if ($block->isCurrencyDifferent()) : ?>
+            <strong><?= $block->escapeHtml(__('Charged off the company credit')) ?></strong>
+            <span class="number"><?= /* @noEscape */ $block->getChargedAmount() ?></span>
+        <?php endif; ?>
+    </dd>
+</dl>

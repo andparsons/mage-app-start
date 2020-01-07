@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <!-- Requisition List -->
+    <route url="/V1/requisition_lists" method="POST">
+        <service class="Magento\RequisitionList\Api\RequisitionListRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="requisitionList.customer_id" force="true">%customer_id%</parameter>
+            <parameter name="processName" force="true" >true</parameter>
+        </data>
+    </route>
+
+</routes>

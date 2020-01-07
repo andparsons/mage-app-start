@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="EnableAdminAccountWebAccessRestriction" type="admin_account_web_restriction_config">
+        <requiredEntity type="admin_account_web_restriction_config_value">EnableAdminAccountAccessRestriction</requiredEntity>
+    </entity>
+    <entity name="EnableAdminAccountAccessRestriction" type="admin_account_web_restriction_config_value">
+        <data key="value">1</data>
+    </entity>
+    <entity name="DisableAdminAccountWebAccessRestriction" type="admin_account_web_restriction_config">
+        <requiredEntity type="admin_account_web_restriction_config_value">DisableAdminAccountAccessRestriction</requiredEntity>
+    </entity>
+    <entity name="DisableAdminAccountAccessRestriction" type="admin_account_web_restriction_config_value">
+        <data key="value">0</data>
+    </entity>
+
+    <entity name="EnableAdminAccountWebAccessRestrictionMode" type="admin_account_web_restriction_mode_config">
+        <requiredEntity type="admin_account_web_restriction_mode_config_value">EnableAdminAccountWebRestrictionMode</requiredEntity>
+    </entity>
+    <entity name="EnableAdminAccountWebRestrictionMode" type="admin_account_web_restriction_mode_config_value">
+        <data key="value">1</data>
+    </entity>
+    <entity name="DisableAdminAccountWebAccessRestrictionMode" type="admin_account_web_restriction_mode_config">
+        <requiredEntity type="admin_account_web_restriction_mode_config_value">DisableAdminAccountWebRestrictionMode</requiredEntity>
+    </entity>
+    <entity name="DisableAdminAccountWebRestrictionMode" type="admin_account_web_restriction_mode_config_value">
+        <data key="value">0</data>
+    </entity>
+</entities>

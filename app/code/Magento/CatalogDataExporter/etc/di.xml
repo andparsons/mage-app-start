@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\CatalogDataExporter\Model\Provider\Product\Formatter\FormatterInterface" type="Magento\CatalogDataExporter\Model\Provider\Product\Formatter\Formatter" />
+    <type name="Magento\CatalogDataExporter\Model\Provider\Product\Formatter\Formatter">
+        <arguments>
+            <argument name="formatters" xsi:type="array">
+                <item name="images" xsi:type="object">Magento\CatalogDataExporter\Model\Provider\Product\Formatter\ImageFormatter</item>
+                <item name="systemEnums" xsi:type="object">Magento\CatalogDataExporter\Model\Provider\Product\Formatter\SystemEnumFormatter</item>
+                <item name="taxClass" xsi:type="object">Magento\CatalogDataExporter\Model\Provider\Product\Formatter\TaxClassFormatter</item>
+                <item name="scopes" xsi:type="object">Magento\CatalogDataExporter\Model\Provider\Product\Formatter\ScopeFormatter</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\CatalogDataExporter\Model\Provider\Product\Formatter\SystemEnumFormatter">
+        <arguments>
+            <argument name="systemEnums" xsi:type="array">
+                <item name="visibility" xsi:type="array">
+                    <item name="1" xsi:type="string">Not Visible Individually</item>
+                    <item name="2" xsi:type="string">Catalog</item>
+                    <item name="3" xsi:type="string">Search</item>
+                    <item name="4" xsi:type="string">Catalog, Search</item>
+                </item>
+                <item name="status" xsi:type="array">
+                    <item name="1" xsi:type="string">Enabled</item>
+                    <item name="2" xsi:type="string">Disabled</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\CatalogDataExporter\Model\Query\MainProductQuery">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">catalog_product_entity</argument>
+            <argument name="includeAttributes" xsi:type="array">
+                <item name="description" xsi:type="string">description</item>
+                <item name="image" xsi:type="string">image</item>
+                <item name="image_label" xsi:type="string">image_label</item>
+                <item name="meta_description" xsi:type="string">meta_description</item>
+                <item name="meta_keyword" xsi:type="string">meta_keyword</item>
+                <item name="meta_title" xsi:type="string">meta_title</item>
+                <item name="name" xsi:type="string">name</item>
+                <item name="news_from_date" xsi:type="string">news_from_date</item>
+                <item name="news_to_date" xsi:type="string">news_to_date</item>
+                <item name="short_description" xsi:type="string">short_description</item>
+                <item name="small_image" xsi:type="string">small_image</item>
+                <item name="small_image_label" xsi:type="string">small_image_label</item>
+                <item name="status" xsi:type="string">status</item>
+                <item name="swatch_image" xsi:type="string">swatch_image</item>
+                <item name="swatch_image_label" xsi:type="string">swatch_image_label</item>
+                <item name="tax_class_id" xsi:type="string">tax_class_id</item>
+                <item name="thumbnail" xsi:type="string">thumbnail</item>
+                <item name="thumbnail_label" xsi:type="string">thumbnail_label</item>
+                <item name="url_key" xsi:type="string">url_key</item>
+                <item name="visibility" xsi:type="string">visibility</item>
+                <item name="weight" xsi:type="string">weight</item>
+                <item name="weight_type" xsi:type="string">weight_type</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

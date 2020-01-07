@@ -1,0 +1,31 @@
+<?php
+
+/** @var $block \Magento\Sales\Block\Order\Info\Buttons */
+?>
+<div class="action block block-requisition-list link-button" data-bind="scope: 'order_items_to_requisition'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "order_items_to_requisition": {
+                        "component": "Magento_RequisitionList/js/requisition/action/abstract",
+                        "editModuleName": "order_items_to_requisition.edit",
+                        "title": "<?= $block->escapeJs(__('Add to Requisition List')) ?>",
+                        "action": "<?= $block->escapeUrl($block->getUrl('requisition_list/item/copy_fromOrder')) ?>",
+                        "action_data": {
+                            "order_id": "<?= (int) $block->getOrder()->getId() ?>"
+                        }
+                    },
+                    "order_items_to_requisition.edit": {
+                        "component": "Magento_RequisitionList/js/requisition/list/edit",
+                        "modal": "add_to_requisition_popup",
+                        "saveUrl": "<?= $block->escapeUrl($block->getUrl('rest/V1/requisition_lists')) ?>"
+                    }
+                }
+            }
+        }
+    }
+</script>

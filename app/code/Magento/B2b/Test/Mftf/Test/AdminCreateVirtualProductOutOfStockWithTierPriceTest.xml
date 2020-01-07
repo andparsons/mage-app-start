@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminCreateVirtualProductOutOfStockWithTierPriceTest">
+        <remove keyForRemoval="selectProductTierPriceCustGroup"/>
+        <remove keyForRemoval="clickProductTierPriceCustGroup1"/>
+
+        <!-- Merge point 1 -->
+        <click selector="{{AdminProductFormAdvancedPricingSection.productTierPriceCustGroupSelect('0')}}" stepKey="clickProductTierPriceCustGroupSelect1" after="selectProductTierPriceWebsite"/>
+        <waitForElement selector="{{AdminProductFormAdvancedPricingSection.productTierPriceGroupOrCatalogOptionByIndex('0', 'ALL GROUPS')}}" time="30" stepKey="waitProductTierPriceGroupOrCatalogOption1" after="clickProductTierPriceCustGroupSelect1"/>
+        <click selector="{{AdminProductFormAdvancedPricingSection.productTierPriceGroupOrCatalogOptionByIndex('0', 'ALL GROUPS')}}" stepKey="clickProductTierPriceGroupOrCatalogOption1" after="waitProductTierPriceGroupOrCatalogOption1"/>
+
+        <!-- Merge point 2 -->
+        <click selector="{{AdminProductFormAdvancedPricingSection.productTierPriceCustGroupSelect('1')}}" stepKey="clickProductTierPriceCustGroupSelect2" after="clickProductTierPriceWebsite1"/>
+        <waitForElement selector="{{AdminProductFormAdvancedPricingSection.productTierPriceGroupOrCatalogOptionByIndex('1', 'ALL GROUPS')}}" time="30" stepKey="waitProductTierPriceGroupOrCatalogOption2" after="clickProductTierPriceCustGroupSelect2"/>
+        <click selector="{{AdminProductFormAdvancedPricingSection.productTierPriceGroupOrCatalogOptionByIndex('1', 'ALL GROUPS')}}" stepKey="clickProductTierPriceGroupOrCatalogOption2" after="waitProductTierPriceGroupOrCatalogOption2"/>
+    </test>
+</tests>

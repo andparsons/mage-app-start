@@ -1,0 +1,50 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/companyCredits/" method="GET">
+        <service class="Magento\CompanyCredit\Api\CreditLimitRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Magento_Company::credit_history"/>
+        </resources>
+    </route>
+    <route url="/V1/companyCredits/:creditId" method="GET">
+        <service class="Magento\CompanyCredit\Api\CreditLimitRepositoryInterface" method="get"/>
+        <resources>
+            <resource ref="Magento_Company::credit_history"/>
+        </resources>
+    </route>
+    <route url="/V1/companyCredits/:id" method="PUT">
+        <service class="Magento\CompanyCredit\Api\CreditLimitRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Magento_Company::credit_history"/>
+        </resources>
+    </route>
+    <route url="/V1/companyCredits/company/:companyId" method="GET">
+        <service class="Magento\CompanyCredit\Api\CreditLimitManagementInterface" method="getCreditByCompanyId"/>
+        <resources>
+            <resource ref="Magento_Company::credit_history"/>
+        </resources>
+    </route>
+    <route url="/V1/companyCredits/:creditId/increaseBalance" method="POST">
+        <service class="Magento\CompanyCredit\Api\CreditBalanceManagementInterface" method="increase"/>
+        <resources>
+            <resource ref="Magento_Company::credit_history"/>
+        </resources>
+    </route>
+    <route url="/V1/companyCredits/:creditId/decreaseBalance" method="POST">
+        <service class="Magento\CompanyCredit\Api\CreditBalanceManagementInterface" method="decrease"/>
+        <resources>
+            <resource ref="Magento_Company::credit_history"/>
+        </resources>
+    </route>
+    <route url="/V1/companyCredits/history" method="GET">
+        <service class="Magento\CompanyCredit\Api\CreditHistoryManagementInterface" method="getList"/>
+        <resources>
+            <resource ref="Magento_Company::credit_history"/>
+        </resources>
+    </route>
+    <route url="/V1/companyCredits/history/:historyId" method="PUT">
+        <service class="Magento\CompanyCredit\Api\CreditHistoryManagementInterface" method="update"/>
+        <resources>
+            <resource ref="Magento_Company::credit_history"/>
+        </resources>
+    </route>
+</routes>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminConfigInstanceIdReplaceTest">
+        <annotations>
+            <features value="ServicesId"/>
+            <stories value="New valid Instance ID value can be set manually"/>
+            <title value="New valid Instance ID value can be set manually"/>
+            <description value="An admin can manually assign a new valid Instance ID."/>
+            <severity value="MAJOR"/>
+            <group value="servicesid"/>
+        </annotations>
+
+        <actionGroup ref="LoginActionGroup" stepKey="loginAsAdmin"/>
+        <amOnPage url="{{AdminConfigServicesIdPage.url}}" stepKey="amOnAdminConfig"/>
+        <seeElement selector="{{AdminConfigServicesIdSection.dsEnvironment}}" stepKey="seeEnvironmentSetting"/>
+        <selectOption selector="{{AdminConfigServicesIdSection.dsEnvironment}}" userInput="Production" stepKey="fillFieldServicesIdEnvironment"/>
+        <seeElement selector="{{AdminConfigServicesIdSection.dsInstanceId}}" stepKey="seeInstanceIdSetting"/>
+
+        <fillField selector="{{AdminConfigServicesIdSection.dsInstanceId}}" userInput="52490ca2-fa35-4a1b-afb5-08d4d47b1036" stepKey="fillInstanceIdValid"/>
+        <click selector="{{AdminMainActionsSection.save}}" stepKey="clickSaveConfigButtonValid"/>
+        <see selector="{{AdminMessagesSection.success}}" userInput="You saved the configuration." stepKey="seeConfigSaveSuccess"/>
+
+        <actionGroup ref="logout" stepKey="logout"/>
+    </test>
+</tests>

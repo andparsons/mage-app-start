@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Company\Model\ResourceModel\Company\Grid\Collection">
+        <plugin name="creditBalance" type="Magento\CompanyCredit\Plugin\Company\Model\ResourceModel\Company\Grid\CollectionPlugin" />
+    </type>
+    <type name="Magento\Sales\Block\Adminhtml\Order\Creditmemo\Create\Items">
+        <plugin name="refundButton" type="Magento\CompanyCredit\Plugin\Sales\Block\Adminhtml\Order\Creditmemo\Create\ItemsPlugin" />
+    </type>
+    <type name="Magento\CustomerBalance\Block\Adminhtml\Sales\Order\Creditmemo\Controls">
+        <plugin name="hideRefundToStoreCreditField" type="Magento\CompanyCredit\Plugin\CustomerBalance\Block\Adminhtml\Sales\Order\Creditmemo\ControlsPlugin" />
+    </type>
+    <type name="Magento\Config\Model\Config">
+        <plugin name="baseCurrencyChangeNotification" type="Magento\CompanyCredit\Plugin\Config\Model\ConfigPlugin" />
+    </type>
+    <type name="Magento\Store\Model\Website">
+        <plugin name="websiteDeletedNotification" type="Magento\CompanyCredit\Plugin\Store\Model\WebsitePlugin" />
+    </type>
+    <type name="Magento\Framework\View\Element\Message\MessageConfigurationsPool">
+        <arguments>
+            <argument name="configurationsMap" xsi:type="array">
+                <item name="baseCurrencyChangeWarning" xsi:type="array">
+                    <item name="renderer" xsi:type="const">\Magento\Framework\View\Element\Message\Renderer\BlockRenderer::CODE</item>
+                    <item name="data" xsi:type="array">
+                        <item name="template" xsi:type="string">Magento_CompanyCredit::messages/baseCurrencyChangeWarning.phtml</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

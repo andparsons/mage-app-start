@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminCreateCustomerRetailerWithoutAddressTest">
+        <!-- Two additional actions to perform before stepkey fillCustomerGroup below -->
+        <click selector="{{CustomerInformationSection.customerGroup}}" stepKey="clickToSeeGroups" before="waitForGroupsLoad"/>
+        <waitForPageLoad stepKey="waitForGroupsLoad" before="fillCustomerGroup"/>
+        <!-- Merge via stepKey -->
+        <click selector="{{CustomerInformationSection.customerGroupByName('Retailer')}}" stepKey="fillCustomerGroup"/>
+        <see selector="{{AdminCustomerAccountInformationSection.group}}" userInput="Retailer" stepKey="seeCustomerGroup1"/>
+    </test>
+</tests>

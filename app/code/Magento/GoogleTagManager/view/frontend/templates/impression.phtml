@@ -1,0 +1,39 @@
+<?php
+?>
+<?php
+/** @var \Magento\GoogleTagManager\Block\ListJson $block */
+$productCollection = $block->getLoadedProductCollection();
+$block->checkCartItems();
+?>
+
+<?php if ($productCollection && count($productCollection) > 0) { ?>
+    <?php
+    $listPosition = 0;
+    if (is_object($productCollection) && $productCollection->getCurPage() > 0) {
+        $position = ($productCollection->getCurPage() - 1) * $productCollection->getPageSize() + 1;
+    } else {
+        $position = 1;
+    }
+    ?>
+    <script>
+        var staticImpressions = staticImpressions || {};
+        staticImpressions['<?= $block->escapeJs($block->getBlockName()) ?>'] = [
+    <?php
+    foreach ($productCollection as $product) {
+        ?>
+            {
+                "id": "<?= $block->escapeJs($product->getSku()) ?>",
+                "type": "<?= $block->escapeJs($product->getTypeId()) ?>",
+                "name": "<?= $block->escapeJs($product->getName()) ?>",
+                "category": "<?= $block->escapeJs($block->getCurrentCategoryName()) ?>",
+                "list": "<?= $block->escapeJs($block->getCurrentListName()) ?>",
+                "position": "<?= /* @noEscape */ $position++ ?>",
+                "listPosition": "<?= /* @noEscape */ $listPosition++ ?>"
+            },
+        <?php
+    }
+    ?>
+        ];
+    </script>
+    <?php
+}

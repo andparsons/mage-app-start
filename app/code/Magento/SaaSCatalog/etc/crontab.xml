@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!--@todo think of this settings before release-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="submit_product_feed" instance="Magento\SaaSCatalog\Cron\SubmitProductFeed" method="execute">
+            <schedule>* * * * *</schedule>
+        </job>
+    </group>
+</config>
