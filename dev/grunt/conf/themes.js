@@ -15,9 +15,9 @@ export const themes = {
     ],
     dsl: 'less'
   },
-  sozo: {
+  luma: {
     area: 'frontend',
-    name: 'Sozo/cotswoldcollections',
+    name: 'Magento/luma',
     locale: 'en_GB',
     files: [
       'css/styles-m',
