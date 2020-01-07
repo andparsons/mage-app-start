@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="FillOutCMSPageContent">
+        <fillField selector="{{CmsNewPagePageBasicFieldsSection.pageTitle}}" userInput="{{_duplicatedCMSPage.title}}" stepKey="fillFieldTitle"/>
+        <click selector="{{CmsNewPagePageContentSection.header}}" stepKey="clickExpandContentTabForPage"/>
+        <fillField selector="{{CmsNewPagePageContentSection.content}}" userInput="{{_duplicatedCMSPage.content}}" stepKey="fillFieldContent"/>
+        <click selector="{{CmsNewPagePageSeoSection.header}}" stepKey="clickExpandSearchEngineOptimisation"/>
+        <fillField selector="{{CmsNewPagePageSeoSection.urlKey}}" userInput="{{_duplicatedCMSPage.identifier}}" stepKey="fillFieldUrlKey"/>
+    </actionGroup>
+</actionGroups>

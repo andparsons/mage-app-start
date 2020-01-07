@@ -1,0 +1,31 @@
+<?php
+namespace Magento\Catalog\Model\ResourceModel\Category;
+
+use Magento\Catalog\Model\Category;
+
+/**
+ * Class AggregateCount
+ */
+class AggregateCount
+{
+    /**
+     * @param Category $category
+     * @return void
+     */
+    public function processDelete(Category $category)
+    {
+        /** @var \Magento\Catalog\Model\ResourceModel\Category $resourceModel */
+        $resourceModel = $category->getResource();
+        /**
+         * Update children count for all parent categories
+         */
+        $parentIds = $category->getParentIds();
+        if ($parentIds) {
+            $childDecrease = $category->getChildrenCount() + 1;
+            // +1 is itself
+            $data = ['children_count' => new \Zend_Db_Expr('children_count - ' . $childDecrease)];
+            $where = ['entity_id IN(?)' => $parentIds];
+            $resourceModel->getConnection()->update($resourceModel->getEntityTable(), $data, $where);
+        }
+    }
+}

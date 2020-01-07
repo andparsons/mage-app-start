@@ -1,0 +1,11 @@
+<!--
+-->
+<div class="action-menu-item action-close-wrapper">
+    <button class="action-close"
+            repeat="foreach: $col.getVisibleActions($row()._rowIndex), item: '$action'"
+            click="$col.getActionHandler($action())"
+            attr="{
+                title: $action().label
+            }"
+    />
+</div>

@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<mapping strict="0">
+    <fields>
+        <dbHost />
+        <dbUser />
+        <dbPassword />
+        <dbName>
+            <selector>[name="dbname"]</selector>
+        </dbName>
+        <dbTablePrefix />
+    </fields>
+</mapping>

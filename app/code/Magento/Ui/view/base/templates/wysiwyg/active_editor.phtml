@@ -1,0 +1,13 @@
+<?php
+
+/** @var Magento\Ui\Block\Wysiwyg\ActiveEditor $block */
+?>
+<script>
+    require.config({
+        map: {
+            '*': {
+                wysiwygAdapter: '<?= /* @noEscape */ $block->getWysiwygAdapterPath() ?>'
+            }
+        }
+    });
+</script>

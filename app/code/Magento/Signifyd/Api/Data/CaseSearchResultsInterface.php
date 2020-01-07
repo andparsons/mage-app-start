@@ -1,0 +1,30 @@
+<?php
+namespace Magento\Signifyd\Api\Data;
+
+use Magento\Framework\Api\SearchResultsInterface;
+
+/**
+ * Retrieve and set list of case entities.
+ *
+ * @api
+ * @since 100.2.1
+ */
+interface CaseSearchResultsInterface extends SearchResultsInterface
+{
+    /**
+     * Gets collection of case entities.
+     *
+     * @return \Magento\Signifyd\Api\Data\CaseInterface[]
+     * @since 100.2.1
+     */
+    public function getItems();
+
+    /**
+     * Sets collection of case entities.
+     *
+     * @param \Magento\Signifyd\Api\Data\CaseInterface[] $items
+     * @return $this
+     * @since 100.2.1
+     */
+    public function setItems(array $items);
+}

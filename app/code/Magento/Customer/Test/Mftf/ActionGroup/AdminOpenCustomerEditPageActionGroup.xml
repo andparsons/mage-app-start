@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminOpenCustomerEditPageActionGroup">
+        <arguments>
+            <argument name="customerId" type="string" />
+        </arguments>
+        <amOnPage url="{{AdminEditCustomerPage.url(customerId)}}" stepKey="openCustomerEditPage" />
+        <waitForPageLoad stepKey="waitForPageLoad" />
+    </actionGroup>
+</actionGroups>

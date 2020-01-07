@@ -1,0 +1,39 @@
+<?php
+namespace Magento\Setup\Test\Constraint\Module;
+
+use Magento\Setup\Test\Page\Adminhtml\SetupWizard;
+
+/**
+ * Class AssertSuccessMessage
+ *
+ * Checks whether Module manipulation was succeed.
+ */
+class AssertSuccessMessage
+{
+    const SUCCESS_MESSAGE = 'Success';
+
+    /**
+     * Assert module action is successful.
+     *
+     * @param SetupWizard $setupWizard
+     * @return void
+     */
+    public function processAssert(SetupWizard $setupWizard)
+    {
+        \PHPUnit\Framework\Assert::assertContains(
+            static::SUCCESS_MESSAGE,
+            $setupWizard->getSuccessMessage()->getDisableModuleStatus(),
+            'Success message is incorrect.'
+        );
+    }
+
+    /**
+     * Returns a string representation of successful assertion.
+     *
+     * @return string
+     */
+    public function toString()
+    {
+        return "Success message is correct.";
+    }
+}

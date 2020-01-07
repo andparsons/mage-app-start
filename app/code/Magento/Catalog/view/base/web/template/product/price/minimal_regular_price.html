@@ -1,0 +1,18 @@
+<!--
+-->
+<span if="showMinRegularPrice($row())"
+      class="old-price">
+    <span class="price-container"
+          css="getAdjustmentCssClasses($row())">
+        <span if="label"
+              class="price-label"
+              text="label"/>
+
+        <span class="price-wrapper"
+              css="priceWrapperCssClasses"
+              attr="priceWrapperAttr"
+              data-price-amount=""
+              data-price-type=""
+              html="getMinRegularPrice($row())"/>
+    </span>
+</span>

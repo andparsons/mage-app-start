@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<sections>
+    <downloadable_information>
+        <class>\Magento\Downloadable\Test\Block\Adminhtml\Catalog\Product\Edit\Section\Downloadable</class>
+        <selector>[data-index="downloadable"]</selector>
+        <strategy>css selector</strategy>
+    </downloadable_information>
+</sections>

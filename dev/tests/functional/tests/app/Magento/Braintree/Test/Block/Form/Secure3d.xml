@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<mapping strict="1">
+    <fields>
+        <secure3d_password>
+            <selector>input[name="external.field.password"]</selector>
+        </secure3d_password>
+    </fields>
+</mapping>

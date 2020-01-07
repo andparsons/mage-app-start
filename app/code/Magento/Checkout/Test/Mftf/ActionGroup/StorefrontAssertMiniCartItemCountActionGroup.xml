@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="StorefrontAssertMiniCartItemCountActionGroup">
+        <arguments>
+            <argument name="productCount" type="string"/>
+            <argument name="productCountText" type="string"/>
+        </arguments>
+        <see selector="{{StorefrontMinicartSection.productCount}}" userInput="{{productCount}}" stepKey="seeProductCountInCart"/>
+        <see selector="{{StorefrontMinicartSection.visibleItemsCountText}}" userInput="{{productCountText}}" stepKey="seeNumberOfItemDisplayInMiniCart"/>
+    </actionGroup>
+</actionGroups>

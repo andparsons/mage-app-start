@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @var \Magento\Paypal\Block\Adminhtml\System\Config\ResolutionRules $block
+ */
+
+?>
+<script>
+    require([
+        "Magento_Paypal/js/solutions",
+        "domReady!"
+    ], function (Solutions) {
+        var solutions = new Solutions({config: {solutions: <?= /* @noEscape */ $block->getJson() ?>}});
+    });
+</script>

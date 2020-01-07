@@ -1,0 +1,32 @@
+<?php
+namespace Magento\Sales\Api\Data;
+
+/**
+ * Shipment package interface.
+ *
+ * A shipment is a delivery package that contains products. A shipment document accompanies the shipment. This
+ * document lists the products and their quantities in the delivery package.
+ * @api
+ * @since 100.1.2
+ */
+interface ShipmentPackageCreationInterface extends \Magento\Framework\Api\ExtensibleDataInterface
+{
+    /**
+     * Retrieve existing extension attributes object or create a new one.
+     *
+     * @return \Magento\Sales\Api\Data\ShipmentPackageCreationExtensionInterface|null
+     * @since 100.1.2
+     */
+    public function getExtensionAttributes();
+
+    /**
+     * Set an extension attributes object.
+     *
+     * @param \Magento\Sales\Api\Data\ShipmentPackageCreationExtensionInterface $extensionAttributes
+     * @return $this
+     * @since 100.1.2
+     */
+    public function setExtensionAttributes(
+        \Magento\Sales\Api\Data\ShipmentPackageCreationExtensionInterface $extensionAttributes
+    );
+}

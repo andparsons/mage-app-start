@@ -1,0 +1,13 @@
+<?php
+
+/** @var \Magento\Wishlist\Block\AddToWishlist $block */
+?>
+<script type="text/x-magento-init">
+    {
+        "body": {
+            "addToWishlist": <?= /* @noEscape */ $this->helper(\Magento\Framework\Json\Helper\Data::class)
+                ->jsonEncode($block->getWishlistOptions());
+            ?>
+        }
+    }
+</script>

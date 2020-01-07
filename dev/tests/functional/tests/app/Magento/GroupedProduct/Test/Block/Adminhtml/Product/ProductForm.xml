@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<sections>
+    <grouped>
+        <class>\Magento\GroupedProduct\Test\Block\Adminhtml\Product\Grouped\AssociatedProducts</class>
+        <selector>[data-index="grouped"]</selector>
+        <strategy>css selector</strategy>
+    </grouped>
+</sections>

@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<mapping strict="0">
+    <fields>
+        <title>
+            <selector>[name="product[links_title]"]</selector>
+            <strategy>css selector</strategy>
+        </title>
+        <links_purchased_separately>
+            <selector>[name="product[links_purchased_separately]"]</selector>
+            <strategy>css selector</strategy>
+            <input>checkbox</input>
+        </links_purchased_separately>
+    </fields>
+</mapping>

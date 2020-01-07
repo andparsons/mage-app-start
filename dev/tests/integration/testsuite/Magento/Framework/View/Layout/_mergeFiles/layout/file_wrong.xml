@@ -1,0 +1,3 @@
+<?xml version="1.0"?>
+<page>
+    <container name="content" as="content" label="Main Content Area"/>

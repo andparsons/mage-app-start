@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<mapping strict="0">
+    <fields>
+        <entity>
+            <input>select</input>
+        </entity>
+        <file_format>
+            <input>select</input>
+        </file_format>
+        <product composite="1">
+            <sku>
+                <input>input</input>
+                <selector>[name="export_filter[sku]"]</selector>
+            </sku>
+        </product>
+    </fields>
+</mapping>

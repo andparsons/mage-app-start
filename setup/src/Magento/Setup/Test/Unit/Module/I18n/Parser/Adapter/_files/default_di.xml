@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding="utf-8" ?>
+
+<config>
+    <node>
+        <title translatable="true">Phrase 1</title>
+    </node>
+</config>

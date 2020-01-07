@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="MinMaxQueryLength" type="constant">
+        <data key="Hint">This value must be compatible with the corresponding setting in the configured search engine</data>
+    </entity>
+</entities>

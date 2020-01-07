@@ -1,0 +1,19 @@
+<?php
+namespace Magento\Framework\Mail\Test\Unit;
+
+class TransportTest extends \PHPUnit\Framework\TestCase
+{
+    /**
+     * @covers \Magento\Framework\Mail\Transport::sendMessage
+     * @expectedException \Magento\Framework\Exception\MailException
+     * @expectedExceptionMessage Invalid email; contains no at least one of "To", "Cc", and "Bcc" header
+     */
+    public function testSendMessageBrokenMessage()
+    {
+        $transport = new \Magento\Framework\Mail\Transport(
+            new \Magento\Framework\Mail\Message()
+        );
+
+        $transport->sendMessage();
+    }
+}

@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<mapping strict="0">
+<fields>
+    <captcha>
+        <selector>[name='captcha[user_edit]']</selector>
+    </captcha>
+</fields>
+</mapping>

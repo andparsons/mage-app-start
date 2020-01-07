@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<mapping strict="1">
+    <fields>
+        <login_id>
+            <selector>[name=MerchantLogin]</selector>
+        </login_id>
+        <password>
+            <selector>[name=Password]</selector>
+        </password>
+    </fields>
+</mapping>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AssertStorefrontProductPricesActionGroup">
+        <arguments>
+            <argument name="productPrice" type="string"/>
+            <argument name="productFinalPrice" type="string"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForStorefrontProductPageLoad"/>
+        <see selector="{{StorefrontProductInfoMainSection.productPrice}}" stepKey="productPriceAmount" userInput="{{productPrice}}"/>
+        <see selector="{{StorefrontProductInfoMainSection.updatedPrice}}" stepKey="productFinalPriceAmount" userInput="{{productFinalPrice}}"/>
+    </actionGroup>
+</actionGroups>

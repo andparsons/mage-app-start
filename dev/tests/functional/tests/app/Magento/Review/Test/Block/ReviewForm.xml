@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<mapping strict="1">
+    <fields>
+        <nickname>
+            <selector>#nickname_field</selector>
+        </nickname>
+        <title>
+            <selector>#summary_field</selector>
+        </title>
+        <detail>
+            <selector>#review_field</selector>
+        </detail>
+    </fields>
+</mapping>

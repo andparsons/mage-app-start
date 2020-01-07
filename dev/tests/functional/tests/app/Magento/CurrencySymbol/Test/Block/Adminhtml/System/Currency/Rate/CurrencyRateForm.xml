@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<mapping strict="1">
+    <wrapper>rate</wrapper>
+    <fields>
+        <rate>
+            <selector>input[name="rate[%currency_from%][%currency_to%]"]</selector>
+        </rate>
+    </fields>
+</mapping>

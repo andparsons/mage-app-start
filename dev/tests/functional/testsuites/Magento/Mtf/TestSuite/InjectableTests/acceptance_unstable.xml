@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../../vendor/magento/mtf/Magento/Mtf/TestRunner/etc/testRunner.xsd">
+    <rule scope="testcase">
+        <allow>
+            <tag group="test_type" value="acceptance_test" />
+        </allow>
+    </rule>
+    <rule scope="variation">
+        <allow>
+            <tag group="test_type" value="acceptance_test" />
+            <tag group="stable" value="no" />
+        </allow>
+    </rule>
+</config>

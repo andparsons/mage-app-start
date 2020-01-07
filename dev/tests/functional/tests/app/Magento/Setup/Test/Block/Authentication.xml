@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<mapping strict="1">
+    <fields>
+        <publicKey>
+            <selector>[name='username']</selector>
+        </publicKey>
+        <privateKey>
+            <selector>[name='password']</selector>
+        </privateKey>
+    </fields>
+</mapping>

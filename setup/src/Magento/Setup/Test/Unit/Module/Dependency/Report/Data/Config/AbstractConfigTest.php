@@ -1,0 +1,18 @@
+<?php
+namespace Magento\Setup\Test\Unit\Module\Dependency\Report\Data\Config;
+
+class AbstractConfigTest extends \PHPUnit\Framework\TestCase
+{
+    public function testGetModules()
+    {
+        $modules = ['foo', 'baz', 'bar'];
+
+        /** @var \Magento\Setup\Module\Dependency\Report\Data\Config\AbstractConfig $config */
+        $config = $this->getMockForAbstractClass(
+            \Magento\Setup\Module\Dependency\Report\Data\Config\AbstractConfig::class,
+            ['modules' => $modules]
+        );
+
+        $this->assertEquals($modules, $config->getModules());
+    }
+}

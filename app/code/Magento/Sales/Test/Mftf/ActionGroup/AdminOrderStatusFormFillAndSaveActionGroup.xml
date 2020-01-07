@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <!-- Fill Order status form and click save -->
+    <actionGroup name="AdminOrderStatusFormFillAndSave">
+        <arguments>
+            <argument name="status" type="string" />
+            <argument name="label" type="string" />
+        </arguments>
+
+        <fillField stepKey="fillStatusCode" selector="{{AdminOrderStatusFormSection.statusCodeField}}" userInput="{{status}}"/>
+        <fillField stepKey="fillStatusLabel" selector="{{AdminOrderStatusFormSection.statusLabelField}}" userInput="{{label}}"/>
+        <click stepKey="clickSaveStatus" selector="{{AdminMainActionsSection.save}}"/>
+    </actionGroup>
+</actionGroups>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="VerifyProductTypeOrder">
+        <click selector="{{AdminProductGridActionSection.addProductToggle}}" stepKey="clickAddProductDropdown"/>
+        <waitForPageLoad stepKey="waitForLoad"/>
+        <seeElement stepKey="seeSimpleInOrder" selector="{{AdminProductDropdownOrderSection.simpleProduct}}"/>
+        <seeElement stepKey="seeVirtualInOrder" selector="{{AdminProductDropdownOrderSection.virtualProduct}}"/>
+    </actionGroup>
+</actionGroups>

@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<mapping strict="1">
+    <fields>
+        <qty>
+            <selector>[name$='[qty]']</selector>
+        </qty>
+    </fields>
+</mapping>

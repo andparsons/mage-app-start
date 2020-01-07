@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<tabs>
+    <product_reviews>
+        <class>\Magento\Review\Test\Block\Adminhtml\Customer\Edit\Tab\Reviews</class>
+        <selector>#tab_reviews_content</selector>
+        <strategy>css selector</strategy>
+    </product_reviews>
+</tabs>

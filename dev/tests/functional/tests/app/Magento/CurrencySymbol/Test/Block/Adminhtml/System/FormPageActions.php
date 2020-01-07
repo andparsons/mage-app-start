@@ -1,0 +1,19 @@
+<?php
+
+namespace Magento\CurrencySymbol\Test\Block\Adminhtml\System;
+
+use Magento\Backend\Test\Block\FormPageActions as ParentFormPageActions;
+
+/**
+ * Class FormPageActions
+ * Form Page Actions for Currency Symbol
+ */
+class FormPageActions extends ParentFormPageActions
+{
+    /**
+     * "Save" button
+     *
+     * @var string
+     */
+    protected $saveButton = '[data-ui-id="page-actions-toolbar-save-button"]';
+}

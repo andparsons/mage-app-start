@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<page>
+    <body>
+        <container name="product.info.extrahint" as="extrahint" label="Product View Extra Hint"/>
+    </body>
+</page>

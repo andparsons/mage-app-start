@@ -1,0 +1,12 @@
+<?php
+?>
+<?php
+/**
+ * @var $block \Magento\Backend\Block\Widget\Button
+ */
+?>
+<?= $block->getBeforeHtml() ?>
+<button <?= /* @noEscape */ $block->getAttributesHtml(), $block->getUiId() ?>>
+    <span><?= $block->escapeHtml($block->getLabel()) ?></span>
+</button>
+<?= $block->getAfterHtml() ?>

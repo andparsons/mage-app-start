@@ -1,0 +1,15 @@
+<!--
+-->
+<if args="isAllowed()">
+    <a class="product-item-photo"
+       attr="href: $row().url">
+        <img if="imageExists($row())"
+             class="product-image-photo"
+             attr="src: getImageUrl($row()),
+               alt: getLabel($row()),
+               title: getLabel($row()),
+               width: getResizedImageWidth($row()),
+               height: getResizedImageHeight($row())"/>
+    </a>
+</if>
+

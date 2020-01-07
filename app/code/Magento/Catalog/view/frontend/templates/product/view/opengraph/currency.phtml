@@ -1,0 +1,6 @@
+<?php
+
+/** @var $block \Magento\Directory\Block\Currency */
+?>
+<meta property="product:price:currency"
+      content="<?= /* @noEscape */ $block->stripTags($block->getCurrentCurrencyCode()) ?>"/>

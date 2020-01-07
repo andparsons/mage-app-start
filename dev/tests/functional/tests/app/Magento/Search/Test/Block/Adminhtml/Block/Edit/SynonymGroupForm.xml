@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<mapping strict="0">
+    <fields>
+        <scope_id>
+            <selector>[name="scope_id"]</selector>
+            <input>selectstore</input>
+        </scope_id>
+        <mergeOnConflict>
+            <input>checkbox</input>
+        </mergeOnConflict>
+    </fields>
+</mapping>

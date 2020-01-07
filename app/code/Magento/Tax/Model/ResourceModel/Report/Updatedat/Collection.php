@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * Tax report collection
+ *
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+namespace Magento\Tax\Model\ResourceModel\Report\Updatedat;
+
+class Collection extends \Magento\Tax\Model\ResourceModel\Report\Collection
+{
+    /**
+     * Aggregated Data Table
+     *
+     * @var string
+     */
+    protected $_aggregationTable = 'tax_order_aggregated_updated';
+}

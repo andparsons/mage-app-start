@@ -1,0 +1,4 @@
+<?php
+namespace Magento\Framework\MyNamespace;
+
+use \MyClass;

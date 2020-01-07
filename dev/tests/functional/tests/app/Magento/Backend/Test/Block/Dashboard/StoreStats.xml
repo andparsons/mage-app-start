@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<tabs>
+    <bestsellers>
+        <class>\Magento\Backend\Test\Block\Dashboard\Tab\Products</class>
+        <selector>#grid_tab_ordered_products</selector>
+        <strategy>css selector</strategy>
+    </bestsellers>
+</tabs>

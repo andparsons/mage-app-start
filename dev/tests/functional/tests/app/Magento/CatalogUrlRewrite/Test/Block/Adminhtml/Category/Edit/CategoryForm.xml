@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<sections>
+    <seo>
+        <fields>
+            <url_key_create_redirect>
+                <input>checkbox</input>
+                <selector>input[name='url_key_create_redirect']</selector>
+            </url_key_create_redirect>
+        </fields>
+    </seo>
+</sections>

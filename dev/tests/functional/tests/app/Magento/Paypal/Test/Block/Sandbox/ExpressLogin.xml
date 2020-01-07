@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<mapping strict="1">
+    <fields>
+        <email />
+        <password />
+    </fields>
+</mapping>

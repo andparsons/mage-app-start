@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="ChangedCookieDomainForMainWebsiteConfigData">
+        <data key="path">web/cookie/cookie_domain</data>
+        <data key="scope">website</data>
+        <data key="scope_code">base</data>
+        <data key="value">testDomain.com</data>
+    </entity>
+    <entity name="EmptyCookieDomainForMainWebsiteConfigData">
+        <data key="path">web/cookie/cookie_domain</data>
+        <data key="scope">website</data>
+        <data key="scope_code">base</data>
+        <data key="value">''</data>
+    </entity>
+</entities>

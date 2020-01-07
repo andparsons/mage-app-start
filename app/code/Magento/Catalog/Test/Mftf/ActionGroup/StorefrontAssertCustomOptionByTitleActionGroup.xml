@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="StorefrontAssertCustomOptionByTitleActionGroup">
+        <arguments>
+            <argument name="title" type="string"/>
+        </arguments>
+        <seeElement selector="{{StorefrontProductInfoMainSection.customOptionByTitle(title)}}" stepKey="seeCustomOption"/>
+    </actionGroup>
+</actionGroups>

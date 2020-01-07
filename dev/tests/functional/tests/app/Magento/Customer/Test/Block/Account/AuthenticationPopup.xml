@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<mapping strict="1">
+    <fields>
+        <email>
+            <selector>[name='username']</selector>
+        </email>
+        <password />
+    </fields>
+</mapping>

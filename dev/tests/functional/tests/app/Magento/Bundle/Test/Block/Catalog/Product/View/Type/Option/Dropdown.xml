@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<mapping strict="0">
+    <fields>
+        <name>
+            <selector>select</selector>
+            <input>select</input>
+        </name>
+        <qty>
+            <selector>//input[@class = "qty"]</selector>
+            <strategy>xpath</strategy>
+        </qty>
+    </fields>
+</mapping>

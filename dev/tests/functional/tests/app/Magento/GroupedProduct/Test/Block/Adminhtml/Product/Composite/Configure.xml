@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<mapping strict="0">
+    <fields>
+        <qty>
+            <selector>.//tr[contains(.,"%product_name%")]//input[contains(@class,"qty")]</selector>
+            <strategy>xpath</strategy>
+        </qty>
+    </fields>
+</mapping>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="StorefrontSelectOptionMultiSelectActionGroup">
+        <arguments>
+            <argument name="optionTitle" defaultValue="ProductOptionMultiSelect"/>
+            <argument name="option" defaultValue="ProductOptionValueMultiSelect2.title"/>
+        </arguments>
+        <selectOption selector="{{StorefrontProductInfoMainSection.productOptionSelect(optionTitle.title)}}" userInput="{{option}}" stepKey="selectOption"/>
+    </actionGroup>
+</actionGroups>

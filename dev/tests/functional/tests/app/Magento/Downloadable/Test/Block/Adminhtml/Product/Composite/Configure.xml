@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<mapping strict="0">
+    <fields>
+        <link>
+            <selector>//*[@id="downloadable-links-list"]/*[contains(.,"%link_name%")]//input</selector>
+            <strategy>xpath</strategy>
+            <input>checkbox</input>
+        </link>
+    </fields>
+</mapping>

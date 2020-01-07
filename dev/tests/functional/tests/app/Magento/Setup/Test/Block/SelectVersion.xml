@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<mapping strict="1">
+    <fields>
+        <upgradeVersion>
+            <selector>#selectVersion</selector>
+            <input>select</input>
+        </upgradeVersion>
+    </fields>
+</mapping>

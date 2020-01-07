@@ -1,0 +1,15 @@
+<?php
+?>
+<form action="<?= $block->escapeUrl($block->getSaveUrl()) ?>" method="post" id="design-edit-form">
+    <?= $block->getBlockHtml('formkey') ?>
+</form>
+<script>
+require([
+    "jquery",
+    "mage/mage"
+], function($){
+
+    $('#design-edit-form').mage('form').mage('validation');
+
+});
+</script>

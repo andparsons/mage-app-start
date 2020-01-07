@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * @var \Magento\Theme\Block\Html\Header\CriticalCss $criticalCssViewModel
+ */
+?>
+<?php $criticalCssViewModel = $block->getData('criticalCssViewModel'); ?>
+
+<style type="text/css" data-type="criticalCss">
+    <?= /* @noEscape */ $criticalCssViewModel->getCriticalCssData() ?>
+</style>

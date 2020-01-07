@@ -1,0 +1,10 @@
+<!--
+-->
+<if args="displayBothPrices()">
+    <span class="price-wrapper price-excluding-tax"
+          attr="'data-label': $t('Excl. Tax')"
+          data-price-amount=""
+          data-price-type="basePrice"
+          html="getTax($row())">
+    </span>
+</if>

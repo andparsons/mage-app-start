@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<tabs>
+    <wishlist>
+        <class>\Magento\Wishlist\Test\Block\Adminhtml\Customer\Edit\Tab\Wishlist</class>
+        <selector>#tab_wishlist_content</selector>
+        <strategy>css selector</strategy>
+    </wishlist>
+</tabs>

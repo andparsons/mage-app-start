@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<mapping strict="0">
+    <fields>
+        <stores>
+            <selector>[name="store_id"]</selector>
+            <input>multiselectgrouplist</input>
+        </stores>
+        <is_active>
+            <input>switcher</input>
+        </is_active>
+    </fields>
+</mapping>

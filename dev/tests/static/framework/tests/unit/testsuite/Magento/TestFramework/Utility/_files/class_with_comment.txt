@@ -1,0 +1,9 @@
+<?php
+namespace Magento\ModuleName\SubDirectoryName;
+
+/**
+ * Class Foo responsibility is ...
+ */
+class Foo implements InterfaceName
+{
+}

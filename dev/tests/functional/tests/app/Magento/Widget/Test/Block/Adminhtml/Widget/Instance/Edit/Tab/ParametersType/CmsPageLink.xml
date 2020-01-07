@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<mapping strict="1">
+    <fields>
+        <anchor_text>
+            <selector>.control [name="parameters[anchor_text]"]</selector>
+        </anchor_text>
+        <title>
+            <selector>.control [name="parameters[title]"]</selector>
+        </title>
+        <entities />
+    </fields>
+</mapping>

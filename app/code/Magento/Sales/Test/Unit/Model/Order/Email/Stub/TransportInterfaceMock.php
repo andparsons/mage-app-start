@@ -1,0 +1,27 @@
+<?php
+namespace Magento\Sales\Test\Unit\Model\Order\Email\Stub;
+
+use Magento\Framework\Mail\TransportInterface;
+
+class TransportInterfaceMock implements TransportInterface
+{
+    /**
+     * Mock of send a mail using transport
+     *
+     * @return void
+     */
+    public function sendMessage()
+    {
+        return;
+    }
+
+    /**
+     * Get message
+     *
+     * @return string
+     */
+    public function getMessage()
+    {
+        return '';
+    }
+}

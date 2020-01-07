@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<mapping strict="0">
+    <fields>
+        <emails>
+            <input>textarea</input>
+        </emails>
+        <message>
+            <input>textarea</input>
+        </message>
+    </fields>
+</mapping>

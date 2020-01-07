@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<mapping strict="0">
+    <fields>
+        <title>
+            <selector>[name="product[samples_title]"]</selector>
+            <strategy>css selector</strategy>
+        </title>
+    </fields>
+</mapping>

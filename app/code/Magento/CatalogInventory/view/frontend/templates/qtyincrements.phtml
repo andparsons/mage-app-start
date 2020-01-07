@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * @var $block \Magento\CatalogInventory\Block\Qtyincrements
+ */
+?>
+<?php if ($block->getProductQtyIncrements()) : ?>
+    <div class="product pricing">
+        <?= $block->escapeHtml(__('%1 is available to buy in increments of %2', $block->getProductName(), $block->getProductQtyIncrements())) ?>
+    </div>
+<?php endif ?>

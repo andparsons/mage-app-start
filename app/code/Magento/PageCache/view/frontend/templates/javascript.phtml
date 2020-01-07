@@ -1,0 +1,11 @@
+<?php
+
+/** @var \Magento\PageCache\Block\Javascript $block */
+?>
+<script type="text/x-magento-init">
+    {
+        "body": {
+            "pageCache": <?= /* @noEscape */ $block->getScriptOptions() ?>
+        }
+    }
+</script>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="StorefrontFillCustomerLoginFormActionGroup">
+        <arguments>
+            <argument name="customer" type="entity" />
+        </arguments>
+
+        <fillField userInput="{{customer.email}}" selector="{{StorefrontCustomerSignInFormSection.emailField}}" stepKey="fillEmail"/>
+        <fillField userInput="{{customer.password}}" selector="{{StorefrontCustomerSignInFormSection.passwordField}}" stepKey="fillPassword"/>
+    </actionGroup>
+</actionGroups>

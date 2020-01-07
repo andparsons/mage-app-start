@@ -1,0 +1,24 @@
+<?php
+
+/** @var Magento\Braintree\Block\Payment $block */
+
+$code = $block->escapeHtml($block->getCode());
+
+?>
+<script>
+    //<![CDATA[
+    require(
+        [
+            'Magento_Braintree/js/braintree',
+            'jquery',
+            'domReady!'
+        ], function(Braintree, $) {
+            var config = <?= /* @noEscape */ $block->getPaymentConfig() ?>,
+                payment,
+                form = $('#payment_form_<?= /* @noEscape */ $code ?>');
+
+            config.active = form.length > 0 && !form.is(':hidden');
+            payment = new Braintree(config);
+        });
+    //]]>
+</script>

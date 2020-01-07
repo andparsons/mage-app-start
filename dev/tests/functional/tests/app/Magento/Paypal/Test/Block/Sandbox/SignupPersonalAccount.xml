@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<mapping strict="1">
+    <fields>
+        <email />
+        <password />
+        <confirm_password>
+            <selector>[name=confirmPassword]</selector>
+        </confirm_password>
+    </fields>
+</mapping>

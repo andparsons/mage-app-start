@@ -1,0 +1,24 @@
+<?php
+?>
+<script>
+    require([
+        'uiLayout',
+        'jquery'
+    ], function (layout, $) {
+        $(function () {
+            var paymentMethodData = {
+                method: 'checkmo'
+            };
+            layout([
+                {
+                    component: 'Magento_Checkout/js/view/payment/default',
+                    name: 'payment_method_checkmo',
+                    method: paymentMethodData.method,
+                    item: paymentMethodData
+                }
+            ]);
+
+            $('body').trigger('contentUpdated');
+        })
+    })
+</script>

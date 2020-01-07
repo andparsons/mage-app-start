@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<mapping strict="0">
+    <fields>
+        <new_attribute_set_name>
+            <selector>.new-attribute-set-name input</selector>
+        </new_attribute_set_name>
+    </fields>
+</mapping>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="CatalogSelectCustomerGroupActionGroup">
+        <arguments>
+            <argument name="customerGroupName" defaultValue="NOT LOGGED IN" type="string"/>
+        </arguments>
+        <selectOption selector="{{AdminNewCatalogPriceRule.customerGroups}}" userInput="{{customerGroupName}}" stepKey="selectCustomerGroup"/>
+    </actionGroup>
+</actionGroups>

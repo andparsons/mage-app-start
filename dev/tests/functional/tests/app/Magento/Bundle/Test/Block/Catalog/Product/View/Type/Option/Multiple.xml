@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<mapping strict="0">
+    <fields>
+        <name>
+            <selector>select</selector>
+            <input>multiselect</input>
+        </name>
+    </fields>
+</mapping>

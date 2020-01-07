@@ -1,0 +1,14 @@
+<!--
+-->
+<if args="showMinimalPrice">
+    <if args="useLinkForAsLowAs">
+        <a attr="href: $row().url"
+           class="minimal-price-link"
+           html="getMinimalPrice($row())"/>
+    </if>
+
+    <ifnot args="useLinkForAsLowAs">
+        <span class="minimal-price-link"
+              html="getMinimalPrice($row())"/>
+    </ifnot>
+</if>

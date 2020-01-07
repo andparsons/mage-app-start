@@ -1,0 +1,14 @@
+<?php
+
+/** @var \Magento\Backend\Block\System\Store\Edit $block */
+
+?>
+<script type="text/x-magento-init">
+{
+    "#edit_form": {
+        "Magento_Backend/js/save-with-confirm": {
+            "storeData": <?= /* @noEscape */ $block->getStoreData() ?>
+        }
+    }
+}
+</script>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <!-- Click done button;
+         You must already be on the product form > Advanced Inventory -->
+    <actionGroup name="AdminSubmitAdvancedInventoryFormActionGroup">
+        <click stepKey="clickOnDoneButton" selector="{{AdminProductFormAdvancedInventorySection.doneButton}}"/>
+    </actionGroup>
+</actionGroups>

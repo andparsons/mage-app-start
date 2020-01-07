@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<mapping strict="0">
+    <fields>
+        <key>
+            <selector>[name="consumer_key"]</selector>
+        </key>
+        <consumer_secret />
+        <token />
+        <token_secret />
+    </fields>
+</mapping>

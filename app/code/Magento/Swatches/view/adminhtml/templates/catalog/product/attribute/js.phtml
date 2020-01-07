@@ -1,0 +1,13 @@
+<?php
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "swatchesProductAttributes": {
+                "hiddenFields": <?= /* @noEscape */ json_encode($this->helper(Magento\Catalog\Helper\Data::class)->getAttributeHiddenFields()) ?>
+            }
+        }
+    }
+</script>

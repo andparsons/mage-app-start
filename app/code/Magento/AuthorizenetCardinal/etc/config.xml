@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <three_d_secure>
+            <cardinal>
+                <enabled_authorizenet>0</enabled_authorizenet>
+            </cardinal>
+        </three_d_secure>
+    </default>
+</config>

@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<mapping strict="0">
+    <fields>
+        <code />
+        <rate />
+        <zip_is_range>
+            <input>checkbox</input>
+        </zip_is_range>
+        <tax_postcode />
+        <zip_from />
+        <zip_to />
+        <tax_country_id>
+            <input>select</input>
+        </tax_country_id>
+        <tax_region_id>
+            <input>select</input>
+        </tax_region_id>
+    </fields>
+</mapping>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/PageObject.xsd">
+    <page name="AdminEditTaxRulePage" url="tax/rule/edit/rule/{{var}}/" module="Magento_Tax" area="admin" parameterized="true">
+        <section name="AdminTaxRulesSection"/>
+    </page>
+</pages>

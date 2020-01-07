@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<mapping strict="0">
+    <fields>
+        <storeCurrency>
+            <selector>#storeCurrency</selector>
+            <input>select</input>
+        </storeCurrency>
+        <storeLanguage>
+            <selector>#storeLanguage</selector>
+            <input>select</input>
+        </storeLanguage>
+    </fields>
+</mapping>

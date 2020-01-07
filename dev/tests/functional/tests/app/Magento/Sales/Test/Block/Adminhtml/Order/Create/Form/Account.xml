@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<mapping strict="1">
+    <wrapper>order[account]</wrapper>
+    <fields>
+        <group_id>
+            <input>select</input>
+        </group_id>
+        <email />
+    </fields>
+</mapping>

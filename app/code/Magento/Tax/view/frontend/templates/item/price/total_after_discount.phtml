@@ -1,0 +1,7 @@
+<?php
+
+/** @var \Magento\Tax\Block\Item\Price\Renderer $block */
+$_item = $block->getItem();
+?>
+<?php $_order = $block->getItem()->getOrderItem()->getOrder() ?>
+<?= /* @noEscape */ $_order->formatPrice($block->getTotalAmount($_item)) ?>

@@ -1,0 +1,43 @@
+<?php
+
+namespace Magento\Msrp\Pricing\Price;
+
+use Magento\Catalog\Model\Product;
+
+/**
+ * MSRP price interface
+ *
+ * @api
+ * @since 100.0.2
+ */
+interface MsrpPriceInterface
+{
+    /**
+     * Check is product need gesture to show price
+     *
+     * @return bool
+     */
+    public function isShowPriceOnGesture();
+
+    /**
+     * Get Msrp message for price
+     *
+     * @return string
+     */
+    public function getMsrpPriceMessage();
+
+    /**
+     * Check if Minimum Advertised Price is enabled
+     *
+     * @return bool
+     */
+    public function isMsrpEnabled();
+
+    /**
+     * Check if can apply Minimum Advertise price to product in specific visibility
+     *
+     * @param Product $saleableItem
+     * @return bool
+     */
+    public function canApplyMsrp(Product $saleableItem);
+}

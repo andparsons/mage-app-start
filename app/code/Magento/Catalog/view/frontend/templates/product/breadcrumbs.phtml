@@ -1,0 +1,11 @@
+<?php
+/** @var \Magento\Theme\Block\Html\Breadcrumbs $block */
+/** @var \Magento\Catalog\ViewModel\Product\Breadcrumbs $viewModel */
+$viewModel = $block->getData('viewModel');
+?>
+<div class="breadcrumbs"></div>
+<script type="text/x-magento-init">
+        {
+            ".breadcrumbs": <?= $viewModel->getJsonConfigurationHtmlEscaped() ?>
+        }
+</script>

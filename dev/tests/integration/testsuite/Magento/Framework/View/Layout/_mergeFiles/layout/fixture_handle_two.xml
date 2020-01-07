@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<page>
+    <body>
+        <block class="Magento\Framework\View\Element\Template" template="Magento_Framework::fixture_template_two.phtml"/>
+    </body>
+</page>

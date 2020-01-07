@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<mapping strict="0">
+    <wrapper>website</wrapper>
+    <fields>
+        <name />
+        <code />
+        <sort_order />
+        <default_group_id>
+            <input>select</input>
+        </default_group_id>
+    </fields>
+</mapping>

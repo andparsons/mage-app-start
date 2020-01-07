@@ -1,0 +1,21 @@
+<?php
+namespace Magento\Framework\Indexer;
+
+use Magento\Framework\App\ResourceConnection\SourceProviderInterface;
+
+/**
+ * @api Implement custom Handler
+ * @since 100.0.2
+ */
+interface HandlerInterface
+{
+    /**
+     * Prepare SQL for field and add it to collection
+     *
+     * @param SourceProviderInterface $source
+     * @param string $alias
+     * @param array $fieldInfo
+     * @return void
+     */
+    public function prepareSql(SourceProviderInterface $source, $alias, $fieldInfo);
+}

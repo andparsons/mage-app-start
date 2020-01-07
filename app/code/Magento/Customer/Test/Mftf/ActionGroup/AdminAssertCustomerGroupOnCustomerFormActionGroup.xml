@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminAssertCustomerGroupOnCustomerForm">
+        <arguments>
+            <argument name="customerGroupName" type="string"/>
+        </arguments>
+        <amOnPage url="{{AdminNewCustomerPage.url}}" stepKey="amOnCustomerCreatePage"/>
+        <waitForElementVisible selector="{{AdminCustomerAccountInformationSection.group}}" stepKey="waitForElementVisible"/>
+        <see selector="{{AdminCustomerAccountInformationSection.group}}" userInput="{{customerGroupName}}" stepKey="assertCustomerGroupPresent"/>
+    </actionGroup>
+</actionGroups>

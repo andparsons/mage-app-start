@@ -1,0 +1,36 @@
+<?php
+namespace Magento\Ui\Component;
+
+use Magento\Ui\Component\Listing\Columns;
+
+/**
+ * @api
+ * @since 100.0.2
+ */
+class Listing extends AbstractComponent
+{
+    const NAME = 'listing';
+
+    /**
+     * @var array
+     */
+    protected $columns = [];
+
+    /**
+     * Get component name
+     *
+     * @return string
+     */
+    public function getComponentName()
+    {
+        return static::NAME;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDataSourceData()
+    {
+        return ['data' => $this->getContext()->getDataProvider()->getData()];
+    }
+}

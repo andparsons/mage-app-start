@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<mapping strict="1">
+    <fields>
+        <label>
+            <selector>[name="status"]</selector>
+            <input>strictselect</input>
+        </label>
+        <state>
+            <input>strictselect</input>
+        </state>
+        <is_default>
+            <input>checkbox</input>
+        </is_default>
+        <visible_on_front>
+            <input>checkbox</input>
+        </visible_on_front>
+    </fields>
+</mapping>

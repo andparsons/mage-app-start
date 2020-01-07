@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<mapping strict="0">
+    <fields>
+        <country_id>
+            <input>select</input>
+        </country_id>
+        <region_id>
+            <input>select</input>
+        </region_id>
+        <postcode />
+    </fields>
+</mapping>

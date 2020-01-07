@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<data>
+<nodes>
+    <text> some text </text>
+    <trim_spaces>   </trim_spaces>
+    <cdata><![CDATA[  Some data here <strong>html</strong> tags are <i>allowed</i>  ]]></cdata>
+    <zero>0</zero>
+    <null></null>
+</nodes>
+</data>

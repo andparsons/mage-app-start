@@ -1,0 +1,26 @@
+<?php
+
+namespace Magento\Framework\Exception\Test\Unit;
+
+use \Magento\Framework\Exception\EmailNotConfirmedException;
+use Magento\Framework\Phrase;
+
+/**
+ * Class EmailNotConfirmedExceptionTest
+ */
+class EmailNotConfirmedExceptionTest extends \PHPUnit\Framework\TestCase
+{
+    /**
+     * @return void
+     */
+    public function testConstructor()
+    {
+        $emailNotConfirmedException = new EmailNotConfirmedException(
+            new Phrase(
+                'Email not confirmed',
+                ['consumer_id' => 1, 'resources' => 'record2']
+            )
+        );
+        $this->assertSame('Email not confirmed', $emailNotConfirmedException->getMessage());
+    }
+}

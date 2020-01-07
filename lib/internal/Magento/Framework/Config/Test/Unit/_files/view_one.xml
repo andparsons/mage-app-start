@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/view.xsd">
+    <vars module="One">
+        <var name="one">Value One</var>
+    </vars>
+    <vars module="Two">
+        <var name="one">Value One</var>
+    </vars>
+    <exclude>
+        <item type="file">first_file</item>
+    </exclude>
+</view>

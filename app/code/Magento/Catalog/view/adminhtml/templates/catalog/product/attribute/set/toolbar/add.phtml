@@ -1,0 +1,10 @@
+<?php
+?>
+<?= $block->getFormHtml() ?>
+<script>
+require(['jquery', "mage/mage"], function(jQuery){
+
+    jQuery('#<?= $block->escapeJs($block->getFormId()) ?>').mage('form').mage('validation');
+
+});
+</script>

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:TestFramework/Test/Unit/Unit/Utility/_files/valid.xsd">
+    <block name="some_name">
+        <property attribute="testName" />
+    </block>
+</config>

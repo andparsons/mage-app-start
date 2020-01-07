@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<mapping strict="0">
+    <wrapper>invoice</wrapper>
+    <fields>
+        <do_shipment>
+            <input>checkbox</input>
+        </do_shipment>
+        <comment_text />
+    </fields>
+</mapping>

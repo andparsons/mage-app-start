@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<mapping strict="0">
+    <fields>
+        <qty>
+            <selector>input.qty-input</selector>
+        </qty>
+    </fields>
+</mapping>

@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<mapping strict="0">
+    <fields>
+        <name>
+            <selector>//div[label[//span[contains(text(), "%product_name%")]]]/input</selector>
+            <strategy>xpath</strategy>
+            <input>checkbox</input>
+        </name>
+        <qty>
+            <selector>//input[@class = "qty"]</selector>
+            <strategy>xpath</strategy>
+        </qty>
+    </fields>
+</mapping>

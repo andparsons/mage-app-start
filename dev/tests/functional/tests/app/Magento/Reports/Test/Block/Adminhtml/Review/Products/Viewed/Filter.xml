@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<mapping strict="0">
+    <fields>
+        <from>
+            <input>datepicker</input>
+        </from>
+        <to>
+            <input>datepicker</input>
+        </to>
+        <period_type>
+            <input>select</input>
+        </period_type>
+        <show_empty_rows>
+            <input>select</input>
+        </show_empty_rows>
+    </fields>
+</mapping>
