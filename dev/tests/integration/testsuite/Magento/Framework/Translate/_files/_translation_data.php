@@ -1,5 +1,3 @@
-<?php
-?>
 <?php return [
     'Original value for Magento_Store module' => 'Translated value for Magento_Store module',
     'Magento_Store::Text with different translation on different modules' => 'Text translation by Magento_Store module',

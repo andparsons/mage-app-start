@@ -1,5 +1,3 @@
-<?php
-?>
 <div class="order-date">
     <?= $block->escapeHtml(__('<span class="label">Order Date:</span> %1', '<date>' . $block->formatDate($block->getOrder()->getCreatedAt(), \IntlDateFormatter::LONG) . '</date>'), ['span', 'date']) ?>
 </div>

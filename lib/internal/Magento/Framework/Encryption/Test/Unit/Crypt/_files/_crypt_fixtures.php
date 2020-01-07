@@ -1,5 +1,3 @@
-<?php
-?>
 <?php return [
   0 => [
     0 => '3d8361fceaf640fa9db9ed5af305d01378cdca938aa9301b8629105c',

@@ -110,8 +110,6 @@ class MinifierTest extends \PHPUnit\Framework\TestCase
         $file = '/absolute/path/to/phtml/template/file';
         $relativeGeneratedPath = 'absolute/path/to/phtml/template/file';
         $baseContent = <<<TEXT
-<?php
-?>
 <?php //one line comment ?>
 <html>
     <head>

@@ -1,5 +1,3 @@
-<?php
-?>
 <?php return [
     [
         'type' => 'add',

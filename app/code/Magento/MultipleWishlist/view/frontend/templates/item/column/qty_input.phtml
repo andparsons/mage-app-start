@@ -1,3 +1,1 @@
-<?php
-?>
 <input type="text" name="qty[<?= $block->escapeHtmlAttr($block->getItem()->getId()) ?>]" class="qty input-text" data-validate="{required:true, 'validate-greater-than-zero':true}" value="<?= /* @noEscape */ $block->getItem()->getQty()*1 ?>" size="2">
