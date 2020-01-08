@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Mage - xsd" pattern="file:*/*.xsd" />
+</component>
