@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Mage - Test" pattern="file:app/code/**/**/Test//*" />
+</component>

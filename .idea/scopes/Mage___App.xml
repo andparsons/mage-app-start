@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Mage - App" pattern="file:app/code/**/**/App//*||file:lib/internal/Magento/Framework/AppInterface.php||file:lib/internal/Magento/Framework/App//*" />
+</component>

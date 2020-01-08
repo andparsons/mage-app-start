@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Mage - di" pattern="file:app/code/**/**/etc//di.xml" />
+</component>

@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Mage - Indexer" pattern="file:app/code/**/**/Indexer//*||file:lib/internal/Magento/Framework/Indexer//*" />
+</component>

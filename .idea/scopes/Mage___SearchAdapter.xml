@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Mage - SearchAdapter" pattern="file:app/code/**/**/SearchAdapter//*||file:app/code/**/**/Adapter//*||file:lib/internal/Magento/Framework/Search//*" />
+</component>

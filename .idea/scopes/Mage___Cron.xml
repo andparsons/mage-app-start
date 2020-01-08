@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Mage - Cron" pattern="file:app/code/**/**/Cron//*||file:app/code/**/**/etc/crontab.xml||file:lib/internal/Magento/Framework/Crontab//*||file:app/code/Magento/Cron//*" />
+</component>

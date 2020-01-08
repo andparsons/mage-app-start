@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Mage - Observer" pattern="file:app/code/**/**/Observer//*||file:app/code/**/**/etc//events.xml" />
+</component>

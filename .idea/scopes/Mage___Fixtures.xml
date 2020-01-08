@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Mage - Fixtures" pattern="file:app/code/**/**/fixtures//*" />
+</component>

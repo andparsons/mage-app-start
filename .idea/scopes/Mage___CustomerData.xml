@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Mage - CustomerData" pattern="file:app/code/**/**/CustomerData//*||file:app/code/**/**/etc/**/sections.xml" />
+</component>

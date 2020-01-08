@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Mage - webapi / Service" pattern="file:app/code/**/**/Service//*||file:app/code/**/**/etc//webapi.xml||file:lib/internal/Magento/Framework/Webapi//*" />
+</component>

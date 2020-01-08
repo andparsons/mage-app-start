@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Mage - Exception" pattern="file:app/code/**/**/Exception//*||file:lib/internal/Magento/Framework/Exception//*||file:lib/internal/Magento/Framework/**/Exception//*||file:app/code/Magento/Checkout/Exception.php" />
+</component>

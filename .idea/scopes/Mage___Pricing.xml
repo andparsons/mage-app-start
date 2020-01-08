@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Mage - Pricing" pattern="file:app/code/**/**/Pricing//*||file:lib/internal/Magento/Framework/Pricing//*" />
+</component>
