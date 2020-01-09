@@ -6,7 +6,6 @@
 /pub/sitemap.xml
 /.idea/workspace.xml
 /.gitattributes
-/app/etc/config.php
 /app/etc/env.php
 /node_modules
 /.grunt
