@@ -34,5 +34,22 @@
         "path": "~0.12.7",
         "postcss": "~7.0.17",
         "underscore": "^1.9.1"
+    },
+    "scripts": {
+        "mage": "php -dmemory_limit=-1 bin/magento --ansi --no-interaction",
+        "app:config:import": "npm run mage -- app:config:import",
+        "cache:flush": "npm run mage -- cache:flush",
+        "clean:all": "npm run clean:adminhtml && npm run clean:frontend && npm run clean:generated && npm run clean:logs",
+        "clean:adminhtml": "rm -rf pub/static/adminhtml && rm -rf var/view_preprocessed/adminhtml",
+        "clean:frontend": "rm -rf pub/static/frontend && rm -rf var/view_preprocessed/frontend",
+        "clean:generated": "rm -rf generated",
+        "clean:logs": "rm -rf var/log && rm -rf var/report",
+        "cron:run": "npm run mage -- cron:run",
+        "dev:source-theme:deploy": "npm run mage -- dev:source-theme:deploy",
+        "indexer:reindex": "npm run mage -- indexer:reindex",
+        "setup:di:compile": "npm run clean:generated && npm run mage -- setup:di:compile",
+        "setup:static-content:deploy": "npm run mage -- setup:static-content:deploy -f en_GB --jobs=4",
+        "setup:upgrade": "npm run mage -- setup:upgrade",
+        "refresh": "npm run clean:all && npm run cache:flush && npm run setup:upgrade && npm run clean:logs && npm run setup:di:compile && npm run indexer:reindex && npm run setup:static-content:deploy && grunt exec && grunt less"
     }
 }
