@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Logs" pattern="file:var/log//*||file:var/resports//*" />
+</component>

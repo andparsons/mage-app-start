@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Mage - ui_component adminhtml" pattern="file:app/code/**/**/Ui//*||file:app/code/**/**/view/adminhtml/ui_component//*" />
+</component>
