@@ -11,6 +11,7 @@
       <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework" isTestSource="false" packagePrefix="Magento\Framework\" />
       <sourceFolder url="file://$MODULE_DIR$/dev/tests/static/framework/Magento/TestFramework/Utility" isTestSource="true" packagePrefix="Magento\TestFramework\Utility\" />
       <sourceFolder url="file://$MODULE_DIR$/setup/src/Zend/Mvc/Controller" isTestSource="false" packagePrefix="Zend\Mvc\Controller\" />
+      <excludeFolder url="file://$MODULE_DIR$/dev/tests" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/allure-framework/allure-codeception" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/allure-framework/allure-php-api" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/allure-framework/allure-phpunit" />
