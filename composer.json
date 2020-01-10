@@ -89,6 +89,7 @@
     },
     "require-dev": {
         "allure-framework/allure-phpunit": "~1.2.0",
+        "clawrock/magento2-debug": "^2.0",
         "friendsofphp/php-cs-fixer": "~2.14.0",
         "lusitanian/oauth": "~0.8.10",
         "magento/magento-coding-standard": "~3.0.0",
