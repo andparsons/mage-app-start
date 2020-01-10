@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Magicento2Settings">
+    <option name="enabled" value="true" />
+    <option name="pathToMagento2Source" value="$PROJECT_DIR$" />
+    <option name="useHttp" value="false" />
+    <option name="pathToPhp" value="" />
+    <option name="urlToMagento" value="/" />
+    <option name="urlToEvalFolder" value="" />
+    <option name="evalCustomFolder" value="" />
+    <option name="pathToBinMagento" value="" />
+    <option name="phpBootstrapCode" value="" />
+    <option name="editableModules" value="" />
+    <option name="cacheClassNames" value="true" />
+    <option name="excludeTestFolders" value="true" />
+  </component>
+</project>
