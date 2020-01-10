@@ -7,6 +7,7 @@
 /.idea/workspace.xml
 /.gitattributes
 /app/etc/env.php
+/app/code/Sozo
 /node_modules
 /.grunt
 /.php_cs.cache
