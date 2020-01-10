@@ -1788,4 +1788,9 @@
                 type="Magento\Framework\Mail\MimeMessage" />
     <preference for="Magento\Framework\Mail\MimePartInterface"
                 type="Magento\Framework\Mail\MimePart" />
+    <type name="Magento\Deploy\Service\DeployStaticFile">
+        <arguments>
+            <argument name="assetPublisher" xsi:type="object">developerPublisher</argument>
+        </arguments>
+    </type>
 </config>
