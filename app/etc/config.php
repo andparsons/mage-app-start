@@ -111,7 +111,7 @@ return [
         'Magento_CustomerFinance' => 1,
         'Magento_CustomerGraphQl' => 1,
         'Magento_CustomerImportExport' => 1,
-        'Magento_CustomerSampleData' => 1,
+        'Magento_CustomerSampleData' => 0,
         'Magento_CatalogWidget' => 1,
         'Magento_Vault' => 1,
         'Magento_CatalogInventoryDataExporter' => 1,
@@ -120,10 +120,10 @@ return [
         'Magento_Dhl' => 1,
         'Magento_AdvancedSearch' => 1,
         'Magento_DirectoryGraphQl' => 1,
-        'Magento_ThemeSampleData' => 1,
+        'Magento_ThemeSampleData' => 0,
         'Magento_DownloadableGraphQl' => 1,
         'Magento_ImportExport' => 1,
-        'Magento_CatalogSampleData' => 1,
+        'Magento_CatalogSampleData' => 0,
         'Magento_GiftRegistry' => 1,
         'Magento_AuthorizenetCardinal' => 0,
         'Magento_BundleGraphQl' => 1,
@@ -142,13 +142,13 @@ return [
         'Magento_GiftCardImportExport' => 1,
         'Magento_NegotiableQuote' => 1,
         'Magento_GiftCardRequisitionList' => 1,
-        'Magento_BundleSampleData' => 1,
+        'Magento_BundleSampleData' => 0,
         'Magento_SharedCatalog' => 1,
         'Magento_CatalogStaging' => 1,
         'Magento_GiftMessage' => 1,
         'Magento_GiftMessageStaging' => 1,
         'Magento_CatalogInventoryStaging' => 1,
-        'Magento_DownloadableSampleData' => 1,
+        'Magento_DownloadableSampleData' => 0,
         'Magento_GiftWrapping' => 1,
         'Magento_GiftWrappingStaging' => 1,
         'Magento_GoogleAdwords' => 1,
@@ -163,7 +163,7 @@ return [
         'Magento_GroupedImportExport' => 1,
         'Magento_CatalogRuleConfigurable' => 1,
         'Magento_GroupedProductGraphQl' => 1,
-        'Magento_GroupedProductSampleData' => 1,
+        'Magento_GroupedProductSampleData' => 0,
         'Magento_GroupedProductStaging' => 1,
         'Magento_GroupedRequisitionList' => 1,
         'Magento_GroupedSharedCatalog' => 1,
@@ -225,13 +225,13 @@ return [
         'Magento_Marketplace' => 1,
         'Magento_CatalogEvent' => 1,
         'Magento_MessageQueue' => 1,
-        'Magento_ConfigurableSampleData' => 1,
+        'Magento_ConfigurableSampleData' => 0,
         'Magento_MsrpConfigurableProduct' => 1,
         'Magento_MsrpGroupedProduct' => 1,
-        'Magento_MsrpSampleData' => 1,
+        'Magento_MsrpSampleData' => 0,
         'Magento_MsrpStaging' => 1,
         'Magento_MultipleWishlist' => 1,
-        'Magento_GiftCardSampleData' => 1,
+        'Magento_GiftCardSampleData' => 0,
         'Magento_Multishipping' => 1,
         'Magento_MysqlMq' => 1,
         'Magento_CheckoutAddressSearch' => 1,
@@ -240,7 +240,7 @@ return [
         'Magento_Newsletter' => 1,
         'Magento_OfflinePayments' => 1,
         'Magento_OfflineShipping' => 1,
-        'Magento_OfflineShippingSampleData' => 1,
+        'Magento_OfflineShippingSampleData' => 0,
         'Magento_Banner' => 1,
         'Magento_PageBuilderAnalytics' => 0,
         'Magento_PageBuilderDataMigration' => 1,
@@ -256,7 +256,7 @@ return [
         'Magento_PersistentHistory' => 1,
         'Magento_PricePermissions' => 1,
         'Magento_CatalogUrlRewriteStaging' => 1,
-        'Magento_ProductLinksSampleData' => 1,
+        'Magento_ProductLinksSampleData' => 0,
         'Magento_ProductVideo' => 1,
         'Magento_ProductVideoStaging' => 1,
         'Magento_PromotionPermissions' => 1,
@@ -273,7 +273,7 @@ return [
         'Magento_ResourceConnections' => 1,
         'Magento_Review' => 1,
         'Magento_ReviewAnalytics' => 0,
-        'Magento_ReviewSampleData' => 1,
+        'Magento_ReviewSampleData' => 0,
         'Magento_ReviewStaging' => 1,
         'Magento_Reward' => 1,
         'Magento_RewardGraphQl' => 1,
@@ -291,11 +291,11 @@ return [
         'Magento_SalesGraphQl' => 1,
         'Magento_SalesInventory' => 1,
         'Magento_CatalogRuleStaging' => 1,
-        'Magento_CatalogRuleSampleData' => 1,
+        'Magento_CatalogRuleSampleData' => 0,
         'Magento_RewardStaging' => 1,
-        'Magento_TaxSampleData' => 1,
+        'Magento_TaxSampleData' => 0,
         'Magento_BannerCustomerSegment' => 1,
-        'Magento_GiftRegistrySampleData' => 1,
+        'Magento_GiftRegistrySampleData' => 0,
         'Magento_ScalableCheckout' => 1,
         'Magento_ScalableInventory' => 1,
         'Magento_ConfigurableNegotiableQuote' => 1,
@@ -324,20 +324,20 @@ return [
         'Magento_SwatchesLayeredNavigation' => 1,
         'Magento_SwatchesSampleData' => 1,
         'Magento_ConfigurableProductStaging' => 1,
-        'Magento_TargetRuleSampleData' => 1,
-        'Magento_CmsSampleData' => 1,
+        'Magento_TargetRuleSampleData' => 0,
+        'Magento_CmsSampleData' => 0,
         'Magento_TaxGraphQl' => 1,
         'Magento_TaxImportExport' => 1,
-        'Magento_SalesSampleData' => 1,
+        'Magento_SalesSampleData' => 0,
         'Magento_GiftCardNegotiableQuote' => 1,
         'Magento_ThemeGraphQl' => 1,
-        'Magento_WishlistSampleData' => 1,
+        'Magento_WishlistSampleData' => 0,
         'Magento_Tinymce3' => 0,
         'Magento_Tinymce3Banner' => 0,
         'Magento_Translation' => 1,
         'Magento_CheckoutAddressSearchNegotiableQuote' => 1,
         'Magento_Ups' => 1,
-        'Magento_SalesRuleSampleData' => 1,
+        'Magento_SalesRuleSampleData' => 0,
         'Magento_CatalogUrlRewriteGraphQl' => 1,
         'Magento_UrlRewriteImportExport' => 1,
         'Magento_AsynchronousOperations' => 1,
@@ -356,13 +356,14 @@ return [
         'Magento_WeeeGraphQl' => 1,
         'Magento_WeeeStaging' => 1,
         'Magento_CatalogStagingPageBuilder' => 1,
-        'Magento_WidgetSampleData' => 1,
+        'Magento_WidgetSampleData' => 0,
         'Magento_GiftCardStaging' => 1,
         'Magento_WishlistAnalytics' => 0,
         'Magento_WishlistGraphQl' => 1,
         'Magento_MultipleWishlistSampleData' => 0,
         'Magento_Worldpay' => 1,
-        'Magento_PaypalReCaptcha' => 1
+        'Magento_PaypalReCaptcha' => 1,
+        'Sozo_DupeOn' => 1
     ],
     'system' => [
         'default' => [
@@ -370,7 +371,8 @@ return [
                 'security' => [
                     'admin_account_sharing' => '1',
                     'session_lifetime' => '31536000',
-                    'use_case_sensitive_login' => '0'
+                    'use_case_sensitive_login' => '0',
+                    'use_form_key' => '1'
                 ]
             ],
             'carriers' => [
@@ -455,7 +457,8 @@ return [
                 'country' => [
                     'allow' => 'GB,IE,IM,JE,GG',
                     'default' => 'GB',
-                    'optional_zip_countries' => 'HK,IE,MO,PA'
+                    'optional_zip_countries' => 'HK,IE,MO,PA',
+                    'destinations' => 'GB,US'
                 ],
                 'locale' => [
                     'code' => 'en_GB',
@@ -464,7 +467,11 @@ return [
                     'weight_unit' => 'kgs'
                 ],
                 'region' => [
-                    'display_all' => '1'
+                    'display_all' => '1',
+                    'state_required' => 'US'
+                ],
+                'single_store_mode' => [
+                    'enabled' => '0'
                 ]
             ],
             'payment' => [
@@ -518,13 +525,28 @@ return [
             ],
             'web' => [
                 'cookie' => [
-                    'cookie_httponly' => '1'
+                    'cookie_httponly' => '1',
+                    'cookie_path' => '/'
                 ],
                 'default_layouts' => [
                     'default_cms_layout' => '1column'
                 ],
                 'seo' => [
                     'use_rewrites' => '1'
+                ],
+                'url' => [
+                    'use_store' => '0',
+                    'redirect_to_base' => '1'
+                ],
+                'secure' => [
+                    'base_static_url' => '{{unsecure_base_url}}pub/static/',
+                    'base_media_url' => '{{unsecure_base_url}}pub/media/',
+                    'use_in_frontend' => '1',
+                    'use_in_adminhtml' => '1'
+                ],
+                'unsecure' => [
+                    'base_static_url' => '{{unsecure_base_url}}pub/static/',
+                    'base_media_url' => '{{unsecure_base_url}}pub/media/'
                 ]
             ],
             'sales' => [
