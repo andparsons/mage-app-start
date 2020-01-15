@@ -8,6 +8,7 @@
 /.gitattributes
 /app/etc/env.php
 /app/code/Sozo
+/app/design/frontend/Sozo
 /node_modules
 /.grunt
 /.php_cs.cache
