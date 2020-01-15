@@ -12,6 +12,7 @@
       <sourceFolder url="file://$MODULE_DIR$/dev/tests/static/framework/Magento/TestFramework/Utility" isTestSource="true" packagePrefix="Magento\TestFramework\Utility\" />
       <sourceFolder url="file://$MODULE_DIR$/setup/src/Zend/Mvc/Controller" isTestSource="false" packagePrefix="Zend\Mvc\Controller\" />
       <excludeFolder url="file://$MODULE_DIR$/app/design/adminhtml" />
+      <excludeFolder url="file://$MODULE_DIR$/app/design/frontend/Magento/luma" />
       <excludeFolder url="file://$MODULE_DIR$/dev/tests" />
       <excludeFolder url="file://$MODULE_DIR$/lib/web/css/docs" />
       <excludeFolder url="file://$MODULE_DIR$/pub/static" />
