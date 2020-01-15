@@ -3,8 +3,10 @@
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="ES5" />
   </component>
+  <component name="ProjectPlainTextFileTypeManager">
+    <file url="file://$PROJECT_DIR$/app/design/frontend/Magento/blank/web/css/print.less" />
+  </component>
   <component name="ProjectResources">
-    <xml-schema-version>XMLSchema_1_1</xml-schema-version>
     <resource url="urn:magento:framework-foreign-key:etc/constraints.xsd" location="$PROJECT_DIR$/lib/internal/Magento/Framework/ForeignKey/etc/constraints.xsd" />
     <resource url="urn:magento:framework-message-queue:etc/consumer.xsd" location="$PROJECT_DIR$/lib/internal/Magento/Framework/MessageQueue/etc/consumer.xsd" />
     <resource url="urn:magento:framework-message-queue:etc/publisher.xsd" location="$PROJECT_DIR$/lib/internal/Magento/Framework/MessageQueue/etc/publisher.xsd" />
@@ -132,61 +134,61 @@
     <resource url="urn:magento:module:Magento_Ui:etc/ui_definition.map.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/etc/ui_definition.map.xsd" />
     <resource url="urn:magento:module:Magento_Ui:etc/ui_definition.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/etc/ui_definition.xsd" />
     <resource url="urn:magento:module:Magento_Ui:etc/ui_template.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/etc/ui_template.xsd" />
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/action.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/action.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/actionDelete.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/actionDelete.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/actions.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/actions.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/actionsColumn.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/actionsColumn.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/bookmark.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/bookmark.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/boolean.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/boolean.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/button.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/button.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/checkbox.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/checkbox.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/checkboxset.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/checkboxset.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/colorPicker.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/colorPicker.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/column.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/column.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/columns.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/columns.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/columnsControls.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/columnsControls.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/component.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/component.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/container.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/container.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/dataProvider.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/dataProvider.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/dataSource.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/dataSource.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/date.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/date.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/dynamicRows.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/dynamicRows.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/email.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/email.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/exportButton.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/exportButton.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/field.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/field.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/fieldset.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/fieldset.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/file.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/file.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/fileUploader.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/fileUploader.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/filterRange.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/filterRange.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/filters.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/filters.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/form.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/form.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/hidden.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/hidden.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/htmlContent.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/htmlContent.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/imageUploader.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/imageUploader.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/inlineEditing.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/inlineEditing.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/input.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/input.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/insertForm.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/insertForm.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/insertListing.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/insertListing.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/listing.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/listing.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/listingToolbar.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/listingToolbar.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/massaction.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/massaction.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/modal.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/modal.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/multiline.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/multiline.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/multiselect.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/multiselect.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/nav.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/nav.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/number.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/number.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/paging.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/paging.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/price.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/price.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/radioset.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/radioset.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/select.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/select.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/selectionsColumn.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/selectionsColumn.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/tab.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/tab.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/text.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/text.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/textarea.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/textarea.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/ui_component.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/ui_component.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/ui_settings.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/ui_settings.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/urlInput.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/urlInput.xsd"/>
-    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/wysiwyg.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/wysiwyg.xsd"/>
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/action.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/action.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/actionDelete.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/actionDelete.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/actions.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/actions.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/actionsColumn.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/actionsColumn.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/bookmark.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/bookmark.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/boolean.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/boolean.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/button.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/button.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/checkbox.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/checkbox.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/checkboxset.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/checkboxset.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/colorPicker.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/colorPicker.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/column.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/column.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/columns.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/columns.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/columnsControls.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/columnsControls.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/component.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/component.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/container.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/container.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/dataProvider.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/dataProvider.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/dataSource.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/dataSource.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/date.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/date.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/dynamicRows.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/dynamicRows.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/email.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/email.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/exportButton.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/exportButton.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/field.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/field.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/fieldset.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/fieldset.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/file.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/file.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/fileUploader.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/fileUploader.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/filterRange.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/filterRange.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/filters.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/filters.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/form.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/form.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/hidden.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/hidden.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/htmlContent.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/htmlContent.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/imageUploader.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/imageUploader.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/inlineEditing.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/inlineEditing.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/input.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/input.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/insertForm.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/insertForm.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/insertListing.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/insertListing.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/listing.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/listing.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/listingToolbar.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/listingToolbar.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/massaction.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/massaction.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/modal.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/modal.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/multiline.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/multiline.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/multiselect.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/multiselect.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/nav.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/nav.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/number.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/number.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/paging.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/paging.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/price.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/price.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/radioset.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/radioset.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/select.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/select.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/selectionsColumn.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/selectionsColumn.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/tab.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/tab.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/text.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/text.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/textarea.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/textarea.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/ui_component.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/ui_component.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/ui_settings.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/ui_settings.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/urlInput.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/urlInput.xsd" />
+    <resource url="urn:magento:module:Magento_Ui:view/base/ui_component/etc/definition/wysiwyg.xsd" location="$PROJECT_DIR$/app/code/Magento/Ui/view/base/ui_component/etc/definition/wysiwyg.xsd" />
     <resource url="urn:magento:module:Magento_VersionsCms:etc/menu_hierarchy.xsd" location="$PROJECT_DIR$/app/code/Magento/VersionsCms/etc/menu_hierarchy.xsd" />
     <resource url="urn:magento:module:Magento_VersionsCms:etc/menu_hierarchy_merged.xsd" location="$PROJECT_DIR$/app/code/Magento/VersionsCms/etc/menu_hierarchy_merged.xsd" />
     <resource url="urn:magento:module:Magento_Webapi:etc/webapi.xsd" location="$PROJECT_DIR$/app/code/Magento/Webapi/etc/webapi.xsd" />
@@ -197,6 +199,7 @@
     <resource url="urn:magento:module:Magento_Widget:etc/types.xsd" location="$PROJECT_DIR$/app/code/Magento/Widget/etc/types.xsd" />
     <resource url="urn:magento:module:Magento_Widget:etc/widget.xsd" location="$PROJECT_DIR$/app/code/Magento/Widget/etc/widget.xsd" />
     <resource url="urn:magento:module:Magento_Widget:etc/widget_file.xsd" location="$PROJECT_DIR$/app/code/Magento/Widget/etc/widget_file.xsd" />
+    <xml-schema-version>XMLSchema_1_1</xml-schema-version>
   </component>
   <component name="VagrantProjectSettings">
     <option name="instanceFolder" value="" />
