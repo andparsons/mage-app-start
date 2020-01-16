@@ -2,20 +2,785 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/app/code" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento" isTestSource="false" packagePrefix="Magento\" />
-      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/dev/tests/static/framework/Magento/Sniffs" isTestSource="true" packagePrefix="Magento\Sniffs\" />
-      <sourceFolder url="file://$MODULE_DIR$/setup/src/Magento/Setup" isTestSource="false" packagePrefix="Magento\Setup\" />
-      <sourceFolder url="file://$MODULE_DIR$/dev/tests/static/framework/Magento/TestFramework/Inspection" isTestSource="true" packagePrefix="Magento\TestFramework\Inspection\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/PageBuilder/Test" isTestSource="true" packagePrefix="Magento\PageBuilder\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/SalesSequence/Test" isTestSource="true" packagePrefix="Magento\SalesSequence\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogInventory/Test" isTestSource="true" packagePrefix="Magento\CatalogInventory\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Inventory/Test" isTestSource="true" packagePrefix="Magento\Inventory\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Tinymce3Banner/Test" isTestSource="true" packagePrefix="Magento\Tinymce3Banner\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GroupedProduct/Test" isTestSource="true" packagePrefix="Magento\GroupedProduct\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Setup/Test" isTestSource="true" packagePrefix="Magento\Framework\Setup\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/RequireJs/Test" isTestSource="true" packagePrefix="Magento\RequireJs\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CustomAttributeManagement/Test" isTestSource="true" packagePrefix="Magento\CustomAttributeManagement\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryGroupedProductAdminUi/Test" isTestSource="true" packagePrefix="Magento\InventoryGroupedProductAdminUi\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Enterprise/Test" isTestSource="true" packagePrefix="Magento\Enterprise\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/SharedCatalog/Test" isTestSource="true" packagePrefix="Magento\SharedCatalog\Test\" />
       <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework" isTestSource="false" packagePrefix="Magento\Framework\" />
-      <sourceFolder url="file://$MODULE_DIR$/dev/tests/static/framework/Magento/TestFramework/Utility" isTestSource="true" packagePrefix="Magento\TestFramework\Utility\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Braintree/Test" isTestSource="true" packagePrefix="Magento\Braintree\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/PaymentStaging/Test" isTestSource="true" packagePrefix="Magento\PaymentStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/setup-integration/framework/Magento" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Cache/Test" isTestSource="true" packagePrefix="Magento\Framework\Cache\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Convert/Test" isTestSource="true" packagePrefix="Magento\Framework\Convert\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Wishlist/Test" isTestSource="true" packagePrefix="Magento\Wishlist\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Msrp/Test" isTestSource="true" packagePrefix="Magento\Msrp\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Security/Test" isTestSource="true" packagePrefix="Magento\Security\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/static/testsuite/Magento/Test/Html" isTestSource="true" packagePrefix="Magento\Test\Html\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CompanyCredit/Test" isTestSource="true" packagePrefix="Magento\CompanyCredit\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/SwaggerWebapiAsync/Test" isTestSource="true" packagePrefix="Magento\SwaggerWebapiAsync\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/BundleSharedCatalog/Test" isTestSource="true" packagePrefix="Magento\BundleSharedCatalog\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/TestFramework/Test" isTestSource="true" packagePrefix="Magento\Framework\TestFramework\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Sozo" isTestSource="false" packagePrefix="Sozo\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/ConfigurableProductStaging/Test" isTestSource="true" packagePrefix="Magento\ConfigurableProductStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/DownloadableStaging/Test" isTestSource="true" packagePrefix="Magento\DownloadableStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/MessageQueue/Test" isTestSource="true" packagePrefix="Magento\Framework\MessageQueue\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/B2b/Test" isTestSource="true" packagePrefix="Magento\B2b\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GraphQlCache/Test" isTestSource="true" packagePrefix="Magento\GraphQlCache\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CacheInvalidate/Test" isTestSource="true" packagePrefix="Magento\CacheInvalidate\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogSampleData/Test" isTestSource="true" packagePrefix="Magento\CatalogSampleData\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/TestFramework" isTestSource="true" packagePrefix="Magento\Framework\TestFramework\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GiftWrappingStaging/Test" isTestSource="true" packagePrefix="Magento\GiftWrappingStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/ConfigurableSharedCatalog/Test" isTestSource="true" packagePrefix="Magento\ConfigurableSharedCatalog\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Console/Test" isTestSource="true" packagePrefix="Magento\Framework\Console\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Pricing/Test" isTestSource="true" packagePrefix="Magento\Framework\Pricing\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Stdlib/Test" isTestSource="true" packagePrefix="Magento\Framework\Stdlib\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/MultipleWishlistSampleData/Test" isTestSource="true" packagePrefix="Magento\MultipleWishlistSampleData\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CardinalCommerce/Test" isTestSource="true" packagePrefix="Magento\CardinalCommerce\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Eav/Test" isTestSource="true" packagePrefix="Magento\Eav\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Phrase/Test" isTestSource="true" packagePrefix="Magento\Framework\Phrase\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Profiler/Test" isTestSource="true" packagePrefix="Magento\Framework\Profiler\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Deploy/Test" isTestSource="true" packagePrefix="Magento\Deploy\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryLowQuantityNotificationApi/Test" isTestSource="true" packagePrefix="Magento\InventoryLowQuantityNotificationApi\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryMultiDimensionalIndexerApi/Test" isTestSource="true" packagePrefix="Magento\InventoryMultiDimensionalIndexerApi\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/ResourceConnections/Test" isTestSource="true" packagePrefix="Magento\ResourceConnections\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Sales/Test" isTestSource="true" packagePrefix="Magento\Sales\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Indexer/Test" isTestSource="true" packagePrefix="Magento\Indexer\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GiftMessageStaging/Test" isTestSource="true" packagePrefix="Magento\GiftMessageStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Rma/Test" isTestSource="true" packagePrefix="Magento\Rma\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/RequireJs/Test" isTestSource="true" packagePrefix="Magento\Framework\RequireJs\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/WebapiAsync/Test" isTestSource="true" packagePrefix="Magento\WebapiAsync\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/static/framework/Magento/CodeMessDetector" isTestSource="true" packagePrefix="Magento\CodeMessDetector\" />
+      <sourceFolder url="file://$MODULE_DIR$/generated/code" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogUrlRewriteDataExporter/Test" isTestSource="true" packagePrefix="Magento\CatalogUrlRewriteDataExporter\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/DB/Test" isTestSource="true" packagePrefix="Magento\Framework\DB\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Tax/Test" isTestSource="true" packagePrefix="Magento\Tax\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CustomerFinance/Test" isTestSource="true" packagePrefix="Magento\CustomerFinance\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Eway/Test" isTestSource="true" packagePrefix="Magento\Eway\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Shell/Test" isTestSource="true" packagePrefix="Magento\Framework\Shell\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/NegotiableQuote/Test" isTestSource="true" packagePrefix="Magento\NegotiableQuote\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/ScheduledImportExport/Test" isTestSource="true" packagePrefix="Magento\ScheduledImportExport\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Indexer/Test" isTestSource="true" packagePrefix="Magento\Framework\Indexer\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Shipping/Test" isTestSource="true" packagePrefix="Magento\Shipping\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Multishipping/Test" isTestSource="true" packagePrefix="Magento\Multishipping\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Integration/Test" isTestSource="true" packagePrefix="Magento\Integration\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Variable/Test" isTestSource="true" packagePrefix="Magento\Variable\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Reward/Test" isTestSource="true" packagePrefix="Magento\Reward\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/AuthorizenetCardinal/Test" isTestSource="true" packagePrefix="Magento\AuthorizenetCardinal\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/MediaStorage/Test" isTestSource="true" packagePrefix="Magento\MediaStorage\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Backup/Test" isTestSource="true" packagePrefix="Magento\Backup\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/setup/src/Magento/Setup/Test" isTestSource="true" packagePrefix="Magento\Setup\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Message/Test" isTestSource="true" packagePrefix="Magento\Framework\Message\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CustomerImportExport/Test" isTestSource="true" packagePrefix="Magento\CustomerImportExport\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CheckoutStaging/Test" isTestSource="true" packagePrefix="Magento\CheckoutStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/WeeeStaging/Test" isTestSource="true" packagePrefix="Magento\WeeeStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Elasticsearch/Test" isTestSource="true" packagePrefix="Magento\Elasticsearch\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Catalog/Test" isTestSource="true" packagePrefix="Magento\Catalog\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GoogleTagManager/Test" isTestSource="true" packagePrefix="Magento\GoogleTagManager\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Serialize/Test" isTestSource="true" packagePrefix="Magento\Framework\Serialize\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Session/Test" isTestSource="true" packagePrefix="Magento\Framework\Session\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/PageCache/Test" isTestSource="true" packagePrefix="Magento\PageCache\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogInventoryStaging/Test" isTestSource="true" packagePrefix="Magento\CatalogInventoryStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GiftMessage/Test" isTestSource="true" packagePrefix="Magento\GiftMessage\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/TaxGraphQl/Test" isTestSource="true" packagePrefix="Magento\TaxGraphQl\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryProductAlert/Test" isTestSource="true" packagePrefix="Magento\InventoryProductAlert\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/QuickOrder/Test" isTestSource="true" packagePrefix="Magento\QuickOrder\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GiftCardImportExport/Test" isTestSource="true" packagePrefix="Magento\GiftCardImportExport\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Archive/Test" isTestSource="true" packagePrefix="Magento\Framework\Archive\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CustomerSampleData/Test" isTestSource="true" packagePrefix="Magento\CustomerSampleData\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/SalesInventory/Test" isTestSource="true" packagePrefix="Magento\SalesInventory\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventorySalesFrontendUi/Test" isTestSource="true" packagePrefix="Magento\InventorySalesFrontendUi\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Customer/Test" isTestSource="true" packagePrefix="Magento\Customer\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Test" isTestSource="true" packagePrefix="Magento\Framework\Test\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/DownloadableImportExport/Test" isTestSource="true" packagePrefix="Magento\DownloadableImportExport\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Reports/Test" isTestSource="true" packagePrefix="Magento\Reports\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/AdminGws/Test" isTestSource="true" packagePrefix="Magento\AdminGws\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Company/Test" isTestSource="true" packagePrefix="Magento\Company\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GroupedProductGraphQl/Test" isTestSource="true" packagePrefix="Magento\GroupedProductGraphQl\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Css/Test" isTestSource="true" packagePrefix="Magento\Framework\Css\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/AdvancedSalesRule/Test" isTestSource="true" packagePrefix="Magento\AdvancedSalesRule\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Bundle/Test" isTestSource="true" packagePrefix="Magento\Bundle\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Search/Test" isTestSource="true" packagePrefix="Magento\Framework\Search\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryRequisitionList/Test" isTestSource="true" packagePrefix="Magento\InventoryRequisitionList\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Json/Test" isTestSource="true" packagePrefix="Magento\Framework\Json\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/MsrpStaging/Test" isTestSource="true" packagePrefix="Magento\MsrpStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Fedex/Test" isTestSource="true" packagePrefix="Magento\Fedex\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/ScalableOms/Test" isTestSource="true" packagePrefix="Magento\ScalableOms\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Vault/Test" isTestSource="true" packagePrefix="Magento\Vault\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/BundleRequisitionList/Test" isTestSource="true" packagePrefix="Magento\BundleRequisitionList\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogDataExporter/Test" isTestSource="true" packagePrefix="Magento\CatalogDataExporter\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Logger/Test" isTestSource="true" packagePrefix="Magento\Framework\Logger\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/SwaggerWebapi/Test" isTestSource="true" packagePrefix="Magento\SwaggerWebapi\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/setup-integration/testsuite/Magento" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Oauth/Test" isTestSource="true" packagePrefix="Magento\Framework\Oauth\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryConfigurableProductAdminUi/Test" isTestSource="true" packagePrefix="Magento\InventoryConfigurableProductAdminUi\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryAdminUi/Test" isTestSource="true" packagePrefix="Magento\InventoryAdminUi\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/UrlRewriteGraphQl/Test" isTestSource="true" packagePrefix="Magento\UrlRewriteGraphQl\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Weee/Test" isTestSource="true" packagePrefix="Magento\Weee\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CurrencySymbol/Test" isTestSource="true" packagePrefix="Magento\CurrencySymbol\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/ScalableInventory/Test" isTestSource="true" packagePrefix="Magento\ScalableInventory\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GroupedCatalogInventory/Test" isTestSource="true" packagePrefix="Magento\GroupedCatalogInventory\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Module/Test" isTestSource="true" packagePrefix="Magento\Framework\Module\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogRuleStaging/Test" isTestSource="true" packagePrefix="Magento\CatalogRuleStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Cron/Test" isTestSource="true" packagePrefix="Magento\Cron\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryReservationCli/Test" isTestSource="true" packagePrefix="Magento\InventoryReservationCli\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GiftCardStaging/Test" isTestSource="true" packagePrefix="Magento\GiftCardStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GraphQl/Test" isTestSource="true" packagePrefix="Magento\GraphQl\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GroupedRequisitionList/Test" isTestSource="true" packagePrefix="Magento\GroupedRequisitionList\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Payment/Test" isTestSource="true" packagePrefix="Magento\Payment\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/SwatchesGraphQl/Test" isTestSource="true" packagePrefix="Magento\SwatchesGraphQl\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/UrlRewriteImportExport/Test" isTestSource="true" packagePrefix="Magento\UrlRewriteImportExport\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/AdvancedPricingImportExport/Test" isTestSource="true" packagePrefix="Magento\AdvancedPricingImportExport\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/BundleGraphQl/Test" isTestSource="true" packagePrefix="Magento\BundleGraphQl\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CustomerCustomAttributes/Test" isTestSource="true" packagePrefix="Magento\CustomerCustomAttributes\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventorySourceSelectionApi/Test" isTestSource="true" packagePrefix="Magento\InventorySourceSelectionApi\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/setup-integration/framework/tests/unit/testsuite/Magento" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/SalesArchive/Test" isTestSource="true" packagePrefix="Magento\SalesArchive\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Authorization/Test" isTestSource="true" packagePrefix="Magento\Framework\Authorization\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/PersistentHistory/Test" isTestSource="true" packagePrefix="Magento\PersistentHistory\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/api-functional/framework/Magento" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/LayeredNavigation/Test" isTestSource="true" packagePrefix="Magento\LayeredNavigation\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/BundleImportExport/Test" isTestSource="true" packagePrefix="Magento\BundleImportExport\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogWidget/Test" isTestSource="true" packagePrefix="Magento\CatalogWidget\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Store/Test" isTestSource="true" packagePrefix="Magento\Store\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/BundleStaging/Test" isTestSource="true" packagePrefix="Magento\BundleStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/ServicesId/Test" isTestSource="true" packagePrefix="Magento\ServicesId\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogRule/Test" isTestSource="true" packagePrefix="Magento\CatalogRule\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/ConfigurableProduct/Test" isTestSource="true" packagePrefix="Magento\ConfigurableProduct\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Translation/Test" isTestSource="true" packagePrefix="Magento\Translation\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Controller/Test" isTestSource="true" packagePrefix="Magento\Framework\Controller\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogEvent/Test" isTestSource="true" packagePrefix="Magento\CatalogEvent\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Unserialize/Test" isTestSource="true" packagePrefix="Magento\Framework\Unserialize\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GiftCardGraphQl/Test" isTestSource="true" packagePrefix="Magento\GiftCardGraphQl\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/VersionsCms/Test" isTestSource="true" packagePrefix="Magento\VersionsCms\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogUrlRewriteStaging/Test" isTestSource="true" packagePrefix="Magento\CatalogUrlRewriteStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/ConfigurableSampleData/Test" isTestSource="true" packagePrefix="Magento\ConfigurableSampleData\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/View/Test" isTestSource="true" packagePrefix="Magento\Framework\View\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Component/Test" isTestSource="true" packagePrefix="Magento\Framework\Component\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Backup/Test" isTestSource="true" packagePrefix="Magento\Framework\Backup\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventorySalesAdminUi/Test" isTestSource="true" packagePrefix="Magento\InventorySalesAdminUi\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Cybersource/Test" isTestSource="true" packagePrefix="Magento\Cybersource\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Math/Test" isTestSource="true" packagePrefix="Magento\Framework\Math\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/static/testsuite/Magento/Test/Tools" isTestSource="true" packagePrefix="Magento\Test\Tools\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryBundleProduct/Test" isTestSource="true" packagePrefix="Magento\InventoryBundleProduct\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GoogleAnalytics/Test" isTestSource="true" packagePrefix="Magento\GoogleAnalytics\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogUrlRewriteGraphQl/Test" isTestSource="true" packagePrefix="Magento\CatalogUrlRewriteGraphQl\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/MultipleWishlist/Test" isTestSource="true" packagePrefix="Magento\MultipleWishlist\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Robots/Test" isTestSource="true" packagePrefix="Magento\Robots\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Filter/Test" isTestSource="true" packagePrefix="Magento\Framework\Filter\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Ui/Test" isTestSource="true" packagePrefix="Magento\Ui\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Simplexml/Test" isTestSource="true" packagePrefix="Magento\Framework\Simplexml\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CustomerBalance/Test" isTestSource="true" packagePrefix="Magento\CustomerBalance\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/setup-integration/_files/Magento" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/BannerPageBuilder/Test" isTestSource="true" packagePrefix="Magento\BannerPageBuilder\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GiftCardAccount/Test" isTestSource="true" packagePrefix="Magento\GiftCardAccount\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/static/framework/Magento/TestFramework" isTestSource="true" packagePrefix="Magento\TestFramework\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/OfflinePayments/Test" isTestSource="true" packagePrefix="Magento\OfflinePayments\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Notification/Test" isTestSource="true" packagePrefix="Magento\Framework\Notification\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Exception/Test" isTestSource="true" packagePrefix="Magento\Framework\Exception\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Interception/Test" isTestSource="true" packagePrefix="Magento\Framework\Interception\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Lock/Test" isTestSource="true" packagePrefix="Magento\Framework\Lock\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Config/Test" isTestSource="true" packagePrefix="Magento\Config\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Mail/Test" isTestSource="true" packagePrefix="Magento\Framework\Mail\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Url/Test" isTestSource="true" packagePrefix="Magento\Framework\Url\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Rss/Test" isTestSource="true" packagePrefix="Magento\Rss\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Filesystem/Test" isTestSource="true" packagePrefix="Magento\Framework\Filesystem\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CmsUrlRewrite/Test" isTestSource="true" packagePrefix="Magento\CmsUrlRewrite\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Checkout/Test" isTestSource="true" packagePrefix="Magento\Checkout\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Version/Test" isTestSource="true" packagePrefix="Magento\Version\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Contact/Test" isTestSource="true" packagePrefix="Magento\Contact\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Search/Test" isTestSource="true" packagePrefix="Magento\Search\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Persistent/Test" isTestSource="true" packagePrefix="Magento\Persistent\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Reminder/Test" isTestSource="true" packagePrefix="Magento\Reminder\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/PromotionPermissions/Test" isTestSource="true" packagePrefix="Magento\PromotionPermissions\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Invitation/Test" isTestSource="true" packagePrefix="Magento\Invitation\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/StagingPageBuilder/Test" isTestSource="true" packagePrefix="Magento\StagingPageBuilder\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryShippingAdminUi/Test" isTestSource="true" packagePrefix="Magento\InventoryShippingAdminUi\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Amqp/Test" isTestSource="true" packagePrefix="Magento\Framework\Amqp\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Cms/Test" isTestSource="true" packagePrefix="Magento\Cms\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/static/framework/tests/unit/testsuite/Magento" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/TaxImportExport/Test" isTestSource="true" packagePrefix="Magento\TaxImportExport\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Staging/Test" isTestSource="true" packagePrefix="Magento\Staging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/ConfigurableProductGraphQl/Test" isTestSource="true" packagePrefix="Magento\ConfigurableProductGraphQl\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CompanyGraphQl/Test" isTestSource="true" packagePrefix="Magento\CompanyGraphQl\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/integration/framework/tests/unit/testsuite/Magento" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Dhl/Test" isTestSource="true" packagePrefix="Magento\Dhl\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CustomerSegment/Test" isTestSource="true" packagePrefix="Magento\CustomerSegment\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Usps/Test" isTestSource="true" packagePrefix="Magento\Usps\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GiftWrapping/Test" isTestSource="true" packagePrefix="Magento\GiftWrapping\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/BundleNegotiableQuote/Test" isTestSource="true" packagePrefix="Magento\BundleNegotiableQuote\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/static/testsuite/Magento/Test/Less" isTestSource="true" packagePrefix="Magento\Test\Less\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/BundleImportExportStaging/Test" isTestSource="true" packagePrefix="Magento\BundleImportExportStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/AdvancedSearch/Test" isTestSource="true" packagePrefix="Magento\AdvancedSearch\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GroupedProductSampleData/Test" isTestSource="true" packagePrefix="Magento\GroupedProductSampleData\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CheckoutAgreements/Test" isTestSource="true" packagePrefix="Magento\CheckoutAgreements\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Analytics/Test" isTestSource="true" packagePrefix="Magento\Analytics\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/MessageQueue/Test" isTestSource="true" packagePrefix="Magento\MessageQueue\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/AdvancedCheckout/Test" isTestSource="true" packagePrefix="Magento\AdvancedCheckout\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Downloadable/Test" isTestSource="true" packagePrefix="Magento\Downloadable\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/integration/_files/Magento" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Banner/Test" isTestSource="true" packagePrefix="Magento\Banner\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryGraphQl/Test" isTestSource="true" packagePrefix="Magento\InventoryGraphQl\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogAnalytics/Test" isTestSource="true" packagePrefix="Magento\CatalogAnalytics\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/BundleSampleData/Test" isTestSource="true" packagePrefix="Magento\BundleSampleData\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Elasticsearch6/Test" isTestSource="true" packagePrefix="Magento\Elasticsearch6\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/AsynchronousOperations/Test" isTestSource="true" packagePrefix="Magento\AsynchronousOperations\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/WebapiSecurity/Test" isTestSource="true" packagePrefix="Magento\WebapiSecurity\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CompanyPayment/Test" isTestSource="true" packagePrefix="Magento\CompanyPayment\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Webapi/Test" isTestSource="true" packagePrefix="Magento\Webapi\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/OfflineShipping/Test" isTestSource="true" packagePrefix="Magento\OfflineShipping\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/functional/lib/Magento" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/AdminAnalytics/Test" isTestSource="true" packagePrefix="Magento\AdminAnalytics\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GoogleShoppingAds/Test" isTestSource="true" packagePrefix="Magento\GoogleShoppingAds\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/PaypalOnBoarding/Test" isTestSource="true" packagePrefix="Magento\PaypalOnBoarding\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/DownloadableGraphQl/Test" isTestSource="true" packagePrefix="Magento\DownloadableGraphQl\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Async/Test" isTestSource="true" packagePrefix="Magento\Framework\Async\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/EavGraphQl/Test" isTestSource="true" packagePrefix="Magento\EavGraphQl\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryImportExport/Test" isTestSource="true" packagePrefix="Magento\InventoryImportExport\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryIndexer/Test" isTestSource="true" packagePrefix="Magento\InventoryIndexer\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Translate/Test" isTestSource="true" packagePrefix="Magento\Framework\Translate\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Code/Test" isTestSource="true" packagePrefix="Magento\Framework\Code\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GoogleOptimizerStaging/Test" isTestSource="true" packagePrefix="Magento\GoogleOptimizerStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/SalesAnalytics/Test" isTestSource="true" packagePrefix="Magento\SalesAnalytics\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GiftCardNegotiableQuote/Test" isTestSource="true" packagePrefix="Magento\GiftCardNegotiableQuote\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CustomerAnalytics/Test" isTestSource="true" packagePrefix="Magento\CustomerAnalytics\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/SalesRule/Test" isTestSource="true" packagePrefix="Magento\SalesRule\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/functional/testsuites/Magento" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento" isTestSource="false" packagePrefix="Magento\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryConfigurableProduct/Test" isTestSource="true" packagePrefix="Magento\InventoryConfigurableProduct\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/functional/tests/app/Magento" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogUrlRewrite/Test" isTestSource="true" packagePrefix="Magento\CatalogUrlRewrite\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Image/Test" isTestSource="true" packagePrefix="Magento\Framework\Image\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/EncryptionKey/Test" isTestSource="true" packagePrefix="Magento\EncryptionKey\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Autoload/Test" isTestSource="true" packagePrefix="Magento\Framework\Autoload\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/WishlistAnalytics/Test" isTestSource="true" packagePrefix="Magento\WishlistAnalytics\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryApi/Test" isTestSource="true" packagePrefix="Magento\InventoryApi\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventorySalesApi/Test" isTestSource="true" packagePrefix="Magento\InventorySalesApi\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/ConfigurableRequisitionList/Test" isTestSource="true" packagePrefix="Magento\ConfigurableRequisitionList\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/WeeeGraphQl/Test" isTestSource="true" packagePrefix="Magento\WeeeGraphQl\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/StoreGraphQl/Test" isTestSource="true" packagePrefix="Magento\StoreGraphQl\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryBundleProductAdminUi/Test" isTestSource="true" packagePrefix="Magento\InventoryBundleProductAdminUi\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Newsletter/Test" isTestSource="true" packagePrefix="Magento\Newsletter\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Swatches/Test" isTestSource="true" packagePrefix="Magento\Swatches\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventorySales/Test" isTestSource="true" packagePrefix="Magento\InventorySales\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GiftRegistry/Test" isTestSource="true" packagePrefix="Magento\GiftRegistry\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/DataObject/Test" isTestSource="true" packagePrefix="Magento\Framework\DataObject\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/LayeredNavigationStaging/Test" isTestSource="true" packagePrefix="Magento\LayeredNavigationStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/NegotiableQuoteSharedCatalog/Test" isTestSource="true" packagePrefix="Magento\NegotiableQuoteSharedCatalog\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/HTTP/Test" isTestSource="true" packagePrefix="Magento\Framework\HTTP\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/static/testsuite/Magento/Test/Integrity" isTestSource="true" packagePrefix="Magento\Test\Integrity\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/User/Test" isTestSource="true" packagePrefix="Magento\User\Test\" />
       <sourceFolder url="file://$MODULE_DIR$/setup/src/Zend/Mvc/Controller" isTestSource="false" packagePrefix="Zend\Mvc\Controller\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/ConfigurableProductSales/Test" isTestSource="true" packagePrefix="Magento\ConfigurableProductSales\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GroupedProductStaging/Test" isTestSource="true" packagePrefix="Magento\GroupedProductStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryCatalogApi/Test" isTestSource="true" packagePrefix="Magento\InventoryCatalogApi\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GiftCardSharedCatalog/Test" isTestSource="true" packagePrefix="Magento\GiftCardSharedCatalog\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryGroupedProduct/Test" isTestSource="true" packagePrefix="Magento\InventoryGroupedProduct\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/api-functional/testsuite/Magento" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/static/testsuite/Magento/Test/Legacy" isTestSource="true" packagePrefix="Magento\Test\Legacy\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Config/Test" isTestSource="true" packagePrefix="Magento\Framework\Config\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/NewRelicReporting/Test" isTestSource="true" packagePrefix="Magento\NewRelicReporting\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/RequisitionList/Test" isTestSource="true" packagePrefix="Magento\RequisitionList\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CheckoutAddressSearchNegotiableQuote/Test" isTestSource="true" packagePrefix="Magento\CheckoutAddressSearchNegotiableQuote\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryLowQuantityNotificationAdminUi/Test" isTestSource="true" packagePrefix="Magento\InventoryLowQuantityNotificationAdminUi\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/static/testsuite/Magento/Test/Php" isTestSource="true" packagePrefix="Magento\Test\Php\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryLowQuantityNotification/Test" isTestSource="true" packagePrefix="Magento\InventoryLowQuantityNotification\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/WebsiteRestriction/Test" isTestSource="true" packagePrefix="Magento\WebsiteRestriction\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/SwatchesLayeredNavigation/Test" isTestSource="true" packagePrefix="Magento\SwatchesLayeredNavigation\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/ProductVideo/Test" isTestSource="true" packagePrefix="Magento\ProductVideo\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryCatalog/Test" isTestSource="true" packagePrefix="Magento\InventoryCatalog\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Directory/Test" isTestSource="true" packagePrefix="Magento\Directory\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/File/Test" isTestSource="true" packagePrefix="Magento\Framework\File\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/AuthorizenetAcceptjs/Test" isTestSource="true" packagePrefix="Magento\AuthorizenetAcceptjs\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/vendor/squizlabs/php_codesniffer/src" isTestSource="true" packagePrefix="PHP_CodeSniffer\" />
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/ConfigurableImportExport/Test" isTestSource="true" packagePrefix="Magento\ConfigurableImportExport\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/SearchStaging/Test" isTestSource="true" packagePrefix="Magento\SearchStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Amqp/Test" isTestSource="true" packagePrefix="Magento\Amqp\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/VisualMerchandiser/Test" isTestSource="true" packagePrefix="Magento\VisualMerchandiser\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GoogleAdwords/Test" isTestSource="true" packagePrefix="Magento\GoogleAdwords\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/ReleaseNotification/Test" isTestSource="true" packagePrefix="Magento\ReleaseNotification\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/MSP" isTestSource="false" packagePrefix="MSP\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogRuleConfigurable/Test" isTestSource="true" packagePrefix="Magento\CatalogRuleConfigurable\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Api/Test" isTestSource="true" packagePrefix="Magento\Framework\Api\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Paypal/Test" isTestSource="true" packagePrefix="Magento\Paypal\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Widget/Test" isTestSource="true" packagePrefix="Magento\Widget\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Worldpay/Test" isTestSource="true" packagePrefix="Magento\Worldpay\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogPermissions/Test" isTestSource="true" packagePrefix="Magento\CatalogPermissions\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Quote/Test" isTestSource="true" packagePrefix="Magento\Quote\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Acl/Test" isTestSource="true" packagePrefix="Magento\Framework\Acl\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Model/Test" isTestSource="true" packagePrefix="Magento\Framework\Model\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InstantPurchase/Test" isTestSource="true" packagePrefix="Magento\InstantPurchase\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/ReviewAnalytics/Test" isTestSource="true" packagePrefix="Magento\ReviewAnalytics\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/ProductVideoStaging/Test" isTestSource="true" packagePrefix="Magento\ProductVideoStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryCatalogAdminUi/Test" isTestSource="true" packagePrefix="Magento\InventoryCatalogAdminUi\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Logging/Test" isTestSource="true" packagePrefix="Magento\Logging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CmsUrlRewriteGraphQl/Test" isTestSource="true" packagePrefix="Magento\CmsUrlRewriteGraphQl\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/static/testsuite/Magento/Test/Js" isTestSource="true" packagePrefix="Magento\Test\Js\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GiftCardSampleData/Test" isTestSource="true" packagePrefix="Magento\GiftCardSampleData\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogImportExport/Test" isTestSource="true" packagePrefix="Magento\CatalogImportExport\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/BannerCustomerSegment/Test" isTestSource="true" packagePrefix="Magento\BannerCustomerSegment\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Composer/Test" isTestSource="true" packagePrefix="Magento\Framework\Composer\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GroupedImportExport/Test" isTestSource="true" packagePrefix="Magento\GroupedImportExport\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/DownloadableSampleData/Test" isTestSource="true" packagePrefix="Magento\DownloadableSampleData\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Mview/Test" isTestSource="true" packagePrefix="Magento\Framework\Mview\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/static/framework/Magento/Sniffs" isTestSource="true" packagePrefix="Magento\Sniffs\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryCatalogSearch/Test" isTestSource="true" packagePrefix="Magento\InventoryCatalogSearch\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Swagger/Test" isTestSource="true" packagePrefix="Magento\Swagger\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/SalesRuleStaging/Test" isTestSource="true" packagePrefix="Magento\SalesRuleStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Validator/Test" isTestSource="true" packagePrefix="Magento\Framework\Validator\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GroupedSharedCatalog/Test" isTestSource="true" packagePrefix="Magento\GroupedSharedCatalog\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/EntityManager/Test" isTestSource="true" packagePrefix="Magento\Framework\EntityManager\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Authorizenet/Test" isTestSource="true" packagePrefix="Magento\Authorizenet\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/AdvancedRule/Test" isTestSource="true" packagePrefix="Magento\AdvancedRule\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/TaxSampleData/Test" isTestSource="true" packagePrefix="Magento\TaxSampleData\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Backend/Test" isTestSource="true" packagePrefix="Magento\Backend\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/MysqlMq/Test" isTestSource="true" packagePrefix="Magento\MysqlMq\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogInventoryDataExporter/Test" isTestSource="true" packagePrefix="Magento\CatalogInventoryDataExporter\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CheckoutAddressSearch/Test" isTestSource="true" packagePrefix="Magento\CheckoutAddressSearch\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Support/Test" isTestSource="true" packagePrefix="Magento\Support\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryShipping/Test" isTestSource="true" packagePrefix="Magento\InventoryShipping\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Event/Test" isTestSource="true" packagePrefix="Magento\Framework\Event\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Webapi/Test" isTestSource="true" packagePrefix="Magento\Framework\Webapi\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Xml/Test" isTestSource="true" packagePrefix="Magento\Framework\Xml\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogStagingPageBuilder/Test" isTestSource="true" packagePrefix="Magento\CatalogStagingPageBuilder\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/RmaGraphQl/Test" isTestSource="true" packagePrefix="Magento\RmaGraphQl\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GiftCard/Test" isTestSource="true" packagePrefix="Magento\GiftCard\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Reflection/Test" isTestSource="true" packagePrefix="Magento\Framework\Reflection\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryExportStockApi/Test" isTestSource="true" packagePrefix="Magento\InventoryExportStockApi\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/integration/testsuite/Magento" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/ReviewStaging/Test" isTestSource="true" packagePrefix="Magento\ReviewStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/acceptance/tests/functional/Magento" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CmsStaging/Test" isTestSource="true" packagePrefix="Magento\CmsStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryAdvancedCheckout/Test" isTestSource="true" packagePrefix="Magento\InventoryAdvancedCheckout\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Authorization/Test" isTestSource="true" packagePrefix="Magento\Authorization\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GiftCardRequisitionList/Test" isTestSource="true" packagePrefix="Magento\GiftCardRequisitionList\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogSearch/Test" isTestSource="true" packagePrefix="Magento\CatalogSearch\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryConfigurableProductIndexer/Test" isTestSource="true" packagePrefix="Magento\InventoryConfigurableProductIndexer\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Data/Test" isTestSource="true" packagePrefix="Magento\Framework\Data\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/ProductAlert/Test" isTestSource="true" packagePrefix="Magento\ProductAlert\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/api-functional/_files/Magento" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Review/Test" isTestSource="true" packagePrefix="Magento\Review\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/ScalableCheckout/Test" isTestSource="true" packagePrefix="Magento\ScalableCheckout\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/DirectoryGraphQl/Test" isTestSource="true" packagePrefix="Magento\DirectoryGraphQl\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/RewardStaging/Test" isTestSource="true" packagePrefix="Magento\RewardStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/dev/tests/integration/framework/Magento" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Email/Test" isTestSource="true" packagePrefix="Magento\Email\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Rule/Test" isTestSource="true" packagePrefix="Magento\Rule\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Cookie/Test" isTestSource="true" packagePrefix="Magento\Cookie\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/PricePermissions/Test" isTestSource="true" packagePrefix="Magento\PricePermissions\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryReservations/Test" isTestSource="true" packagePrefix="Magento\InventoryReservations\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/RewardGraphQl/Test" isTestSource="true" packagePrefix="Magento\RewardGraphQl\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/RmaStaging/Test" isTestSource="true" packagePrefix="Magento\RmaStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/ObjectManager/Test" isTestSource="true" packagePrefix="Magento\Framework\ObjectManager\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Theme/Test" isTestSource="true" packagePrefix="Magento\Theme\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Tinymce3/Test" isTestSource="true" packagePrefix="Magento\Tinymce3\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Locale/Test" isTestSource="true" packagePrefix="Magento\Framework\Locale\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryGroupedProductIndexer/Test" isTestSource="true" packagePrefix="Magento\InventoryGroupedProductIndexer\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Marketplace/Test" isTestSource="true" packagePrefix="Magento\Marketplace\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/SendFriend/Test" isTestSource="true" packagePrefix="Magento\SendFriend\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/GoogleOptimizer/Test" isTestSource="true" packagePrefix="Magento\GoogleOptimizer\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Crontab/Test" isTestSource="true" packagePrefix="Magento\Framework\Crontab\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/setup/src/Magento/Setup" isTestSource="false" packagePrefix="Magento\Setup\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/ConfigurableNegotiableQuote/Test" isTestSource="true" packagePrefix="Magento\ConfigurableNegotiableQuote\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/ForeignKey/Test" isTestSource="true" packagePrefix="Magento\Framework\ForeignKey\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/QuoteAnalytics/Test" isTestSource="true" packagePrefix="Magento\QuoteAnalytics\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogStaging/Test" isTestSource="true" packagePrefix="Magento\CatalogStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/Encryption/Test" isTestSource="true" packagePrefix="Magento\Framework\Encryption\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/AdvancedCatalog/Test" isTestSource="true" packagePrefix="Magento\AdvancedCatalog\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Ups/Test" isTestSource="true" packagePrefix="Magento\Ups\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/internal/Magento/Framework/App/Test" isTestSource="true" packagePrefix="Magento\Framework\App\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogGraphQl/Test" isTestSource="true" packagePrefix="Magento\CatalogGraphQl\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/ImportExport/Test" isTestSource="true" packagePrefix="Magento\ImportExport\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/UrlRewrite/Test" isTestSource="true" packagePrefix="Magento\UrlRewrite\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Captcha/Test" isTestSource="true" packagePrefix="Magento\Captcha\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogImportExportStaging/Test" isTestSource="true" packagePrefix="Magento\CatalogImportExportStaging\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Sitemap/Test" isTestSource="true" packagePrefix="Magento\Sitemap\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/SampleData/Test" isTestSource="true" packagePrefix="Magento\SampleData\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Developer/Test" isTestSource="true" packagePrefix="Magento\Developer\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/AdminNotification/Test" isTestSource="true" packagePrefix="Magento\AdminNotification\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/TargetRule/Test" isTestSource="true" packagePrefix="Magento\TargetRule\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/Signifyd/Test" isTestSource="true" packagePrefix="Magento\Signifyd\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/code/Magento/ConfigurableProductDataExporter/Test" isTestSource="true" packagePrefix="Magento\ConfigurableProductDataExporter\Test\" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/AdminAnalytics/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/AdminGws/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/AdminNotification/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/AdvancedCatalog/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/AdvancedCheckout/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/AdvancedPricingImportExport/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/AdvancedRule/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/AdvancedSalesRule/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/AdvancedSearch/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Amqp/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/AmqpStore/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Analytics/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/AsynchronousOperations/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Authorization/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Authorizenet/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/AuthorizenetAcceptjs/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/AuthorizenetCardinal/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/AuthorizenetGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/B2b/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Backend/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Backup/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Banner/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/BannerCustomerSegment/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/BannerPageBuilder/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/BannerPageBuilderAnalytics/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Braintree/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/BraintreeGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Bundle/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/BundleGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/BundleImportExport/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/BundleImportExportStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/BundleNegotiableQuote/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/BundleRequisitionList/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/BundleSampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/BundleSharedCatalog/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/BundleStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CacheInvalidate/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Captcha/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CardinalCommerce/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Catalog/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogAnalytics/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogDataExporter/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogEvent/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogImportExport/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogImportExportStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogInventory/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogInventoryDataExporter/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogInventoryGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogInventoryStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogPageBuilderAnalytics/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogPageBuilderAnalyticsStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogPermissions/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogRule/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogRuleConfigurable/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogRuleSampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogRuleStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogSampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogSearch/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogStagingPageBuilder/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogUrlRewrite/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogUrlRewriteDataExporter/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogUrlRewriteGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogUrlRewriteStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CatalogWidget/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Checkout/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CheckoutAddressSearch/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CheckoutAddressSearchGiftRegistry/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CheckoutAddressSearchNegotiableQuote/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CheckoutAgreements/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CheckoutAgreementsGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CheckoutStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Cms/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CmsGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CmsPageBuilderAnalytics/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CmsPageBuilderAnalyticsStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CmsSampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CmsStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CmsUrlRewrite/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CmsUrlRewriteGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Company/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CompanyCredit/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CompanyGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CompanyPayment/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Config/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ConfigurableImportExport/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ConfigurableNegotiableQuote/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ConfigurableProduct/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ConfigurableProductDataExporter/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ConfigurableProductGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ConfigurableProductSales/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ConfigurableProductStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ConfigurableRequisitionList/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ConfigurableSampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ConfigurableSharedCatalog/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Contact/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Cookie/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Cron/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CurrencySymbol/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CustomAttributeManagement/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Customer/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CustomerAnalytics/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CustomerBalance/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CustomerBalanceGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CustomerBalanceSampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CustomerCustomAttributes/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CustomerFinance/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CustomerGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CustomerImportExport/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CustomerSampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/CustomerSegment/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Cybersource/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/DataExporter/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Deploy/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Developer/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Dhl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Directory/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/DirectoryGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Downloadable/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/DownloadableGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/DownloadableImportExport/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/DownloadableSampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/DownloadableStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Eav/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/EavGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Elasticsearch/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Elasticsearch6/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ElasticsearchCatalogPermissions/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Email/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/EncryptionKey/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Enterprise/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Eway/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Fedex/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GiftCard/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GiftCardAccount/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GiftCardAccountGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GiftCardGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GiftCardImportExport/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GiftCardNegotiableQuote/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GiftCardRequisitionList/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GiftCardSampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GiftCardSharedCatalog/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GiftCardStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GiftMessage/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GiftMessageStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GiftRegistry/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GiftRegistrySampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GiftWrapping/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GiftWrappingStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GoogleAdwords/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GoogleAnalytics/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GoogleOptimizer/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GoogleOptimizerStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GoogleShoppingAds/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GoogleTagManager/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GraphQlCache/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GroupedCatalogInventory/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GroupedImportExport/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GroupedProduct/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GroupedProductGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GroupedProductSampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GroupedProductStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GroupedRequisitionList/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/GroupedSharedCatalog/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ImportExport/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Indexer/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InstantPurchase/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Integration/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Inventory/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryAdminUi/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryAdvancedCheckout/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryApi/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryBundleProduct/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryBundleProductAdminUi/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryCache/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryCatalog/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryCatalogAdminUi/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryCatalogApi/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryCatalogSearch/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryConfigurableProduct/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryConfigurableProductAdminUi/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryConfigurableProductIndexer/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryConfiguration/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryConfigurationApi/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryDistanceBasedSourceSelection/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryDistanceBasedSourceSelectionAdminUi/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryDistanceBasedSourceSelectionApi/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryElasticsearch/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryExportStock/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryExportStockApi/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryGroupedProduct/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryGroupedProductAdminUi/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryGroupedProductIndexer/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryImportExport/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryIndexer/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryLowQuantityNotification/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryLowQuantityNotificationAdminUi/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryLowQuantityNotificationApi/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryMultiDimensionalIndexerApi/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryProductAlert/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryRequisitionList/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryReservationCli/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryReservations/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryReservationsApi/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventorySales/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventorySalesAdminUi/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventorySalesApi/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventorySalesFrontendUi/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventorySetupFixtureGenerator/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryShipping/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventoryShippingAdminUi/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventorySourceDeductionApi/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventorySourceSelection/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/InventorySourceSelectionApi/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Invitation/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/LayeredNavigation/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/LayeredNavigationStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Logging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Marketplace/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/MediaStorage/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/MessageQueue/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Msrp/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/MsrpConfigurableProduct/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/MsrpGroupedProduct/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/MsrpSampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/MsrpStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/MultipleWishlist/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/MultipleWishlistSampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Multishipping/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/MysqlMq/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/NegotiableQuote/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/NegotiableQuoteSharedCatalog/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/NewRelicReporting/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Newsletter/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/OfflinePayments/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/OfflineShipping/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/OfflineShippingSampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/PageBuilder/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/PageBuilderAnalytics/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/PageBuilderDataMigration/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/PageCache/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Payment/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/PaymentStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Paypal/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/PaypalCaptcha/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/PaypalGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/PaypalOnBoarding/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/PaypalRecaptcha/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Persistent/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/PersistentHistory/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/PricePermissions/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ProductAlert/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ProductLinksSampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ProductVideo/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ProductVideoStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/PromotionPermissions/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/QuickOrder/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Quote/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/QuoteAnalytics/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/QuoteGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/RelatedProductGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ReleaseNotification/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Reminder/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Reports/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/RequireJs/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/RequisitionList/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ResourceConnections/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Review/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ReviewAnalytics/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ReviewSampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ReviewStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Reward/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/RewardGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/RewardStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Rma/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/RmaGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/RmaStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Robots/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Rss/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Rule/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/SaaSCatalog/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Sales/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/SalesAnalytics/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/SalesArchive/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/SalesGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/SalesInventory/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/SalesRule/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/SalesRuleSampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/SalesRuleStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/SalesSampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/SalesSequence/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/SampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ScalableCheckout/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ScalableInventory/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ScalableOms/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ScheduledImportExport/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Search/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/SearchStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Security/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/SendFriend/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/SendFriendGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ServicesConnector/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ServicesId/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/SharedCatalog/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Shipping/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Signifyd/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Sitemap/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Staging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/StagingPageBuilder/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Store/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/StoreGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Support/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Swagger/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/SwaggerWebapi/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/SwaggerWebapiAsync/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Swatches/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/SwatchesGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/SwatchesLayeredNavigation/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/SwatchesSampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/TargetRule/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/TargetRuleSampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Tax/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/TaxGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/TaxImportExport/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/TaxSampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Theme/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ThemeGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/ThemeSampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Tinymce3/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Tinymce3Banner/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Translation/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Ui/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Ups/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/UrlRewrite/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/UrlRewriteGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/UrlRewriteImportExport/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/User/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Usps/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Variable/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Vault/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/VaultGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Version/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/VersionsCms/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/VisualMerchandiser/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Webapi/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/WebapiAsync/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/WebapiSecurity/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/WebsiteRestriction/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Weee/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/WeeeGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/WeeeStaging/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Widget/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/WidgetSampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Wishlist/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/WishlistAnalytics/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/WishlistGraphQl/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/WishlistSampleData/view/adminhtml/web" />
+      <excludeFolder url="file://$MODULE_DIR$/app/code/Magento/Worldpay/view/adminhtml/web" />
       <excludeFolder url="file://$MODULE_DIR$/app/design/adminhtml" />
       <excludeFolder url="file://$MODULE_DIR$/app/design/frontend/Magento/luma" />
-      <excludeFolder url="file://$MODULE_DIR$/dev/tests" />
+      <excludeFolder url="file://$MODULE_DIR$/app/design/frontend/Sozo/Site" />
+      <excludeFolder url="file://$MODULE_DIR$/dev/tests/js" />
       <excludeFolder url="file://$MODULE_DIR$/lib/web/css/docs" />
       <excludeFolder url="file://$MODULE_DIR$/pub/static" />
+      <excludeFolder url="file://$MODULE_DIR$/setup/config" />
+      <excludeFolder url="file://$MODULE_DIR$/setup/performance-toolkit" />
+      <excludeFolder url="file://$MODULE_DIR$/setup/pub" />
       <excludeFolder url="file://$MODULE_DIR$/var/view_preprocessed" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/allure-framework/allure-codeception" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/allure-framework/allure-php-api" />
@@ -56,7 +821,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/psr7" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/ringphp" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/streams" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/ircmaxell/password-compat" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/jdorn/sql-formatter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/jms/metadata" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/jms/parser-lib" />
@@ -135,10 +899,9 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-ctype" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-intl-idn" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-mbstring" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php54" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php55" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php70" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php72" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php73" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/process" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/service-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/stopwatch" />

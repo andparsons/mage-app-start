@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="frontend/web/css/source" pattern="file:app/code/Magento/**/view/frontend/web/css/source//*||file:app/design/frontend/Magento/blank/**/web/css/source//*" />
+</component>

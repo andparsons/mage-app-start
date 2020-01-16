@@ -1,0 +1,28 @@
+actor: Tester
+paths:
+    tests: dev/tests/acceptance/tests
+    log: dev/tests/acceptance/tests/_output
+    data: dev/tests/acceptance/tests/_data
+    support: ../../../vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework
+    envs: ../../../vendor/magento/magento2-functional-testing-framework/etc/_envs
+settings:
+    silent: true
+    colors: true
+    memory_limit: 1024M
+extensions:
+    enabled:
+        - Magento\FunctionalTestingFramework\Codeception\Subscriber\Console
+        - Magento\FunctionalTestingFramework\Extension\TestContextExtension
+        - Magento\FunctionalTestingFramework\Allure\Adapter\MagentoAllureAdapter
+    config:
+        Magento\FunctionalTestingFramework\Allure\Adapter\MagentoAllureAdapter:
+            deletePreviousResults: false
+            outputDirectory: dev/tests/acceptance/allure-results
+            ignoredAnnotations:
+                - env
+                - zephyrId
+                - useCaseId
+        Magento\FunctionalTestingFramework\Extension\TestContextExtension:
+            driver: \Magento\FunctionalTestingFramework\Module\MagentoWebDriver
+params:
+    - .env

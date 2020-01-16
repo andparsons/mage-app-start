@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="lib-css" pattern="file:lib//*.*ss" />
+</component>
